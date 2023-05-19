@@ -82,8 +82,6 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, -Speed);
         }
 
-        
-
         // Handling Right Click
         if (Input.GetMouseButtonDown(1))
         {
@@ -181,15 +179,23 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 start = transform.position;
         Vector2 end = transform.position + (shieldDir * 10);
+
+        float dist = Vector2.Distance(start, end);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, shieldDir);
+        if (hit && !hit.transform.CompareTag("Player") || !hit.transform.CompareTag("Shield"))
+        {
+            if (Vector2.Distance(transform.position,hit.transform.position) < dist)
+            {
+                end = hit.transform.position;
+            }
+        }
+
         Vector2 direction = end - start;
         direction.Normalize();
 
-        float dist = Vector2.Distance(start, end);
         for (int i = 0; i < 10; i++)
         {
                 lR.SetPosition(i, start + direction * (dist * ((i + 1f) / 10f)));
         }
-        //lR.SetPosition(0, );
-        //lR.SetPosition(1, );
     }
 }
