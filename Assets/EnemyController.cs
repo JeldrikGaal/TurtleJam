@@ -13,13 +13,17 @@ public class EnemyController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
+    public int scoreToAddOnDeath = 10;
+
     private float time;
     private Transform player;
+    private GameManager gm;
     
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
+        gm = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -55,6 +59,12 @@ public class EnemyController : MonoBehaviour
     {
         GameObject newBullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         shootTimedown = true; // Flag to indicate there should be timedown between each shot.
+    }
+
+    public void Die() 
+    {
+        gm.score += scoreToAddOnDeath;
+        Destroy(this.gameObject);
     }
 
 
