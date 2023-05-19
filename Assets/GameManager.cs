@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timeTXT;
 
     public GameObject player;
-    private bool paused = false;
+    public bool paused = false;
 
     // To add
     // Sound logic
