@@ -60,6 +60,16 @@ public class GameManager : MonoBehaviour
         paused = false;
     }
 
+    public void WinCondition() 
+    {
+        winMenu.SetActive(true);
+    }
+
+    public void GameOverCondition()
+    {
+        gameOverMenu.SetActive(true);
+    }
+
     public void GoToLevel(string levelName) // For Resume, Next Level and Back to Main Menu
     {
         if(levelName == "this") SceneManager.LoadScene(SceneManager.loadedSceneCount);
