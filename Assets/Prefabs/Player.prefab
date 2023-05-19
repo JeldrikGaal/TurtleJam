@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 1665791583091376885}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,3 +213,6 @@ MonoBehaviour:
   Speed: 5
   acceleration: 1
   Shield: {fileID: 6340098526527700323}
+  ShieldSR: {fileID: 0}
+  shellReady: 0
+  shellFlying: 0
