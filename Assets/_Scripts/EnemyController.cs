@@ -2,9 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
 public class EnemyController : MonoBehaviour
 {
 
+    public enum EnemyType
+    {
+        Stationary,
+        Melee,
+        Patrol
+    }
+
+    public EnemyType enemyMode;
+
+    [Space(20)]
+    public List<Transform> patrolPoints;
+
+
+    [Space(10)]
     public bool lookAtPlayer = true; // To indicate if the enemy should look at player; also for future to indicate if player is in enemy range.
 
 
