@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float acceleration = 1;
     [SerializeField] GameObject Shield;
     [SerializeField] SpriteRenderer ShieldSR;
+    ShieldScript ShieldS;
 
     float radiusForShield = 1;
     Rigidbody2D rb;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         ShieldSR = Shield.GetComponent<SpriteRenderer>();
+        ShieldS = Shield.GetComponent<ShieldScript>();
         shellReady = true;
     }
 
@@ -80,6 +82,7 @@ public class PlayerController : MonoBehaviour
             {
                 blockMovement = true;
                 ShieldSR.color = Color.red;
+                ShieldS.ChangeState(2);
             }
           
         }       
@@ -89,6 +92,7 @@ public class PlayerController : MonoBehaviour
             {
                 blockMovement = false;
                 ShieldSR.color = Color.green;
+                ShieldS.ChangeState(0);
             }
         }
 
@@ -124,7 +128,6 @@ public class PlayerController : MonoBehaviour
         if (Time.time - startingTime < flyingTime)
         {
             Shield.transform.position = Vector2.Lerp(startingPos, endPos, ( Time.time - startingTime ) / flyingTime);
-            Debug.Log("1");
         }
         else if (!flyingBack)
         {
@@ -140,6 +143,7 @@ public class PlayerController : MonoBehaviour
             flyingBack = false;
             shellFlying = false;
             shellReady = true;
+            ShieldS.ChangeState(0);
         }
         
     }
@@ -151,5 +155,6 @@ public class PlayerController : MonoBehaviour
         startingPos = Shield.transform.position;
         startingTime = Time.time;
         endPos = transform.position + (shieldDir * 10);
+        ShieldS.ChangeState(1);
     }
 }
