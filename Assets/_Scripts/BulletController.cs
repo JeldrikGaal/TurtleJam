@@ -22,7 +22,11 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Destroy the bullet upon collision with any object
-        Destroy(gameObject);
+        if (collision.transform != transform && !collision.gameObject.CompareTag("Enemy"))
+        {
+            // Destroy the bullet upon collision with any object
+            Destroy(gameObject);
+        }
+        
     }
 }

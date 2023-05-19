@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ShieldScript : MonoBehaviour
 {
+
+    bool flying;
+    bool shielding;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,12 +20,41 @@ public class ShieldScript : MonoBehaviour
         
     }
 
+    public void ChangeState(int state)
+    {
+        switch (state)
+        {
+            case 0:
+                flying = false; 
+                shielding = false;
+                break;
+            case 1:
+                flying = true;
+                shielding = false;
+                break;
+            case 2:
+                flying = false;
+                shielding = true;
+                break;
+        }
+            
+
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (flying)
         {
-            collision.GetComponent<EnemyController>().Die();
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                collision.GetComponent<EnemyController>().Die();
+            }
         }
+        if (shielding)
+        {
+            Debug.Log(collision.name);
+            Destroy(collision.gameObject);
+        }
+        
     }
 }
