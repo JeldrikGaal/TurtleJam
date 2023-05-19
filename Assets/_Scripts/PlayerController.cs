@@ -133,12 +133,13 @@ public class PlayerController : MonoBehaviour
         }
         if (Time.time - startingTimeBack < flyingTimeBack && flyingBack)
         {          
-            Shield.transform.position = Vector2.Lerp(endPos, startingPos, (Time.time - startingTimeBack) / flyingTimeBack);
+            Shield.transform.position = Vector2.Lerp(endPos, transform.position + (shieldDir * radiusForShield), (Time.time - startingTimeBack) / flyingTimeBack);
         }
         if (flyingBack && Time.time - startingTimeBack > flyingTimeBack)
         {
             flyingBack = false;
             shellFlying = false;
+            shellReady = true;
         }
         
     }
@@ -146,8 +147,9 @@ public class PlayerController : MonoBehaviour
     private void BoomerangShot()
     {
         shellFlying = true;
+        shellReady = false;
         startingPos = Shield.transform.position;
         startingTime = Time.time;
-        endPos = shieldDir * 10;
+        endPos = transform.position + (shieldDir * 10);
     }
 }
