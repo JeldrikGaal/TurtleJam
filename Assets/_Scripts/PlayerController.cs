@@ -16,8 +16,22 @@ public class PlayerController : MonoBehaviour
 
     bool blockMovement;
     public bool shellReady;
-
     public bool shellFlying;
+
+    Vector3 shieldDir;
+
+    // Boomerang variables
+    [SerializeField] float flyingTime;
+    [SerializeField] float flyingTimeBack;
+    float flyingSpeed;
+    Vector2 startingPos;
+    Vector2 startingPosBack;
+    Vector2 endPos;
+    float startingTime;
+    float startingTimeBack;
+    bool flyingBack;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +44,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // Shield positioning 
+        shieldDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        shieldDir = new Vector3(shieldDir.x, shieldDir.y, 0);
+        shieldDir.Normalize();
+        Shield.transform.position = transform.position + (shieldDir * radiusForShield);
+
         // Movement input
         rb.velocity = Vector3.zero;
         
@@ -50,11 +71,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, -Speed);
         }
 
-        // Shield positioning 
-        Vector3 shieldDir =Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        shieldDir = new Vector3(shieldDir.x, shieldDir.y, 0);
-        shieldDir.Normalize();
-        Shield.transform.position = transform.position + ( shieldDir * radiusForShield );
+        
 
         // Handling Right Click
         if (Input.GetMouseButtonDown(1))
@@ -83,11 +100,16 @@ public class PlayerController : MonoBehaviour
                 BoomerangShot();
             }
         }
+
         if (Input.GetMouseButtonUp(0))
         {
             
         }
 
+        if (shellFlying)
+        {
+            BommerangLogic();
+        }
 
 
         // Needs to be at the end of update
@@ -97,8 +119,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void BommerangLogic()
+    {
+        if (Time.time - startingTime < flyingTime)
+        {
+            Shield.transform.position = Vector2.Lerp(startingPos, endPos, ( Time.time - startingTime ) / flyingTime);
+            Debug.Log("1");
+        }
+        else if (!flyingBack)
+        {
+            flyingBack = true;
+            startingTimeBack = Time.time;
+        }
+        if (Time.time - startingTimeBack < flyingTimeBack && flyingBack)
+        {          
+            Shield.transform.position = Vector2.Lerp(endPos, startingPos, (Time.time - startingTimeBack) / flyingTimeBack);
+        }
+        if (flyingBack && Time.time - startingTimeBack > flyingTimeBack)
+        {
+            flyingBack = false;
+            shellFlying = false;
+        }
+        
+    }
+
     private void BoomerangShot()
     {
         shellFlying = true;
+        startingPos = Shield.transform.position;
+        startingTime = Time.time;
+        endPos = shieldDir * 10;
     }
 }
