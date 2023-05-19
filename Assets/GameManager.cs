@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public bool mainMenu = false;
 
     public int score = 0;
     public TextMeshProUGUI scoreTXT;
@@ -38,12 +39,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) Pause();
+        if (!mainMenu)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape)) Pause();
 
-        time+=Time.deltaTime;
+            time += Time.deltaTime;
 
-        scoreTXT.text = "Score: " + score.ToString();
-        timeTXT.text = time.ToString("0.00");
+            scoreTXT.text = "Score: " + score.ToString();
+            timeTXT.text = time.ToString("0.00");
+        }
     }
 
     public void Pause() 
@@ -74,6 +78,11 @@ public class GameManager : MonoBehaviour
     {
         if(levelName == "this") SceneManager.LoadScene(SceneManager.loadedSceneCount);
         SceneManager.LoadScene(levelName);
+    }
+
+    public void ExitGame() 
+    {
+        Application.Quit();
     }
 
 
