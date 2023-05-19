@@ -121,7 +121,6 @@ public class PlayerController : MonoBehaviour
 
     private void BommerangLogic()
     {
-        Vector3 goal = Vector3.zero;
         if (Time.time - startingTime < flyingTime)
         {
             Shield.transform.position = Vector2.Lerp(startingPos, endPos, ( Time.time - startingTime ) / flyingTime);
@@ -131,14 +130,10 @@ public class PlayerController : MonoBehaviour
         {
             flyingBack = true;
             startingTimeBack = Time.time;
-            startingPosBack = Shield.transform.position;
-            goal = transform.position + (shieldDir * radiusForShield);
         }
         if (Time.time - startingTimeBack < flyingTimeBack && flyingBack)
         {          
-            Debug.Log((Shield.transform.position, startingPosBack));
-            Shield.transform.position = Vector2.Lerp(startingPosBack , goal , ( Time.time - startingTimeBack )  / flyingTimeBack);
-            
+            Shield.transform.position = Vector2.Lerp(endPos, startingPos, (Time.time - startingTimeBack) / flyingTimeBack);
         }
         if (flyingBack && Time.time - startingTimeBack > flyingTimeBack)
         {
