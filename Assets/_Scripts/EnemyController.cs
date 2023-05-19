@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour
     private Transform player;
     private GameManager gm;
     
+    
     // Start is called before the first frame update
     void Start()
     {

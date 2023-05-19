@@ -20,7 +20,7 @@ public class CameraManager : MonoBehaviour
     }
     public IEnumerator Shake(float duration, float magnitude)
     {
-        if (shaking) yield return null;
+        //if (shaking) yield return null;
 
         float elapsedTime = 0f;
         Vector3 originalPos = transform.localPosition;
@@ -33,12 +33,10 @@ public class CameraManager : MonoBehaviour
             transform.localPosition = new Vector3(xOffset, yOffset, transform.localPosition.z);
 
             elapsedTime += Time.deltaTime;
-
-            
             yield return null;
         }
 
-        shaking = false;
+        //shaking = false;
         transform.localPosition = originalPos;
     }
 }
