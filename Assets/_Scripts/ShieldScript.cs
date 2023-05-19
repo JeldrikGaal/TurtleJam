@@ -7,11 +7,12 @@ public class ShieldScript : MonoBehaviour
 
     bool flying;
     bool shielding;
+    CameraManager cM;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        cM = Camera.main.GetComponent<CameraManager>();
     }
 
     // Update is called once per frame
@@ -53,6 +54,7 @@ public class ShieldScript : MonoBehaviour
         if (shielding)
         {
             Debug.Log(collision.name);
+            StartCoroutine(cM.Shake(0.05f, 0.2f));
             Destroy(collision.gameObject);
         }
         

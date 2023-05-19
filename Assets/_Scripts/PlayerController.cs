@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject Shield;
     [SerializeField] SpriteRenderer ShieldSR;
     ShieldScript ShieldS;
+    CameraManager cM;
 
     float radiusForShield = 1;
     Rigidbody2D rb;
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
         ShieldSR = Shield.GetComponent<SpriteRenderer>();
         ShieldS = Shield.GetComponent<ShieldScript>();
         shellReady = true;
+        cM = Camera.main.GetComponent<CameraManager>();
     }
 
     // Update is called once per frame
