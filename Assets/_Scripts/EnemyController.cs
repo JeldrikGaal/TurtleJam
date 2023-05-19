@@ -16,9 +16,13 @@ public class EnemyController : MonoBehaviour
     }
 
     public EnemyType enemyMode;
+    public float speed = 10f;
+
 
     [Space(20)]
-    public List<Transform> patrolPoints;
+    public Transform[] patrolPoints;
+    private int currentPatrolIndex = 0;
+    private bool isPatrollingForward = true;
 
 
     [Space(10)]
@@ -46,6 +50,52 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (enemyMode == EnemyType.Melee)
+        {
+            Vector3 direction = (player.position - transform.position).normalized;
+            float distance = speed * Time.deltaTime;
+
+            transform.Translate(direction * distance);
+        }
+        else if(enemyMode == EnemyType.Patrol) 
+        {
+            // Patrol over patrolPoints
+            if (patrolPoints.Length == 0)
+            {
+                Debug.LogWarning("No patrol points assigned.");
+                return;
+            }
+
+            Transform currentPatrolPoint = patrolPoints[currentPatrolIndex];
+            Vector3 direction = (currentPatrolPoint.position - transform.position).normalized;
+            float distance = speed * Time.deltaTime;
+
+            transform.Translate(direction * distance);
+
+            if (Vector3.Distance(transform.position, currentPatrolPoint.position) < 0.1f)
+            {
+                if (isPatrollingForward)
+                {
+                    currentPatrolIndex++;
+                    if (currentPatrolIndex >= patrolPoints.Length)
+                    {
+                        currentPatrolIndex = patrolPoints.Length - 2;
+                        isPatrollingForward = false;
+                    }
+                }
+                else
+                {
+                    currentPatrolIndex--;
+                    if (currentPatrolIndex < 0)
+                    {
+                        currentPatrolIndex = 1;
+                        isPatrollingForward = true;
+                    }
+                }
+            }
+        }
+
         if (lookAtPlayer)
         {
             // Look At Logic
