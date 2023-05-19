@@ -1518,6 +1518,10 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
       value: 0.072221756
       objectReference: {fileID: 0}
+    - target: {fileID: 6340098526527700323, guid: 0cd9ad1dd0cb2bb4a9fe217393be89f6, type: 3}
+      propertyPath: m_TagString
+      value: Shield
+      objectReference: {fileID: 0}
     - target: {fileID: 8090534616378497591, guid: 0cd9ad1dd0cb2bb4a9fe217393be89f6, type: 3}
       propertyPath: m_RootOrder
       value: 1
