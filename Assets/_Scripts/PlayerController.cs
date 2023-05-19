@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SpriteRenderer ShieldSR;
     ShieldScript ShieldS;
     CameraManager cM;
+    LineRenderer lR;
 
     float radiusForShield = 1;
     Rigidbody2D rb;
@@ -19,6 +20,10 @@ public class PlayerController : MonoBehaviour
     bool blockMovement;
     public bool shellReady;
     public bool shellFlying;
+
+    public GameManager gM;
+
+    bool aiming;
 
     Vector3 shieldDir;
 
@@ -43,12 +48,14 @@ public class PlayerController : MonoBehaviour
         ShieldS = Shield.GetComponent<ShieldScript>();
         shellReady = true;
         cM = Camera.main.GetComponent<CameraManager>();
+        lR = GetComponent<LineRenderer>();
+        gM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (gM.paused) return;
         // Shield positioning 
         shieldDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         shieldDir = new Vector3(shieldDir.x, shieldDir.y, 0);
@@ -85,38 +92,48 @@ public class PlayerController : MonoBehaviour
                 blockMovement = true;
                 ShieldSR.color = Color.red;
                 ShieldS.ChangeState(2);
+                shellReady = false;
             }
           
         }       
         if (Input.GetMouseButtonUp(1))
         {
-            if (shellReady)
+            if (!shellReady)
             {
                 blockMovement = false;
                 ShieldSR.color = Color.green;
                 ShieldS.ChangeState(0);
+                shellReady = true;
             }
+
         }
 
         // Handling Left Click
         if (Input.GetMouseButtonDown(0))
         {
-            if (shellReady)
-            {
-                BoomerangShot();
-            }
+            aiming = true;
+            lR.enabled = true;
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            
+            if (shellReady)
+            {
+                BoomerangShot();
+               
+            }
+            aiming = false;
+            lR.enabled = false;
         }
-
         if (shellFlying)
         {
             BommerangLogic();
         }
 
+        if (aiming)
+        {
+            Aiming();
+        }
 
         // Needs to be at the end of update
         if (blockMovement)
@@ -158,5 +175,21 @@ public class PlayerController : MonoBehaviour
         startingTime = Time.time;
         endPos = transform.position + (shieldDir * 10);
         ShieldS.ChangeState(1);
+    }
+
+    private void Aiming()
+    {
+        Vector2 start = transform.position;
+        Vector2 end = transform.position + (shieldDir * 10);
+        Vector2 direction = end - start;
+        direction.Normalize();
+
+        float dist = Vector2.Distance(start, end);
+        for (int i = 0; i < 10; i++)
+        {
+                lR.SetPosition(i, start + direction * (dist * ((i + 1f) / 10f)));
+        }
+        //lR.SetPosition(0, );
+        //lR.SetPosition(1, );
     }
 }
