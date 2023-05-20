@@ -4842,6 +4842,7 @@ GameObject:
   - component: {fileID: 7663180413635354599}
   - component: {fileID: 3128197476579923505}
   - component: {fileID: 8427425359096602974}
+  - component: {fileID: 4668151947806853309}
   m_Layer: 2
   m_Name: Shield
   m_TagString: Shield
@@ -4857,8 +4858,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6340098526527700323}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.669, z: 0}
-  m_LocalScale: {x: 1.1512501, y: 1.1512501, z: 1.1512501}
+  m_LocalPosition: {x: 0, y: 0.675, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4725338584181751209}
@@ -4906,8 +4907,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.54317886, g: 0.9528302, b: 0.4000089, a: 1}
+  m_Sprite: {fileID: 21300000, guid: cfa79d1d14111a74ca36982ab394004f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5099,6 +5100,27 @@ MonoBehaviour:
   audioClip3: []
   audioClip4: []
   audioClip5: []
+--- !u!95 &4668151947806853309
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6340098526527700323}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 214dbdceca6b4b147b5b6b8d36c0a5d1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8698650534179297791
 GameObject:
   m_ObjectHideFlags: 0
@@ -5113,6 +5135,7 @@ GameObject:
   - component: {fileID: 1665791583091376885}
   - component: {fileID: 775723637346249783}
   - component: {fileID: 8598878611384719769}
+  - component: {fileID: 8609020132839075325}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5130,7 +5153,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.6908963, y: -0.36733812, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2115516424665616085}
   m_Father: {fileID: 0}
@@ -5177,7 +5200,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f3ae31277570bc94ab869cfff913f4fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5227,18 +5250,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216866f3d23e9534da96adb73231da1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
+  Speed: 6
   acceleration: 1
   Health: 20
   Shield: {fileID: 6340098526527700323}
-  ShieldSR: {fileID: 0}
+  ShieldSR: {fileID: 7137631917041814862}
   hitLength: 10
-  radiusForShield: 1
+  radiusForShield: 0.1
   shellReady: 0
   shellFlying: 0
   gM: {fileID: 0}
-  flyingTime: 0.3
-  flyingTimeBack: 0.15
+  flyingTime: 0.4
+  flyingTimeBack: 0.1
 --- !u!120 &775723637346249783
 LineRenderer:
   serializedVersion: 2
@@ -5386,3 +5409,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &8609020132839075325
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8698650534179297791}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7c429e44879919d4faf9107854f99a3e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
