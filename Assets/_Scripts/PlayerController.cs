@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float Health = 100;
     [SerializeField] GameObject Shield;
     [SerializeField] SpriteRenderer ShieldSR;
-
+    ParticleSystem explosion;
     [SerializeField] float hitLength = 10;
     ShieldScript ShieldS;
     CameraManager cM;
@@ -51,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
     PlayAudio pA;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +65,7 @@ public class PlayerController : MonoBehaviour
         lR = GetComponent<LineRenderer>();
         gM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         pA = Shield.GetComponent<PlayAudio>();
+        explosion = gM.explosion;
     }
 
     // Update is called once per frame
@@ -165,6 +169,7 @@ public class PlayerController : MonoBehaviour
                 bouncing = false;
                 bounce = false;
             }
+
             if (bounce && !bouncing)
             {
                 timeMod = 1 - timeModSave;
@@ -178,12 +183,16 @@ public class PlayerController : MonoBehaviour
                 timeMod = timeMod * (Vector2.Distance(startingPos, endPos) / bounceDistance);
                 startingTime = Time.time;
                 bouncing = true;
+                Explosion(startingPos);
+                pA.PlayOneShotSound(1);
             }
             else
             {
                 flyingBack = true;
                 startingTimeBack = Time.time;
                 StartCoroutine(cM.Shake(0.05f, 0.2f));
+                Explosion(endPos);
+                pA.PlayOneShotSound(1);
             }
 
 
@@ -199,10 +208,14 @@ public class PlayerController : MonoBehaviour
             shellFlying = false;
             shellReady = true;
             ShieldS.ChangeState(0);
-
-            
-
         }
+    }
+
+    private void Explosion(Vector2 pos)
+    {
+        ParticleSystem ps = Instantiate(explosion, pos, Quaternion.identity) as ParticleSystem;
+        ps.Play();
+        Destroy(ps.gameObject, 0.2f);
     }
 
     private void BoomerangShot()

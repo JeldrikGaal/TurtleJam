@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5172683267264860109
 MonoBehaviour:
@@ -44,8 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc00ca30a3341a419be70b535d4dc33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenu: 0
   score: 0
   scoreTXT: {fileID: 0}
   time: 0
   timeTXT: {fileID: 0}
   player: {fileID: 0}
+  paused: 0
+  pauseMenu: {fileID: 0}
+  gameOverMenu: {fileID: 0}
+  winMenu: {fileID: 0}
+  epi: {fileID: 0}
+  explosion: {fileID: 5776239834288321624, guid: ce8bf9300d48087428ba8f04d880078f, type: 3}

@@ -5090,8 +5090,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11fff971501314f488d86aff6eae72fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip1: []
-  audioClip2: []
+  audioClip1:
+  - {fileID: 8300000, guid: 8a39d73da9062634384b4045800bf42b, type: 3}
+  audioClip2:
+  - {fileID: 8300000, guid: 8a39d73da9062634384b4045800bf42b, type: 3}
   audioClip3: []
   audioClip4: []
   audioClip5: []
@@ -5225,7 +5227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 5
   acceleration: 1
-  Health: 100
+  Health: 20
   Shield: {fileID: 6340098526527700323}
   ShieldSR: {fileID: 0}
   hitLength: 10

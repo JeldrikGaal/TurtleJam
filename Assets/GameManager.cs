@@ -30,7 +30,9 @@ public class GameManager : MonoBehaviour
 
     // JUICE
     private GameObject mainCam;
-    public GameObject epi; 
+    public GameObject epi;
+    [SerializeField] public ParticleSystem explosion;
+
 
     // Start is called before the first frame update
     void Start()
