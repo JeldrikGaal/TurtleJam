@@ -74,6 +74,7 @@ public class ShieldScript : MonoBehaviour
         }
         if (shielding)
         {
+            GetComponent<Animator>().SetBool("Shield", true);
             Debug.Log(collision.name);
 
             if (!collision.CompareTag("Wall"))
@@ -85,6 +86,7 @@ public class ShieldScript : MonoBehaviour
            
             
         }
-        
+        else GetComponent<Animator>().SetBool("Shield", false);
+
     }
 }

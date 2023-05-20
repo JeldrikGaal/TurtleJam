@@ -222,6 +222,8 @@ public class PlayerController : MonoBehaviour
 
     private void BoomerangShot()
     {
+        Shield.GetComponent<Animator>().SetTrigger("Shoot");
+
         shellFlying = true;
         shellReady = false;
         startingPos = Shield.transform.position;
