@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 using Unity.VisualScripting;
 using System.Drawing;
 using Color = UnityEngine.Color;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -82,8 +83,17 @@ public class GameManager : MonoBehaviour
         {
             if (!mainMenu)
             {
-                if (Input.GetKeyDown(KeyCode.Escape)) Pause();
-
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    if (!pauseMenu.activeInHierarchy )
+                    {
+                        Pause();
+                    }
+                    else
+                    {
+                        Resume();
+                    }
+                }
                 time += Time.deltaTime;
 
                 scoreTXT.text = "Score: " + score.ToString();
@@ -126,13 +136,31 @@ public class GameManager : MonoBehaviour
 
     public void Pause() 
     {
-        //mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
         StartCoroutine(cM.BattleTransition(1, true));
-        pauseMenu.SetActive(true);
         StartCoroutine(setTimeScaleDelayed(0, 1));
-        //Time.timeScale = 0;
+        StartCoroutine(setActiveDelayed(1, true));
         paused = true;
     }
+    public void Resume()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+        StartCoroutine(cM.BattleTransition(1, false));
+        
+        paused = false;
+    }
+
+    public IEnumerator setActiveDelayed(float delay, bool active)
+    {
+        yield return new WaitForSeconds(delay);
+        pauseMenu.SetActive(active);
+    }
+    public IEnumerator setActiveDelayedWin(float delay, bool active)
+    {
+        yield return new WaitForSeconds(delay);
+        winMenu.SetActive(active);
+    }
+
 
     public IEnumerator setTimeScaleDelayed(float timeScale, float delay)
     {
@@ -165,27 +193,25 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void Resume()
-    {
-        //mainCam.GetComponent<PixelationEffect>().AnimatePixelationIn();
-        StartCoroutine(cM.BattleTransition(1, false));
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1;
-        paused = false;
-    }
 
     public void WinCondition() 
     {
         levelComplete = true;
-        mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
-        winMenu.SetActive(true);
+        //mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
+        StartCoroutine(cM.BattleTransition(1, true));
+        setActiveDelayedWin(1, true);
+        scoreTXT.enabled = false;
+        timeTXT.enabled = false;
     }
 
     public void GameOverCondition()
     {
         epi.GetComponent<Animator>().SetTrigger("GameOver");
-        mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
+        //mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
+        //StartCoroutine(cM.BattleTransition(1, true));
         gameOverMenu.SetActive(true);
+        scoreTXT.enabled = false;
+        timeTXT.enabled = false;
     }
 
     public void GoToLevel(string levelName) // For Resume, Next Level and Back to Main Menu
