@@ -197,11 +197,11 @@ public class GameManager : MonoBehaviour
     public void WinCondition() 
     {
         levelComplete = true;
-        //mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
         StartCoroutine(cM.BattleTransition(1, true));
-        setActiveDelayedWin(1, true);
+        StartCoroutine(setActiveDelayedWin(1, true));
         scoreTXT.enabled = false;
         timeTXT.enabled = false;
+        paused = true;
     }
 
     public void GameOverCondition()
@@ -212,6 +212,7 @@ public class GameManager : MonoBehaviour
         gameOverMenu.SetActive(true);
         scoreTXT.enabled = false;
         timeTXT.enabled = false;
+        paused = true;
     }
 
     public void GoToLevel(string levelName) // For Resume, Next Level and Back to Main Menu
