@@ -190,6 +190,7 @@ public class PlayerController : MonoBehaviour
             {
                 flyingBack = true;
                 startingTimeBack = Time.time;
+                ShieldSR.color = new Color(ShieldSR.color.r, ShieldSR.color.g, ShieldSR.color.b, 0.3f);
                 StartCoroutine(cM.Shake(0.05f, 0.2f));
                 Explosion(endPos);
                 pA.PlayOneShotSound(1);
@@ -203,7 +204,7 @@ public class PlayerController : MonoBehaviour
         }
         if (flyingBack && Time.time - startingTimeBack > (flyingTimeBack * timeMod))
         {
-            
+            ShieldSR.color = new Color(ShieldSR.color.r, ShieldSR.color.g, ShieldSR.color.b, 1f);
             flyingBack = false;
             shellFlying = false;
             shellReady = true;

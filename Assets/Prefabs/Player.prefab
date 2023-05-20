@@ -5093,7 +5093,9 @@ MonoBehaviour:
   audioClip1:
   - {fileID: 8300000, guid: 8a39d73da9062634384b4045800bf42b, type: 3}
   audioClip2:
-  - {fileID: 8300000, guid: 8a39d73da9062634384b4045800bf42b, type: 3}
+  - {fileID: 8300000, guid: b7071e219d214b74684e46637bed7533, type: 3}
+  - {fileID: 8300000, guid: 316b8beb05388a54891b3358c33d2bbb, type: 3}
+  - {fileID: 8300000, guid: 905da9ad74b29c849a3396937a5676a0, type: 3}
   audioClip3: []
   audioClip4: []
   audioClip5: []
