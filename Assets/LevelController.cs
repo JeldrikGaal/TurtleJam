@@ -15,7 +15,7 @@ public class LevelController : MonoBehaviour
     private Transform grid;
     private List<Transform> generatedRooms;
 
-    private void Start()
+    private void Awake()
     {
         grid = GameObject.FindGameObjectWithTag("Grid").transform;
         GenerateLevel();

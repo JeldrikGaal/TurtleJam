@@ -26,7 +26,6 @@ public class BattleTransitionEffect : MonoBehaviour
     {
         _material.SetFloat("_Cutoff", Cutoff);
         _material.SetTexture("_Transition", Transition); // not good for performance 
-        Debug.Log(source.name);
         Graphics.Blit(source, destination, _material);
 
 
