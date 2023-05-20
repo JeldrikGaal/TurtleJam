@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 5f08680b0c205e94b83f0580c8944d0e
+  - enabled: 1
+    path: Assets/Scenes/Controlls.unity
+    guid: 79c5da41be0d05644b730ba60c3e01a8
+  - enabled: 1
+    path: Assets/Scenes/Jeldrik/Jeldrik2.unity
+    guid: 199686f12a0fdfa41b14ee5685c61b8e
   m_configObjects: {}

@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         score = 0;
         time = 0;
         player = GameObject.FindWithTag("Player");
@@ -217,7 +218,11 @@ public class GameManager : MonoBehaviour
 
     public void GoToLevel(string levelName) // For Resume, Next Level and Back to Main Menu
     {
-        if(levelName == "this") SceneManager.LoadScene(SceneManager.loadedSceneCount);
+        if (levelName == "this")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            return;
+        }
         SceneManager.LoadScene(levelName);
     }
 
