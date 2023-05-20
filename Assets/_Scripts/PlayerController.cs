@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
     PlayAudio pA;
 
+    public bool teleporting = false;
+
     
 
     // Start is called before the first frame update
