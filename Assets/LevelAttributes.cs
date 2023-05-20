@@ -5,28 +5,26 @@ using UnityEngine;
 public class LevelAttributes : MonoBehaviour
 {
 
-    [System.Flags]
+/*    [System.Flags]
     public enum hasExits
     {
         Up = 1 << 0,
         Down = 1 << 1,
         Left = 1 << 2,
         Right = 1 << 3,
+        EndScreen = 1 << 4
         // Add more options as needed
     }
-    public hasExits selectedExits;
 
-    private void Start()
-    {
-        
-    }
+    [SerializeField]
+    public hasExits selectedExits;*/
 
-    private void Update()
-    {
-        // Check if a specific option is selected
-        if ((selectedExits & hasExits.Up) != 0)
-        {
-            Debug.Log("It has an exit up top!");
-        }
-    }
+    public bool up;
+    public bool down;
+    public bool left;
+    public bool right;
+    public bool endScreen;
+
+    public GameObject nextRoomConnected;
+
 }

@@ -8,6 +8,7 @@ TagManager:
   - GameManager
   - Shield
   - Wall
+  - Grid
   layers:
   - Default
   - TransparentFX
