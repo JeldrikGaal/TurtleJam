@@ -8,13 +8,14 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float Speed;
     [SerializeField] float acceleration = 1;
+    [SerializeField] float Health = 100;
     [SerializeField] GameObject Shield;
     [SerializeField] SpriteRenderer ShieldSR;
     ShieldScript ShieldS;
     CameraManager cM;
     LineRenderer lR;
 
-    float radiusForShield = 1;
+    public float radiusForShield = 1;
     Rigidbody2D rb;
 
     bool blockMovement;
@@ -177,25 +178,41 @@ public class PlayerController : MonoBehaviour
 
     private void Aiming()
     {
+        float len = 10f;
         Vector2 start = transform.position;
         Vector2 end = transform.position + (shieldDir * 10);
 
         float dist = Vector2.Distance(start, end);
+        len = dist;
+        float dist2;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, shieldDir);
-        if (hit && !hit.transform.CompareTag("Player") || !hit.transform.CompareTag("Shield"))
+        if (hit && !hit.transform.CompareTag("Player") && !hit.transform.CompareTag("Shield"))
         {
-            if (Vector2.Distance(transform.position,hit.transform.position) < dist)
+            dist2 = Vector2.Distance(transform.position, hit.transform.position);
+            if (dist2 < dist)
             {
                 end = hit.transform.position;
+                len = dist2;
             }
         }
 
+        
         Vector2 direction = end - start;
         direction.Normalize();
 
         for (int i = 0; i < 10; i++)
         {
-                lR.SetPosition(i, start + direction * (dist * ((i + 1f) / 10f)));
+                lR.SetPosition(i, start + direction * (len * ((i + 1f) / 10)));
+        }
+    }
+
+    public void Damage(float dmg)
+    {
+        Health -= dmg;
+        if (Health <= 0)
+        {
+            Debug.Log("You lost!");
+            gM.paused = true;
         }
     }
 }
