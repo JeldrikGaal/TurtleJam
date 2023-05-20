@@ -11,17 +11,29 @@ public class ShieldScript : MonoBehaviour
     bool shielding;
     CameraManager cM;
     [SerializeField] ParticleSystem pS;
+    TrailRenderer tR;
 
     // Start is called before the first frame update
     void Start()
     {
         cM = Camera.main.GetComponent<CameraManager>();
+        tR = GetComponent<TrailRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (flying)
+        {
+            
+            tR.enabled = true;
+        }
+        else
+        {
+            tR.Clear(); 
+            tR.enabled = false;
+            
+        }
     }
 
     public void ChangeState(int state)
@@ -35,6 +47,7 @@ public class ShieldScript : MonoBehaviour
             case 1:
                 flying = true;
                 shielding = false;
+           
                 break;
             case 2:
                 flying = false;
@@ -62,9 +75,14 @@ public class ShieldScript : MonoBehaviour
         if (shielding)
         {
             Debug.Log(collision.name);
-            StartCoroutine(cM.Shake(0.05f, 0.2f));
-            
-            Destroy(collision.gameObject);
+
+            if (!collision.CompareTag("Walls"))
+            {
+                StartCoroutine(cM.Shake(0.05f, 0.2f));
+                Destroy(collision.gameObject);
+            }
+
+           
             
         }
         

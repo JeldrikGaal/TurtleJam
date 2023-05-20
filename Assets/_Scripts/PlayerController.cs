@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public GameManager gM;
 
     bool aiming;
+    bool bounce;
 
     Vector3 shieldDir;
 
@@ -166,6 +167,7 @@ public class PlayerController : MonoBehaviour
             shellFlying = false;
             shellReady = true;
             ShieldS.ChangeState(0);
+
         }
     }
 
@@ -186,10 +188,15 @@ public class PlayerController : MonoBehaviour
             if (!hit.transform.CompareTag("Enemy"))
             {
                 endPos = new Vector3(hit.point.x, hit.point.y) - (shieldDir * 0.25f);
+                if (hit.transform.CompareTag("Wall"))
+                {
+                    bounce = true;
+                }
             }
             else
             {
                 endPos = new Vector3(hit.point.x, hit.point.y) + (shieldDir * 0.25f);
+
             }
         
             timeMod = Vector3.Distance(endPos, startingPos) / Vector3.Distance(endPosSave, startingPos);
