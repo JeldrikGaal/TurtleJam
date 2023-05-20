@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     Vector3 shieldDir;
 
+    private float timeMod;
+
     // Boomerang variables
     [SerializeField] float flyingTime;
     [SerializeField] float flyingTimeBack;
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour
     Vector2 startingPos;
     Vector2 startingPosBack;
     Vector2 endPos;
+    Vector2 endPosSave;
     float startingTime;
     float startingTimeBack;
     bool flyingBack;
@@ -143,20 +146,20 @@ public class PlayerController : MonoBehaviour
 
     private void BommerangLogic()
     {
-        if (Time.time - startingTime < flyingTime)
+        if (Time.time - startingTime < (flyingTime * timeMod))
         {
-            Shield.transform.position = Vector2.Lerp(startingPos, endPos, ( Time.time - startingTime ) / flyingTime);
+            Shield.transform.position = Vector2.Lerp(startingPos, endPos, ( Time.time - startingTime ) / (flyingTime * timeMod));
         }
         else if (!flyingBack)
         {
             flyingBack = true;
             startingTimeBack = Time.time;
         }
-        if (Time.time - startingTimeBack < flyingTimeBack && flyingBack)
+        if (Time.time - startingTimeBack < (flyingTimeBack * timeMod) && flyingBack)
         {          
-            Shield.transform.position = Vector2.Lerp(endPos, transform.position + (shieldDir * radiusForShield), (Time.time - startingTimeBack) / flyingTimeBack);
+            Shield.transform.position = Vector2.Lerp(endPos, transform.position + (shieldDir * radiusForShield), (Time.time - startingTimeBack) / (flyingTimeBack * timeMod));
         }
-        if (flyingBack && Time.time - startingTimeBack > flyingTimeBack)
+        if (flyingBack && Time.time - startingTimeBack > (flyingTimeBack * timeMod))
         {
             flyingBack = false;
             shellFlying = false;
@@ -173,29 +176,51 @@ public class PlayerController : MonoBehaviour
         startingPos = Shield.transform.position;
         startingTime = Time.time;
         endPos = transform.position + (shieldDir * 10);
+        endPosSave = transform.position + (shieldDir * 10);
         ShieldS.ChangeState(1);
+
+        Vector2 start = transform.position + (shieldDir);
+        RaycastHit2D hit = Physics2D.Raycast(start, shieldDir);
+        if (hit)
+        {
+            if (!hit.transform.CompareTag("Enemy"))
+            {
+                endPos = new Vector3(hit.point.x, hit.point.y) - (shieldDir * 0.25f);
+            }
+            else
+            {
+                endPos = new Vector3(hit.point.x, hit.point.y) + (shieldDir * 0.25f);
+            }
+        
+            timeMod = Vector3.Distance(endPos, startingPos) / Vector3.Distance(endPosSave, startingPos);
+        }
+        else
+        {
+            timeMod = 1;
+        }
+       
+
     }
 
     private void Aiming()
     {
         float len = 10f;
-        Vector2 start = transform.position;
-        Vector2 end = transform.position + (shieldDir * 10);
+        Vector2 start = transform.position + (shieldDir * 0.5f);
+        Vector2 end = transform.position + (shieldDir * 11);
 
         float dist = Vector2.Distance(start, end);
         len = dist;
         float dist2;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, shieldDir);
+        RaycastHit2D hit = Physics2D.Raycast(start, shieldDir);
         if (hit && !hit.transform.CompareTag("Player") && !hit.transform.CompareTag("Shield"))
         {
-            dist2 = Vector2.Distance(transform.position, hit.transform.position);
+            dist2 = Vector2.Distance(start, hit.transform.position);
             if (dist2 < dist)
             {
                 end = hit.transform.position;
                 len = dist2;
             }
         }
-
         
         Vector2 direction = end - start;
         direction.Normalize();
