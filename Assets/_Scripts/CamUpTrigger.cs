@@ -6,7 +6,7 @@ public class CamUpTrigger : MonoBehaviour
 {
     public GameObject camera;
     public float yOffset = 9.25f;
-    private bool flagDone = false;
+    private bool movingFlag = false;
 
     Vector3 initialPos;
     float startingTime = 0;
@@ -23,7 +23,7 @@ public class CamUpTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!doneMoving && flagDone && camera.transform.position != new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z)) 
+        if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z)) 
         {
             camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z), Time.time - startingTime / duration);
         }else if(camera.transform.position == new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z)) { doneMoving = true;}
@@ -31,9 +31,9 @@ public class CamUpTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player" && !flagDone) 
+        if(collision.tag == "Player" && !movingFlag) 
         {
-            flagDone = true;
+            movingFlag = true;
             startingTime = Time.time;
         }
     }
