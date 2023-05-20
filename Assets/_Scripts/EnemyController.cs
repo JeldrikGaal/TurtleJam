@@ -66,12 +66,11 @@ public class EnemyController : MonoBehaviour
         // Check if the raycast hit the player
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.name);
 
             if (hit.collider.gameObject == player.gameObject || hit.collider.name == "Shield")
             {
                 lookAtPlayer = true;
-                Debug.Log("Player is in line of sight!");
+                //Debug.Log("Player is in line of sight!");
                 // Do something when the player is in line of sight
             }
             else
@@ -82,10 +81,25 @@ public class EnemyController : MonoBehaviour
 
         if (enemyMode == EnemyType.Melee)
         {
-            Vector3 direction = (player.position - transform.position).normalized;
-            float distance = speed * Time.deltaTime;
+            /* // Only moving if line of sight to the player
+            Vector2 dir = player.transform.position - transform.position;
+            dir.Normalize();
+            RaycastHit2D hitout = Physics2D.Raycast(transform.position, dir);
+            if (hit)
+            {
+                //Debug.Log(hit.transform.name);
+                if (hitout.transform.CompareTag("Player"))
+                {
+                   
+                }
+            } */           
+            if (lookAtPlayer)
+            {
+                Vector3 direction = (player.position - transform.position).normalized;
+                float distance = speed * Time.deltaTime;
 
-            transform.Translate(direction * distance);
+                transform.Translate(direction * distance);
+            }
         }
         else if(enemyMode == EnemyType.Patrol) 
         {

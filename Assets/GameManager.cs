@@ -48,10 +48,11 @@ public class GameManager : MonoBehaviour
  
         // wall color gradient
     [SerializeField] List<Color> colors = new List<Color>();
-    float gradientStepTime;
+    [SerializeField] float gradientStepTime;
     int currentColor;
 
     float startTimeGradient;
+    CameraManager cM;
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
         time = 0;
         player = GameObject.FindWithTag("Player");
         mainCam = GameObject.FindWithTag("MainCamera");
+        cM = mainCam.GetComponent<CameraManager>(); 
         walls = GameObject.FindWithTag("Wall").GetComponent<Tilemap>();
 
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
@@ -77,21 +79,29 @@ public class GameManager : MonoBehaviour
             scoreTXT.text = "Score: " + score.ToString();
             timeTXT.text = time.ToString("0.00");
         }
+        ColorShift();
     }
 
     private void ColorShift()
     {
         if (!flashing)
         {
-            float t = 0;
+            float t = (Time.time - startTimeGradient) / gradientStepTime;
+            if (t >= 1)
+            {
+                currentColor += 1;
+                startTimeGradient = Time.time;
+            }
             if (currentColor == colors.Count - 1 )
             {
-                //walls.color = Color.Lerp(colors[currentColor], colors[0]);
+                walls.color = Color.Lerp(colors[currentColor], colors[0], t);
+                currentColor = 0;
             }
             else
             {
-                //walls.color = Color.Lerp(colors[currentColor], colors[0]);
+                walls.color = Color.Lerp(colors[currentColor], colors[currentColor + 1], t);
             }
+            
             
         }
         
@@ -99,10 +109,19 @@ public class GameManager : MonoBehaviour
 
     public void Pause() 
     {
-        mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
+        //mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
+        StartCoroutine(cM.BattleTransition(1, true));
         pauseMenu.SetActive(true);
-        Time.timeScale = 0;
+        StartCoroutine(setTimeScaleDelayed(0, 1));
+        //Time.timeScale = 0;
         paused = true;
+    }
+
+    public IEnumerator setTimeScaleDelayed(float timeScale, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Time.timeScale = timeScale;
+
     }
 
     public IEnumerator flashWalls(float time, Color color)
@@ -121,8 +140,8 @@ public class GameManager : MonoBehaviour
 
     public void Resume()
     {
-        mainCam.GetComponent<PixelationEffect>().AnimatePixelationIn();
-
+        //mainCam.GetComponent<PixelationEffect>().AnimatePixelationIn();
+        StartCoroutine(cM.BattleTransition(1, false));
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
         paused = false;

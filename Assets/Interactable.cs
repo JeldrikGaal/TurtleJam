@@ -24,7 +24,6 @@ public class Interactable : MonoBehaviour
         if (activated) 
         {
             time += Time.deltaTime;
-            Debug.Log(time);
             if (time >= duration) 
             {
                 if (interactableType == type.Slowdown)
