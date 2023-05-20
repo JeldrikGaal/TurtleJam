@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject player;
     public bool paused = false;
+    private Tilemap walls;
+    private bool flashing;
 
     // To add
     // Sound logic
@@ -33,6 +37,12 @@ public class GameManager : MonoBehaviour
     public GameObject epi;
     [SerializeField] public ParticleSystem explosion;
 
+    // wall color gradient
+    [SerializeField] List<Color> colors = new List<Color>();
+    float gradientStepTime;
+    int currentColor;
+
+    float startTimeGradient;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +51,7 @@ public class GameManager : MonoBehaviour
         time = 0;
         player = GameObject.FindWithTag("Player");
         mainCam = GameObject.FindWithTag("MainCamera");
+        walls = GameObject.FindWithTag("Wall").GetComponent<Tilemap>();
     }
 
     // Update is called once per frame
@@ -57,12 +68,44 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void ColorShift()
+    {
+        if (!flashing)
+        {
+            float t = 0;
+            if (currentColor == colors.Count - 1 )
+            {
+                //walls.color = Color.Lerp(colors[currentColor], colors[0]);
+            }
+            else
+            {
+                //walls.color = Color.Lerp(colors[currentColor], colors[0]);
+            }
+            
+        }
+        
+    }
+
     public void Pause() 
     {
         mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
         paused = true;
+    }
+
+    public IEnumerator flashWalls(float time, Color color)
+    {
+        if (!flashing) 
+        { 
+            flashing = true;
+            Color saveColor = walls.color;
+            walls.color = color;
+            yield return new WaitForSeconds(time);
+            walls.color = saveColor;
+            flashing = false;
+        }
+        
     }
 
     public void Resume()

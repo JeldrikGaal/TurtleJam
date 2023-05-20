@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
             {
                 flyingBack = true;
                 startingTimeBack = Time.time;
-                ShieldSR.color = new Color(ShieldSR.color.r, ShieldSR.color.g, ShieldSR.color.b, 0.3f);
+                ShieldSR.color = new Color(ShieldSR.color.r, ShieldSR.color.g, ShieldSR.color.b, 0f);
                 StartCoroutine(cM.Shake(0.05f, 0.2f));
                 Explosion(endPos);
                 pA.PlayOneShotSound(1);
@@ -217,6 +217,7 @@ public class PlayerController : MonoBehaviour
         ParticleSystem ps = Instantiate(explosion, pos, Quaternion.identity) as ParticleSystem;
         ps.Play();
         Destroy(ps.gameObject, 0.2f);
+        StartCoroutine(gM.flashWalls(0.05f, Color.red));
     }
 
     private void BoomerangShot()
@@ -294,6 +295,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(float dmg)
     {
+
         Debug.Log("DAMGE TAKE!");
         Health -= dmg;
         if (Health <= 0)
