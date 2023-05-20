@@ -30,7 +30,7 @@ public class CameraManager : MonoBehaviour
             float xOffset = Random.Range(-0.5f, 0.5f) * magnitude;
             float yOffset = Random.Range(-0.5f, 0.5f) * magnitude;
 
-            transform.localPosition = new Vector3(xOffset, yOffset, transform.localPosition.z);
+            transform.localPosition = new Vector3(originalPos.x+xOffset, originalPos.y + yOffset, transform.localPosition.z);
 
             elapsedTime += Time.deltaTime;
             yield return null;
