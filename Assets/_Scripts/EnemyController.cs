@@ -174,12 +174,16 @@ public class EnemyController : MonoBehaviour
 
     public void BasicShoot() 
     {
+        PlayAudio pa;
+        pa = GetComponent<PlayAudio>();
+        pa.PlayOneShotSound();
         GameObject newBullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         shootTimedown = true; // Flag to indicate there should be timedown between each shot.
     }
 
     public void Die() 
     {
+       
         gm.score += scoreToAddOnDeath;
         Destroy(this.gameObject);
     }

@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float Health = 100;
     [SerializeField] GameObject Shield;
     [SerializeField] SpriteRenderer ShieldSR;
+
+    [SerializeField] float hitLength = 10;
     ShieldScript ShieldS;
     CameraManager cM;
     LineRenderer lR;
@@ -26,10 +28,14 @@ public class PlayerController : MonoBehaviour
 
     bool aiming;
     bool bounce;
+    bool bouncing;
+    float bounceDistance;
 
     Vector3 shieldDir;
 
     private float timeMod;
+    private float timeModSave;
+    private Vector2 reflectNormal;
 
     // Boomerang variables
     [SerializeField] float flyingTime;
@@ -153,9 +159,33 @@ public class PlayerController : MonoBehaviour
         }
         else if (!flyingBack)
         {
-            flyingBack = true;
-            startingTimeBack = Time.time;
-            StartCoroutine(cM.Shake(0.05f, 0.2f));
+            if (bouncing)
+            {
+                bouncing = false;
+                bounce = false;
+            }
+            if (bounce && !bouncing)
+            {
+                timeMod = 1 - timeModSave;
+                startingPos = endPos;
+                endPos = Vector2.Reflect(shieldDir, reflectNormal) * bounceDistance;
+                RaycastHit2D hit = Physics2D.Raycast(startingPos, reflectNormal);
+                if (hit)
+                {
+                    endPos = hit.point;
+                }
+                timeMod = timeMod * (Vector2.Distance(startingPos, endPos) / bounceDistance);
+                startingTime = Time.time;
+                bouncing = true;
+            }
+            else
+            {
+                flyingBack = true;
+                startingTimeBack = Time.time;
+                StartCoroutine(cM.Shake(0.05f, 0.2f));
+            }
+
+
         }
         if (Time.time - startingTimeBack < (flyingTimeBack * timeMod) && flyingBack)
         {          
@@ -163,10 +193,13 @@ public class PlayerController : MonoBehaviour
         }
         if (flyingBack && Time.time - startingTimeBack > (flyingTimeBack * timeMod))
         {
+            
             flyingBack = false;
             shellFlying = false;
             shellReady = true;
             ShieldS.ChangeState(0);
+
+            
 
         }
     }
@@ -177,8 +210,8 @@ public class PlayerController : MonoBehaviour
         shellReady = false;
         startingPos = Shield.transform.position;
         startingTime = Time.time;
-        endPos = transform.position + (shieldDir * 10);
-        endPosSave = transform.position + (shieldDir * 10);
+        endPos = transform.position + (shieldDir * hitLength);
+        endPosSave = transform.position + (shieldDir * hitLength);
         ShieldS.ChangeState(1);
 
         Vector2 start = transform.position + (shieldDir);
@@ -191,6 +224,8 @@ public class PlayerController : MonoBehaviour
                 if (hit.transform.CompareTag("Wall"))
                 {
                     bounce = true;
+                    reflectNormal = hit.normal;
+                    bounceDistance = hitLength - Vector2.Distance(startingPos, endPos);
                 }
             }
             else
@@ -200,6 +235,10 @@ public class PlayerController : MonoBehaviour
             }
         
             timeMod = Vector3.Distance(endPos, startingPos) / Vector3.Distance(endPosSave, startingPos);
+            if (bounce)
+            {
+                timeModSave = timeMod;
+            }
         }
         else
         {
