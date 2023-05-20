@@ -8,7 +8,8 @@ public class Interactable : MonoBehaviour
     public enum type
     {
         Slowdown,
-        Speedup
+        Speedup,
+        PixilizeScreen
     }
 
     public type interactableType;
@@ -23,21 +24,24 @@ public class Interactable : MonoBehaviour
         if (activated) 
         {
             time += Time.deltaTime;
+            Debug.Log(time);
             if (time >= duration) 
             {
                 if (interactableType == type.Slowdown)
                     DeactivateSlowDown();
                 else if (interactableType == type.Speedup)
                     DeactivateSpeedUp();
+                else if (interactableType == type.PixilizeScreen)
+                    DeactivatePixelation();
             }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         activated = true;
-        if (interactableType == type.Slowdown)
-            ActivateSlowdown();
-        else ActivateSpeedUp();
+        if (interactableType == type.Slowdown) ActivateSlowdown();
+        else if(interactableType == type.Speedup) ActivateSpeedUp();
+        else if(interactableType == type.PixilizeScreen) ActivatePixelation();
     }
 
     void ActivateSlowdown() 
@@ -64,6 +68,19 @@ public class Interactable : MonoBehaviour
     void DeactivateSpeedUp()
     {
         GameObject.FindWithTag("Player").GetComponent<PlayerController>().Speed /= 1.5f;
+        Destroy(this.gameObject);
+    }
+
+    void ActivatePixelation() 
+    {
+        this.GetComponent<SpriteRenderer>().enabled = false;
+        this.GetComponent<BoxCollider2D>().enabled = false;
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
+    }
+
+    void DeactivatePixelation() 
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().mainCam.GetComponent<PixelationEffect>().AnimatePixelationIn();
         Destroy(this.gameObject);
     }
 

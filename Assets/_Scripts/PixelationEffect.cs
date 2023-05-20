@@ -21,8 +21,8 @@ public class PixelationEffect : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) AnimatePixelationIn();
-        if (Input.GetKeyDown(KeyCode.Q)) AnimatePixelationOut();
+       /* if (Input.GetKeyDown(KeyCode.E)) AnimatePixelationIn();
+        if (Input.GetKeyDown(KeyCode.Q)) AnimatePixelationOut();*/
 
         if(pixelationAmount != targetPixelationAmount) 
         {

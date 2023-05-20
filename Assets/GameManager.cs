@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     public GameObject winMenu;
 
     // JUICE
-    private GameObject mainCam;
+    public GameObject mainCam;
     public GameObject epi;
     [SerializeField] public ParticleSystem explosion;
 
