@@ -6247,25 +6247,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 144706484308192489, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
-      propertyPath: pixelationAmount
-      value: 47
-      objectReference: {fileID: 0}
     - target: {fileID: 3936237566597857142, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
       propertyPath: m_Name
       value: Main Camera (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936237566597857142, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936237566597857142, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7298593410843364700, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7581280234153920070, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
       propertyPath: m_RootOrder
@@ -6314,119 +6298,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3936237566597857142, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 701460908}
-    - targetCorrespondingSourceObject: {fileID: 3936237566597857142, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 701460907}
-    - targetCorrespondingSourceObject: {fileID: 3936237566597857142, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 701460906}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
---- !u!1 &701460904 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3936237566597857142, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
-  m_PrefabInstance: {fileID: 701460903}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &701460905 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7581280234153920070, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
-  m_PrefabInstance: {fileID: 701460903}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &701460906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 701460904}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 0}
-  isGlobal: 0
-  blendDistance: 0
-  weight: 1
-  priority: 0
---- !u!114 &701460907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 701460904}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 701460905}
-  volumeLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  stopNaNPropagation: 1
-  finalBlitToCameraTarget: 0
-  antialiasingMode: 0
-  temporalAntialiasing:
-    jitterSpread: 0.75
-    sharpness: 0.25
-    stationaryBlending: 0.95
-    motionBlending: 0.85
-  subpixelMorphologicalAntialiasing:
-    quality: 2
-  fastApproximateAntialiasing:
-    fastMode: 0
-    keepAlpha: 0
-  fog:
-    enabled: 1
-    excludeSkybox: 1
-  debugLayer:
-    lightMeter:
-      width: 512
-      height: 256
-      showCurves: 1
-    histogram:
-      width: 512
-      height: 256
-      channel: 3
-    waveform:
-      exposure: 0.12
-      height: 256
-    vectorscope:
-      size: 256
-      exposure: 0.12
-    overlaySettings:
-      linearDepth: 0
-      motionColorIntensity: 4
-      motionGridSize: 64
-      colorBlindnessType: 0
-      colorBlindnessStrength: 1
-  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
-  breakBeforeColorGrading: 0
-  m_BeforeTransparentBundles: []
-  m_BeforeStackBundles: []
-  m_AfterStackBundles: []
---- !u!114 &701460908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 701460904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e7aec782e1d2f24abc0e4d4c2e069fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  Transition: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-  Cutoff: 0
 --- !u!1001 &795798345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8803,7 +8676,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908346747}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a9dd163fcf3d51542999a2e0d2ff27da, type: 3}
