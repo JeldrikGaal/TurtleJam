@@ -56,30 +56,31 @@ public class GameManager : MonoBehaviour
 
     public void Pause() 
     {
-/*        mainCam.GetComponent<PixelationEffect>().Intro();
-*/        pauseMenu.SetActive(true);
+        mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
+        pauseMenu.SetActive(true);
         Time.timeScale = 0;
         paused = true;
     }
 
     public void Resume()
     {
-/*        mainCam.GetComponent<PixelationEffect>().Outro();
-*/        pauseMenu.SetActive(false);
+        mainCam.GetComponent<PixelationEffect>().AnimatePixelationIn();
+
+        pauseMenu.SetActive(false);
         Time.timeScale = 1;
         paused = false;
     }
 
     public void WinCondition() 
     {
-/*        mainCam.GetComponent<PixelationEffect>().Outro();
-*/        winMenu.SetActive(true);
+        mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
+        winMenu.SetActive(true);
     }
 
     public void GameOverCondition()
     {
-/*        mainCam.GetComponent<PixelationEffect>().Outro();
-*/        gameOverMenu.SetActive(true);
+        mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
+        gameOverMenu.SetActive(true);
     }
 
     public void GoToLevel(string levelName) // For Resume, Next Level and Back to Main Menu
