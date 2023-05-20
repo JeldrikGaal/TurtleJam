@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOverCondition()
     {
+        Pause();
         gameOverMenu.SetActive(true);
     }
 
