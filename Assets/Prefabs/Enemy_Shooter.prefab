@@ -31,12 +31,12 @@ Transform:
   m_GameObject: {fileID: 2346672659358320384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.34, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.754386, y: 1.754386, z: 1.754386}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4916395630394355885}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9024932582344557047
 SpriteRenderer:
@@ -223,11 +223,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClip1:
-  - {fileID: 8300000, guid: af77fdd0e2f920745b75f2728871b1a9, type: 3}
-  - {fileID: 8300000, guid: f635618ffd1193b48affd27e656bbb7a, type: 3}
-  - {fileID: 8300000, guid: 692d186869deb4d47a33753b43fc084b, type: 3}
+  - {fileID: 8300000, guid: df884bee899d1694bb96f7fc5f1dcdaa, type: 3}
+  - {fileID: 8300000, guid: cc1e11b7bf0c982468d0b602c8dcb531, type: 3}
+  - {fileID: 8300000, guid: ddbebbe816f90fa41a69ec565a5e2dc6, type: 3}
   audioClip2:
-  - {fileID: 8300000, guid: e4a4d3f50a43e9f49bc258620b0b106e, type: 3}
+  - {fileID: 8300000, guid: ed4eb00030dc846458d70b5347697ce6, type: 3}
   audioClip3: []
   audioClip4: []
   audioClip5: []
