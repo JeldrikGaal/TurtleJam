@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public GameManager gM;
 
     bool aiming;
+    bool bounce;
 
     Vector3 shieldDir;
 
@@ -154,6 +155,7 @@ public class PlayerController : MonoBehaviour
         {
             flyingBack = true;
             startingTimeBack = Time.time;
+            StartCoroutine(cM.Shake(0.05f, 0.2f));
         }
         if (Time.time - startingTimeBack < (flyingTimeBack * timeMod) && flyingBack)
         {          
@@ -165,8 +167,8 @@ public class PlayerController : MonoBehaviour
             shellFlying = false;
             shellReady = true;
             ShieldS.ChangeState(0);
+
         }
-        
     }
 
     private void BoomerangShot()
@@ -186,10 +188,15 @@ public class PlayerController : MonoBehaviour
             if (!hit.transform.CompareTag("Enemy"))
             {
                 endPos = new Vector3(hit.point.x, hit.point.y) - (shieldDir * 0.25f);
+                if (hit.transform.CompareTag("Wall"))
+                {
+                    bounce = true;
+                }
             }
             else
             {
                 endPos = new Vector3(hit.point.x, hit.point.y) + (shieldDir * 0.25f);
+
             }
         
             timeMod = Vector3.Distance(endPos, startingPos) / Vector3.Distance(endPosSave, startingPos);
@@ -198,8 +205,6 @@ public class PlayerController : MonoBehaviour
         {
             timeMod = 1;
         }
-       
-
     }
 
     private void Aiming()
@@ -233,6 +238,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(float dmg)
     {
+        Debug.Log("DAMGE TAKE!");
         Health -= dmg;
         if (Health <= 0)
         {
