@@ -52,7 +52,7 @@ public class ShieldScript : MonoBehaviour
             if (collision.gameObject.CompareTag("Enemy"))
             {
                 collision.GetComponent<EnemyController>().Die();
-                StartCoroutine(cM.Shake(0.05f, 0.2f));
+                //StartCoroutine(cM.Shake(0.05f, 0.2f));
 
                 ParticleSystem ps = Instantiate(pS, collision.transform.position, Quaternion.identity) as ParticleSystem;
                 ps.Play();

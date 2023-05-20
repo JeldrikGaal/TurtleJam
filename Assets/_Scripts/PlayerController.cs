@@ -154,6 +154,7 @@ public class PlayerController : MonoBehaviour
         {
             flyingBack = true;
             startingTimeBack = Time.time;
+            StartCoroutine(cM.Shake(0.05f, 0.2f));
         }
         if (Time.time - startingTimeBack < (flyingTimeBack * timeMod) && flyingBack)
         {          
@@ -166,7 +167,6 @@ public class PlayerController : MonoBehaviour
             shellReady = true;
             ShieldS.ChangeState(0);
         }
-        
     }
 
     private void BoomerangShot()
@@ -198,8 +198,6 @@ public class PlayerController : MonoBehaviour
         {
             timeMod = 1;
         }
-       
-
     }
 
     private void Aiming()
@@ -233,6 +231,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(float dmg)
     {
+        Debug.Log("DAMGE TAKE!");
         Health -= dmg;
         if (Health <= 0)
         {
