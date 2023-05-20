@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
             time += Time.deltaTime;
 
             scoreTXT.text = "Score: " + score.ToString();
-            timeTXT.text = time.ToString("0.00");
+            timeTXT.text = "Time: " + time.ToString("0.00");
         }
         ColorShift();
     }
