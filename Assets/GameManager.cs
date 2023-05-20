@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
     float startTimeGradient;
     CameraManager cM;
 
+    private bool levelComplete = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,16 +72,19 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!mainMenu)
+        if (!levelComplete)
         {
-            if (Input.GetKeyDown(KeyCode.Escape)) Pause();
+            if (!mainMenu)
+            {
+                if (Input.GetKeyDown(KeyCode.Escape)) Pause();
 
-            time += Time.deltaTime;
+                time += Time.deltaTime;
 
-            scoreTXT.text = "Score: " + score.ToString();
-            timeTXT.text = "Time: " + time.ToString("0.00");
+                scoreTXT.text = "Score: " + score.ToString();
+                timeTXT.text = "Time: " + time.ToString("0.00");
+            }
+            ColorShift();
         }
-        ColorShift();
     }
 
     private void ColorShift()
@@ -149,6 +154,7 @@ public class GameManager : MonoBehaviour
 
     public void WinCondition() 
     {
+        levelComplete = true;
         mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
         winMenu.SetActive(true);
     }
