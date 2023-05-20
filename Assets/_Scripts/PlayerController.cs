@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     float startingTimeBack;
     bool flyingBack;
 
-
+    PlayAudio pA;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
         cM = Camera.main.GetComponent<CameraManager>();
         lR = GetComponent<LineRenderer>();
         gM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        pA = Shield.GetComponent<PlayAudio>();
     }
 
     // Update is called once per frame
@@ -214,6 +215,8 @@ public class PlayerController : MonoBehaviour
         endPosSave = transform.position + (shieldDir * hitLength);
         ShieldS.ChangeState(1);
 
+        pA.PlayOneShotSound(0);
+
         Vector2 start = transform.position + (shieldDir);
         RaycastHit2D hit = Physics2D.Raycast(start, shieldDir);
         if (hit)
@@ -281,8 +284,8 @@ public class PlayerController : MonoBehaviour
         Health -= dmg;
         if (Health <= 0)
         {
-            Debug.Log("You lost!");
-            gM.paused = true;
+            // TODO DIE SOUND
+            gM.GameOverCondition();
         }
     }
 }

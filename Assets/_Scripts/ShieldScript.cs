@@ -76,7 +76,7 @@ public class ShieldScript : MonoBehaviour
         {
             Debug.Log(collision.name);
 
-            if (!collision.CompareTag("Walls"))
+            if (!collision.CompareTag("Wall"))
             {
                 StartCoroutine(cM.Shake(0.05f, 0.2f));
                 Destroy(collision.gameObject);

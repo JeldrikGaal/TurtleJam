@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1442266933940163935}
   - component: {fileID: 6919042256696801874}
   - component: {fileID: 4250975891427844596}
+  - component: {fileID: 5195161872552344496}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
@@ -30,12 +31,12 @@ Transform:
   m_GameObject: {fileID: 2346672659358320384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.34, z: 0}
-  m_LocalScale: {x: 1.7766, y: 1.3536, z: 1.3536}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.21, y: 0.9219048, z: 0.9219048}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4916395630394355885}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9024932582344557047
 SpriteRenderer:
@@ -209,6 +210,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5195161872552344496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2346672659358320384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11fff971501314f488d86aff6eae72fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip1:
+  - {fileID: 8300000, guid: af77fdd0e2f920745b75f2728871b1a9, type: 3}
+  - {fileID: 8300000, guid: f635618ffd1193b48affd27e656bbb7a, type: 3}
+  - {fileID: 8300000, guid: 692d186869deb4d47a33753b43fc084b, type: 3}
+  audioClip2:
+  - {fileID: 8300000, guid: e4a4d3f50a43e9f49bc258620b0b106e, type: 3}
+  audioClip3: []
+  audioClip4: []
+  audioClip5: []
 --- !u!1 &5217710308334495806
 GameObject:
   m_ObjectHideFlags: 0

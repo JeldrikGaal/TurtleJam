@@ -43,12 +43,15 @@ public class EnemyController : MonoBehaviour
     public float detectionRadius = 10f;
     public LayerMask obstacleLayer;
 
+    private PlayAudio pa;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
         gm = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+
+        pa = GetComponent<PlayAudio>();
     }
 
     // Update is called once per frame
@@ -173,10 +176,8 @@ public class EnemyController : MonoBehaviour
     }
 
     public void BasicShoot() 
-    {
-        PlayAudio pa;
-        pa = GetComponent<PlayAudio>();
-        pa.PlayOneShotSound();
+    {       
+        pa.PlayOneShotSound(0);
         GameObject newBullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         shootTimedown = true; // Flag to indicate there should be timedown between each shot.
     }
@@ -185,6 +186,7 @@ public class EnemyController : MonoBehaviour
     {
        
         gm.score += scoreToAddOnDeath;
+        pa.PlayOneShotSound(1);
         Destroy(this.gameObject);
     }
 

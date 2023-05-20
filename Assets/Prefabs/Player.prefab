@@ -4841,6 +4841,7 @@ GameObject:
   - component: {fileID: 8231202995474473560}
   - component: {fileID: 7663180413635354599}
   - component: {fileID: 3128197476579923505}
+  - component: {fileID: 8427425359096602974}
   m_Layer: 2
   m_Name: Shield
   m_TagString: Shield
@@ -5077,6 +5078,23 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &8427425359096602974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6340098526527700323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11fff971501314f488d86aff6eae72fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip1: []
+  audioClip2: []
+  audioClip3: []
+  audioClip4: []
+  audioClip5: []
 --- !u!1 &8698650534179297791
 GameObject:
   m_ObjectHideFlags: 0
@@ -5210,6 +5228,7 @@ MonoBehaviour:
   Health: 100
   Shield: {fileID: 6340098526527700323}
   ShieldSR: {fileID: 0}
+  hitLength: 10
   radiusForShield: 1
   shellReady: 0
   shellFlying: 0
