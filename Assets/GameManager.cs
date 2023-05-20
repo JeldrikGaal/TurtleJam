@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     // JUICE
     private GameObject mainCam;
+    public GameObject epi; 
 
     // Start is called before the first frame update
     void Start()
@@ -79,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOverCondition()
     {
+        epi.GetComponent<Animator>().SetTrigger("GameOver");
         mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
         gameOverMenu.SetActive(true);
     }
