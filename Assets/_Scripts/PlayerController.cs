@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] float Speed;
+    [SerializeField] public float Speed;
     [SerializeField] float acceleration = 1;
     [SerializeField] float Health = 100;
     [SerializeField] GameObject Shield;

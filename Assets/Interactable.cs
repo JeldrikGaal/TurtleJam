@@ -50,7 +50,7 @@ public class Interactable : MonoBehaviour
     void DeactivateSlowDown() 
     {
         Time.timeScale = 1f;
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
     void ActivateSpeedUp()
@@ -58,13 +58,13 @@ public class Interactable : MonoBehaviour
         this.GetComponent<SpriteRenderer>().enabled = false;
         this.GetComponent<BoxCollider2D>().enabled = false;
 
-        GameObject.FindWithTag("Player").GetComponent<PlayerController>().Speed *= 2;
+        GameObject.FindWithTag("Player").GetComponent<PlayerController>().Speed *= 1.5f;
     }
 
     void DeactivateSpeedUp()
     {
-        GameObject.FindWithTag("Player").GetComponent<PlayerController>().Speed /= 2;
-        Destroy(this);
+        GameObject.FindWithTag("Player").GetComponent<PlayerController>().Speed /= 1.5f;
+        Destroy(this.gameObject);
     }
 
 
