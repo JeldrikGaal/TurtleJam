@@ -39,8 +39,11 @@ public class EnemyController : MonoBehaviour
     private float time;
     private Transform player;
     private GameManager gm;
-    
-    
+
+    public float detectionRadius = 10f;
+    public LayerMask obstacleLayer;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +54,28 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Calculate the direction towards the player
+        Vector2 directionToPlayer = player.position - transform.position;
+
+        // Perform a raycast to check for obstacles between the enemy and the player
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, detectionRadius, obstacleLayer);
+
+        // Check if the raycast hit the player
+        if (hit.collider != null)
+        {
+            Debug.Log(hit.collider.name);
+
+            if (hit.collider.gameObject == player.gameObject || hit.collider.name == "Shield")
+            {
+                lookAtPlayer = true;
+                Debug.Log("Player is in line of sight!");
+                // Do something when the player is in line of sight
+            }
+            else
+            {
+                lookAtPlayer = false;
+            }
+        }
 
         if (enemyMode == EnemyType.Melee)
         {
@@ -120,6 +145,30 @@ public class EnemyController : MonoBehaviour
                 time = 0;
                 shootTimedown = false;
             }
+        } else
+        {
+            // Look At Logic
+            {
+                // Get the direction from this object to the target
+                Vector3 direction = player.position - transform.position;
+                direction.Normalize();
+
+                // Calculate the angle in degrees
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+                // Rotate the object around the Z-axis
+                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Visualize the line of sight in the Scene view
+        if (player != null)
+        {
+            Gizmos.color = lookAtPlayer ? Color.green : Color.red;
+            Gizmos.DrawLine(transform.position, player.position);
         }
     }
 

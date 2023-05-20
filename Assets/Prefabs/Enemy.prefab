@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5085224372292702748}
   - component: {fileID: 1442266933940163935}
   - component: {fileID: 6919042256696801874}
-  m_Layer: 0
+  - component: {fileID: 4250975891427844596}
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -101,12 +102,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMode: 0
-  patrolPoints: []
+  speed: 4
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   lookAtPlayer: 1
   bulletTimeIntervals: 1
   bulletPrefab: {fileID: 5958748632345819053, guid: f08e8cf8adf8c704f82866c8e9e5932b, type: 3}
   bulletSpawn: {fileID: 4916395630394355885}
   scoreToAddOnDeath: 10
+  detectionRadius: 10
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 119
 --- !u!61 &1442266933940163935
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -179,6 +188,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &4250975891427844596
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2346672659358320384}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0b5504ebe9efdff4e9de638baab1e8c0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5217710308334495806
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4916395630394355885}
   - component: {fileID: 8965661612605123326}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bullet_Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
