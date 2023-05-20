@@ -17,7 +17,6 @@ public class PlayAudio : MonoBehaviour
     GameManager gM;
    AudioClip RandomClip(int id)
     {
-        Debug.Log((id, audioClipList[id].Count));
         return audioClipList[id][Random.Range(0, audioClipList[id].Count)];
     }
    
