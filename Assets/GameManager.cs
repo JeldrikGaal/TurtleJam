@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using Unity.VisualScripting;
+using System.Drawing;
+using Color = UnityEngine.Color;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,7 +20,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject player;
     public bool paused = false;
-    private Tilemap walls;
+    private List<Tilemap> tilemaps = new List<Tilemap>();
+    //private Tilemap walls;
     private bool flashing;
 
     // To add
@@ -64,7 +67,10 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         mainCam = GameObject.FindWithTag("MainCamera");
         cM = mainCam.GetComponent<CameraManager>(); 
-        walls = GameObject.FindWithTag("Wall").GetComponent<Tilemap>();
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Wall"))
+        {
+            tilemaps.Add(g.GetComponent<Tilemap>());
+        }
 
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
     }
@@ -99,12 +105,18 @@ public class GameManager : MonoBehaviour
             }
             if (currentColor == colors.Count - 1 )
             {
-                walls.color = Color.Lerp(colors[currentColor], colors[0], t);
+                foreach (Tilemap ti in tilemaps)
+                {
+                    ti.color = Color.Lerp(colors[currentColor], colors[0], t);
+                }
                 currentColor = 0;
             }
             else
             {
-                walls.color = Color.Lerp(colors[currentColor], colors[currentColor + 1], t);
+                foreach (Tilemap ti in tilemaps)
+                {
+                    ti.color = Color.Lerp(colors[currentColor], colors[currentColor + 1], t);
+                }
             }
             
             
@@ -134,10 +146,20 @@ public class GameManager : MonoBehaviour
         if (!flashing) 
         { 
             flashing = true;
-            Color saveColor = walls.color;
-            walls.color = color;
+            Color saveColor = Color.black;
+            foreach (Tilemap ti in tilemaps)
+            {
+                saveColor = ti.color;
+                ti.color = color;
+            }
+
             yield return new WaitForSeconds(time);
-            walls.color = saveColor;
+
+            foreach (Tilemap ti in tilemaps)
+            {
+                ti.color = saveColor;
+            }
+            
             flashing = false;
         }
         
