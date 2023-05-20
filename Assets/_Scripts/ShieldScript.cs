@@ -83,8 +83,6 @@ public class ShieldScript : MonoBehaviour
                 Destroy(collision.gameObject);
             }
 
-           
-            
         }
         else GetComponent<Animator>().SetBool("Shield", false);
 
