@@ -28,12 +28,16 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverMenu;
     public GameObject winMenu;
 
+    // JUICE
+    private GameObject mainCam;
+
     // Start is called before the first frame update
     void Start()
     {
         score = 0;
         time = 0;
         player = GameObject.FindWithTag("Player");
+        mainCam = GameObject.FindWithTag("MainCamera");
     }
 
     // Update is called once per frame
@@ -52,26 +56,30 @@ public class GameManager : MonoBehaviour
 
     public void Pause() 
     {
-        pauseMenu.SetActive(true);
+/*        mainCam.GetComponent<PixelationEffect>().Intro();
+*/        pauseMenu.SetActive(true);
         Time.timeScale = 0;
         paused = true;
     }
 
     public void Resume()
     {
-        pauseMenu.SetActive(false);
+/*        mainCam.GetComponent<PixelationEffect>().Outro();
+*/        pauseMenu.SetActive(false);
         Time.timeScale = 1;
         paused = false;
     }
 
     public void WinCondition() 
     {
-        winMenu.SetActive(true);
+/*        mainCam.GetComponent<PixelationEffect>().Outro();
+*/        winMenu.SetActive(true);
     }
 
     public void GameOverCondition()
     {
-        gameOverMenu.SetActive(true);
+/*        mainCam.GetComponent<PixelationEffect>().Outro();
+*/        gameOverMenu.SetActive(true);
     }
 
     public void GoToLevel(string levelName) // For Resume, Next Level and Back to Main Menu
