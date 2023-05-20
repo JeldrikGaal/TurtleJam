@@ -36,37 +36,44 @@ public class CamUpTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (movementDirection == direction.Up)
+        if (camera != null)
         {
-            if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z))
+
+            if (movementDirection == direction.Up)
             {
-                camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z), Time.time - startingTime / duration);
+                if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z))
+                {
+                    camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z), Time.time - startingTime / duration);
+                }
+                else if (camera.transform.position == new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z)) { doneMoving = true; }
             }
-            else if (camera.transform.position == new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z)) { doneMoving = true; }
-        }
-        else if(movementDirection == direction.Down) 
+            else if (movementDirection == direction.Down)
+            {
+                if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z))
+                {
+                    camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z), Time.time - startingTime / duration);
+                }
+                else if (camera.transform.position == new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z)) { doneMoving = true; }
+            }
+            else if (movementDirection == direction.Right)
+            {
+                if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z))
+                {
+                    camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z), Time.time - startingTime / duration);
+                }
+                else if (camera.transform.position == new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z)) { doneMoving = true; }
+            }
+            else if (movementDirection == direction.Left)
+            {
+                if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z))
+                {
+                    camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z), Time.time - startingTime / duration);
+                }
+                else if (camera.transform.position == new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z)) { doneMoving = true; }
+            }
+        } else
         {
-            if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z))
-            {
-                camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z), Time.time - startingTime / duration);
-            }
-            else if (camera.transform.position == new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z)) { doneMoving = true; }
-        }
-        else if (movementDirection == direction.Right)
-        {
-            if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z))
-            {
-                camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z), Time.time - startingTime / duration);
-            }
-            else if (camera.transform.position == new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z)) { doneMoving = true; }
-        }
-        else if (movementDirection == direction.Left)
-        {
-            if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z))
-            {
-                camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z), Time.time - startingTime / duration);
-            }
-            else if (camera.transform.position == new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z)) { doneMoving = true; }
+            camera = GameObject.FindGameObjectWithTag("MainCamera");
         }
     }
 
