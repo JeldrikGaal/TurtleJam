@@ -2783,5 +2783,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   posGoal: {x: -1780, y: -67, z: 0}
   scaleGoal: {x: 2.35, y: 2.35, z: 2.35}
-  level1Name: Jeldrik2
+  level1Name: Level
   introSequenceTime: 1

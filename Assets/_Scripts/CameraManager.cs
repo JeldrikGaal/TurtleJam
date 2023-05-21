@@ -17,14 +17,14 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        /*if (Input.GetKeyDown(KeyCode.L))
         {
             StartCoroutine(BattleTransition(1, true));
         }  
         if (Input.GetKeyDown(KeyCode.K))
         {
             StartCoroutine(BattleTransition(1, false));
-        }
+        }*/
     }
     public IEnumerator Shake(float duration, float magnitude)
     {
