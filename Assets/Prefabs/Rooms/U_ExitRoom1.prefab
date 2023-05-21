@@ -4124,6 +4124,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: U_ExitRoom1
       objectReference: {fileID: 0}
+    - target: {fileID: 7360949834338770114, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
+      propertyPath: m_SortingOrder
+      value: -2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1919406427959367236, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
