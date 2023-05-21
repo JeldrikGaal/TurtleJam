@@ -3352,6 +3352,14 @@ PrefabInstance:
       propertyPath: right
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4125152770344034208, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
+      propertyPath: hasExitUp
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125152770344034208, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
+      propertyPath: hasExitRight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4594223961222755545, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
       propertyPath: m_RootOrder
       value: -1

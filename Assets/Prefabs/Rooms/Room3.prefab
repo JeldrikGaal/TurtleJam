@@ -6103,11 +6103,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9750ca44ef7f32478583b44a1a7268e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  up: 1
-  down: 0
-  left: 0
-  right: 0
-  endScreen: 0
+  hasExitUp: 1
+  hasExitDown: 0
+  hasExitLeft: 0
+  hasExitRight: 0
+  isEndScreen: 0
   nextRoomConnected: {fileID: 0}
 --- !u!1 &6784153702056688563
 GameObject:
