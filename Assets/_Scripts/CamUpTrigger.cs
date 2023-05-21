@@ -45,7 +45,7 @@ public class CamUpTrigger : MonoBehaviour
                 {
                     camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z), Time.time - startingTime / duration);
                 }
-                else if (camera.transform.position == new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z)) { doneMoving = true; }
+                else if (camera.transform.position == new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z)) { doneMoving = true; movingFlag = false; }
             }
             else if (movementDirection == direction.Down)
             {
@@ -53,7 +53,7 @@ public class CamUpTrigger : MonoBehaviour
                 {
                     camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z), Time.time - startingTime / duration);
                 }
-                else if (camera.transform.position == new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z)) { doneMoving = true; }
+                else if (camera.transform.position == new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z)) { doneMoving = true; movingFlag = false; }
             }
             else if (movementDirection == direction.Right)
             {
@@ -61,7 +61,7 @@ public class CamUpTrigger : MonoBehaviour
                 {
                     camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z), Time.time - startingTime / duration);
                 }
-                else if (camera.transform.position == new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z)) { doneMoving = true; }
+                else if (camera.transform.position == new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z)) { doneMoving = true; movingFlag = false; }
             }
             else if (movementDirection == direction.Left)
             {
@@ -69,7 +69,7 @@ public class CamUpTrigger : MonoBehaviour
                 {
                     camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z), Time.time - startingTime / duration);
                 }
-                else if (camera.transform.position == new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z)) { doneMoving = true; }
+                else if (camera.transform.position == new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z)) { doneMoving = true; movingFlag = false; }
             }
         } else
         {
@@ -87,5 +87,26 @@ public class CamUpTrigger : MonoBehaviour
             movingFlag = true;
             startingTime = Time.time;
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            StartCoroutine(FlipDirection());
+        }
+    }
+
+    public IEnumerator FlipDirection() 
+    {
+        yield return new WaitForSeconds(1.1f);
+        doneMoving = false;
+        movingFlag = false;
+        if (movementDirection == direction.Left) movementDirection = direction.Right;
+        else if (movementDirection == direction.Right) movementDirection = direction.Left;
+        else if (movementDirection == direction.Down) movementDirection = direction.Up;
+        else if (movementDirection == direction.Up) movementDirection = direction.Down;
+        Debug.Log("Direction flipped");
+
     }
 }

@@ -123,6 +123,41 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!21 &9661040
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1001 &43556223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -515,41 +550,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cd9ad1dd0cb2bb4a9fe217393be89f6, type: 3}
---- !u!21 &171756837
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1 &296012555 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7765305605113066258, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
@@ -569,13 +569,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentRoom: {fileID: 561865076}
   numOfRooms: 5
-  levels:
+  levelsDown:
   - {fileID: 6916584313222015735, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
   - {fileID: 2543811950864868615, guid: 9ed1c0fb239bfed4e98f9410b320c9b7, type: 3}
-  - {fileID: 4410499231849803128, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
   - {fileID: 5900221611155254528, guid: 92738ebfab146aa4ea352ec841c4b15a, type: 3}
-  - {fileID: 5900221611155254528, guid: 2abb7d128ccc6fb4fb4460ba58647ce7, type: 3}
-  - {fileID: 6916584313222015735, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+  - {fileID: 6916584313222015735, guid: 024582e9b75d711478e7ce53c048b22b, type: 3}
+  - {fileID: 6916584313222015735, guid: db3a110fdc9f1a04cbbef488972ddd32, type: 3}
+  - {fileID: 6916584313222015735, guid: 7b36130fec0b1404ebc061aa0a6c6461, type: 3}
+  - {fileID: 5900221611155254528, guid: 8249b79e080eed34a9d6846f4fc7f20b, type: 3}
+  levelsUp: []
+  levelsRight: []
+  levelsLeft:
+  - {fileID: 4410499231849803128, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
+  - {fileID: 5900221611155254528, guid: 5be9aa73675b1e545a5a752754e3f55c, type: 3}
+  - {fileID: 5900221611155254528, guid: 9c2c2975e18d1dc4a891665b0b5cf684, type: 3}
+  - {fileID: 3932150130481433373, guid: a78aabbe9c9d7ec4492e23900661d1f7, type: 3}
   yOffset: 18
   xOffset: 32
 --- !u!1 &467172471
@@ -690,7 +698,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &884695570
+--- !u!21 &886734902
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
