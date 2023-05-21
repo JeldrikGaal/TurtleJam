@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using System.Drawing;
 using Color = UnityEngine.Color;
 using System;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class GameManager : MonoBehaviour
     private List<Tilemap> tilemaps = new List<Tilemap>();
     //private Tilemap walls;
     private bool flashing;
+    private ScoreManager scoreManager;
+    public GameObject highscoreSection;
+    public TextMeshProUGUI highscoreName;
+    public GameObject highscoreSaveBTN;
 
     // To add
     // Sound logic
@@ -68,7 +73,8 @@ public class GameManager : MonoBehaviour
         time = 0;
         player = GameObject.FindWithTag("Player");
         mainCam = GameObject.FindWithTag("MainCamera");
-        cM = mainCam.GetComponent<CameraManager>(); 
+        cM = mainCam.GetComponent<CameraManager>();
+        scoreManager = gameObject.GetComponent<ScoreManager>();
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Wall"))
         {
             tilemaps.Add(g.GetComponent<Tilemap>());
@@ -110,6 +116,10 @@ public class GameManager : MonoBehaviour
                 timeTXT.text = "Time: " + time.ToString("0.00");
             }
             ColorShift();
+        }
+        if (highscoreSection.active) {
+            if (highscoreName.text != "") highscoreSaveBTN.GetComponent<Button>().interactable = true;
+            else highscoreSaveBTN.GetComponent<Button>().interactable = false;
         }
     }
 
@@ -217,6 +227,13 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void SaveScoreForPlayer() 
+    {
+        scoreManager.SaveNewScore(highscoreName.text, (int)((int)(100 - time) * 10 + score));
+        highscoreSection.SetActive(false);
+
+    }
+
 
     public void WinCondition() 
     {
@@ -231,6 +248,9 @@ public class GameManager : MonoBehaviour
         scoreTXT.enabled = false;
         timeTXT.enabled = false;
         paused = true;
+
+        // Toggle on highscore gameobject
+        highscoreSection.SetActive(true);
     }
 
     public void GameOverCondition()
