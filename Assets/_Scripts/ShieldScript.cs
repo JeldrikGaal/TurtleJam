@@ -11,6 +11,7 @@ public class ShieldScript : MonoBehaviour
     public bool shielding;
     CameraManager cM;
     [SerializeField] ParticleSystem pS;
+    [SerializeField] ParticleSystem pS2;
     TrailRenderer tR;
     Animator anim;
     BoxCollider2D bC;
@@ -87,6 +88,8 @@ public class ShieldScript : MonoBehaviour
 
             if (collision.CompareTag("Bullet") )
             {
+                ParticleSystem ps = Instantiate(pS2, collision.transform.position, Quaternion.identity) as ParticleSystem;
+                ps.Play();
                 //Debug.Log("destroy");
                 Destroy(collision.gameObject);
                 StartCoroutine(cM.Shake(0.05f, 0.2f));

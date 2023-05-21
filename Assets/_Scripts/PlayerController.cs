@@ -311,7 +311,7 @@ public class PlayerController : MonoBehaviour
     {
 
         //Debug.Log("DAMGE TAKE!");
-        if (Shield.shielding) return;
+        if (ShieldS.shielding) return;
         Health -= dmg;
         if (Health <= 0)
         {
