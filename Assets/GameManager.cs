@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
             tilemaps.Add(g.GetComponent<Tilemap>());
         }
 
+        hotSpot = new Vector2(cursorTexture.width / 2f, cursorTexture.height / 2f);
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 
 
