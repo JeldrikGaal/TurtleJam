@@ -144,7 +144,7 @@ Transform:
   - {fileID: 2219397589970656399}
   - {fileID: 4916395630394355885}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9024932582344557047
 SpriteRenderer:
@@ -213,7 +213,7 @@ MonoBehaviour:
   enemyMode: 1
   speed: 4
   rotationSpeed: 10
-  meleeAttackSound: {fileID: 0}
+  meleeAttackSound: {fileID: 8300000, guid: a1e7cddc6f1e2464ea174ea69fbdec01, type: 3}
   patrolPoints: []
   lookAtPlayer: 1
   bulletTimeIntervals: 1
@@ -256,7 +256,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0021835119, y: -0.0070189238}
+  m_Offset: {x: -0.04, y: -0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -267,7 +267,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7860148, y: 0.7729137}
+  m_Size: {x: 0.98, y: 0.95}
   m_EdgeRadius: 0
 --- !u!50 &6919042256696801874
 Rigidbody2D:
@@ -330,11 +330,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClip1:
-  - {fileID: 8300000, guid: af77fdd0e2f920745b75f2728871b1a9, type: 3}
-  - {fileID: 8300000, guid: f635618ffd1193b48affd27e656bbb7a, type: 3}
-  - {fileID: 8300000, guid: 692d186869deb4d47a33753b43fc084b, type: 3}
+  - {fileID: 8300000, guid: df884bee899d1694bb96f7fc5f1dcdaa, type: 3}
+  - {fileID: 8300000, guid: cc1e11b7bf0c982468d0b602c8dcb531, type: 3}
+  - {fileID: 8300000, guid: ddbebbe816f90fa41a69ec565a5e2dc6, type: 3}
   audioClip2:
-  - {fileID: 8300000, guid: e4a4d3f50a43e9f49bc258620b0b106e, type: 3}
+  - {fileID: 8300000, guid: ed4eb00030dc846458d70b5347697ce6, type: 3}
   audioClip3: []
   audioClip4: []
   audioClip5: []
