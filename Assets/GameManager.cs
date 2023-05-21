@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
     private bool levelComplete = false;
     private List<SpriteRenderer> introRoomText = new List<SpriteRenderer>();
 
+    public TextMeshProUGUI finalScoreTXT;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -221,6 +223,11 @@ public class GameManager : MonoBehaviour
         levelComplete = true;
         StartCoroutine(cM.BattleTransition(1, true));
         StartCoroutine(setActiveDelayedWin(1, true));
+
+        int finalScore = (int)(100 - time) * 10 + score;
+        finalScoreTXT.text = finalScore.ToString();
+        // Save highscore somewhere.
+
         scoreTXT.enabled = false;
         timeTXT.enabled = false;
         paused = true;
