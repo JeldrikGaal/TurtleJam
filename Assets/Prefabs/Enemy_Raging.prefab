@@ -213,7 +213,7 @@ MonoBehaviour:
   enemyMode: 1
   speed: 4
   rotationSpeed: 10
-  meleeAttackSound: {fileID: 8300000, guid: a1e7cddc6f1e2464ea174ea69fbdec01, type: 3}
+  meleeAttackSound: {fileID: 8300000, guid: 3e4aba7a9b23c364589a02d3cb7a4b87, type: 3}
   patrolPoints: []
   lookAtPlayer: 1
   bulletTimeIntervals: 1
