@@ -13,6 +13,7 @@ public class ShieldScript : MonoBehaviour
     [SerializeField] ParticleSystem pS;
     TrailRenderer tR;
     Animator anim;
+    BoxCollider2D bC;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class ShieldScript : MonoBehaviour
         cM = Camera.main.GetComponent<CameraManager>();
         tR = GetComponent<TrailRenderer>();
         anim = GetComponent<Animator>();
+        bC = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -40,23 +42,24 @@ public class ShieldScript : MonoBehaviour
 
     public void ChangeState(int state)
     {
-        Debug.Log("sdsad");
         switch (state)
         {
             case 0:
                 flying = false; 
                 shielding = false;
                 anim.SetTrigger("Idle");
+                bC.enabled = false;
                 break;
             case 1:
                 flying = true;
                 shielding = false;
-           
+                bC.enabled = true;
                 break;
             case 2:
                 flying = false;
                 shielding = true;
                 anim.SetTrigger("Shield");
+                bC.enabled = true;
                 break;
         }
             
@@ -82,7 +85,7 @@ public class ShieldScript : MonoBehaviour
         {
             //GetComponent<Animator>().SetBool("Shield", true);
 
-            if (!collision.CompareTag("Wall"))
+            if (!collision.CompareTag("Wall") && !collision.CompareTag("Player"))
             {
                 Debug.Log("destroy");
                 Destroy(collision.gameObject);
