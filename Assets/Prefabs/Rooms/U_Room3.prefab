@@ -2618,7 +2618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6916584313222015735, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
       propertyPath: m_Name
-      value: Room4
+      value: U_Room3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2722,7 +2722,7 @@ PrefabInstance:
     - target: {fileID: 7826892968820168220, guid: e331ec02db20ba047ac15ea9eb44211b, type: 3}
       propertyPath: destinationPortal
       value: 
-      objectReference: {fileID: 2544477314784326816}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2903,17 +2903,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e331ec02db20ba047ac15ea9eb44211b, type: 3}
---- !u!114 &2544477314784326816 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7826892968820168220, guid: e331ec02db20ba047ac15ea9eb44211b, type: 3}
-  m_PrefabInstance: {fileID: 5751511297133191868}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65101668ad2ae9b469c309fd733c4695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5114958458272235953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 660483864601781005, guid: e331ec02db20ba047ac15ea9eb44211b, type: 3}

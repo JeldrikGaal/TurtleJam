@@ -2208,7 +2208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5900221611155254528, guid: 9c2c2975e18d1dc4a891665b0b5cf684, type: 3}
       propertyPath: m_Name
-      value: Room8
+      value: L_Room4
       objectReference: {fileID: 0}
     - target: {fileID: 7944595019320701558, guid: 9c2c2975e18d1dc4a891665b0b5cf684, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2238,6 +2238,7 @@ PrefabInstance:
     - {fileID: 6888050261292410411, guid: 9c2c2975e18d1dc4a891665b0b5cf684, type: 3}
     - {fileID: 1781443099892659411, guid: 9c2c2975e18d1dc4a891665b0b5cf684, type: 3}
     - {fileID: 4809965974368738582, guid: 9c2c2975e18d1dc4a891665b0b5cf684, type: 3}
+    - {fileID: 1665102722889451560, guid: 9c2c2975e18d1dc4a891665b0b5cf684, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3592921266691765038, guid: 9c2c2975e18d1dc4a891665b0b5cf684, type: 3}
       insertIndex: -1
