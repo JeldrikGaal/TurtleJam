@@ -242,7 +242,7 @@ public class EnemyController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player") 
         {
-           // collision.gameObject.GetComponent<PlayerController>().
+            collision.gameObject.GetComponent<PlayerController>().Damage(5);
         }
     }
 

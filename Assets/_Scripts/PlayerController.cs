@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
                 //ShieldSR.color = Color.red;
                 ShieldS.ChangeState(2);
                 shellReady = false;
+                pA.PlayOneShotSound(2);
             }
           
         }       
