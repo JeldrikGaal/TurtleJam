@@ -19,11 +19,11 @@ public class LevelAttributes : MonoBehaviour
     [SerializeField]
     public hasExits selectedExits;*/
 
-    public bool up;
-    public bool down;
-    public bool left;
-    public bool right;
-    public bool endScreen;
+    public bool hasExitUp;
+    public bool hasExitDown;
+    public bool hasExitLeft;
+    public bool hasExitRight;
+    public bool isEndScreen;
 
     public GameObject nextRoomConnected;
 

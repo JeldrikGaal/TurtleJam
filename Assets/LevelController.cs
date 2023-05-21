@@ -7,7 +7,14 @@ public class LevelController : MonoBehaviour
     public GameObject currentRoom; // Set it to initial room first.
 
     public int numOfRooms = 3;
-    public List<GameObject> levels;
+    [Tooltip("Levels that their main entrance comes from the bottom")]
+    public List<GameObject> levelsDown;
+    [Tooltip("Levels that their main entrance comes from the top")]
+    public List<GameObject> levelsUp;
+    [Tooltip("Levels that their main entrance comes from the right")]
+    public List<GameObject> levelsRight;
+    [Tooltip("Levels that their main entrance comes from the left")]
+    public List<GameObject> levelsLeft;
 
     public float yOffset;
     public float xOffset;
@@ -25,19 +32,17 @@ public class LevelController : MonoBehaviour
     {
         for(int i = 0; i < numOfRooms; i++) 
         {
-            if (currentRoom.GetComponent<LevelAttributes>().up && !currentRoom.GetComponent<LevelAttributes>().nextRoomConnected)
+            if (currentRoom.GetComponent<LevelAttributes>().hasExitUp && !currentRoom.GetComponent<LevelAttributes>().nextRoomConnected)
             {
                 // Look for all rooms which have down && not the end scene.
                 List<GameObject> availableRooms = new List<GameObject>();
-                for (int j = 0; j < levels.Count; j++)
+                for (int j = 0; j < levelsDown.Count; j++)
                 {
-                    if (levels[j].GetComponent<LevelAttributes>().down)
-                    {
-                        if (i == numOfRooms - 1 && levels[j].GetComponent<LevelAttributes>().endScreen)
-                            availableRooms.Add(levels[j]);
-                        else if (i != numOfRooms - 1 && !levels[j].GetComponent<LevelAttributes>().endScreen)
-                            availableRooms.Add(levels[j]);
-                    }
+                    if (i == numOfRooms - 1 && levelsDown[j].GetComponent<LevelAttributes>().isEndScreen)
+                        availableRooms.Add(levelsDown[j]);
+                    else if (i != numOfRooms - 1 && !levelsDown[j].GetComponent<LevelAttributes>().isEndScreen)
+                        availableRooms.Add(levelsDown[j]);
+                    
                 }
 
 
@@ -49,19 +54,16 @@ public class LevelController : MonoBehaviour
                 currentRoom.GetComponent<LevelAttributes>().nextRoomConnected = instantiatedRoom;
                 currentRoom = instantiatedRoom;
             }
-            else if (currentRoom.GetComponent<LevelAttributes>().right)
+            else if (currentRoom.GetComponent<LevelAttributes>().hasExitRight && !currentRoom.GetComponent<LevelAttributes>().nextRoomConnected)
             {
                 // Look for all rooms which have left && not the end scene.
                 List<GameObject> availableRooms = new List<GameObject>();
-                for (int j = 0; j < levels.Count; j++)
+                for (int j = 0; j < levelsLeft.Count; j++)
                 {
-                    if (levels[j].GetComponent<LevelAttributes>().left)
-                    {
-                        if (i == numOfRooms - 1 && levels[j].GetComponent<LevelAttributes>().endScreen)
-                            availableRooms.Add(levels[j]);
-                        else if (i != numOfRooms - 1 && !levels[j].GetComponent<LevelAttributes>().endScreen)
-                            availableRooms.Add(levels[j]);
-                    }
+                    if (i == numOfRooms - 1 && levelsLeft[j].GetComponent<LevelAttributes>().isEndScreen)
+                        availableRooms.Add(levelsLeft[j]);
+                    else if (i != numOfRooms - 1 && !levelsLeft[j].GetComponent<LevelAttributes>().isEndScreen)
+                        availableRooms.Add(levelsLeft[j]);
                 }
 
 
@@ -74,19 +76,16 @@ public class LevelController : MonoBehaviour
                 currentRoom = instantiatedRoom;
 
             }
-            else if (currentRoom.GetComponent<LevelAttributes>().left)
+            else if (currentRoom.GetComponent<LevelAttributes>().hasExitLeft && !currentRoom.GetComponent<LevelAttributes>().nextRoomConnected)
             {
                 // Look for all rooms which have right && not the end scene.
                 List<GameObject> availableRooms = new List<GameObject>();
-                for (int j = 0; j < levels.Count; j++)
+                for (int j = 0; j < levelsRight.Count; j++)
                 {
-                    if (levels[j].GetComponent<LevelAttributes>().right)
-                    {
-                        if (i == numOfRooms - 1 && levels[j].GetComponent<LevelAttributes>().endScreen)
-                            availableRooms.Add(levels[j]);
-                        else if (i != numOfRooms - 1 && !levels[j].GetComponent<LevelAttributes>().endScreen)
-                            availableRooms.Add(levels[j]);
-                    }
+                    if (i == numOfRooms - 1 && levelsRight[j].GetComponent<LevelAttributes>().isEndScreen)
+                        availableRooms.Add(levelsRight[j]);
+                    else if (i != numOfRooms - 1 && !levelsRight[j].GetComponent<LevelAttributes>().isEndScreen)
+                        availableRooms.Add(levelsRight[j]);
                 }
 
 
@@ -100,19 +99,16 @@ public class LevelController : MonoBehaviour
 
             }
 
-            else if (currentRoom.GetComponent<LevelAttributes>().down)
+            else if (currentRoom.GetComponent<LevelAttributes>().hasExitDown && !currentRoom.GetComponent<LevelAttributes>().nextRoomConnected)
             {
                 // Look for all rooms which have up && not the end scene.
                 List<GameObject> availableRooms = new List<GameObject>();
-                for (int j = 0; j < levels.Count; j++)
+                for (int j = 0; j < levelsUp.Count; j++)
                 {
-                    if (levels[j].GetComponent<LevelAttributes>().up)
-                    {
-                        if (i == numOfRooms - 1 && levels[j].GetComponent<LevelAttributes>().endScreen)
-                            availableRooms.Add(levels[j]);
-                        else if (i != numOfRooms - 1 && !levels[j].GetComponent<LevelAttributes>().endScreen)
-                            availableRooms.Add(levels[j]);
-                    }
+                    if (i == numOfRooms - 1 && levelsUp[j].GetComponent<LevelAttributes>().isEndScreen)
+                        availableRooms.Add(levelsUp[j]);
+                    else if (i != numOfRooms - 1 && !levelsUp[j].GetComponent<LevelAttributes>().isEndScreen)
+                        availableRooms.Add(levelsUp[j]);
                 }
 
 
