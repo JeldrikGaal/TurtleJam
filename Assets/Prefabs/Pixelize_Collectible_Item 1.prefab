@@ -123,6 +123,9 @@ MonoBehaviour:
   interactableType: 2
   duration: 3
   activated: 0
+  scoreToAdd: 20
+  soundFX:
+  - {fileID: 8300000, guid: 9855945960ac68142999cb9dc829a09a, type: 3}
 --- !u!61 &3912663311601298908
 BoxCollider2D:
   m_ObjectHideFlags: 0
