@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 
 
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag("TextToShift"))
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("textToShift"))
         {
             introRoomText.Add(g.GetComponent<SpriteRenderer>());
         }
