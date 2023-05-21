@@ -7924,7 +7924,7 @@ PrefabInstance:
     - target: {fileID: 7826892968820168220, guid: e331ec02db20ba047ac15ea9eb44211b, type: 3}
       propertyPath: destinationPortal
       value: 
-      objectReference: {fileID: 4720129624783878325}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8014,6 +8014,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7826892968820168220, guid: e331ec02db20ba047ac15ea9eb44211b, type: 3}
+      propertyPath: destinationPortal
+      value: 
+      objectReference: {fileID: 4720129624783878325}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
