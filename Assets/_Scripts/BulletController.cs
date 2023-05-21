@@ -19,6 +19,7 @@ public class BulletController : MonoBehaviour
         ParticleSystem ps = Instantiate(muzzleFlash, transform.position, Quaternion.identity) as ParticleSystem;
         ps.transform.up = transform.right;
         ps.Play();
+        Destroy(ps.gameObject, 0.2f);
         
     }
 

@@ -90,7 +90,8 @@ public class ShieldScript : MonoBehaviour
             {
                 ParticleSystem ps = Instantiate(pS2, collision.transform.position, Quaternion.identity) as ParticleSystem;
                 ps.Play();
-                ps.transform.right = -1 * collision.transform.right;
+                ps.transform.forward = -1 * collision.transform.right;
+                Destroy(ps.gameObject, 0.2f);
                 //Debug.Log("destroy");
                 Destroy(collision.gameObject);
                 StartCoroutine(cM.Shake(0.05f, 0.2f));
