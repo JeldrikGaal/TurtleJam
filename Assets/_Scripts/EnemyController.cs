@@ -46,19 +46,26 @@ public class EnemyController : MonoBehaviour
     public LayerMask obstacleLayer;
 
     private PlayAudio pa;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
         gm = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-
+        rb = GetComponent<Rigidbody2D>();
         pa = GetComponent<PlayAudio>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gm.paused)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         // Calculate the direction towards the player
         Vector2 directionToPlayer = player.position - transform.position;
 

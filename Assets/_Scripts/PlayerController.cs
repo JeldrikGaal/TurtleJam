@@ -78,7 +78,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gM.paused) return;
+        if (gM.paused)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
         // Shield positioning 
         shieldDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         shieldDir = new Vector3(shieldDir.x, shieldDir.y, 0);

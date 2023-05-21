@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     CameraManager cM;
 
     private bool levelComplete = false;
-    private SpriteRenderer introRoomText;
+    private List<SpriteRenderer> introRoomText = new List<SpriteRenderer>();
 
     // Start is called before the first frame update
     void Start()
@@ -73,7 +73,15 @@ public class GameManager : MonoBehaviour
         }
 
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
-        introRoomText = GameObject.FindWithTag("textToShift").GetComponent<SpriteRenderer>();
+
+
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("textToShift"))
+        {
+            introRoomText.Add(g.GetComponent<SpriteRenderer>());
+        }
+
+
+
     }
 
     // Update is called once per frame
@@ -119,7 +127,13 @@ public class GameManager : MonoBehaviour
                 {
                     ti.color = Color.Lerp(colors[currentColor], colors[0], t);
                 }
-                if (introRoomText) introRoomText.color = Color.Lerp(colors[currentColor], colors[0], t);
+                if (introRoomText.Count > 0) 
+                {
+                    foreach(SpriteRenderer sR in introRoomText)
+                    {
+                        sR.color = Color.Lerp(colors[currentColor], colors[0], t);
+                    }
+                } 
                 currentColor = 0;
             }
             else
@@ -128,7 +142,13 @@ public class GameManager : MonoBehaviour
                 {
                     ti.color = Color.Lerp(colors[currentColor], colors[currentColor + 1], t);
                 }
-                if (introRoomText) introRoomText.color = Color.Lerp(colors[currentColor], colors[currentColor + 1], t);
+                if (introRoomText.Count > 0)
+                {
+                    foreach (SpriteRenderer sR in introRoomText)
+                    {
+                        sR.color = Color.Lerp(colors[currentColor], colors[currentColor + 1], t);
+                    }
+                }
             }
             
             
@@ -212,6 +232,7 @@ public class GameManager : MonoBehaviour
         //mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
         //StartCoroutine(cM.BattleTransition(1, true));
         gameOverMenu.SetActive(true);
+        player.GetComponent<PlayerController>();
         scoreTXT.enabled = false;
         timeTXT.enabled = false;
         paused = true;
