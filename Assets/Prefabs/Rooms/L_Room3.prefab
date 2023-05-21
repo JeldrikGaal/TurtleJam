@@ -3869,12 +3869,16 @@ PrefabInstance:
       value: L_Room3
       objectReference: {fileID: 0}
     - target: {fileID: 6943908034119497089, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2125
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943908034119497089, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.29
       objectReference: {fileID: 0}
     - target: {fileID: 6943908034119497089, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.9
+      value: 8.53
       objectReference: {fileID: 0}
     - target: {fileID: 6943908034119497089, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
       propertyPath: m_LocalRotation.w
