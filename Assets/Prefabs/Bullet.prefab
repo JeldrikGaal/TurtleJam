@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6131ed8aa391994bbfde8692f6d6625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletForce: 10
+  bulletForce: 8
   destroyAfterSeconds: 2
   dmg: 5
   muzzleFlash: {fileID: 8457933192090926043, guid: bf1d0eb8215a0b54aadd0c9686da4250, type: 3}
