@@ -19,7 +19,7 @@ public class Interactable : MonoBehaviour
 
     private float time = 0;
     public int scoreToAdd = 20;
-    public AudioClip soundFX;
+    public AudioClip[] soundFX;
 
     private void Update()
     {
@@ -39,13 +39,17 @@ public class Interactable : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        activated = true;
-        if (interactableType == type.Slowdown) ActivateSlowdown();
-        else if (interactableType == type.Speedup) ActivateSpeedUp();
-        else if (interactableType == type.PixilizeScreen) ActivatePixelation();
-        GameObject gm = GameObject.FindGameObjectWithTag("GameManager");
-        gm.GetComponent<GameManager>().score += scoreToAdd;
-        gm.transform.GetChild(0).GetComponent<AudioSource>().PlayOneShot(soundFX);
+        if (collision.CompareTag("Player"))
+        {
+            activated = true;
+            if (interactableType == type.Slowdown) ActivateSlowdown();
+            else if (interactableType == type.Speedup) ActivateSpeedUp();
+            else if (interactableType == type.PixilizeScreen) ActivatePixelation();
+            GameObject gm = GameObject.FindGameObjectWithTag("GameManager");
+            gm.GetComponent<GameManager>().score += scoreToAdd;
+
+            gm.transform.GetChild(0).GetComponent<AudioSource>().PlayOneShot(soundFX[Random.RandomRange(0, soundFX.Length - 1)]);
+        }
     }
 
     void ActivateSlowdown() 

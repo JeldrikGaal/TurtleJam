@@ -89,7 +89,7 @@ public class ShieldScript : MonoBehaviour
             if (collision.CompareTag("Bullet") )
             {
                 ParticleSystem ps = Instantiate(pS2, collision.transform.position, Quaternion.identity) as ParticleSystem;
-                ps.transform.right = -1 * collision.transform.right;
+                ps.transform.up = -1 * collision.transform.right;
                 ps.Play();
                 
                 Destroy(ps.gameObject, 0.2f);
