@@ -103,6 +103,7 @@ MonoBehaviour:
   bulletForce: 20
   destroyAfterSeconds: 2
   dmg: 5
+  muzzleFlash: {fileID: 8457933192090926043, guid: bf1d0eb8215a0b54aadd0c9686da4250, type: 3}
 --- !u!50 &-5170249747838378639
 Rigidbody2D:
   serializedVersion: 4
