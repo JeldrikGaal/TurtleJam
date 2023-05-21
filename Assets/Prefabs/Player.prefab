@@ -4933,7 +4933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shielding: 0
   pS: {fileID: 5316661269866486564}
-  pS2: {fileID: 0}
+  pS2: {fileID: 8457933192090926043, guid: 7960641f9aba73c42a3fe6a576089c52, type: 3}
 --- !u!96 &3128197476579923505
 TrailRenderer:
   serializedVersion: 3
