@@ -7238,7 +7238,7 @@ GameObject:
   - component: {fileID: 71887975250726036}
   m_Layer: 0
   m_Name: tut_text
-  m_TagString: Wall
+  m_TagString: textToShift
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

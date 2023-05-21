@@ -47,10 +47,7 @@ public class GameManager : MonoBehaviour
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
 
- 
- 
- 
-        // wall color gradient
+    // wall color gradient
     [SerializeField] List<Color> colors = new List<Color>();
     [SerializeField] float gradientStepTime;
     int currentColor;
@@ -59,6 +56,7 @@ public class GameManager : MonoBehaviour
     CameraManager cM;
 
     private bool levelComplete = false;
+    private SpriteRenderer introRoomText;
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +73,7 @@ public class GameManager : MonoBehaviour
         }
 
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+        introRoomText = GameObject.FindWithTag("textToShift").GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -120,6 +119,7 @@ public class GameManager : MonoBehaviour
                 {
                     ti.color = Color.Lerp(colors[currentColor], colors[0], t);
                 }
+                if (introRoomText) introRoomText.color = Color.Lerp(colors[currentColor], colors[0], t);
                 currentColor = 0;
             }
             else
@@ -128,6 +128,7 @@ public class GameManager : MonoBehaviour
                 {
                     ti.color = Color.Lerp(colors[currentColor], colors[currentColor + 1], t);
                 }
+                if (introRoomText) introRoomText.color = Color.Lerp(colors[currentColor], colors[currentColor + 1], t);
             }
             
             

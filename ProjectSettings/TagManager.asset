@@ -10,6 +10,7 @@ TagManager:
   - Wall
   - Grid
   - Bullet
+  - textToShift
   layers:
   - Default
   - TransparentFX
