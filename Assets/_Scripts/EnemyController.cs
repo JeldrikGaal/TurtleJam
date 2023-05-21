@@ -17,6 +17,8 @@ public class EnemyController : MonoBehaviour
 
     public EnemyType enemyMode;
     public float speed = 10f;
+    public float rotationSpeed = 10f;
+    public AudioClip meleeAttackSound;
 
 
     [Space(20)]
@@ -99,7 +101,15 @@ public class EnemyController : MonoBehaviour
                 float distance = speed * Time.deltaTime;
 
                 transform.Translate(direction * distance);
+                if (!GetComponent<AudioSource>().isPlaying) 
+                {
+                    GetComponent<AudioSource>().clip = meleeAttackSound;
+                    GetComponent<AudioSource>().Play();
+                }
+                //transform.GetChild(0).transform.localRotation = Quaternion.Euler(0f, 0f, transform.GetChild(0).transform.localRotation.z + rotationSpeed * Time.deltaTime);
+                //Debug.Log("Should be rotating");
             }
+            else { if (GetComponent<AudioSource>().isPlaying) GetComponent<AudioSource>().Stop(); }
         }
         else if(enemyMode == EnemyType.Patrol) 
         {
@@ -156,11 +166,15 @@ public class EnemyController : MonoBehaviour
 
             // Shooting Logic
             time += Time.deltaTime;
-            if (!shootTimedown) { BasicShoot(); }
-            if (time > bulletTimeIntervals) 
+
+            if (enemyMode != EnemyType.Melee)
             {
-                time = 0;
-                shootTimedown = false;
+                if (!shootTimedown) { BasicShoot(); }
+                if (time > bulletTimeIntervals)
+                {
+                    time = 0;
+                    shootTimedown = false;
+                }
             }
         } else
         {
