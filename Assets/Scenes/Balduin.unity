@@ -123,6 +123,41 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!21 &94702401
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1001 &342891783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -231,72 +266,6 @@ Material:
     m_Floats: []
     m_Colors: []
   m_BuildTextureStacks: []
---- !u!1001 &1143509515
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1451513332}
-    m_Modifications:
-    - target: {fileID: 4410499231849803128, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_Name
-      value: L_Room1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
---- !u!4 &1143509516 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7168981741227188153, guid: 6f3d5b13ce85e7e4f87a7bd39a706c93, type: 3}
-  m_PrefabInstance: {fileID: 1143509515}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1157263493
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,11 +325,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8090534616378497591, guid: 0cd9ad1dd0cb2bb4a9fe217393be89f6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.82
+      value: -6.1
       objectReference: {fileID: 0}
     - target: {fileID: 8090534616378497591, guid: 0cd9ad1dd0cb2bb4a9fe217393be89f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.17
+      value: -1.55
       objectReference: {fileID: 0}
     - target: {fileID: 8090534616378497591, guid: 0cd9ad1dd0cb2bb4a9fe217393be89f6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -433,8 +402,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1143509516}
+  m_Children: []
   m_Father: {fileID: 1157263495}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -703,42 +671,7 @@ Material:
     m_Floats: []
     m_Colors: []
   m_BuildTextureStacks: []
---- !u!21 &1856991240
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
---- !u!21 &2071549417
+--- !u!21 &1979402238
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
