@@ -84,7 +84,9 @@ public class PlayerController : MonoBehaviour
         shieldDir = new Vector3(shieldDir.x, shieldDir.y, 0);
         shieldDir.Normalize();
         Shield.transform.position = transform.position + (shieldDir * radiusForShield);
-        Shield.transform.up  = -1 * shieldDir;
+        Shield.transform.up  = shieldDir;
+
+        transform.transform.up = shieldDir;
 
         // Movement input
         rb.velocity = Vector3.zero;
@@ -112,7 +114,7 @@ public class PlayerController : MonoBehaviour
             if (shellReady)
             {
                 blockMovement = true;
-                ShieldSR.color = Color.red;
+                //ShieldSR.color = Color.red;
                 ShieldS.ChangeState(2);
                 shellReady = false;
             }
@@ -123,7 +125,7 @@ public class PlayerController : MonoBehaviour
             if (!shellReady)
             {
                 blockMovement = false;
-                ShieldSR.color = Color.green;
+                //ShieldSR.color = Color.green;
                 ShieldS.ChangeState(0);
                 shellReady = true;
             }

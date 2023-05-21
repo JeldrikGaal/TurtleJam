@@ -28,7 +28,6 @@ public class BulletController : MonoBehaviour
         {
             if (collision.transform.CompareTag("Player"))
             {
-                Debug.Log(("DAMAGE", collision.transform.name));
                 collision.transform.GetComponent<PlayerController>().Damage(dmg);
             }
             // Destroy the bullet upon collision with any object

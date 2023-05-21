@@ -12,12 +12,14 @@ public class ShieldScript : MonoBehaviour
     CameraManager cM;
     [SerializeField] ParticleSystem pS;
     TrailRenderer tR;
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         cM = Camera.main.GetComponent<CameraManager>();
         tR = GetComponent<TrailRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -25,24 +27,26 @@ public class ShieldScript : MonoBehaviour
     {
         if (flying)
         {
-            
+
             tR.enabled = true;
         }
         else
         {
-            tR.Clear(); 
+            tR.Clear();
             tR.enabled = false;
-            
         }
+        
     }
 
     public void ChangeState(int state)
     {
+        Debug.Log("sdsad");
         switch (state)
         {
             case 0:
                 flying = false; 
                 shielding = false;
+                anim.SetTrigger("Idle");
                 break;
             case 1:
                 flying = true;
@@ -52,6 +56,7 @@ public class ShieldScript : MonoBehaviour
             case 2:
                 flying = false;
                 shielding = true;
+                anim.SetTrigger("Shield");
                 break;
         }
             
@@ -75,17 +80,14 @@ public class ShieldScript : MonoBehaviour
         }
         if (shielding)
         {
-            GetComponent<Animator>().SetBool("Shield", true);
-            Debug.Log(collision.transform.name);
+            //GetComponent<Animator>().SetBool("Shield", true);
 
             if (!collision.CompareTag("Wall"))
             {
                 Debug.Log("destroy");
                 Destroy(collision.gameObject);
                 StartCoroutine(cM.Shake(0.05f, 0.2f));
-                
             }
-
         }
         else GetComponent<Animator>().SetBool("Shield", false);
 
