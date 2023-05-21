@@ -26,13 +26,19 @@ public class BulletController : MonoBehaviour
     {
         if (collision.transform != transform && !collision.gameObject.CompareTag("Enemy") && !collision.gameObject.CompareTag("Bullet"))
         {
+
             if (collision.transform.CompareTag("Player"))
             {
                 collision.transform.GetComponent<PlayerController>().Damage(dmg);
             }
+            if (!collision.transform.CompareTag("Bullet"))
+            {
+                Destroy(gameObject);
+            }
             // Destroy the bullet upon collision with any object
             //Debug.Log(collision.transform.name);
-            Destroy(gameObject);
+
+
         }
         
     }

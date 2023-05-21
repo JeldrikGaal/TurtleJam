@@ -8,7 +8,7 @@ public class ShieldScript : MonoBehaviour
 {
 
     bool flying;
-    bool shielding;
+    public bool shielding;
     CameraManager cM;
     [SerializeField] ParticleSystem pS;
     TrailRenderer tR;
@@ -85,9 +85,9 @@ public class ShieldScript : MonoBehaviour
         {
             //GetComponent<Animator>().SetBool("Shield", true);
 
-            if (!collision.CompareTag("Wall") && !collision.CompareTag("Player"))
+            if (collision.CompareTag("Bullet") )
             {
-                Debug.Log("destroy");
+                //Debug.Log("destroy");
                 Destroy(collision.gameObject);
                 StartCoroutine(cM.Shake(0.05f, 0.2f));
             }
