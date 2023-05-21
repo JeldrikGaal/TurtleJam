@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    public float bulletForce = 10f;
+    public float bulletForce;
     public float destroyAfterSeconds = 2f;
     public float dmg = 5;
 
@@ -24,13 +24,15 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform != transform && !collision.gameObject.CompareTag("Enemy"))
+        if (collision.transform != transform && !collision.gameObject.CompareTag("Enemy") && !collision.gameObject.CompareTag("Bullet"))
         {
             if (collision.transform.CompareTag("Player"))
             {
+                Debug.Log(("DAMAGE", collision.transform.name));
                 collision.transform.GetComponent<PlayerController>().Damage(dmg);
             }
             // Destroy the bullet upon collision with any object
+            //Debug.Log(collision.transform.name);
             Destroy(gameObject);
         }
         

@@ -14,11 +14,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SpriteRenderer ShieldSR;
     ParticleSystem explosion;
     [SerializeField] float hitLength = 10;
+    [SerializeField] Vector3 shieldShootScale;
     ShieldScript ShieldS;
     CameraManager cM;
     LineRenderer lR;
 
-    public float radiusForShield = 1;
+    public float radiusForShield;
     Rigidbody2D rb;
 
     bool blockMovement;
@@ -52,6 +53,8 @@ public class PlayerController : MonoBehaviour
 
     PlayAudio pA;
 
+    Vector3 shieldScaleSafe;
+
     public bool teleporting = false;
 
     
@@ -62,6 +65,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         ShieldSR = Shield.GetComponent<SpriteRenderer>();
         ShieldS = Shield.GetComponent<ShieldScript>();
+        shieldScaleSafe = Shield.transform.localScale;
+        
         shellReady = true;
         cM = Camera.main.GetComponent<CameraManager>();
         lR = GetComponent<LineRenderer>();
@@ -79,6 +84,7 @@ public class PlayerController : MonoBehaviour
         shieldDir = new Vector3(shieldDir.x, shieldDir.y, 0);
         shieldDir.Normalize();
         Shield.transform.position = transform.position + (shieldDir * radiusForShield);
+        Shield.transform.up  = -1 * shieldDir;
 
         // Movement input
         rb.velocity = Vector3.zero;
@@ -211,6 +217,7 @@ public class PlayerController : MonoBehaviour
             shellFlying = false;
             shellReady = true;
             ShieldS.ChangeState(0);
+            Shield.transform.localScale = shieldScaleSafe;
         }
     }
 
@@ -225,6 +232,7 @@ public class PlayerController : MonoBehaviour
     private void BoomerangShot()
     {
         Shield.GetComponent<Animator>().SetTrigger("Shoot");
+        Shield.transform.localScale = shieldShootScale;
 
         shellFlying = true;
         shellReady = false;
@@ -300,7 +308,7 @@ public class PlayerController : MonoBehaviour
     public void Damage(float dmg)
     {
 
-        Debug.Log("DAMGE TAKE!");
+        //Debug.Log("DAMGE TAKE!");
         Health -= dmg;
         if (Health <= 0)
         {

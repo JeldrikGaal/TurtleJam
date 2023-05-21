@@ -60,6 +60,7 @@ public class ShieldScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (flying)
         {
             if (collision.gameObject.CompareTag("Enemy"))
@@ -75,12 +76,14 @@ public class ShieldScript : MonoBehaviour
         if (shielding)
         {
             GetComponent<Animator>().SetBool("Shield", true);
-            Debug.Log(collision.name);
+            Debug.Log(collision.transform.name);
 
             if (!collision.CompareTag("Wall"))
             {
-                StartCoroutine(cM.Shake(0.05f, 0.2f));
+                Debug.Log("destroy");
                 Destroy(collision.gameObject);
+                StartCoroutine(cM.Shake(0.05f, 0.2f));
+                
             }
 
         }
