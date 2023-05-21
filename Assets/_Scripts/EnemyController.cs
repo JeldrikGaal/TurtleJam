@@ -95,7 +95,7 @@ public class EnemyController : MonoBehaviour
             } */           
             if (lookAtPlayer)
             {
-                Vector3 direction = (player.position - transform.position).normalized;
+                Vector3 direction = ( transform.position - player.position).normalized;
                 float distance = speed * Time.deltaTime;
 
                 transform.Translate(direction * distance);
