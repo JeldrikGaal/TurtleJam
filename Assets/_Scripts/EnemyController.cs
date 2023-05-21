@@ -109,6 +109,7 @@ public class EnemyController : MonoBehaviour
                 //transform.GetChild(0).transform.localRotation = Quaternion.Euler(0f, 0f, transform.GetChild(0).transform.localRotation.z + rotationSpeed * Time.deltaTime);
                 //Debug.Log("Should be rotating");
             }
+            else { if (GetComponent<AudioSource>().isPlaying) GetComponent<AudioSource>().Stop(); }
         }
         else if(enemyMode == EnemyType.Patrol) 
         {
