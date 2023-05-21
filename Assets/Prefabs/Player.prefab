@@ -5065,7 +5065,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b7071e219d214b74684e46637bed7533, type: 3}
   - {fileID: 8300000, guid: 316b8beb05388a54891b3358c33d2bbb, type: 3}
   - {fileID: 8300000, guid: 905da9ad74b29c849a3396937a5676a0, type: 3}
-  audioClip3: []
+  audioClip3:
+  - {fileID: 8300000, guid: 770f4ac6ed18ab64ca607a3b5ed4d9ed, type: 3}
   audioClip4: []
   audioClip5: []
 --- !u!95 &4668151947806853309
@@ -5282,7 +5283,7 @@ Transform:
   - {fileID: 2115516424665616085}
   - {fileID: 5412118721029678747}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &461085757597292318
 SpriteRenderer:
