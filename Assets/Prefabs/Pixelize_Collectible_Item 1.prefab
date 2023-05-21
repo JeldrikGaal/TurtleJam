@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableType: 2
-  duration: 3
+  duration: 2
   activated: 0
   scoreToAdd: 20
   soundFX:

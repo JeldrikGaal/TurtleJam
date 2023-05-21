@@ -5282,7 +5282,7 @@ Transform:
   - {fileID: 2115516424665616085}
   - {fileID: 5412118721029678747}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &461085757597292318
 SpriteRenderer:
@@ -5386,8 +5386,8 @@ MonoBehaviour:
   shellReady: 0
   shellFlying: 0
   gM: {fileID: 0}
-  flyingTime: 0.4
-  flyingTimeBack: 0.1
+  flyingTime: 0.8
+  flyingTimeBack: 0.4
   teleporting: 0
 --- !u!120 &775723637346249783
 LineRenderer:
