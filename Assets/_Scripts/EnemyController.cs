@@ -104,10 +104,19 @@ public class EnemyController : MonoBehaviour
             } */           
             if (lookAtPlayer)
             {
-                Vector3 direction = ( transform.position - player.position).normalized;
+                Vector3 direction = ( player.position - transform.position).normalized;
+                direction.Normalize();
                 float distance = speed * Time.deltaTime;
+                rb.velocity = direction * speed;
+                
+                /*RaycastHit2D wallhit = Physics2D.Raycast(bulletSpawn.transform.position, transform.forward);
+                Debug.Log(wallhit.transform.name);
+                if (Vector2.Distance(wallhit.point, transform.position) > 2)
+                {
+                    transform.Translate(direction * distance);
+                    Debug.Log(Vector2.Distance(wallhit.point, transform.position));
+                }*/
 
-                transform.Translate(direction * distance);
                 if (!GetComponent<AudioSource>().isPlaying) 
                 {
                     GetComponent<AudioSource>().clip = meleeAttackSound;
@@ -116,7 +125,11 @@ public class EnemyController : MonoBehaviour
                 //transform.GetChild(0).transform.localRotation = Quaternion.Euler(0f, 0f, transform.GetChild(0).transform.localRotation.z + rotationSpeed * Time.deltaTime);
                 //Debug.Log("Should be rotating");
             }
-            else { if (GetComponent<AudioSource>().isPlaying) GetComponent<AudioSource>().Stop(); }
+            else 
+            {
+                rb.velocity = Vector3.zero; 
+                if (GetComponent<AudioSource>().isPlaying) GetComponent<AudioSource>().Stop(); 
+            }
         }
         else if(enemyMode == EnemyType.Patrol) 
         {
