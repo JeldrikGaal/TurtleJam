@@ -18,6 +18,7 @@ public class Interactable : MonoBehaviour
     public bool activated = false;
 
     private float time = 0;
+    public int scoreToAdd = 20;
 
     private void Update()
     {
@@ -39,8 +40,9 @@ public class Interactable : MonoBehaviour
     {
         activated = true;
         if (interactableType == type.Slowdown) ActivateSlowdown();
-        else if(interactableType == type.Speedup) ActivateSpeedUp();
-        else if(interactableType == type.PixilizeScreen) ActivatePixelation();
+        else if (interactableType == type.Speedup) ActivateSpeedUp();
+        else if (interactableType == type.PixilizeScreen) ActivatePixelation();
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().score += scoreToAdd;
     }
 
     void ActivateSlowdown() 
