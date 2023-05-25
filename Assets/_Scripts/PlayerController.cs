@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (gM.paused)
         {
             rb.velocity = Vector2.zero;
@@ -285,6 +286,7 @@ public class PlayerController : MonoBehaviour
 
     private void Aiming()
     {
+        return;
         float len = 10f;
         Vector2 start = transform.position + (shieldDir * 0.5f);
         Vector2 end = transform.position + (shieldDir * 11);

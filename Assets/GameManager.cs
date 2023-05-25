@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI highscoreName;
     public GameObject highscoreSaveBTN;
 
+    public TMP_Text nameText;
+    public TMP_Text scoreText;
+
     // To add
     // Sound logic
     // Level progression
@@ -232,7 +235,6 @@ public class GameManager : MonoBehaviour
     {
         scoreManager.SaveNewScore(highscoreName.text, (int)((int)(100 - time) * 10 + score));
         highscoreSection.SetActive(false);
-
     }
 
 
@@ -252,6 +254,14 @@ public class GameManager : MonoBehaviour
 
         // Toggle on highscore gameobject
         highscoreSection.SetActive(true);
+        Debug.Log(scoreManager.GetRankedScores().Count);
+        Debug.Log(scoreManager.scores.Count);
+        if (scoreManager.GetRankedScores().Count > 0)
+        {
+            scoreText.text = scoreManager.GetRankedScores()[0].Value.ToString();
+            nameText.text = scoreManager.GetRankedScores()[0].Key.ToString();
+        }
+        
     }
 
     public void GameOverCondition()
