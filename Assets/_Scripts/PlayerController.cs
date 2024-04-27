@@ -3,298 +3,332 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float _speed;
+    [SerializeField] private float _health;
+    [SerializeField] private float _shootRange;
+    [SerializeField] private Vector3 _shieldShootScale;
+    [SerializeField] private GameObject _shieldObject;
+    [SerializeField] private float _shieldIdleDistanceToPlayer;
+    private ShieldScript _shieldLogic;
+    private Vector3 _shieldDirection;
+    private bool _shieldReady;
+    private bool _shieldFlying;
+    
+    private SpriteRenderer _shieldSpriteRenderer;
+    private ParticleSystem _explosionParticle;
+    
+    private LineRenderer _lineRenderer;
+    private Rigidbody2D _rigidBody;
+    
+    private CameraManager _cameraManager;
+    private GameManager _gameManager;
 
-    [SerializeField] public float Speed;
-    [SerializeField] float acceleration = 1;
-    [SerializeField] float Health = 100;
-    [SerializeField] GameObject Shield;
-    [SerializeField] SpriteRenderer ShieldSR;
-    ParticleSystem explosion;
-    [SerializeField] float hitLength = 10;
-    [SerializeField] Vector3 shieldShootScale;
-    ShieldScript ShieldS;
-    CameraManager cM;
-    LineRenderer lR;
-
-    public float radiusForShield;
-    Rigidbody2D rb;
-
-    bool blockMovement;
-    public bool shellReady;
-    public bool shellFlying;
-
-    public GameManager gM;
-
-    bool aiming;
-    bool bounce;
-    bool bouncing;
-    float bounceDistance;
-
-    Vector3 shieldDir;
-
-    private float timeMod;
-    private float timeModSave;
-    private Vector2 reflectNormal;
+    private bool _blockMovement;
+    private bool _aiming;
+    private bool _bounce;
+    private bool _bouncing;
+    private float _currentBounceDistance;
+    
+    private float _timeMod;
+    private float _timeModSave;
+    private Vector2 _reflectNormal;
 
     // Boomerang variables
-    [SerializeField] float flyingTime;
-    [SerializeField] float flyingTimeBack;
-    float flyingSpeed;
-    Vector2 startingPos;
-    Vector2 startingPosBack;
-    Vector2 endPos;
-    Vector2 endPosSave;
-    float startingTime;
-    float startingTimeBack;
-    bool flyingBack;
+    [SerializeField] private float _flyingTime;
+    [SerializeField] private float _flyingTimeBack;
+    private float _flyingSpeed;
+    private Vector2 _startingPos;
+    private Vector2 _startingPosBack;
+    private Vector2 _endPos;
+    private Vector2 _endPosSave;
+    private float _startingTime;
+    private float _startingTimeBack;
+    private bool _flyingBack;
 
-    PlayAudio pA;
+    private PlayAudio _playAudio;
+    private Vector3 _shieldScaleSafe;
 
-    Vector3 shieldScaleSafe;
-
+    // Needed for portals ?
     public bool teleporting = false;
-
     
-
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        ShieldSR = Shield.GetComponent<SpriteRenderer>();
-        ShieldS = Shield.GetComponent<ShieldScript>();
-        shieldScaleSafe = Shield.transform.localScale;
+        _rigidBody = GetComponent<Rigidbody2D>();
+        _lineRenderer = GetComponent<LineRenderer>();
         
-        shellReady = true;
-        cM = Camera.main.GetComponent<CameraManager>();
-        lR = GetComponent<LineRenderer>();
-        gM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        pA = Shield.GetComponent<PlayAudio>();
-        explosion = gM.explosion;
+        _shieldSpriteRenderer = _shieldObject.GetComponent<SpriteRenderer>();
+        _shieldLogic = _shieldObject.GetComponent<ShieldScript>();
+        _shieldScaleSafe = _shieldObject.transform.localScale;
+        _shieldReady = true;
+        _playAudio = _shieldObject.GetComponent<PlayAudio>();
+        
+        _cameraManager = Camera.main.GetComponent<CameraManager>();
+        
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        _explosionParticle = _gameManager.explosion;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (gM.paused)
+        // Skip update loop if game is paused 
+        // TODO: clean up pause mechanic
+        if (_gameManager.paused)
         {
-            rb.velocity = Vector2.zero;
+            _rigidBody.velocity = Vector2.zero;
             return;
         }
-        // Shield positioning 
-        shieldDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        shieldDir = new Vector3(shieldDir.x, shieldDir.y, 0);
-        shieldDir.Normalize();
-        Shield.transform.position = transform.position + (shieldDir * radiusForShield);
-        Shield.transform.up  = shieldDir;
 
-        transform.transform.up = shieldDir;
+        PositionShield();
+        Move();
 
-        // Movement input
-        rb.velocity = Vector3.zero;
+        ShieldInteraction();
+        ShootInteraction();
         
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.velocity = new Vector2(Speed, rb.velocity.y);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.velocity = new Vector2(-Speed, rb.velocity.y);
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, Speed);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, -Speed);
-        }
-
-        // Handling Right Click
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (shellReady)
-            {
-                blockMovement = true;
-                //ShieldSR.color = Color.red;
-                ShieldS.ChangeState(2);
-                shellReady = false;
-                pA.PlayOneShotSound(2);
-            }
-          
-        }       
-        if (Input.GetMouseButtonUp(1))
-        {
-            if (!shellReady)
-            {
-                blockMovement = false;
-                //ShieldSR.color = Color.green;
-                ShieldS.ChangeState(0);
-                shellReady = true;
-            }
-
-        }
-
-        // Handling Left Click
-        if (Input.GetMouseButtonDown(0))
-        {
-            aiming = true;
-            lR.enabled = true;
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (shellReady)
-            {
-                BoomerangShot();
-               
-            }
-            aiming = false;
-            lR.enabled = false;
-        }
-        if (shellFlying)
+        if (_shieldFlying)
         {
             BommerangLogic();
         }
-
-        if (aiming)
+        if (_aiming)
         {
             Aiming();
         }
 
         // Needs to be at the end of update
-        if (blockMovement)
+        if (_blockMovement)
         {
-            rb.velocity = Vector2.zero;
+            _rigidBody.velocity = Vector2.zero;
         }
+    }
+
+    private void ShootInteraction()
+    {
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            _aiming = true;
+            _lineRenderer.enabled = true;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (_shieldReady)
+            {
+                BoomerangShot();
+               
+            }
+            _aiming = false;
+            _lineRenderer.enabled = false;
+        }
+    }
+
+    private void ShieldInteraction()
+    {
+        // Handling Right Click
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (_shieldReady)
+            {
+                _blockMovement = true;
+                //ShieldSR.color = Color.red;
+                _shieldLogic.ChangeState(2);
+                _shieldReady = false;
+                _playAudio.PlayOneShotSound(2);
+            }
+          
+        }       
+        if (Input.GetMouseButtonUp(1))
+        {
+            if (!_shieldReady)
+            {
+                _blockMovement = false;
+                //ShieldSR.color = Color.green;
+                _shieldLogic.ChangeState(0);
+                _shieldReady = true;
+            }
+
+        }
+    }
+
+    private void Move()
+    {
+        _rigidBody.velocity = Vector3.zero;
+        
+        // TODO: improve very rudimentary input system 
+        if (Input.GetKey(KeyCode.D))
+        {
+            _rigidBody.velocity = new Vector2(_speed, _rigidBody.velocity.y);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            _rigidBody.velocity = new Vector2(-_speed, _rigidBody.velocity.y);
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _speed);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, -_speed);
+        }
+    }
+
+    private void PositionShield()
+    {
+        // Shield positioning 
+        _shieldDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        _shieldDirection = new Vector3(_shieldDirection.x, _shieldDirection.y, 0);
+        _shieldDirection.Normalize();
+        _shieldObject.transform.position = transform.position + (_shieldDirection * _shieldIdleDistanceToPlayer);
+        _shieldObject.transform.up  = _shieldDirection;
+
+        transform.transform.up = _shieldDirection;
     }
 
     private void BommerangLogic()
     {
-        if (Time.time - startingTime < (flyingTime * timeMod))
+        // Move shield while flying
+        if (Time.time - _startingTime < (_flyingTime * _timeMod))
         {
-            Shield.transform.position = Vector2.Lerp(startingPos, endPos, ( Time.time - startingTime ) / (flyingTime * timeMod));
+            _shieldObject.transform.position = Vector2.Lerp(_startingPos, _endPos, ( Time.time - _startingTime ) / (_flyingTime * _timeMod));
         }
-        else if (!flyingBack)
+        
+        else if (!_flyingBack)
         {
-            if (bouncing)
+            if (_bouncing)
             {
-                bouncing = false;
-                bounce = false;
+                _bouncing = false;
+                _bounce = false;
             }
 
-            if (bounce && !bouncing)
+            if (_bounce && !_bouncing)
             {
-                timeMod = 1 - timeModSave;
-                startingPos = endPos;
-                endPos = Vector2.Reflect(shieldDir, reflectNormal) * bounceDistance;
-                RaycastHit2D hit = Physics2D.Raycast(startingPos, reflectNormal);
+                _timeMod = 1 - _timeModSave;
+                _startingPos = _endPos;
+                _endPos = Vector2.Reflect(_shieldDirection, _reflectNormal) * _currentBounceDistance;
+                RaycastHit2D hit = Physics2D.Raycast(_startingPos, _reflectNormal);
                 if (hit)
                 {
-                    endPos = hit.point;
+                    if (Vector2.Distance(hit.point, _startingPos) <= _currentBounceDistance)
+                    {
+                        _endPos = hit.point;
+                    }
                 }
-                timeMod = timeMod * (Vector2.Distance(startingPos, endPos) / bounceDistance);
-                startingTime = Time.time;
-                bouncing = true;
-                Explosion(startingPos);
-                pA.PlayOneShotSound(1);
+                
+                _timeMod *= (Vector2.Distance(_startingPos, _endPos) / _currentBounceDistance);
+                _startingTime = Time.time;
+                _bouncing = true;
+                
+                Explosion(_startingPos);
+                _playAudio.PlayOneShotSound(1);
             }
             else
             {
-                flyingBack = true;
-                startingTimeBack = Time.time;
-                ShieldSR.color = new Color(ShieldSR.color.r, ShieldSR.color.g, ShieldSR.color.b, 0f);
-                StartCoroutine(cM.Shake(0.05f, 0.2f));
-                Explosion(endPos);
-                pA.PlayOneShotSound(1);
+                _flyingBack = true;
+                _startingTimeBack = Time.time;
+                _shieldSpriteRenderer.color = new Color(_shieldSpriteRenderer.color.r, _shieldSpriteRenderer.color.g, _shieldSpriteRenderer.color.b, 0f);
+                StartCoroutine(_cameraManager.Shake(0.05f, 0.2f));
+                Explosion(_endPos);
+                _playAudio.PlayOneShotSound(1);
             }
-
-
         }
-        if (Time.time - startingTimeBack < (flyingTimeBack * timeMod) && flyingBack)
+        
+        // Shield is flying back
+        if (Time.time - _startingTimeBack < (_flyingTimeBack * _timeMod) && _flyingBack)
         {          
-            Shield.transform.position = Vector2.Lerp(endPos, transform.position + (shieldDir * radiusForShield), (Time.time - startingTimeBack) / (flyingTimeBack * timeMod));
+            _shieldObject.transform.position = Vector2.Lerp(_endPos, transform.position + (_shieldDirection * _shieldIdleDistanceToPlayer), (Time.time - _startingTimeBack) / (_flyingTimeBack * _timeMod));
         }
-        if (flyingBack && Time.time - startingTimeBack > (flyingTimeBack * timeMod))
+        
+        // Shield has arrived back 
+        if (_flyingBack && Time.time - _startingTimeBack > (_flyingTimeBack * _timeMod))
         {
-            ShieldSR.color = new Color(ShieldSR.color.r, ShieldSR.color.g, ShieldSR.color.b, 1f);
-            flyingBack = false;
-            shellFlying = false;
-            shellReady = true;
-            ShieldS.ChangeState(0);
-            Shield.transform.localScale = shieldScaleSafe;
+            _shieldSpriteRenderer.color = new Color(_shieldSpriteRenderer.color.r, _shieldSpriteRenderer.color.g, _shieldSpriteRenderer.color.b, 1f);
+            _flyingBack = false;
+            _shieldFlying = false;
+            _shieldReady = true;
+            _shieldLogic.ChangeState(0);
+            _shieldObject.transform.localScale = _shieldScaleSafe;
         }
     }
 
     private void Explosion(Vector2 pos)
     {
-        ParticleSystem ps = Instantiate(explosion, pos, Quaternion.identity) as ParticleSystem;
+        ParticleSystem ps = Instantiate(_explosionParticle, pos, Quaternion.identity) as ParticleSystem;
         ps.Play();
         Destroy(ps.gameObject, 0.2f);
-        StartCoroutine(gM.flashWalls(0.05f, Color.red));
+        StartCoroutine(_gameManager.flashWalls(0.05f, Color.red));
     }
 
     private void BoomerangShot()
     {
-        Shield.GetComponent<Animator>().SetTrigger("Shoot");
-        Shield.transform.localScale = shieldShootScale;
+        _shieldObject.GetComponent<Animator>().SetTrigger("Shoot");
+        _playAudio.PlayOneShotSound(0);
+        
+        _shieldObject.transform.localScale = _shieldShootScale;
 
-        shellFlying = true;
-        shellReady = false;
-        startingPos = Shield.transform.position;
-        startingTime = Time.time;
-        endPos = transform.position + (shieldDir * hitLength);
-        endPosSave = transform.position + (shieldDir * hitLength);
-        ShieldS.ChangeState(1);
+        _shieldFlying = true;
+        _shieldReady = false;
+        
+        _startingPos = _shieldObject.transform.position;
+        _startingTime = Time.time;
+        _endPos = transform.position + (_shieldDirection * _shootRange);
+        _endPosSave = transform.position + (_shieldDirection * _shootRange);
+        
+        // TODO: rework shield state logic 
+        _shieldLogic.ChangeState(1);
 
-        pA.PlayOneShotSound(0);
-
-        Vector2 start = transform.position + (shieldDir);
-        RaycastHit2D hit = Physics2D.Raycast(start, shieldDir);
+        Vector2 start = transform.position + (_shieldDirection);
+        RaycastHit2D hit = Physics2D.Raycast(start, _shieldDirection);
         if (hit)
         {
             if (!hit.transform.CompareTag("Enemy"))
             {
-                endPos = new Vector3(hit.point.x, hit.point.y) - (shieldDir * 0.25f);
+                // ?? End the shot a bit behind the hit object --> not sure why tbh 
+                _endPos = new Vector3(hit.point.x, hit.point.y) - (_shieldDirection * 0.25f); 
+                
                 if (hit.transform.CompareTag("Wall"))
                 {
-                    bounce = true;
-                    reflectNormal = hit.normal;
-                    bounceDistance = hitLength - Vector2.Distance(startingPos, endPos);
+                    _bounce = true;
+                    _reflectNormal = hit.normal;
+                    _currentBounceDistance = _shootRange - Vector2.Distance(_startingPos, _endPos);
                 }
             }
             else
             {
-                endPos = new Vector3(hit.point.x, hit.point.y) + (shieldDir * 0.25f);
+                _endPos = new Vector3(hit.point.x, hit.point.y) + (_shieldDirection * 0.25f);
 
             }
         
-            timeMod = Vector3.Distance(endPos, startingPos) / Vector3.Distance(endPosSave, startingPos);
-            if (bounce)
+            _timeMod = Vector3.Distance(_endPos, _startingPos) / Vector3.Distance(_endPosSave, _startingPos);
+            
+            if (_bounce)
             {
-                timeModSave = timeMod;
+                _timeModSave = _timeMod;
             }
         }
         else
         {
-            timeMod = 1;
+            _timeMod = 1;
         }
     }
 
     private void Aiming()
     {
+        // TODO: find out if we still need this ?? 
         return;
         float len = 10f;
-        Vector2 start = transform.position + (shieldDir * 0.5f);
-        Vector2 end = transform.position + (shieldDir * 11);
+        Vector2 start = transform.position + (_shieldDirection * 0.5f);
+        Vector2 end = transform.position + (_shieldDirection * 11);
 
         float dist = Vector2.Distance(start, end);
         len = dist;
         float dist2;
-        RaycastHit2D hit = Physics2D.Raycast(start, shieldDir);
+        RaycastHit2D hit = Physics2D.Raycast(start, _shieldDirection);
         if (hit && !hit.transform.CompareTag("Player") && !hit.transform.CompareTag("Shield"))
         {
             dist2 = Vector2.Distance(start, hit.transform.position);
@@ -310,20 +344,18 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-                lR.SetPosition(i, start + direction * (len * ((i + 1f) / 10)));
+                _lineRenderer.SetPosition(i, start + direction * (len * ((i + 1f) / 10)));
         }
     }
 
     public void Damage(float dmg)
     {
-
-        //Debug.Log("DAMGE TAKE!");
-        if (ShieldS.shielding) return;
-        Health -= dmg;
-        if (Health <= 0)
+        if (_shieldLogic.shielding) return;
+        _health -= dmg;
+        if (_health <= 0)
         {
             // TODO DIE SOUND
-            gM.GameOverCondition();
+            _gameManager.GameOverCondition();
         }
     }
 }

@@ -70,12 +70,14 @@ public class Interactable : MonoBehaviour
         this.GetComponent<SpriteRenderer>().enabled = false;
         this.GetComponent<BoxCollider2D>().enabled = false;
 
-        GameObject.FindWithTag("Player").GetComponent<PlayerController>().Speed *= 1.5f;
+        // TODO: Refactoring 26/04 turn into event
+        // GameObject.FindWithTag("Player").GetComponent<PlayerController>().Speed *= 1.5f;
     }
 
     void DeactivateSpeedUp()
     {
-        GameObject.FindWithTag("Player").GetComponent<PlayerController>().Speed /= 1.5f;
+        // TODO: Refactoring 26/04 turn into event
+        // GameObject.FindWithTag("Player").GetComponent<PlayerController>().Speed /= 1.5f;
         Destroy(this.gameObject);
     }
 

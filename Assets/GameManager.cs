@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public bool paused = false;
     private List<Tilemap> tilemaps = new List<Tilemap>();
-    //private Tilemap walls;
     private bool flashing;
     private ScoreManager scoreManager;
     public GameObject highscoreSection;

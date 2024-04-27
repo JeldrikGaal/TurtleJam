@@ -29,8 +29,8 @@ public class CamUpTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        initialPos = camera.transform.position;
         camera = GameObject.FindGameObjectWithTag("MainCamera");
+        initialPos = camera.transform.position;
     }
 
     // Update is called once per frame
