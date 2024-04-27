@@ -25,11 +25,9 @@ public class CameraManager : MonoBehaviour
         {
             StartCoroutine(BattleTransition(1, false));
         }*/
-    }
+    } // Battle Transition tests. Can be disregarded.
     public IEnumerator Shake(float duration, float magnitude)
     {
-        //if (shaking) yield return null;
-
         float elapsedTime = 0f;
         Vector3 originalPos = transform.localPosition;
 

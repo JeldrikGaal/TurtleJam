@@ -4,109 +4,70 @@ using UnityEngine;
 
 public class CamUpTrigger : MonoBehaviour
 {
-    public enum direction
-    {
-        Up,
-        Down,
-        Right,
-        Left
-    }
+    private LevelController _levelController;
+    public GameObject _camera;
 
-    public direction movementDirection;
-
-    public GameObject camera;
-    public float yOffset = 9.25f;
-    public float xOffset = 18.5f;
-
-    private bool movingFlag = false;
-
-    Vector3 initialPos;
-    float startingTime = 0;
-    public float duration = 1f;
-    bool doneMoving = false;
+    private Vector3 _initialPos; // Current camera position.
+    public Vector3 _nextPos; // Camera next (room's) position.
+    
+    [SerializeField] private float duration = 1f; // Duration of camera transition (lerp)
+    private float _startingTime = 0; // Reference for duration calc.
+    
+    private bool _movingFlag = false; // Is the camera currently moving?
+    private bool _doneMoving = false; // Is the camera done moving to next position?
 
 
-    // Start is called before the first frame update
+    // Start handles required variable assignments
     void Start()
     {
-        camera = GameObject.FindGameObjectWithTag("MainCamera");
-        initialPos = camera.transform.position;
+        _camera = Camera.main.gameObject;
+        if (_camera == null)
+        {
+            Debug.LogError("Camera is null");
+        }
+
+        _initialPos = _camera.transform.position;
+        _levelController = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelController>();
+        if (transform.parent.GetComponent<LevelAttributes>().nextRoomConnected != null)
+            _nextPos = transform.parent.GetComponent<LevelAttributes>().nextRoomConnected.transform.Find("CamPosition")
+                .position;
     }
 
-    // Update is called once per frame
-    void Update()
+    // Update handles camera movement / arrival actions.
+    void Update() 
     {
-        if (camera != null)
+        if (_camera != null)
         {
-
-            if (movementDirection == direction.Up)
+            if (!_doneMoving && _movingFlag && _camera.transform.position != _nextPos)
             {
-                if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z))
-                {
-                    camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z), Time.time - startingTime / duration);
-                }
-                else if (camera.transform.position == new Vector3(initialPos.x, initialPos.y + yOffset, initialPos.z)) { doneMoving = true; movingFlag = false; }
+                _camera.transform.position = Vector3.Lerp(_initialPos, _nextPos, Time.time - _startingTime / duration);
             }
-            else if (movementDirection == direction.Down)
+            else if (_doneMoving == false && _camera.transform.position == _nextPos)
             {
-                if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z))
-                {
-                    camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z), Time.time - startingTime / duration);
-                }
-                else if (camera.transform.position == new Vector3(initialPos.x, initialPos.y - yOffset, initialPos.z)) { doneMoving = true; movingFlag = false; }
+                _doneMoving = true;
+                _movingFlag = false;
             }
-            else if (movementDirection == direction.Right)
-            {
-                if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z))
-                {
-                    camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z), Time.time - startingTime / duration);
-                }
-                else if (camera.transform.position == new Vector3(initialPos.x + xOffset, initialPos.y, initialPos.z)) { doneMoving = true; movingFlag = false; }
-            }
-            else if (movementDirection == direction.Left)
-            {
-                if (!doneMoving && movingFlag && camera.transform.position != new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z))
-                {
-                    camera.transform.position = Vector3.Lerp(initialPos, new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z), Time.time - startingTime / duration);
-                }
-                else if (camera.transform.position == new Vector3(initialPos.x - xOffset, initialPos.y, initialPos.z)) { doneMoving = true; movingFlag = false; }
-            }
-        } else
+        }
+        else
         {
-            camera = GameObject.FindGameObjectWithTag("MainCamera");
+            Debug.Log("Camera doesn't exit bitch!");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player" && !movingFlag) 
+        if(collision.tag == "Player" && !_movingFlag) 
         {
-            if (camera == null)
-                camera = GameObject.FindGameObjectWithTag("MainCamera");
-            initialPos = camera.transform.position;
-            movingFlag = true;
-            startingTime = Time.time;
+            if (_camera == null)
+                _camera = GameObject.FindGameObjectWithTag("MainCamera");
+            InitiateTransition();
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void InitiateTransition()
     {
-        if (collision.tag == "Player")
-        {
-            StartCoroutine(FlipDirection());
-        }
-    }
-
-    public IEnumerator FlipDirection() 
-    {
-        yield return new WaitForSeconds(1.1f);
-        doneMoving = false;
-        movingFlag = false;
-        if (movementDirection == direction.Left) movementDirection = direction.Right;
-        else if (movementDirection == direction.Right) movementDirection = direction.Left;
-        else if (movementDirection == direction.Down) movementDirection = direction.Up;
-        else if (movementDirection == direction.Up) movementDirection = direction.Down;
-        Debug.Log("Direction flipped");
-
+        _initialPos = _camera.transform.position;
+        _movingFlag = true;
+        _startingTime = Time.time; 
     }
 }

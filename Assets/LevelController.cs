@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
-    public GameObject currentRoom; // Set it to initial room first.
-
+    public GameObject currentRoom; // This variable represents the latest room that has been generated. and NOT the actual current room player is in. MUST BE Set to initial room first in inspector. 
+    
     public int numOfRooms = 3;
     [Tooltip("Levels that their main entrance comes from the bottom")]
     public List<GameObject> levelsDown;
@@ -20,7 +20,7 @@ public class LevelController : MonoBehaviour
     public float xOffset;
 
     private Transform grid;
-    private List<Transform> generatedRooms;
+    public List<Transform> generatedRooms;
 
     private void Awake()
     {

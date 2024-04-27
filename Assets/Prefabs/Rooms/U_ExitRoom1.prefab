@@ -4052,6 +4052,10 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[103].second.m_TileSpriteIndex
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 3013656675292971823, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
+      propertyPath: bulletSpawn
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4125152770344034208, guid: 378eb22cbeb5dde4e88ffbbb8362f2ba, type: 3}
       propertyPath: up
       value: 0
