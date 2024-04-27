@@ -35,8 +35,7 @@ public class GameManager : MonoBehaviour
     // To add
     // Sound logic
     // Level progression
-
-
+    
     // Menus
     [Space(20)]
     public GameObject pauseMenu;
@@ -85,14 +84,10 @@ public class GameManager : MonoBehaviour
         hotSpot = new Vector2(cursorTexture.width / 2f, cursorTexture.height / 2f);
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 
-
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("textToShift"))
         {
             introRoomText.Add(g.GetComponent<SpriteRenderer>());
         }
-
-
-
     }
 
     // Update is called once per frame
@@ -165,17 +160,14 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            
-            
         }
-        
     }
 
     public void Pause() 
     {
         StartCoroutine(cM.BattleTransition(1, true));
-        StartCoroutine(setTimeScaleDelayed(0, 1));
-        StartCoroutine(setActiveDelayed(1, true));
+        StartCoroutine(SetTimeScaleDelayed(0, 1));
+        StartCoroutine(SetActiveDelayed(1, true));
         paused = true;
     }
     public void Resume()
@@ -187,26 +179,26 @@ public class GameManager : MonoBehaviour
         paused = false;
     }
 
-    public IEnumerator setActiveDelayed(float delay, bool active)
+    public IEnumerator SetActiveDelayed(float delay, bool active)
     {
         yield return new WaitForSeconds(delay);
         pauseMenu.SetActive(active);
     }
-    public IEnumerator setActiveDelayedWin(float delay, bool active)
+    public IEnumerator SetActiveDelayedWin(float delay, bool active)
     {
         yield return new WaitForSeconds(delay);
         winMenu.SetActive(active);
     }
 
 
-    public IEnumerator setTimeScaleDelayed(float timeScale, float delay)
+    public IEnumerator SetTimeScaleDelayed(float timeScale, float delay)
     {
         yield return new WaitForSeconds(delay);
         Time.timeScale = timeScale;
 
     }
 
-    public IEnumerator flashWalls(float time, Color color)
+    public IEnumerator FlashWalls(float time, Color color)
     {
         if (!flashing) 
         { 
@@ -236,12 +228,11 @@ public class GameManager : MonoBehaviour
         highscoreSection.SetActive(false);
     }
 
-
     public void WinCondition() 
     {
         levelComplete = true;
         StartCoroutine(cM.BattleTransition(1, true));
-        StartCoroutine(setActiveDelayedWin(1, true));
+        StartCoroutine(SetActiveDelayedWin(1, true));
 
         int finalScore = (int)(100 - time) * 10 + score;
         finalScoreTXT.text = finalScore.ToString();

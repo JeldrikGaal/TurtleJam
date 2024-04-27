@@ -12,8 +12,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _shootRange;
     [SerializeField] private Vector3 _shieldShootScale;
     [SerializeField] private GameObject _shieldObject;
-    [SerializeField] private float _shieldIdleDistanceToPlayer;
+    
     private ShieldScript _shieldLogic;
+    private PlayerProjectile _playerProjectile;
     private Vector3 _shieldDirection;
     private bool _shieldReady;
     private bool _shieldFlying;
@@ -60,6 +61,8 @@ public class PlayerController : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _lineRenderer = GetComponent<LineRenderer>();
+
+        _playerProjectile = _shieldObject.GetComponent<PlayerProjectile>();
         
         _shieldSpriteRenderer = _shieldObject.GetComponent<SpriteRenderer>();
         _shieldLogic = _shieldObject.GetComponent<ShieldScript>();
@@ -83,21 +86,10 @@ public class PlayerController : MonoBehaviour
             _rigidBody.velocity = Vector2.zero;
             return;
         }
-
-        PositionShield();
         Move();
 
-        ShieldInteraction();
+        // ShieldInteraction();
         ShootInteraction();
-        
-        if (_shieldFlying)
-        {
-            BommerangLogic();
-        }
-        if (_aiming)
-        {
-            Aiming();
-        }
 
         // Needs to be at the end of update
         if (_blockMovement)
@@ -108,22 +100,9 @@ public class PlayerController : MonoBehaviour
 
     private void ShootInteraction()
     {
-        
-        if (Input.GetMouseButtonDown(0))
-        {
-            _aiming = true;
-            _lineRenderer.enabled = true;
-        }
-
         if (Input.GetMouseButtonUp(0))
         {
-            if (_shieldReady)
-            {
-                BoomerangShot();
-               
-            }
-            _aiming = false;
-            _lineRenderer.enabled = false;
+            _playerProjectile.RequestShootProjectile();
         }
     }
 
@@ -151,7 +130,6 @@ public class PlayerController : MonoBehaviour
                 _shieldLogic.ChangeState(0);
                 _shieldReady = true;
             }
-
         }
     }
 
@@ -184,7 +162,8 @@ public class PlayerController : MonoBehaviour
         _shieldDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         _shieldDirection = new Vector3(_shieldDirection.x, _shieldDirection.y, 0);
         _shieldDirection.Normalize();
-        _shieldObject.transform.position = transform.position + (_shieldDirection * _shieldIdleDistanceToPlayer);
+        // TODO: temp disable
+        //_shieldObject.transform.position = transform.position + (_shieldDirection * _shieldIdleDistanceToPlayer);
         _shieldObject.transform.up  = _shieldDirection;
 
         transform.transform.up = _shieldDirection;
@@ -231,6 +210,7 @@ public class PlayerController : MonoBehaviour
             {
                 _flyingBack = true;
                 _startingTimeBack = Time.time;
+                
                 _shieldSpriteRenderer.color = new Color(_shieldSpriteRenderer.color.r, _shieldSpriteRenderer.color.g, _shieldSpriteRenderer.color.b, 0f);
                 StartCoroutine(_cameraManager.Shake(0.05f, 0.2f));
                 Explosion(_endPos);
@@ -239,10 +219,10 @@ public class PlayerController : MonoBehaviour
         }
         
         // Shield is flying back
-        if (Time.time - _startingTimeBack < (_flyingTimeBack * _timeMod) && _flyingBack)
+        /* if (Time.time - _startingTimeBack < (_flyingTimeBack * _timeMod) && _flyingBack)
         {          
             _shieldObject.transform.position = Vector2.Lerp(_endPos, transform.position + (_shieldDirection * _shieldIdleDistanceToPlayer), (Time.time - _startingTimeBack) / (_flyingTimeBack * _timeMod));
-        }
+        } */
         
         // Shield has arrived back 
         if (_flyingBack && Time.time - _startingTimeBack > (_flyingTimeBack * _timeMod))
@@ -261,7 +241,7 @@ public class PlayerController : MonoBehaviour
         ParticleSystem ps = Instantiate(_explosionParticle, pos, Quaternion.identity) as ParticleSystem;
         ps.Play();
         Destroy(ps.gameObject, 0.2f);
-        StartCoroutine(_gameManager.flashWalls(0.05f, Color.red));
+        StartCoroutine(_gameManager.FlashWalls(0.05f, Color.red));
     }
 
     private void BoomerangShot()
