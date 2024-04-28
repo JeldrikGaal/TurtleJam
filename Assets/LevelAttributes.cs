@@ -27,7 +27,7 @@ public class LevelAttributes : MonoBehaviour
         LevelController.Direction.Right
     };
     
-    private Vector2 _roomSize = new Vector2(36,18);
+    private Vector2 _roomSize = new Vector2(32,18);
     
 
     private void Start()
@@ -41,12 +41,12 @@ public class LevelAttributes : MonoBehaviour
         _exitDirection = exitDirection;
 
         ApplyDoors();
-        InitializeSpawners(currentDifficulty);
+        InitializeSpawners();
     }
 
-    private void InitializeSpawners(int currentDifficulty) // Check later
+    private void InitializeSpawners() // Check later
     {
-        // TODO: temp fix remove ! 
+        _spawners = GetComponentsInChildren<SpawnerController>().ToList();
         if (_spawners == null)
         {
             return;
@@ -54,6 +54,14 @@ public class LevelAttributes : MonoBehaviour
         foreach (var spawner in _spawners)
         {
             spawner.InitializeSpawner();
+        }
+    }
+
+    public void ActivateSpawners(int currentDifficulty)
+    {
+        foreach (var spawner in _spawners)
+        {
+            spawner.ActivateSpawner(currentDifficulty);
         }
     }
 

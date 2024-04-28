@@ -31,20 +31,31 @@ public class SpawnerController : MonoBehaviour
 
     public void InitializeSpawner()
     {
+        Debug.Log("1");
         if (_currentSpawnedObject!= null) return;
-
+        Debug.Log("2");
+        
         _currentSpawnedObject = Instantiate(_infoHolder.ObjectToSpawn, this.transform.position, Quaternion.identity);
 
         _currentSpawnedObject.SetActive(false);
 
 
     }
-    public void ActivateSpawner(int DifficultyLevel)
+    public void ActivateSpawner(int difficultyLevel)
     {
-        if(_currentSpawnedObject!= null){
-            if (DifficultyLevel>= ActivationStage)
-             _currentSpawnedObject.SetActive(true);
-             else _currentSpawnedObject.SetActive(false);
+        Debug.Log("3");
+        if(_currentSpawnedObject != null)
+        {
+            Debug.Log("4");
+            if (difficultyLevel >= ActivationStage)
+            {
+                Debug.Log("5");
+                _currentSpawnedObject.SetActive(true);
+            }
+            else
+            {
+                _currentSpawnedObject.SetActive(false);
+            }
         }        
     }
 

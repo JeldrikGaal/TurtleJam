@@ -209,6 +209,7 @@ public class LevelController : MonoBehaviour
     {
         _currentRoomIndex++;
         camUpTrigger.InitiateTransition(_generatedRooms[_currentRoomIndex].transform.Find("CamPosition").position);
+        _generatedRooms[_currentRoomIndex].ActivateSpawners(_currentStageIndex);
     }
 
     private void Update()
