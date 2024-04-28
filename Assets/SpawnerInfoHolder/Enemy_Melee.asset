@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3a6d4714f2b3449a22a5f5b758febf, type: 3}
   m_Name: Enemy_Melee
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 9878e02995aa714419a139a7aef1e9cf, type: 3}
+  sprite: {fileID: 21300000, guid: faeab4a8e5421b743a5481b448bfc04f, type: 3}
   ObjectToSpawn: {fileID: 2346672659358320384, guid: b9c39bd482b596c46879af2f6410fbf2, type: 3}
   Type: 0
