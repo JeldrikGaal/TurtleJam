@@ -19,7 +19,7 @@ public class SpawnerController : MonoBehaviour
     void Start()
     {
         InitializeSpawner();
-        ActivateSpawner(1);
+        ActivateSpawner(2);
         
     }
     // Update is called once per frame
@@ -33,7 +33,7 @@ public class SpawnerController : MonoBehaviour
     {
         if (currentSpawnedObject!= null) return;
 
-        currentSpawnedObject = Instantiate(_infoHolder.ObjectToSpawn, this.transform);
+        currentSpawnedObject = Instantiate(_infoHolder.ObjectToSpawn, this.transform.position, Quaternion.identity);
 
         currentSpawnedObject.SetActive(false);
 
