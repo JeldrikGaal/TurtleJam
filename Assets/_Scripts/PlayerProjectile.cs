@@ -15,12 +15,16 @@ public class PlayerProjectile : MonoBehaviour
     [Header("Shield Settings")] 
     [SerializeField] private float _shieldDistanceToPlayer;
 
+    // Get set in start
     private Rigidbody2D _rigidBody2D;
     private CircleCollider2D _circleCollider2D;
     private PlayerController _playerController;
     private Camera _mainCam;
-    private ProjectileJuice _projectileJuice;
     
+    private ProjectileJuice _projectileJuice;
+    private GameObject _shieldColliderGameObject;
+    
+    // used internally
     private float _distanceTravelled;
     private int _currentBounceCount;
     private Vector2 _moveDirectionBeforeBounce;
@@ -29,14 +33,20 @@ public class PlayerProjectile : MonoBehaviour
     
     private ProjectileState _state = ProjectileState.Shield;
 
-    private readonly float _setbackDistanceForCollisionRayCast = 1f;
+    // Seems to work consistently but should be remade
+    private const float SetbackDistanceForCollisionRayCast = 1f;
+
+
+    public bool IsShielding()
+    {
+        return _state is ProjectileState.Shield;
+    }
     
-    
-    
-    private enum ProjectileState
+    public enum ProjectileState
     {
         Flying,
         Returning,
+        Idle,
         Shield
     }
     
@@ -47,10 +57,16 @@ public class PlayerProjectile : MonoBehaviour
 
         _circleCollider2D = GetComponent<CircleCollider2D>();
         _projectileJuice = GetComponent<ProjectileJuice>();
+        _shieldColliderGameObject = GetComponentInChildren<PlayerShieldColliderLogic>().gameObject;
+        _shieldColliderGameObject.SetActive(false);
 
         _playerController = transform.parent.GetComponent<PlayerController>();
         _mainCam = Camera.main;
+
+        _state = ProjectileState.Idle;
     }
+    
+    
 
     private void Update()
     {
@@ -63,6 +79,9 @@ public class PlayerProjectile : MonoBehaviour
             case ProjectileState.Returning:
                 ReturnProjectile();
                 break;
+            case ProjectileState.Idle:
+                PositionShieldAroundPlayer();
+                break;
             case ProjectileState.Shield:
                 PositionShieldAroundPlayer();
                 break;
@@ -71,6 +90,7 @@ public class PlayerProjectile : MonoBehaviour
 
     private void LateUpdate()
     {
+        // TODO: Try at a workaround needs to be continued -> waiting for fresh eyes tomorrow
         if (_state == ProjectileState.Flying)
         {
             PreventBounceGlitchingThroughWall();
@@ -117,6 +137,7 @@ public class PlayerProjectile : MonoBehaviour
     private void PositionShieldAroundPlayer()
     {
         transform.position = _playerController.transform.position + (GetShieldDirection() * _shieldDistanceToPlayer);
+        transform.up = GetShieldDirection();
     }
 
     private void EndFlight()
@@ -144,7 +165,7 @@ public class PlayerProjectile : MonoBehaviour
     
     private bool IsShootingAllowed()
     {
-        return _state == ProjectileState.Shield && !IsProjectileInWall();
+        return _state is ProjectileState.Idle && !IsProjectileInWall();
     }
 
     private bool IsProjectileInWall()
@@ -170,6 +191,13 @@ public class PlayerProjectile : MonoBehaviour
         
         _state = ProjectileState.Flying;
         _distanceTravelled = 0;
+
+        ShootVFX();
+    }
+
+    private void ShootVFX()
+    {
+        _projectileJuice.ShieldCloseAnim();
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -197,7 +225,7 @@ public class PlayerProjectile : MonoBehaviour
     private Vector2 GetNormalToClosestWall()
     {
         // Let the raycast start a bit behind the point of collision to prevent it starting inside of the collider returning wrong normals
-        Vector2 rayCastStartPosition = transform.position - (transform.up * (_setbackDistanceForCollisionRayCast));
+        Vector2 rayCastStartPosition = transform.position - (transform.up * (SetbackDistanceForCollisionRayCast));
         RaycastHit2D hit = Physics2D.Raycast(rayCastStartPosition, transform.up);
         if (hit)
         {
@@ -269,21 +297,76 @@ public class PlayerProjectile : MonoBehaviour
 
     private void EndReturn()
     {
-        _state = ProjectileState.Shield;
+        _state = ProjectileState.Idle;
         SetProjectileVelocityAndDirection(Vector2.zero);
+
+        ArrivalVFX();
+    }
+
+    private void ArrivalVFX()
+    {
+        // TODO: fill something in
     }
     
     private void RequestEnemyHit(Transform enemyTransform)
     {
         EnemyController enemyController = enemyTransform.GetComponent<EnemyController>();
         enemyController.Die();
-        EnemyVFX(enemyTransform.transform.position);
+        EnemyHitVFX(enemyTransform.transform.position);
         EndFlight();
     }
 
-    private void EnemyVFX(Vector2 pos)
+    
+    
+    private void EnemyHitVFX(Vector2 pos)
     {
         _projectileJuice.ExplosionEffect(pos);
         _projectileJuice.CameraShake();
+    }
+
+    public void ShieldHit(Collider2D collision)
+    {
+        ShieldHitVFX(collision);
+        Destroy(collision.gameObject);
+    }
+
+    private void ShieldHitVFX(Collider2D collision)
+    {
+        _projectileJuice.SparkEffect(collision.transform.position,  -1 * collision.transform.right);
+    }
+
+    public void RequestOpenShield()
+    {
+        if (_state == ProjectileState.Idle)
+        {
+            OpenShield();
+        }
+    }
+    
+    private void OpenShield()
+    {
+        
+        _state = ProjectileState.Shield;
+        _shieldColliderGameObject.SetActive(true);
+        
+        _projectileJuice.ShieldOpenAnim();
+        
+    }
+
+    public void RequestCloseShield()
+    {
+        if (_state == ProjectileState.Shield)
+        {
+            CloseShield();
+        }
+    }
+
+    private void CloseShield()
+    {
+        _state = ProjectileState.Idle;
+        _projectileJuice.IdleAnim();
+        _shieldColliderGameObject.SetActive(false);
+
+        
     }
 }

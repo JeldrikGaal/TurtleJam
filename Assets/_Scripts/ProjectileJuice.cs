@@ -8,18 +8,25 @@ public class ProjectileJuice : MonoBehaviour
     [SerializeField] private float _shakeDuration;
     [SerializeField] private float _shakeMagnitude;
     
+    [SerializeField] private ParticleSystem _explosionParticle;
+    [SerializeField] private ParticleSystem _sparkParticle;
+    
     private GameManager _gameManager;
     private PlayAudio _playAudio;
     private CameraManager _cameraManager;
+
+    private Animator _playerShieldAnimator;
     
-    private ParticleSystem _explosionParticle;
-    
+    // Rider efficiency proposals
+    private static readonly int IdleAnimHash = Animator.StringToHash("Idle");
+    private static readonly int ShieldAnimHash = Animator.StringToHash("Shield");
+
     private void Start()
     {
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _playAudio = GetComponent<PlayAudio>();
-        _explosionParticle = _gameManager.explosion;
         _cameraManager = Camera.main.GetComponent<CameraManager>();
+        _playerShieldAnimator = GetComponent<Animator>();
     }
 
     public void ExplosionEffect(Vector2 pos)
@@ -32,8 +39,32 @@ public class ProjectileJuice : MonoBehaviour
         _playAudio.PlayOneShotSound(1);
     }
 
+    public void SparkEffect(Vector2 pos, Vector2 dir)
+    {
+        ParticleSystem ps = Instantiate(_sparkParticle, pos, Quaternion.identity) as ParticleSystem;
+        ps.transform.up = dir;
+        ps.Play();
+        Destroy(ps.gameObject, 0.2f); 
+        
+    }
+
     public void CameraShake()
     {
         StartCoroutine(_cameraManager.Shake(_shakeDuration, _shakeMagnitude));
+    }
+    
+    public void ShieldOpenAnim()
+    {
+        _playerShieldAnimator.SetTrigger(ShieldAnimHash);
+    }
+
+    public void ShieldCloseAnim()
+    {
+        _playerShieldAnimator.SetBool(ShieldAnimHash, false);
+    }
+
+    public void IdleAnim()
+    {
+        _playerShieldAnimator.SetTrigger(IdleAnimHash);
     }
 }
