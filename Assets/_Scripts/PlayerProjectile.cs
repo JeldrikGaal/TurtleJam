@@ -126,7 +126,7 @@ public class PlayerProjectile : MonoBehaviour
     private Vector3 GetShieldDirection()
     {
         // Shield positioning 
-        Vector3 shieldDirection = _mainCam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        Vector3 shieldDirection = _mainCam.ScreenToWorldPoint(Input.mousePosition) - _playerController.transform.position;
         shieldDirection = new Vector3(shieldDirection.x, shieldDirection.y, 0).normalized;
         return shieldDirection;
     }

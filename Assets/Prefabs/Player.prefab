@@ -835,8 +835,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216866f3d23e9534da96adb73231da1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseSpeed: 0
-  _baseHealth: 0
+  _baseSpeed: 8
+  _baseHealth: 5
   _shieldSlowPercentage: 30
   _shieldObject: {fileID: 6340098526527700323}
   _tutorialInfoTextField: {fileID: 3970585945552979485}
