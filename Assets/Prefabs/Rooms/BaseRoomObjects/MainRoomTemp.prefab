@@ -5950,10 +5950,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9750ca44ef7f32478583b44a1a7268e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AvailableEntrances: 
-  AvailableExits: 
-  _roomSize: {x: 32, y: 18}
+  Entrances: {fileID: 0}
+  Exits: {fileID: 0}
   _minimumDifficulty: 0
+  _roomSize: {x: 36, y: 18}
 --- !u!1001 &2602895752845858726
 PrefabInstance:
   m_ObjectHideFlags: 0

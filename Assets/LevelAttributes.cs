@@ -10,16 +10,25 @@ public class LevelAttributes : MonoBehaviour
     [SerializeField] private DirectionsHolder Entrances;
     [SerializeField] private DirectionsHolder Exits;
     [SerializeField] private float _minimumDifficulty;
-    
-    /*private List<LevelController.Direction> _availableEntrances;
-    private List<LevelController.Direction> _availableExits;*/
+
+    [SerializeField] private GameObject HorizontalWall;
+    [SerializeField] private GameObject VerticalWall;
+    [SerializeField] private GameObject HorizontalDoor;
+    [SerializeField] private GameObject VerticalDoor;
     
     private LevelController.Direction _entranceDirection;
     private LevelController.Direction _exitDirection; 
     
     private List<SpawnerController> _spawners;
+
+    private List<LevelController.Direction> _availableDirections = new List<LevelController.Direction>()
+    {
+        LevelController.Direction.Up, LevelController.Direction.Down, LevelController.Direction.Left,
+        LevelController.Direction.Right
+    };
     
-    [SerializeField] private Vector2 _roomSize = new Vector2(64,36);
+    private Vector2 _roomSize = new Vector2(64,36);
+    
 
     private void Start()
     {
@@ -48,9 +57,47 @@ public class LevelAttributes : MonoBehaviour
         }
     }
 
-    private void ApplyDoors() // Check later
+    private void ApplyDoors() 
     {
-        // fur Spater
+        foreach (var direction in _availableDirections)
+        {
+            if(direction==_exitDirection){ }
+        }
+    }
+
+    private Vector2 GetWallPosFromDirection(LevelController.Direction direction)
+    {
+        switch (direction)
+        {
+            case LevelController.Direction.Up:
+                return new Vector2(0, _roomSize.y / 2);
+            case LevelController.Direction.Down:
+                return new Vector2(0, -_roomSize.y / 2);
+            case LevelController.Direction.Left:
+                return new Vector2(-_roomSize.x / 2, 0);
+            case LevelController.Direction.Right:
+                return new Vector2(_roomSize.x / 2, 0);
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+    
+    private List<GameObject> GetWallObjectFromDirection(LevelController.Direction direction)
+    {
+        // RETURNS A LIST OF [Wall, Door]
+        switch (direction)
+        {
+            case LevelController.Direction.Up:
+                return new List<GameObject> {HorizontalWall, HorizontalDoor};
+            case LevelController.Direction.Down:
+                return new List<GameObject> {HorizontalWall, HorizontalDoor};
+            case LevelController.Direction.Left:
+                return new List<GameObject> {VerticalWall, VerticalDoor};
+            case LevelController.Direction.Right:
+                return new List<GameObject> {VerticalWall, VerticalDoor};
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     public bool IsRoomEligible(int currentDifficulty, LevelController.Direction entranceDirection)
