@@ -213,19 +213,19 @@ PrefabInstance:
       objectReference: {fileID: 6916584313222015735, guid: a7097146508ed7e46877164c5a889c5c, type: 3}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: _progressionThreshold.Array.data[0]
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: _progressionThreshold.Array.data[1]
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: _progressionThreshold.Array.data[2]
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: _progressionThreshold.Array.data[3]
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: _stageTransitionRooms.Array.data[0]
@@ -441,6 +441,41 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0cd9ad1dd0cb2bb4a9fe217393be89f6, type: 3}
+--- !u!21 &181566488
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1 &238331615
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,41 +610,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238331615}
   m_CullTransparentMesh: 1
---- !u!21 &322441405
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1 &397786003
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,6 +863,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingBar: {fileID: 1621991140}
   _upgradeText: {fileID: 238331617}
+--- !u!21 &1089992617
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1001 &1162060748
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1021,41 +1056,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a38697ff7541fe419e72e3644e78032, type: 3}
---- !u!21 &1258059170
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!224 &1261436855 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5225610044404929651, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
@@ -1069,42 +1069,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1976114485}
     m_Modifications:
-    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
-      propertyPath: Exits
-      value: 
-      objectReference: {fileID: 11400000, guid: 4725c1c33fd478747b97ac46f54e031e, type: 2}
-    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
-      propertyPath: Entrances
-      value: 
-      objectReference: {fileID: 11400000, guid: ebbe923e5206af24aa5acf977a63d795, type: 2}
-    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
-      propertyPath: _roomSize.x
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
-      propertyPath: _roomSize.y
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
-      propertyPath: _roomInformationHolder
-      value: 
-      objectReference: {fileID: 11400000, guid: ebbe923e5206af24aa5acf977a63d795, type: 2}
-    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
-      propertyPath: AvailableExits.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
-      propertyPath: availableDirections.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
-      propertyPath: availableDirections.Array.data[1]
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594223961222755545, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 4594223961222755545, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

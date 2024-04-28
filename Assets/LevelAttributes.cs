@@ -27,7 +27,7 @@ public class LevelAttributes : MonoBehaviour
         LevelController.Direction.Right
     };
     
-    private Vector2 _roomSize = new Vector2(32,18);
+    private Vector2 _roomSize = new Vector2(36,18);
     
 
     private void Start()
