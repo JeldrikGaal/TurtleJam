@@ -31,9 +31,7 @@ public class SpawnerController : MonoBehaviour
 
     public void InitializeSpawner()
     {
-        Debug.Log("1");
         if (_currentSpawnedObject!= null) return;
-        Debug.Log("2");
         
         _currentSpawnedObject = Instantiate(_infoHolder.ObjectToSpawn, this.transform.position, Quaternion.identity);
 
@@ -43,13 +41,10 @@ public class SpawnerController : MonoBehaviour
     }
     public void ActivateSpawner(int difficultyLevel)
     {
-        Debug.Log("3");
         if(_currentSpawnedObject != null)
         {
-            Debug.Log("4");
             if (difficultyLevel >= ActivationStage)
             {
-                Debug.Log("5");
                 _currentSpawnedObject.SetActive(true);
             }
             else
