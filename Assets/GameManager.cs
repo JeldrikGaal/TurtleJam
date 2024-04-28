@@ -121,6 +121,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void UpdateTileMapList()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Wall"))
+        {
+            Tilemap t = g.GetComponent<Tilemap>();
+            if (!tilemaps.Contains(t))
+            {
+                tilemaps.Add(t);
+            }
+        }
+    }
+
     private void ColorShift()
     {
         if (!flashing)
