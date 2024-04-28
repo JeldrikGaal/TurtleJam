@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,6 +15,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] private List<GameObject> _normalRooms = new List<GameObject>();
     
     [SerializeField] private int _currentStageIndex = 0;
+    private int _currentRoomIndex = 0;
     [SerializeField] private TextMeshProUGUI _stageNumUI;
     
     [SerializeField] private LevelAttributes _tutorialRoom;
@@ -30,6 +32,16 @@ public class LevelController : MonoBehaviour
         None
     }
 
+    private void OnEnable()
+    {
+        CamUpTrigger.roomExited += NextRoom;
+    }
+
+    private void OnDestroy()
+    {
+        CamUpTrigger.roomExited -= NextRoom;
+    }
+
     private void Start()
     {
         _gridTransform = GameObject.FindGameObjectWithTag("Grid").transform;
@@ -44,10 +56,12 @@ public class LevelController : MonoBehaviour
         List<Direction> path = new List<Direction>();
         path.Add(GetRandomDirection(GetAvailableDirections(Direction.Up)));
         
-        for (int i = 1; i < length; i++)
+        for (int i = 1; i < length-1; i++)
         {
             path.Add(GetRandomDirection(GetAvailableDirections(path[i-1])));
         }
+        
+        path.Add(Direction.Up);
 
         return path;
     }
@@ -189,6 +203,12 @@ public class LevelController : MonoBehaviour
         GenerateBatch(_progressionThreshold[_currentStageIndex]);
 
         //stageTransitionRoom.GetComponentInChildren<CamUpTrigger>().UpdateCamUpTrigger();
+    }
+
+    private void NextRoom(CamUpTrigger camUpTrigger)
+    {
+        _currentRoomIndex++;
+        camUpTrigger.InitiateTransition(_generatedRooms[_currentRoomIndex].transform.Find("CamPosition").position);
     }
 
     private void Update()

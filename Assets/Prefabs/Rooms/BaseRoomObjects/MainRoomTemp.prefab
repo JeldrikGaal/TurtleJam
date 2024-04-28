@@ -5954,10 +5954,10 @@ MonoBehaviour:
   Entrances: {fileID: 0}
   Exits: {fileID: 0}
   _minimumDifficulty: 0
-  HorizontalWall: {fileID: 0}
-  VerticalWall: {fileID: 0}
-  HorizontalDoor: {fileID: 0}
-  VerticalDoor: {fileID: 0}
+  HorizontalWall: {fileID: 3126824153447936360, guid: bb6fd2b5bf49cdc4b98ce0c3a11d585a, type: 3}
+  VerticalWall: {fileID: 8551808961873010882, guid: 99b3b9f0ad77b3849ae3b4f4a7633aaf, type: 3}
+  HorizontalDoor: {fileID: 7430968498064836049, guid: b511288e2bc5eea4e90ace6769a01b12, type: 3}
+  VerticalDoor: {fileID: 57274970689209395, guid: 90aecb53f28267547b7f56df65930f62, type: 3}
 --- !u!1 &8171669147763220755
 GameObject:
   m_ObjectHideFlags: 0

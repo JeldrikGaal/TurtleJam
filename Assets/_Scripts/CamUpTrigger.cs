@@ -1,9 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CamUpTrigger : MonoBehaviour
 {
+    
+    public static event Action<CamUpTrigger> roomExited; 
+    
+    
     private LevelController _levelController;
     public GameObject _camera;
 
@@ -26,9 +31,6 @@ public class CamUpTrigger : MonoBehaviour
         }
 
         _levelController = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelController>();
-        /*if (transform.parent.GetComponent<LevelAttributes>().nextRoomConnected != null)
-            _nextPos = transform.parent.GetComponent<LevelAttributes>().nextRoomConnected.transform.Find("CamPosition")
-                .position;*/
     }
 
     // Update handles camera movement / arrival actions.
@@ -66,12 +68,13 @@ public class CamUpTrigger : MonoBehaviour
         {
             if (_camera == null)
                 _camera = GameObject.FindGameObjectWithTag("MainCamera");
-            InitiateTransition();
+            roomExited?.Invoke(this);
         }
     }
 
-    private void InitiateTransition()
+    public void InitiateTransition(Vector3 nextPos)
     {
+        _nextPos = nextPos;
         _movingFlag = true;
         _startingTime = Time.time; 
         _camera.GetComponent<CameraManager>().CameraTransition(_nextPos,duration);

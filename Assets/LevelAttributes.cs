@@ -27,7 +27,7 @@ public class LevelAttributes : MonoBehaviour
         LevelController.Direction.Right
     };
     
-    private Vector2 _roomSize = new Vector2(64,36);
+    private Vector2 _roomSize = new Vector2(36,18);
     
 
     private void Start()
@@ -61,28 +61,40 @@ public class LevelAttributes : MonoBehaviour
     {
         foreach (var direction in _availableDirections)
         {
-            if(direction==_exitDirection){ }
+            GameObject spawnedWall = new GameObject();
+            if (direction == _exitDirection)
+            {
+                spawnedWall = Instantiate(GetWallObjectsFromDirection(direction)[1], transform.position + GetWallPosFromDirection(direction), Quaternion.identity, transform);
+            }
+            else if (direction != _entranceDirection)
+            {
+                spawnedWall = Instantiate(GetWallObjectsFromDirection(direction)[0], transform.position + GetWallPosFromDirection(direction), Quaternion.identity, transform);
+            }
+            
+            
+            if(direction == LevelController.Direction.Up) { spawnedWall.transform.rotation = Quaternion.Euler(0,0,180);}
+            else if(direction == LevelController.Direction.Left) { spawnedWall.transform.rotation = Quaternion.Euler(0,180,0);}
         }
     }
 
-    private Vector2 GetWallPosFromDirection(LevelController.Direction direction)
+    private Vector3 GetWallPosFromDirection(LevelController.Direction direction)
     {
         switch (direction)
         {
             case LevelController.Direction.Up:
-                return new Vector2(0, _roomSize.y / 2);
+                return new Vector2(0, _roomSize.y / 4);
             case LevelController.Direction.Down:
-                return new Vector2(0, -_roomSize.y / 2);
+                return new Vector2(0, -_roomSize.y / 4);
             case LevelController.Direction.Left:
-                return new Vector2(-_roomSize.x / 2, 0);
+                return new Vector2(-_roomSize.x / 4, 0);
             case LevelController.Direction.Right:
-                return new Vector2(_roomSize.x / 2, 0);
+                return new Vector2(_roomSize.x / 4, 0);
             default:
                 throw new ArgumentOutOfRangeException();
         }
     }
     
-    private List<GameObject> GetWallObjectFromDirection(LevelController.Direction direction)
+    private List<GameObject> GetWallObjectsFromDirection(LevelController.Direction direction)
     {
         // RETURNS A LIST OF [Wall, Door]
         switch (direction)
