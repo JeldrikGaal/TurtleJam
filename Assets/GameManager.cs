@@ -236,7 +236,8 @@ public class GameManager : MonoBehaviour
 
     public void SaveScoreForPlayer() 
     {
-        scoreManager.SaveNewScore(highscoreName.text, (int)((int)(100 - time) * 10 + score));
+        scoreManager.AddScore(highscoreName.text, (int)((int)(100 - time) * 10 + score));
+           //SaveNewScore(highscoreName.text, (int)((int)(100 - time) * 10 + score));
         highscoreSection.SetActive(false);
     }
 
