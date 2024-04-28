@@ -8,6 +8,13 @@ public class CameraManager : MonoBehaviour
     private bool shaking;
     private BattleTransitionEffect bE;
 
+
+    private bool _transitioning = false; // for in-rooms transitions.
+    private float _startingTime; // used for lerp.
+    private float _duration; // duration of level transitions
+    private Vector3 _posA;
+    private Vector3 _posB;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,15 +24,13 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.L))
+        if (_transitioning && Vector3.Distance(_posA,_posB) >= 0.1f)
         {
-            StartCoroutine(BattleTransition(1, true));
-        }  
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            StartCoroutine(BattleTransition(1, false));
-        }*/
-    } // Battle Transition tests. Can be disregarded.
+            gameObject.transform.position = Vector3.Lerp(_posA, _posB, Time.time - _startingTime / _duration);       
+        }
+        else { _transitioning = false; }
+    } 
+    
     public IEnumerator Shake(float duration, float magnitude)
     {
         float elapsedTime = 0f;
@@ -63,5 +68,14 @@ public class CameraManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+    }
+
+    public void CameraTransition(Vector3 posB, float time=1f)
+    {
+        _posA = this.gameObject.transform.position;
+        _posB = posB;
+        _duration = time;
+        _startingTime = Time.time;
+        _transitioning = true; // Triggers lerp in Update ()
     }
 }

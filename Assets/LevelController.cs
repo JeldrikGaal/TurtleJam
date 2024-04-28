@@ -1,9 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
+    
+    
+    // New Variables
+    [SerializeField] private List<int> progressionThreshold = new List<int>(); // # of room to complete before moving on to next stage.
+    [SerializeField] private List<GameObject> stageTransitionRooms = new List<GameObject>(); 
+    [SerializeField] private int currentStageIndex = 0;
+    public int currentRoomIndex = 0;
+    
+    
+    [SerializeField] private TextMeshProUGUI stageNumUI;
+    
+    
+    
+    
+    
+    
+    
     public GameObject currentRoom; // This variable represents the latest room that has been generated. and NOT the actual current room player is in. MUST BE Set to initial room first in inspector. 
     
     public int numOfRooms = 3;
@@ -25,6 +43,9 @@ public class LevelController : MonoBehaviour
     private void Awake()
     {
         grid = GameObject.FindGameObjectWithTag("Grid").transform;
+
+        numOfRooms = progressionThreshold[currentStageIndex];
+        
         GenerateLevel();
     }
 
@@ -32,7 +53,8 @@ public class LevelController : MonoBehaviour
     {
         for(int i = 0; i < numOfRooms; i++) 
         {
-            if (currentRoom.GetComponent<LevelAttributes>().hasExitUp && !currentRoom.GetComponent<LevelAttributes>().nextRoomConnected)
+            if (currentRoom.GetComponent<LevelAttributes>().hasExitUp &&
+                !currentRoom.GetComponent<LevelAttributes>().nextRoomConnected)
             {
                 // Look for all rooms which have down && not the end scene.
                 List<GameObject> availableRooms = new List<GameObject>();
@@ -42,12 +64,18 @@ public class LevelController : MonoBehaviour
                         availableRooms.Add(levelsDown[j]);
                     else if (i != numOfRooms - 1 && !levelsDown[j].GetComponent<LevelAttributes>().isEndScreen)
                         availableRooms.Add(levelsDown[j]);
-                    
-                }
 
+                }
 
                 // Randomly selecting a room and instantiating it
                 GameObject newRoomSelected = availableRooms[Random.RandomRange(0, availableRooms.Count - 1)];
+                
+                if (i == numOfRooms - 1 && (currentStageIndex == 0 || currentStageIndex == 1 || currentStageIndex == 2))
+                {
+                    newRoomSelected = stageTransitionRooms[currentStageIndex];
+                }
+
+                
                 GameObject instantiatedRoom = Instantiate(newRoomSelected, grid);
                 instantiatedRoom.transform.localPosition = new Vector3(currentRoom.transform.localPosition.x, currentRoom.transform.localPosition.y + yOffset, currentRoom.transform.localPosition.z);
 
@@ -69,6 +97,12 @@ public class LevelController : MonoBehaviour
 
                 // Randomly selecting a room and instantiating it
                 GameObject newRoomSelected = availableRooms[Random.RandomRange(0, availableRooms.Count - 1)];
+                
+                if (i == numOfRooms - 1 && (currentStageIndex == 0 || currentStageIndex == 1 || currentStageIndex == 2))
+                {
+                    newRoomSelected = stageTransitionRooms[currentStageIndex];
+                }
+                
                 GameObject instantiatedRoom = Instantiate(newRoomSelected, grid);
                 instantiatedRoom.transform.localPosition = new Vector3(currentRoom.transform.localPosition.x + xOffset, currentRoom.transform.localPosition.y, currentRoom.transform.localPosition.z);
 
@@ -91,6 +125,12 @@ public class LevelController : MonoBehaviour
 
                 // Randomly selecting a room and instantiating it
                 GameObject newRoomSelected = availableRooms[Random.RandomRange(0, availableRooms.Count - 1)];
+                
+                if (i == numOfRooms - 1 && (currentStageIndex == 0 || currentStageIndex == 1 || currentStageIndex == 2))
+                {
+                    newRoomSelected = stageTransitionRooms[currentStageIndex];
+                }
+                
                 GameObject instantiatedRoom = Instantiate(newRoomSelected, grid);
                 instantiatedRoom.transform.localPosition = new Vector3(currentRoom.transform.localPosition.x - xOffset, currentRoom.transform.localPosition.y, currentRoom.transform.localPosition.z);
 
@@ -114,6 +154,12 @@ public class LevelController : MonoBehaviour
 
                 // Randomly selecting a room and instantiating it
                 GameObject newRoomSelected = availableRooms[Random.RandomRange(0, availableRooms.Count - 1)];
+                
+                if (i == numOfRooms - 1 && (currentStageIndex == 0 || currentStageIndex == 1 || currentStageIndex == 2))
+                {
+                    newRoomSelected = stageTransitionRooms[currentStageIndex];
+                }
+                
                 GameObject instantiatedRoom = Instantiate(newRoomSelected, grid);
                 instantiatedRoom.transform.localPosition = new Vector3(currentRoom.transform.localPosition.x, currentRoom.transform.localPosition.y - yOffset, currentRoom.transform.localPosition.z);
 
@@ -122,5 +168,18 @@ public class LevelController : MonoBehaviour
 
             }
         }
+    }
+
+    public void ProgressToNextStage()
+    {
+        currentStageIndex++;
+        stageNumUI.text = (currentStageIndex + 1).ToString();
+
+        GameObject stageTransitionRoom = currentRoom;
+        
+        numOfRooms = progressionThreshold[currentRoomIndex];
+        GenerateLevel();
+
+        stageTransitionRoom.GetComponentInChildren<CamUpTrigger>().UpdateCamUpTrigger();
     }
 }

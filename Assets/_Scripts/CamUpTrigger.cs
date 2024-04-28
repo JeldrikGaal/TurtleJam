@@ -7,7 +7,6 @@ public class CamUpTrigger : MonoBehaviour
     private LevelController _levelController;
     public GameObject _camera;
 
-    private Vector3 _initialPos; // Current camera position.
     public Vector3 _nextPos; // Camera next (room's) position.
     
     [SerializeField] private float duration = 1f; // Duration of camera transition (lerp)
@@ -26,7 +25,6 @@ public class CamUpTrigger : MonoBehaviour
             Debug.LogError("Camera is null");
         }
 
-        _initialPos = _camera.transform.position;
         _levelController = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelController>();
         if (transform.parent.GetComponent<LevelAttributes>().nextRoomConnected != null)
             _nextPos = transform.parent.GetComponent<LevelAttributes>().nextRoomConnected.transform.Find("CamPosition")
@@ -36,22 +34,30 @@ public class CamUpTrigger : MonoBehaviour
     // Update handles camera movement / arrival actions.
     void Update() 
     {
+        if (Vector3.Distance(_camera.transform.position, _nextPos) <= 0.2f)
+        {
+            Destroy(this.gameObject);
+        }
+        /*Debug.Log(Vector3.Distance(_camera.transform.position,_nextPos));
+
         if (_camera != null)
         {
             if (!_doneMoving && _movingFlag && _camera.transform.position != _nextPos)
             {
                 _camera.transform.position = Vector3.Lerp(_initialPos, _nextPos, Time.time - _startingTime / duration);
             }
-            else if (_doneMoving == false && _camera.transform.position == _nextPos)
+            else if (_doneMoving == false && Vector3.Distance(_camera.transform.position,_nextPos)<=0.2f )
             {
+                Debug.Log("LOAI THE DESTROYER");
                 _doneMoving = true;
                 _movingFlag = false;
+                Destroy(this.gameObject);
             }
         }
         else
         {
-            Debug.Log("Camera doesn't exit bitch!");
-        }
+            Debug.Log("Camera doesn't exist bitch!");
+        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -66,8 +72,17 @@ public class CamUpTrigger : MonoBehaviour
 
     private void InitiateTransition()
     {
-        _initialPos = _camera.transform.position;
         _movingFlag = true;
         _startingTime = Time.time; 
+        _camera.GetComponent<CameraManager>().CameraTransition(_nextPos,duration);
     }
+
+    public void UpdateCamUpTrigger()
+    {
+        if (transform.parent.GetComponent<LevelAttributes>().nextRoomConnected != null)
+            _nextPos = transform.parent.GetComponent<LevelAttributes>().nextRoomConnected.transform.Find("CamPosition")
+                .position;
+    }
+    
+    
 }
