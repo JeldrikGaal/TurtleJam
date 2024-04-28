@@ -162,6 +162,7 @@ public class LevelController : MonoBehaviour
 
     private GameObject GetRandomRoomPrefab(int difficulty, Direction entranceDirection)
     {
+        Debug.Log(entranceDirection);
         List<GameObject> availableRooms = GetAvailableRoomPrefabs(difficulty, entranceDirection);
         return availableRooms[Random.Range(0, availableRooms.Count)];
     }

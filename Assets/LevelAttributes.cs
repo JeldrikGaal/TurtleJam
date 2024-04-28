@@ -7,8 +7,12 @@ using UnityEngine.Serialization;
 
 public class LevelAttributes : MonoBehaviour
 {
-    public List<LevelController.Direction> AvailableEntrances;
-    public List<LevelController.Direction> AvailableExits;
+    [SerializeField] private DirectionsHolder Entrances;
+    [SerializeField] private DirectionsHolder Exits;
+    [SerializeField] private float _minimumDifficulty;
+    
+    /*private List<LevelController.Direction> _availableEntrances;
+    private List<LevelController.Direction> _availableExits;*/
     
     private LevelController.Direction _entranceDirection;
     private LevelController.Direction _exitDirection; 
@@ -16,7 +20,6 @@ public class LevelAttributes : MonoBehaviour
     private List<SpawnerController> _spawners;
     
     [SerializeField] private Vector2 _roomSize = new Vector2(64,36);
-    [SerializeField] private float _minimumDifficulty;
 
     private void Start()
     {
@@ -52,7 +55,7 @@ public class LevelAttributes : MonoBehaviour
 
     public bool IsRoomEligible(int currentDifficulty, LevelController.Direction entranceDirection)
     {
-        return currentDifficulty >= _minimumDifficulty && AvailableEntrances.Contains(entranceDirection);
+        return currentDifficulty >= _minimumDifficulty && Entrances.Directions.Contains(entranceDirection);
     }
 
     public LevelController.Direction GetExitDirection()

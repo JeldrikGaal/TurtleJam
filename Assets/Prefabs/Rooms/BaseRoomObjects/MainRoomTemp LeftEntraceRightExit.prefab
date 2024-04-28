@@ -53,6 +53,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7701408711800996697, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
+      propertyPath: Exits
+      value: 
+      objectReference: {fileID: 11400000, guid: 536fe7cf8bcb7a64d9dcd92d6b539802, type: 2}
+    - target: {fileID: 7701408711800996697, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
+      propertyPath: Entrances
+      value: 
+      objectReference: {fileID: 11400000, guid: 761e7e3af47e9534faae034a865a7d00, type: 2}
+    - target: {fileID: 7701408711800996697, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
       propertyPath: _miniumDifficulty
       value: 0
       objectReference: {fileID: 0}

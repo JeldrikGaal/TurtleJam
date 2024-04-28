@@ -53,6 +53,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7701408711800996697, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
+      propertyPath: Exits
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d6cb0b2faae8fe4aaba98891fb9243b, type: 2}
+    - target: {fileID: 7701408711800996697, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
+      propertyPath: Entrances
+      value: 
+      objectReference: {fileID: 11400000, guid: ebbe923e5206af24aa5acf977a63d795, type: 2}
+    - target: {fileID: 7701408711800996697, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
       propertyPath: AvailableExits.Array.size
       value: 3
       objectReference: {fileID: 0}
