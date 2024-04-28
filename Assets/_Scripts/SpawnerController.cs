@@ -63,14 +63,14 @@ public class SpawnerController : MonoBehaviour
         private void OnDrawGizmos()
     {
         if(_infoHolder != null){
+#if UNITY_EDITOR
             UnityEditor.Handles.Label(transform.position +_debugLableOffset, ActivationStage.ToString());
+#endif
             Gizmos.DrawIcon(transform.position , _infoHolder.sprite.name +".png", true);
             
         }
 
     }
 
-    #if UNITY_EDITOR
-
-#endif
+   
 }
