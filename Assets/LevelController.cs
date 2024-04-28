@@ -23,6 +23,8 @@ public class LevelController : MonoBehaviour
     private Transform _gridTransform;
     
     [SerializeField] private List<LevelAttributes> _generatedRooms = new List<LevelAttributes>();
+
+    private GameManager _gameManager;
     public enum Direction
     {
         Up,
@@ -44,6 +46,7 @@ public class LevelController : MonoBehaviour
 
     private void Start()
     {
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         _gridTransform = GameObject.FindGameObjectWithTag("Grid").transform;
         _generatedRooms.Add(_tutorialRoom);
         
@@ -122,10 +125,6 @@ public class LevelController : MonoBehaviour
         rooms.Add( GenerateRandomRoom(_tutorialRoom, path[0]));
         _generatedRooms.Add(rooms[0]);
         
-        Debug.Log("===");
-        Debug.Log(rooms.Count);
-        Debug.Log(path.Count);
-        Debug.Log("===");
         for (int i = 1; i < roomAmount; i++)
         {
             Debug.Log(path[i]);
@@ -215,6 +214,8 @@ public class LevelController : MonoBehaviour
             _currentStageIndex = _progressionThreshold.Count - 1;
         }
         GenerateBatch(_progressionThreshold[_currentStageIndex]);
+        
+        _gameManager.UpdateTileMapList();
         
         //stageNumUI.text = (currentStageIndex + 1).ToString();
     }
