@@ -43,8 +43,8 @@ public class BulletController : MonoBehaviour
             }
             if (!collision.transform.CompareTag("Bullet"))
             {
-                Destroy(gameObject);
-                pa.PlayOneShotSound(0);
+                //pa.PlayOneShotSound(0);
+                Destroy(gameObject);     
             }
             // Destroy the bullet upon collision with any object
             //Debug.Log(collision.transform.name);

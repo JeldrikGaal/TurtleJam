@@ -15,6 +15,7 @@ public class ShieldScript : MonoBehaviour
     TrailRenderer tR;
     Animator anim;
     BoxCollider2D bC;
+    private PlayAudio _pa;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class ShieldScript : MonoBehaviour
         tR = GetComponent<TrailRenderer>();
         anim = GetComponent<Animator>();
         bC = GetComponent<BoxCollider2D>();
+        _pa = GetComponent<PlayAudio>();
     }
 
     // Update is called once per frame

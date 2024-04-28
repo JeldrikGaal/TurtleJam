@@ -123,41 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!21 &4399878
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1001 &43556223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -175,12 +140,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1461065961}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _tutorialRoom
+      value: 
+      objectReference: {fileID: 1461065962}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: currentRoomIndex
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: currentStageIndex
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _currentStageIndex
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: levelsDown.Array.size
@@ -193,6 +166,10 @@ PrefabInstance:
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: levelsRight.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: levelsDown.Array.data[0]
@@ -247,12 +224,80 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6916584313222015735, guid: ef03eef03e09fed4e96fdbff13562c8f, type: 3}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[0]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: e44ebdee590bfec46a3c1945edde0499, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[1]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: 3fd793d10c79f5146832a1d099395c24, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[2]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: 13505c03a8fdc7f488b1487a4233807f, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[3]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: c71cc44e73f3ecf40a8514e3d26b735a, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[4]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: c876352d6ce8b7e4493fc4b218e28ec8, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[5]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: 413050bd16b05db4984130a12de5907f, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[6]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: a3de0564411288640827a7a2e3d6ba4f, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[7]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: f55778ffbdcb3b844b10e053d81bf110, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[8]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: 6bb4e231479ec0445b4c2018daa19770, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[9]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: b5c441d8ec60c4d41a2c41c1fb80616d, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[10]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: b2415169965af3041a0acfff97d37a52, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[11]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: 5cea68101e2b3aa4fa7372a08096e68c, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[12]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: 5cea68101e2b3aa4fa7372a08096e68c, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[13]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: 5cea68101e2b3aa4fa7372a08096e68c, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _normalRooms.Array.data[14]
+      value: 
+      objectReference: {fileID: 7500007090404855270, guid: 5cea68101e2b3aa4fa7372a08096e68c, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: progressionThreshold.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: stageTransitionRooms.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _progressionThreshold.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _stageTransitionRooms.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: progressionThreshold.Array.data[0]
@@ -286,6 +331,38 @@ PrefabInstance:
       propertyPath: stageTransitionRooms.Array.data[3]
       value: 
       objectReference: {fileID: 5900221611155254528, guid: bb0e3b85290a94a40945aaa1d4728a30, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _progressionThreshold.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _progressionThreshold.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _progressionThreshold.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _progressionThreshold.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _stageTransitionRooms.Array.data[0]
+      value: 
+      objectReference: {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _stageTransitionRooms.Array.data[1]
+      value: 
+      objectReference: {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _stageTransitionRooms.Array.data[2]
+      value: 
+      objectReference: {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _stageTransitionRooms.Array.data[3]
+      value: 
+      objectReference: {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
     - target: {fileID: 2231335442719379082, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -514,6 +591,41 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0cd9ad1dd0cb2bb4a9fe217393be89f6, type: 3}
+--- !u!21 &334320397
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1 &730986463 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4299302541003449712, guid: 4a38697ff7541fe419e72e3644e78032, type: 3}
@@ -1619,6 +1731,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6916584313222015735, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
   m_PrefabInstance: {fileID: 1370842885}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1461065962 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+  m_PrefabInstance: {fileID: 1370842885}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461065961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9750ca44ef7f32478583b44a1a7268e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1558516126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1684,41 +1807,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8387cd22f4ac98349ab8d9e81aad0e79, type: 3}
---- !u!21 &1702577861
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1001 &1732757336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1770,6 +1858,10 @@ PrefabInstance:
     - target: {fileID: 2346672659358320384, guid: dc99d438b08512c49ba8eb0619a7a6e8, type: 3}
       propertyPath: m_Name
       value: Enemy_Shooter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346672659358320384, guid: dc99d438b08512c49ba8eb0619a7a6e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1856,6 +1948,41 @@ Transform:
   - {fileID: 1370842886}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &2137025020
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

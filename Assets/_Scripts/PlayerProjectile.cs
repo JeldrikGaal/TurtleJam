@@ -35,6 +35,8 @@ public class PlayerProjectile : MonoBehaviour
 
     // Seems to work consistently but should be remade
     private const float SetbackDistanceForCollisionRayCast = 1f;
+
+
     
     public bool IsShielding()
     {
@@ -63,6 +65,7 @@ public class PlayerProjectile : MonoBehaviour
         _mainCam = Camera.main;
 
         _state = ProjectileState.Idle;
+
     }
     
     private void Update()
@@ -135,6 +138,7 @@ public class PlayerProjectile : MonoBehaviour
     {
         transform.position = _playerController.transform.position + (GetShieldDirection() * _shieldDistanceToPlayer);
         transform.up = GetShieldDirection();
+        
     }
 
     private void EndFlight()
@@ -157,6 +161,7 @@ public class PlayerProjectile : MonoBehaviour
         if (IsShootingAllowed())
         {
             ShootProjectile();
+
         }
     }
     
