@@ -122,10 +122,6 @@ public class LevelController : MonoBehaviour
         rooms.Add( GenerateRandomRoom(_tutorialRoom, path[0]));
         _generatedRooms.Add(rooms[0]);
         
-        Debug.Log("===");
-        Debug.Log(rooms.Count);
-        Debug.Log(path.Count);
-        Debug.Log("===");
         for (int i = 1; i < roomAmount; i++)
         {
             Debug.Log(path[i]);
