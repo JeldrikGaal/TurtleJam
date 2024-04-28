@@ -26,9 +26,9 @@ public class CamUpTrigger : MonoBehaviour
         }
 
         _levelController = GameObject.FindGameObjectWithTag("GameManager").GetComponent<LevelController>();
-        if (transform.parent.GetComponent<LevelAttributes>().nextRoomConnected != null)
+        /*if (transform.parent.GetComponent<LevelAttributes>().nextRoomConnected != null)
             _nextPos = transform.parent.GetComponent<LevelAttributes>().nextRoomConnected.transform.Find("CamPosition")
-                .position;
+                .position;*/
     }
 
     // Update handles camera movement / arrival actions.
@@ -77,12 +77,12 @@ public class CamUpTrigger : MonoBehaviour
         _camera.GetComponent<CameraManager>().CameraTransition(_nextPos,duration);
     }
 
-    public void UpdateCamUpTrigger()
+    /*public void UpdateCamUpTrigger()
     {
         if (transform.parent.GetComponent<LevelAttributes>().nextRoomConnected != null)
             _nextPos = transform.parent.GetComponent<LevelAttributes>().nextRoomConnected.transform.Find("CamPosition")
                 .position;
-    }
+    }*/
     
     
 }

@@ -19,7 +19,7 @@ public class NextStageTrigger : MonoBehaviour
         if(collision.tag == "Player" && !_stageUpdated)
         {
             _stageUpdated = true;
-            _lc.ProgressToNextStage();
+            //_lc.ProgressToNextStage();
         }
     }
 }
