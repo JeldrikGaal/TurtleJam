@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3a6d4714f2b3449a22a5f5b758febf, type: 3}
   m_Name: Enemy_Shooter
   m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 1d9d91dffeff76848b2e71a777fac1b2, type: 3}
   ObjectToSpawn: {fileID: 2346672659358320384, guid: dc99d438b08512c49ba8eb0619a7a6e8, type: 3}
   Type: 0

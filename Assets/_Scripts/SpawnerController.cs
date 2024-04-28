@@ -5,9 +5,10 @@ using System.ComponentModel.Design.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class SpawnerController : MonoBehaviour
 {
-
+    
     //public bool testBool;
     public int ActivationStage = 1;
     [SerializeField] private SpawnerInformationHolder _infoHolder;
@@ -18,8 +19,6 @@ public class SpawnerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InitializeSpawner();
-        ActivateSpawner(2);
         
     }
     // Update is called once per frame
@@ -53,4 +52,15 @@ public class SpawnerController : MonoBehaviour
         if(currentSpawnedObject != null)
         Destroy(currentSpawnedObject);
     }
+        private void OnDrawGizmos()
+    {
+        if(_infoHolder != null)
+        Gizmos.DrawIcon(transform.position, _infoHolder.sprite.name +".png", true);
+
+
+    }
+
+    #if UNITY_EDITOR
+
+#endif
 }

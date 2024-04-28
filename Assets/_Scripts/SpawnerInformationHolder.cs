@@ -11,6 +11,8 @@ public class SpawnerInformationHolder : ScriptableObject
         EnemySpawner,
         InteractableSpawner,
     }
+    [SerializeField]
+    public Sprite sprite;
 
     public GameObject ObjectToSpawn;
     public SpawnerType Type;
