@@ -1642,7 +1642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4410499231849803128, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
       propertyPath: m_Name
-      value: 0_D_URL 1
+      value: 0_D_URL_02
       objectReference: {fileID: 0}
     - target: {fileID: 5927184916428902053, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
       propertyPath: m_Tiles.Array.size
@@ -4091,7 +4091,11 @@ PrefabInstance:
     - target: {fileID: 7701408711800996697, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
       propertyPath: Entrances
       value: 
-      objectReference: {fileID: 11400000, guid: fb6d142287947fd49bab5c57a7423a35, type: 2}
+      objectReference: {fileID: 11400000, guid: ebbe923e5206af24aa5acf977a63d795, type: 2}
+    - target: {fileID: 7701408711800996697, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
+      propertyPath: _minimumDifficulty
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
