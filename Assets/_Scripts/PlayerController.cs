@@ -1,17 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _speed;
-    [SerializeField] private float _health;
+   
+    [SerializeField] private float _baseSpeed;
+    [SerializeField] private float _baseHealth;
+    private float _speed;
+    private float _health;
+    
     [Range(0,100)]
     [SerializeField] private float _shieldSlowPercentage;
     [SerializeField] private GameObject _shieldObject;
+    
+    [SerializeField] private TMP_Text _tutorialInfoTextField;
     
     private ShieldScript _shieldLogic;
     private PlayerProjectile _playerProjectile;
@@ -54,6 +57,9 @@ public class PlayerController : MonoBehaviour
         _playerProjectile = _shieldObject.GetComponent<PlayerProjectile>();
         _shieldReady = true;
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+        _speed = _baseSpeed;
+        _health = _baseHealth;
     }
 
     void Update()
@@ -119,5 +125,26 @@ public class PlayerController : MonoBehaviour
             // TODO DIE SOUND
             _gameManager.GameOverCondition();
         }
+    }
+
+    public void RequestSpeedChange(float speedDataSpeedIncrease)
+    {
+        _speed += speedDataSpeedIncrease;
+    }
+
+    public void RequestSpeedReset()
+    {
+        _speed = _baseSpeed;
+    }
+    
+    public void RequestSetTutorialTextForTime(string text,float time)
+    {
+        _tutorialInfoTextField.text = text;
+        Invoke(nameof(RequestClearTutorialText), time);
+    }
+
+    public void RequestClearTutorialText()
+    {
+        _tutorialInfoTextField.text = "";
     }
 }

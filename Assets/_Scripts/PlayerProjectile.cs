@@ -35,8 +35,7 @@ public class PlayerProjectile : MonoBehaviour
 
     // Seems to work consistently but should be remade
     private const float SetbackDistanceForCollisionRayCast = 1f;
-
-
+    
     public bool IsShielding()
     {
         return _state is ProjectileState.Shield;
@@ -66,8 +65,6 @@ public class PlayerProjectile : MonoBehaviour
         _state = ProjectileState.Idle;
     }
     
-    
-
     private void Update()
     {
         switch (_state)
@@ -366,7 +363,5 @@ public class PlayerProjectile : MonoBehaviour
         _state = ProjectileState.Idle;
         _projectileJuice.IdleAnim();
         _shieldColliderGameObject.SetActive(false);
-
-        
     }
 }

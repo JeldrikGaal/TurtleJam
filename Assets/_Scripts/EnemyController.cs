@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,6 +48,8 @@ public class EnemyController : MonoBehaviour
 
     private PlayAudio pa;
     private Rigidbody2D rb;
+
+    public static event Action EnemyDeath;
 
     // Start is called before the first frame update
     void Start()
@@ -232,7 +235,7 @@ public class EnemyController : MonoBehaviour
 
     public void Die() 
     {
-       
+        EnemyDeath?.Invoke();
         gm.score += scoreToAddOnDeath;
         pa.PlayOneShotSound(1);
         Destroy(this.gameObject);
