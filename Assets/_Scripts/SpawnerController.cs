@@ -14,12 +14,13 @@ public class SpawnerController : MonoBehaviour
     [SerializeField] private SpawnerInformationHolder _infoHolder;
 
     
-    private GameObject currentSpawnedObject;
+    private GameObject _currentSpawnedObject;
+    private Vector3 _debugLableOffset = Vector3.down;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
     // Update is called once per frame
     void Update()
@@ -30,33 +31,36 @@ public class SpawnerController : MonoBehaviour
 
     public void InitializeSpawner()
     {
-        if (currentSpawnedObject!= null) return;
+        if (_currentSpawnedObject!= null) return;
 
-        currentSpawnedObject = Instantiate(_infoHolder.ObjectToSpawn, this.transform.position, Quaternion.identity);
+        _currentSpawnedObject = Instantiate(_infoHolder.ObjectToSpawn, this.transform.position, Quaternion.identity);
 
-        currentSpawnedObject.SetActive(false);
+        _currentSpawnedObject.SetActive(false);
 
 
     }
     public void ActivateSpawner(int DifficultyLevel)
     {
-        if(currentSpawnedObject!= null){
+        if(_currentSpawnedObject!= null){
             if (DifficultyLevel>= ActivationStage)
-             currentSpawnedObject.SetActive(true);
-             else currentSpawnedObject.SetActive(false);
+             _currentSpawnedObject.SetActive(true);
+             else _currentSpawnedObject.SetActive(false);
         }        
     }
 
+
     public void ResetSpawner()
     {
-        if(currentSpawnedObject != null)
-        Destroy(currentSpawnedObject);
+        if(_currentSpawnedObject != null)
+        Destroy(_currentSpawnedObject);
     }
         private void OnDrawGizmos()
     {
-        if(_infoHolder != null)
-        Gizmos.DrawIcon(transform.position, _infoHolder.sprite.name +".png", true);
-
+        if(_infoHolder != null){
+            UnityEditor.Handles.Label(transform.position +_debugLableOffset, ActivationStage.ToString());
+            Gizmos.DrawIcon(transform.position , _infoHolder.sprite.name +".png", true);
+            
+        }
 
     }
 
