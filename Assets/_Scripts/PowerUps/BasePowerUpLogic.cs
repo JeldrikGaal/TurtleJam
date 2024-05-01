@@ -17,7 +17,7 @@ public class BasePowerUpLogic : MonoBehaviour
    private bool _activated;
    private float _startingTme;
    private BoxCollider2D _boxCollider2D;
-   private PowerUpUI _powerUpUI;
+   private UIManager _powerUpUI;
 
    private void OnEnable()
    {
@@ -33,7 +33,7 @@ public class BasePowerUpLogic : MonoBehaviour
    {
       _boxCollider2D = GetComponent<BoxCollider2D>();
       _playerController = FindObjectOfType<PlayerController>();
-      _powerUpUI = FindObjectOfType<PowerUpUI>();
+      _powerUpUI = FindObjectOfType<UIManager>();
    }
 
    
@@ -70,7 +70,6 @@ public class BasePowerUpLogic : MonoBehaviour
    {
       _activated = true;
       StartTimer();
-      _playerController.RequestSetTutorialTextForTime(_data.TutorialText, _data.TutorialTextDuration);
       _powerUpUI.ShowUI(_data);
       HidePowerUp();
    }

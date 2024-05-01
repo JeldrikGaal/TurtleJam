@@ -136,15 +136,4 @@ public class PlayerController : MonoBehaviour
     {
         _speed = _baseSpeed;
     }
-    
-    public void RequestSetTutorialTextForTime(string text,float time)
-    {
-        _tutorialInfoTextField.text = text;
-        Invoke(nameof(RequestClearTutorialText), time);
-    }
-
-    public void RequestClearTutorialText()
-    {
-        _tutorialInfoTextField.text = "";
-    }
 }

@@ -7,3 +7,4 @@ public class SpeedIncreasePowerUpHolder : BasePowerUpHolder
 {
    public float SpeedIncrease;
 }
+
