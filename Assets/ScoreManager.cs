@@ -15,12 +15,13 @@ using UnityEngine.SocialPlatforms.Impl;
 public class ScoreManager : MonoBehaviour
 {
 
-    private string LeaderboardId = "Romanesco";
+    private const string LeaderboardId = "Romanesco"; // Do not change! Sensitive variable.
     int Offset { get; set; }
     int Limit { get; set; }
+
     
-    public Dictionary<string, int> scores = new Dictionary<string, int>() { };
-    public string scoresString;
+    [SerializeField] private bool rankingScreen = false; // Indication if this is ranking screen.
+    [SerializeField] private string playerSignedIn; // stores username of signed in player, and serves as indication if there's a player signed in.
     
     async void Awake()
     {
@@ -32,7 +33,8 @@ public class ScoreManager : MonoBehaviour
     {
         AuthenticationService.Instance.SignedIn += () =>
         {
-            Debug.Log("Signed in as: " + AuthenticationService.Instance.PlayerId);
+            Debug.Log("Signed in as: " + AuthenticationService.Instance.PlayerName);
+            playerSignedIn = AuthenticationService.Instance.PlayerName;
         };
         AuthenticationService.Instance.SignInFailed += s =>
         {
@@ -44,35 +46,60 @@ public class ScoreManager : MonoBehaviour
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
-    
-    public async void AddScore(string playerName, double score)
+    public async void UpdateScore(double newScore)
     {
-        var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync(LeaderboardId, 102);
-        Debug.Log(JsonConvert.SerializeObject(scoreResponse));
-    }
-    
-    public async void GetScores()
-    {
-        var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(LeaderboardId);
-        Debug.Log(JsonConvert.SerializeObject(scoresResponse));
-    }
-    
-    public async void GetPaginatedScores()
-    {
-        Offset = 10;
-        Limit = 10;
-        var scoresResponse =
-            await LeaderboardsService.Instance.GetScoresAsync(LeaderboardId, new GetScoresOptions{Offset = Offset, Limit = Limit});
-        Debug.Log(JsonConvert.SerializeObject(scoresResponse));
+        double currentScore = await GetPlayerScore();
+
+        if (currentScore != null && newScore > currentScore)
+        {
+            await LeaderboardsService.Instance.AddPlayerScoreAsync(LeaderboardId, newScore);
+        }
     }
 
-    public async void GetPlayerScore()
+    private async Task<double> GetPlayerScore()
     {
-        var scoreResponse = 
-            await LeaderboardsService.Instance.GetPlayerScoreAsync(LeaderboardId);
-        Debug.Log(JsonConvert.SerializeObject(scoreResponse));
+        return (await LeaderboardsService.Instance.GetPlayerScoreAsync(LeaderboardId)).Score; 
     }
     
+    private async void UpdateUsername(string newUsername)
+    {
+        await AuthenticationService.Instance.UpdatePlayerNameAsync(newUsername);
+    }
+    
+    public async Task<Dictionary<string,double>> GetAllScores()
+    {
+        if(!rankingScreen) return null;
+        var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(LeaderboardId);
+
+        return ConvertScoresToDictionary(scoresResponse.Results);
+    }
+
+    public async Task<Dictionary<string,double>> GetTopScores()
+    {
+        var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(LeaderboardId, new GetScoresOptions{ Offset = 0, Limit = 10 });
+
+        return ConvertScoresToDictionary(scoresResponse.Results);
+    }
+    
+    private Dictionary<string, double> ConvertScoresToDictionary(List<LeaderboardEntry> results)
+    {
+        Dictionary<string, double> allScores = new Dictionary<string, double>();
+
+        foreach (var result in results)
+        {
+            allScores.Add(result.PlayerName, result.Score);
+        }
+
+        return allScores;
+    }
+    
+    
+
+    private void Update()
+    {
+        //if(Input.GetKeyDown(KeyCode.Return)) GetScores();
+    }
+
     /*private async Task<LeaderboardEntry> GetPlayerScoreAsync()
     {
         try
@@ -115,66 +142,5 @@ public class ScoreManager : MonoBehaviour
             Debug.Log(scoresJson);
         }
     }*/
-
-    private void LoadScores()
-    {
-        // Retrieve the scores JSON string from player prefs
-        
-        
-        
-        /*string scoresJson = PlayerPrefs.GetString("Scores");
-
-        if (!string.IsNullOrEmpty(scoresJson))
-        {
-            Debug.Log("YYY");
-            // Deserialize the scores JSON string back into a dictionary
-            scores = JsonUtility.FromJson<Dictionary<string, int>>(scoresJson);
-        }*/
-    }
-
-    public List<KeyValuePair<string, int>> GetRankedScores()
-    {
-        // Load scores from player prefs
-        LoadScores();
-
-        // Convert the scores dictionary to a list of key-value pairs
-        List<KeyValuePair<string, int>> rankedScores = new List<KeyValuePair<string, int>>();
-
-        if (scores != null)
-        {
-            rankedScores.AddRange(scores);
-
-            // Sort scores in descending order based on the values
-            rankedScores.Sort((a, b) => b.Value.CompareTo(a.Value));
-        }
-
-        // Return the sorted scores list
-        return rankedScores;
-    }
-
-    public KeyValuePair<string, int> GetHighestScore()
-    {
-        // Load scores from player prefs
-        LoadScores();
-
-        // Initialize variables for the highest score
-        string highestName = string.Empty;
-        int highestScore = 0;
-
-        if (scores != null)
-        {
-            // Iterate through the scores dictionary to find the highest score
-            foreach (KeyValuePair<string, int> score in scores)
-            {
-                if (score.Value > highestScore)
-                {
-                    highestName = score.Key;
-                    highestScore = score.Value;
-                }
-            }
-        }
-
-        // Return the highest score as a key-value pair
-        return new KeyValuePair<string, int>(highestName, highestScore);
-    }
+    
 }

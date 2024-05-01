@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour
 
     public int score = 0;
     public TextMeshProUGUI scoreTXT;
+    public TextMeshProUGUI scoreFinalTXT;
 
+    
     public float time = 0;
     public TextMeshProUGUI timeTXT;
 
@@ -236,12 +238,12 @@ public class GameManager : MonoBehaviour
 
     public void SaveScoreForPlayer() 
     {
-        scoreManager.AddScore(highscoreName.text, (int)((int)(100 - time) * 10 + score));
+        scoreManager.UpdateScore(score);
            //SaveNewScore(highscoreName.text, (int)((int)(100 - time) * 10 + score));
-        highscoreSection.SetActive(false);
+        //highscoreSection.SetActive(false);
     }
 
-    public void WinCondition() 
+    /*public void WinCondition() 
     {
         levelComplete = true;
         StartCoroutine(cM.BattleTransition(1, true));
@@ -265,7 +267,7 @@ public class GameManager : MonoBehaviour
             nameText.text = scoreManager.GetRankedScores()[0].Key.ToString();
         }
         
-    }
+    }*/
 
     public void GameOverCondition()
     {
@@ -277,6 +279,11 @@ public class GameManager : MonoBehaviour
         scoreTXT.enabled = false;
         timeTXT.enabled = false;
         paused = true;
+
+        score = ((int)time * score); // Score calculation
+        SaveScoreForPlayer();
+        scoreFinalTXT.text = "Score \n" + score.ToString();
+        scoreFinalTXT.enabled = true;
     }
 
     public void GoToLevel(string levelName) // For Resume, Next Level and Back to Main Menu

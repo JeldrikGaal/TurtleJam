@@ -1269,6 +1269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b046ab383d21cec4b98947f659c71163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rankingScreen: 1
   scoresString: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
