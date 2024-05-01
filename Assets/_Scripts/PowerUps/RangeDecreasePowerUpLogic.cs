@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangeDecreasePowerUpLogic : MonoBehaviour
+public class RangeDecreasePowerUpLogic : BasePowerUpLogic
 {
-    // Start is called before the first frame update
-    void Start()
+    private RangeDecreasePowerUpHolder _decreaseData;
+    
+    protected override void Start()
     {
-        
+        base.Start();
+        _decreaseData = (RangeDecreasePowerUpHolder)_data;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void ActivatePowerUp()
     {
-        
+        base.ActivatePowerUp();
+        _playerController.RequestRangeChange(_decreaseData.RangeDecrease);
+    }
+   
+    protected override void DeactivatePowerUp()
+    {
+        base.DeactivatePowerUp();
+        _playerController.RequestRangeReset();
     }
 }

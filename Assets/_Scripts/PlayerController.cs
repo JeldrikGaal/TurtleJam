@@ -40,13 +40,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _flyingTime;
     [SerializeField] private float _flyingTimeBack;
     private float _flyingSpeed;
-    private Vector2 _startingPos;
+    /*private Vector2 _startingPos;
     private Vector2 _startingPosBack;
     private Vector2 _endPos;
     private Vector2 _endPosSave;
     private float _startingTime;
     private float _startingTimeBack;
-    private bool _flyingBack;
+    private bool _flyingBack;*/
 
     // Needed for portals ?
     public bool teleporting = false;
@@ -135,5 +135,15 @@ public class PlayerController : MonoBehaviour
     public void RequestSpeedReset()
     {
         _speed = _baseSpeed;
+    }
+
+    public void RequestRangeChange(float decreaseDataRangeDecrease)
+    {
+        _playerProjectile.RequestRangeChange(decreaseDataRangeDecrease);
+    }
+
+    public void RequestRangeReset()
+    {
+        _playerProjectile.RequestRangeReset();
     }
 }

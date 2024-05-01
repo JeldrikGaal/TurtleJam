@@ -12,6 +12,8 @@ public class PlayerProjectile : MonoBehaviour
     [SerializeField] private float _returnSpeed;
     [SerializeField] private float _maxBounceAmount;
 
+    private float _startFlyRange;
+
     [Header("Shield Settings")] 
     [SerializeField] private float _shieldDistanceToPlayer;
 
@@ -65,6 +67,8 @@ public class PlayerProjectile : MonoBehaviour
         _mainCam = Camera.main;
 
         _state = ProjectileState.Idle;
+
+        _startFlyRange = _flyRange;
 
     }
     
@@ -367,5 +371,15 @@ public class PlayerProjectile : MonoBehaviour
         _state = ProjectileState.Idle;
         _projectileJuice.IdleAnim();
         _shieldColliderGameObject.SetActive(false);
+    }
+
+    public void RequestRangeChange(float rangeChange)
+    {
+        _flyRange += rangeChange;
+    }
+
+    public void RequestRangeReset()
+    {
+        _flyRange = _startFlyRange;
     }
 }

@@ -54,7 +54,7 @@ public class BasePowerUpLogic : MonoBehaviour
 
    private float GetCurrentProgressPercentage()
    {
-      return 1 - (Time.time - _startingTme) / _data.InitialDuration;
+      return Math.Min(1, 1 - ((Time.time - _startingTme) / _data.InitialDuration));
    }
    
 
@@ -99,7 +99,9 @@ public class BasePowerUpLogic : MonoBehaviour
    
    private void RefreshTimer(float time)
    {
+      if (!_activated) return;
       _startingTme += time;
+      _powerUpUI.RefreshTimerEffect();
    }
 
    private void StartTimer()
