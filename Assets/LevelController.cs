@@ -66,7 +66,6 @@ public class LevelController : MonoBehaviour
         
         for (int i = 1; i < length-1; i++)
         {
-            Debug.Log("111");
             path.Add(GetRandomDirection(GetAvailableDirections(path[i-1])));
         }
         
@@ -127,7 +126,6 @@ public class LevelController : MonoBehaviour
         
         for (int i = 1; i < roomAmount; i++)
         {
-            Debug.Log(path[i]);
             rooms.Add( GenerateRandomRoom(rooms[i - 1], path[i]));
         }
         
@@ -186,7 +184,6 @@ public class LevelController : MonoBehaviour
 
     private GameObject GetRandomRoomPrefab(int difficulty, Direction entranceDirection)
     {
-        Debug.Log(entranceDirection);
         List<GameObject> availableRooms = GetAvailableRoomPrefabs(difficulty, entranceDirection);
         return availableRooms[Random.Range(0, availableRooms.Count)];
     }

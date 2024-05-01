@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
   _nextPos: {x: 0, y: 0, z: 0}
-  duration: 0.1
+  duration: 1
   _doorGlow: {fileID: 0}
   _doorBlock: {fileID: 0}
 --- !u!61 &9201844263828740585

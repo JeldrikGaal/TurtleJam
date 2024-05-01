@@ -176,7 +176,6 @@ public class PlayerProjectile : MonoBehaviour
         Collider2D[] results = Physics2D.OverlapCircleAll(colliderPos, _circleCollider2D.radius);
         foreach (var hitCollider in results)
         {
-            Debug.Log(hitCollider);
             if (hitCollider.CompareTag("Wall"))
             {
                 return true;

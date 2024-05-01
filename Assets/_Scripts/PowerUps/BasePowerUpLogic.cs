@@ -70,7 +70,7 @@ public class BasePowerUpLogic : MonoBehaviour
    {
       _activated = true;
       StartTimer();
-      _powerUpUI.ShowUI(_data);
+      _powerUpUI.ShowPowerUpUI(_data);
       HidePowerUp();
    }
    
@@ -84,7 +84,7 @@ public class BasePowerUpLogic : MonoBehaviour
    protected virtual void DeactivatePowerUp()
    {
       _activated = false;
-      _powerUpUI.HideUI();
+      _powerUpUI.HidePowerUpUI();
    }
    
    public void EnemyKill()

@@ -16,6 +16,6 @@ MonoBehaviour:
   DurationAddedEnemyKill: 1
   DurationAddedLevelCompleted: 1
   TutorialText: You feel swifty
-  TutorialTextDuration: 2
+  TutorialTextDuration: 4
   DisplayName: Switfy
   SpeedIncrease: 5
