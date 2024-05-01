@@ -37,9 +37,7 @@ public class UIManager : MonoBehaviour
         _scoreTextStartPos = _scoreText.transform.position;
         _timeTextStartPos = _timeText.transform.position;
         _upgradeHintStartPos = _upgradeHintText.transform.position;
-
-        _upgradeHintSequenceStart = DOTween.Sequence();
-        _upgradeHintSequenceReturn = DOTween.Sequence();
+        
     }
 
     public void ShowPowerUpUI(BasePowerUpHolder data)
@@ -62,6 +60,7 @@ public class UIManager : MonoBehaviour
 
     private void ShowUpgradeHintWithAnim(float durationTillEnd)
     {
+        _upgradeHintSequenceStart = DOTween.Sequence();
         _upgradeHintSequenceStart.Insert(0, _scoreText.transform.DOMoveX(_scoreTextStartPos.x + _moveLengthUpgradHintAnim, _durationUpgradeHintAnim));
         _upgradeHintSequenceStart.Insert(0, _upgradeHintText.transform.DOMoveX(_upgradeHintStartPos.x + _moveLengthUpgradHintAnim, _durationUpgradeHintAnim));
         _upgradeHintSequenceStart.Insert(0, _timeText.transform.DOMoveX(_timeTextStartPos.x + _moveLengthUpgradHintAnim, _durationUpgradeHintAnim));
@@ -72,6 +71,7 @@ public class UIManager : MonoBehaviour
     
     private void HideUpgradeHintWithAnim()
     {
+        _upgradeHintSequenceReturn = DOTween.Sequence();
         _upgradeHintSequenceReturn.Insert(0, _scoreText.transform.DOMoveX(_scoreTextStartPos.x, _durationUpgradeHintAnim));
         _upgradeHintSequenceReturn.Insert(0, _upgradeHintText.transform.DOMoveX(_upgradeHintStartPos.x , _durationUpgradeHintAnim));
         _upgradeHintSequenceReturn.Insert(0, _timeText.transform.DOMoveX(_timeTextStartPos.x, _durationUpgradeHintAnim));

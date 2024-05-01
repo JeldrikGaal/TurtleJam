@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -15,12 +16,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _shieldObject;
     
     [SerializeField] private TMP_Text _tutorialInfoTextField;
+    [SerializeField] private SpriteRenderer _bubbleShieldVisuals;
+    public static event Action<int> NewBubbleShieldValueJustDropped;
     
     private ShieldScript _shieldLogic;
     private PlayerProjectile _playerProjectile;
     private Vector3 _shieldDirection;
     private bool _shieldReady;
     private bool _shieldFlying;
+    
+    private int _currentBubbleShieldAmount;
     
     private Rigidbody2D _rigidBody;
 
@@ -40,17 +45,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _flyingTime;
     [SerializeField] private float _flyingTimeBack;
     private float _flyingSpeed;
-    /*private Vector2 _startingPos;
-    private Vector2 _startingPosBack;
-    private Vector2 _endPos;
-    private Vector2 _endPosSave;
-    private float _startingTime;
-    private float _startingTimeBack;
-    private bool _flyingBack;*/
 
     // Needed for portals ?
     public bool teleporting = false;
     
+
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
@@ -119,7 +118,8 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(float dmg)
     {
-        _health -= dmg;
+        // TODO: Decide if we will need float dmg or int dmg
+        _health -= FilterDamageThroughBubbleShield((int)dmg);
         if (_health <= 0)
         {
             // TODO DIE SOUND
@@ -145,5 +145,59 @@ public class PlayerController : MonoBehaviour
     public void RequestRangeReset()
     {
         _playerProjectile.RequestRangeReset();
+    }
+
+    public void RequestShieldAdd(int shieldDataBubbleAmount)
+    {
+        _currentBubbleShieldAmount = shieldDataBubbleAmount;
+        RefreshBubbleVisuals();
+    }
+
+    public void RequestShieldReset()
+    {
+        _currentBubbleShieldAmount = 0;
+        RefreshBubbleVisuals();
+    }
+    
+
+    private int FilterDamageThroughBubbleShield(int dmg)
+    {
+        if (_currentBubbleShieldAmount > 0)
+        {
+            _currentBubbleShieldAmount--;
+            RefreshBubbleVisuals();
+            SendBubbleChangedEvent(_currentBubbleShieldAmount);
+            return dmg - 1;
+        }
+       
+        return dmg;
+    }
+
+    private void SendBubbleChangedEvent(int bubbleAmount)
+    {
+        NewBubbleShieldValueJustDropped?.Invoke(bubbleAmount);
+    }
+
+    private void RefreshBubbleVisuals()
+    {
+        if (_currentBubbleShieldAmount > 0)
+        {
+            ActivateBubbleShieldVisuals();
+        }
+        else
+        {
+            DeactivateBubbleShieldVisuals();
+            
+        }
+    }
+
+    private void DeactivateBubbleShieldVisuals()
+    {
+        _bubbleShieldVisuals.enabled = false;
+    }
+
+    private void ActivateBubbleShieldVisuals()
+    {
+        _bubbleShieldVisuals.enabled = true;
     }
 }

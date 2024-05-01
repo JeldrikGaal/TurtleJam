@@ -51,6 +51,19 @@ public class CameraManager : MonoBehaviour
         transform.localPosition = originalPos;
     }
 
+    public void FreezeFrames(float time)
+    {
+        Time.timeScale = 0;
+        StartCoroutine(nameof(ResetTimeScale), time);
+    }
+
+    IEnumerator ResetTimeScale(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        Time.timeScale = 1;
+       
+    }
+    
     public IEnumerator BattleTransition(float time, bool open)
     {
         float start = 0.5f;

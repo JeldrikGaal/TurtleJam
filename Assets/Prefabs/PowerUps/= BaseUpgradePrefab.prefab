@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 2587256751913877340}
   - component: {fileID: 4970035774163412581}
   - component: {fileID: 3912663311601298908}
-  - component: {fileID: 3166242936571095358}
   m_Layer: 0
-  m_Name: RangeDecreasePower
+  m_Name: = BaseUpgradePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 0.85, y: 0.54342276, z: 0.20382783}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
@@ -98,7 +97,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a8f9b579eb220ee4e916f9f6708c4c7d, type: 3}
-  m_Color: {r: 0.9716981, g: 0, b: 0.85401905, a: 1}
+  m_Color: {r: 0.021146288, g: 0.9339623, b: 0.85110795, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -153,16 +152,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2, y: 1.2}
   m_EdgeRadius: 0
---- !u!114 &3166242936571095358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3370361402802511724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38d9364b7c0a67f4bb93bb3013ace48a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: 4c62474e87fd00749921e1747e6c3fe7, type: 2}

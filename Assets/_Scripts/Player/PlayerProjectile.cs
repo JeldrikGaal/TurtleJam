@@ -315,6 +315,8 @@ public class PlayerProjectile : MonoBehaviour
     
     private void RequestEnemyHit(Transform enemyTransform)
     {
+        // TODO: handle with events
+        _mainCam.GetComponent<CameraManager>().FreezeFrames(0.05f);
         EnemyController enemyController = enemyTransform.GetComponent<EnemyController>();
         enemyController.Die();
         EnemyHitVFX(enemyTransform.transform.position);
