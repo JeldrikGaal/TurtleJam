@@ -14,7 +14,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] private List<GameObject> _stageTransitionRooms = new List<GameObject>();
     [SerializeField] private List<GameObject> _normalRooms = new List<GameObject>();
     
-    [SerializeField] private int _currentStageIndex = 0;
+    private int _currentStageIndex = 0;
     private int _currentRoomIndex = 0;
     [SerializeField] private TextMeshProUGUI _stageNumUI;
     
@@ -62,11 +62,11 @@ public class LevelController : MonoBehaviour
             return new List<Direction>() { Direction.Up };
         }
         List<Direction> path = new List<Direction>();
-        path.Add(GetRandomDirection(GetAvailableDirections(Direction.Up)));
+        path.Add(GetRandomDirection(GetAvailableExitDirectionsFromEntrance(Direction.Up)));
         
         for (int i = 1; i < length-1; i++)
         {
-            path.Add(GetRandomDirection(GetAvailableDirections(path[i-1])));
+            path.Add(GetRandomDirection(GetAvailableExitDirectionsFromEntrance(path[i-1])));
         }
         
         path.Add(Direction.Up);
@@ -74,7 +74,7 @@ public class LevelController : MonoBehaviour
         return path;
     }
     
-    public List<Direction> GetAvailableDirections(Direction entranceDirection)
+    public List<Direction> GetAvailableExitDirectionsFromEntrance(Direction entranceDirection)
     {
         List<Direction> availableDirections = new List<Direction>();
         switch (entranceDirection)

@@ -70,14 +70,18 @@ public class LevelAttributes : MonoBehaviour
         foreach (var direction in _availableDirections)
         {
             GameObject spawnedWall = new GameObject();
+            // Spawned Exit door
             if (direction == _exitDirection)
             {
                 spawnedWall = Instantiate(GetWallObjectsFromDirection(direction)[1], transform.position + GetWallPosFromDirection(direction), Quaternion.identity, transform);
+                spawnedWall.GetComponentInChildren<CamUpTrigger>().Setup(direction);
             }
+            // Spawns Normal wall
             else if (direction != _entranceDirection)
             {
                 spawnedWall = Instantiate(GetWallObjectsFromDirection(direction)[0], transform.position + GetWallPosFromDirection(direction), Quaternion.identity, transform);
             }
+            
             
             
             if(direction == LevelController.Direction.Up) { spawnedWall.transform.rotation = Quaternion.Euler(0,0,180);}

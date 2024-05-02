@@ -15,10 +15,8 @@ public class CamUpTrigger : MonoBehaviour
 
     [SerializeField] private GameObject _doorGlow;
     [SerializeField] private GameObject _doorBlock;
-    
-    private bool _movingFlag = false; // Is the camera currently moving?
-    private bool _doneMoving = false; // Is the camera done moving to next position?
 
+    private LevelController.Direction _direction;
     
     void Start()
     {
@@ -36,15 +34,37 @@ public class CamUpTrigger : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    public void Setup(LevelController.Direction direction)
+    {
+        _direction = direction;
+    }
     
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && !_movingFlag) 
+        if(collision.CompareTag("Player")) 
         {
-            if (_camera == null)
-                _camera = GameObject.FindGameObjectWithTag("MainCamera");
+            if (!HasPlayerPassed(collision.transform.position)) return;
             roomExited?.Invoke(this);
             BlockWall();
+        }
+    }
+
+    private bool HasPlayerPassed(Vector3 playerPos)
+    {
+        switch (_direction)
+        {
+            case LevelController.Direction.Up:
+                return playerPos.y > transform.position.y;
+            case LevelController.Direction.Down:
+                return playerPos.y < transform.position.y;
+            case LevelController.Direction.Left:
+                return playerPos.x < transform.position.x;
+            case LevelController.Direction.Right:
+                return playerPos.x > transform.position.x;
+            default:
+                throw new ArgumentOutOfRangeException();
+            
         }
     }
 
@@ -57,7 +77,6 @@ public class CamUpTrigger : MonoBehaviour
     public void InitiateTransition(Vector3 nextPos)
     {
         _nextPos = nextPos;
-        _movingFlag = true;
         _camera.GetComponent<CameraManager>().CameraTransition(_nextPos,duration);
     }
 }
