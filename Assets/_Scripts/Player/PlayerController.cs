@@ -159,6 +159,16 @@ public class PlayerController : MonoBehaviour
         _currentBubbleShieldAmount = 0;
         RefreshBubbleVisuals();
     }
+
+    public void RequestBounceAmountChange(int newBounceAmount)
+    {
+        _playerProjectile.RequestMaxBounceChange(newBounceAmount);
+    }
+
+    public void RequestBounceAmountReset()
+    {
+        _playerProjectile.RequestMaxBounceReset();
+    }
     
 
     private int FilterDamageThroughBubbleShield(int dmg)
