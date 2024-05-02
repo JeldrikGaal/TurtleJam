@@ -231,7 +231,7 @@ PrefabInstance:
     - target: {fileID: 1704930526772942098, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: _material
       value: 
-      objectReference: {fileID: 1809419736}
+      objectReference: {fileID: 855887746}
     - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: _tutorialRoom
       value: 
@@ -355,7 +355,7 @@ PrefabInstance:
     - target: {fileID: 7522064845999788603, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: _material
       value: 
-      objectReference: {fileID: 1122575003}
+      objectReference: {fileID: 167158947}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -371,11 +371,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1916776060330168339, guid: f7a04372b1589b94bbe7bb174abc837a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.8
       objectReference: {fileID: 0}
     - target: {fileID: 1916776060330168339, guid: f7a04372b1589b94bbe7bb174abc837a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.67
       objectReference: {fileID: 0}
     - target: {fileID: 1916776060330168339, guid: f7a04372b1589b94bbe7bb174abc837a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -487,7 +487,7 @@ PrefabInstance:
       addedObject: {fileID: 21084530}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cd9ad1dd0cb2bb4a9fe217393be89f6, type: 3}
---- !u!21 &337403410
+--- !u!21 &167158947
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -527,6 +527,41 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8090534616378497591, guid: 0cd9ad1dd0cb2bb4a9fe217393be89f6, type: 3}
   m_PrefabInstance: {fileID: 148491827}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &855887746
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1001 &989543856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -537,11 +572,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1916776060330168339, guid: 955336ad82adf7049bae889042de393f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.1
+      value: 7.8999996
       objectReference: {fileID: 0}
     - target: {fileID: 1916776060330168339, guid: 955336ad82adf7049bae889042de393f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.67
       objectReference: {fileID: 0}
     - target: {fileID: 1916776060330168339, guid: 955336ad82adf7049bae889042de393f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -584,76 +619,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 955336ad82adf7049bae889042de393f, type: 3}
---- !u!21 &1008333000
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
---- !u!21 &1122575003
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1001 &1192677488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -664,11 +629,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1916776060330168339, guid: 802b3e651eaccd74487c5bd8eafbe0cb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.06
+      value: 5.8599997
       objectReference: {fileID: 0}
     - target: {fileID: 1916776060330168339, guid: 802b3e651eaccd74487c5bd8eafbe0cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.03
+      value: 3.64
       objectReference: {fileID: 0}
     - target: {fileID: 1916776060330168339, guid: 802b3e651eaccd74487c5bd8eafbe0cb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -867,11 +832,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1916776060330168339, guid: 250ef4b93b83bd44aa9ec1a9aa3e5e51, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.98
+      value: 1.8199999
       objectReference: {fileID: 0}
     - target: {fileID: 1916776060330168339, guid: 250ef4b93b83bd44aa9ec1a9aa3e5e51, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.03
+      value: 3.7
       objectReference: {fileID: 0}
     - target: {fileID: 1916776060330168339, guid: 250ef4b93b83bd44aa9ec1a9aa3e5e51, type: 3}
       propertyPath: m_LocalPosition.z
@@ -914,41 +879,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 250ef4b93b83bd44aa9ec1a9aa3e5e51, type: 3}
---- !u!21 &1809419736
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1 &1976114483
 GameObject:
   m_ObjectHideFlags: 0
