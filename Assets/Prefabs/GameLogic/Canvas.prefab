@@ -1483,7 +1483,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7226143703401152901
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2073,6 +2073,9 @@ MonoBehaviour:
   _upgradeNameText: {fileID: 663216055789937975}
   _moveLengthUpgradHintAnim: 1000
   _durationUpgradeHintAnim: 0.75
+  _refreshTimerFlashColor: {r: 0.30847, g: 0.6698113, b: 0.23064256, a: 1}
+  _refreshTimerFlashDuration: 0.2
+  _refreshTimerScaleMultiplierDuration: 1.75
 --- !u!1 &2398633528962932572
 GameObject:
   m_ObjectHideFlags: 0
@@ -7472,10 +7475,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _progressionThreshold: 05000000070000000800000009000000
   _stageTransitionRooms:
-  - {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
-  - {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
-  - {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
-  - {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
+  - {fileID: 6157596190843844965, guid: fb445bfca850765499761c23ed401305, type: 3}
+  - {fileID: 6157596190843844965, guid: fb445bfca850765499761c23ed401305, type: 3}
+  - {fileID: 6157596190843844965, guid: fb445bfca850765499761c23ed401305, type: 3}
+  - {fileID: 6157596190843844965, guid: fb445bfca850765499761c23ed401305, type: 3}
   _normalRooms:
   - {fileID: 7500007090404855270, guid: e44ebdee590bfec46a3c1945edde0499, type: 3}
   - {fileID: 7500007090404855270, guid: 3fd793d10c79f5146832a1d099395c24, type: 3}
@@ -7503,7 +7506,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7765305605113066258}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b046ab383d21cec4b98947f659c71163, type: 3}
   m_Name: 
