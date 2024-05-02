@@ -56,7 +56,7 @@ public class LevelController : MonoBehaviour
 
     private List<Direction> GeneratePath(int length)
     {
-        // TODO: temp fix
+        // TODO: rethink if this is fine ? works flawlessly so far
         if (length == 1)
         {
             return new List<Direction>() { Direction.Up };

@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
             _rigidBody.velocity = Vector2.zero;
             return;
         }
+        
         Move();
         ShootInteraction();
         ShieldInteraction();

@@ -7,6 +7,7 @@ public class ProjectileJuice : MonoBehaviour
 {
     [SerializeField] private float _shakeDuration;
     [SerializeField] private float _shakeMagnitude;
+    [SerializeField] private float _freezeFrameDuration;
     
     [SerializeField] private ParticleSystem _explosionParticle;
     [SerializeField] private ParticleSystem _sparkParticle;
@@ -66,5 +67,10 @@ public class ProjectileJuice : MonoBehaviour
     public void IdleAnim()
     {
         _playerShieldAnimator.SetTrigger(IdleAnimHash);
+    }
+
+    public void FreezeFrames()
+    {
+        _cameraManager.FreezeFrames(_freezeFrameDuration);
     }
 }

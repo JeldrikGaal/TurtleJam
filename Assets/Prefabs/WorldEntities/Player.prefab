@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 456132008540398180}
   - component: {fileID: 4571714779301451509}
   m_Layer: 2
-  m_Name: Shield
+  m_Name: Shield/Projectile
   m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -544,6 +544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shakeDuration: 0.05
   _shakeMagnitude: 0.2
+  _freezeFrameDuration: 0.1
   _explosionParticle: {fileID: 5776239834288321624, guid: ce8bf9300d48087428ba8f04d880078f, type: 3}
   _sparkParticle: {fileID: 8457933192090926043, guid: 7960641f9aba73c42a3fe6a576089c52, type: 3}
 --- !u!1 &7185088897200903543
