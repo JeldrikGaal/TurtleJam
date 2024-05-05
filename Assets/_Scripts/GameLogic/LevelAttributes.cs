@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.Tilemaps;
 
 public class LevelAttributes : MonoBehaviour
 {
@@ -21,13 +22,15 @@ public class LevelAttributes : MonoBehaviour
     
     private List<SpawnerController> _spawners;
 
+    private float _wallWidth = 1f;
+
     private List<LevelController.Direction> _availableDirections = new List<LevelController.Direction>()
     {
         LevelController.Direction.Up, LevelController.Direction.Down, LevelController.Direction.Left,
         LevelController.Direction.Right
     };
     
-    private Vector2 _roomSize = new Vector2(36,18);
+    private Vector2 _roomSize = new (32,18);
     
 
     private void Start()
@@ -73,34 +76,36 @@ public class LevelAttributes : MonoBehaviour
             // Spawned Exit door
             if (direction == _exitDirection)
             {
-                spawnedWall = Instantiate(GetWallObjectsFromDirection(direction)[1], transform.position + GetWallPosFromDirection(direction), Quaternion.identity, transform);
+                spawnedWall = Instantiate(GetWallObjectsFromDirection(direction)[1], transform.position, Quaternion.identity, transform);
+                spawnedWall.transform.localPosition = GetWallPosFromDirectionAndType(direction, true);
                 spawnedWall.GetComponentInChildren<CamUpTrigger>().Setup(direction);
             }
             // Spawns Normal wall
             else if (direction != _entranceDirection)
             {
-                spawnedWall = Instantiate(GetWallObjectsFromDirection(direction)[0], transform.position + GetWallPosFromDirection(direction), Quaternion.identity, transform);
+                spawnedWall = Instantiate(GetWallObjectsFromDirection(direction)[0], transform.position, Quaternion.identity, transform);
+                spawnedWall.transform.localPosition = GetWallPosFromDirectionAndType(direction);
             }
             
-            
-            
-            if(direction == LevelController.Direction.Up) { spawnedWall.transform.rotation = Quaternion.Euler(0,0,180);}
+            if(direction == LevelController.Direction.Down) { spawnedWall.transform.rotation = Quaternion.Euler(0,0,180);}
             else if(direction == LevelController.Direction.Left) { spawnedWall.transform.rotation = Quaternion.Euler(0,180,0);}
         }
     }
-
-    private Vector3 GetWallPosFromDirection(LevelController.Direction direction)
+    
+    private Vector3 GetWallPosFromDirectionAndType(LevelController.Direction direction, bool typeIsDoor = false)
     {
         switch (direction)
         {
             case LevelController.Direction.Up:
-                return new Vector2(0, _roomSize.y / 4);
+                // TODO: i cant figure out why the hell the door prefab cant be positioned properly so this is here
+                //return  new Vector2(0, (_roomSize.y / 2f));
+                return typeIsDoor ? new Vector2(0, 8) : new Vector2(0, (_roomSize.y / 2f));
             case LevelController.Direction.Down:
-                return new Vector2(0, -_roomSize.y / 4);
+                return new Vector2(0, -(_roomSize.y / 2f) );
             case LevelController.Direction.Left:
-                return new Vector2(-_roomSize.x / 4, 0);
+                return new Vector2(-(_roomSize.x / 2f), 0 );
             case LevelController.Direction.Right:
-                return new Vector2(_roomSize.x / 4, 0);
+                return new Vector2(_roomSize.x / 2f, 0) ;
             default:
                 throw new ArgumentOutOfRangeException();
         }

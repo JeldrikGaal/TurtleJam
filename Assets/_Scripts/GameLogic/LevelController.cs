@@ -169,13 +169,13 @@ public class LevelController : MonoBehaviour
         switch (previousRoom.GetExitDirection())
         {
             case Direction.Up:
-                yOffset = previousRoom.GetRoomSize().y * 0.5f;
+                yOffset = previousRoom.GetRoomSize().y * 0.5f - 0.5f;
                 break;
             case Direction.Left:
-                xOffset = previousRoom.GetRoomSize().x * -0.5f;
+                xOffset = previousRoom.GetRoomSize().x * -0.5f - 2 ;
                 break;
             case Direction.Right:
-                xOffset = previousRoom.GetRoomSize().x * 0.5f;
+                xOffset = previousRoom.GetRoomSize().x * 0.5f + 2;
                 break;
         }
         

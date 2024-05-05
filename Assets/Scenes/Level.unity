@@ -139,6 +139,10 @@ PrefabInstance:
       propertyPath: _tutorialRoom
       value: 
       objectReference: {fileID: 1370842887}
+    - target: {fileID: 1768625488778618320, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: _progressionThreshold.Array.data[0]
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2231335442719379082, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -325,6 +329,76 @@ Transform:
   - {fileID: 1438574172}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &199430500
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
+--- !u!21 &574386658
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1001 &590400932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -694,10 +768,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1976114485}
     m_Modifications:
+    - target: {fileID: 1249439819393314871, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2998170113342358965, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: _camera
       value: 
       objectReference: {fileID: 698232418}
+    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: VerticalDoor
+      value: 
+      objectReference: {fileID: 57274970689209395, guid: 90aecb53f28267547b7f56df65930f62, type: 3}
+    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: VerticalWall
+      value: 
+      objectReference: {fileID: 8551808961873010882, guid: 99b3b9f0ad77b3849ae3b4f4a7633aaf, type: 3}
+    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: HorizontalDoor
+      value: 
+      objectReference: {fileID: 7430968498064836049, guid: b511288e2bc5eea4e90ace6769a01b12, type: 3}
+    - target: {fileID: 4125152770344034208, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: HorizontalWall
+      value: 
+      objectReference: {fileID: 3126824153447936360, guid: bb6fd2b5bf49cdc4b98ce0c3a11d585a, type: 3}
     - target: {fileID: 4594223961222755545, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -737,6 +831,10 @@ PrefabInstance:
     - target: {fileID: 4594223961222755545, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6605412358153977577, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6916584313222015735, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: m_Name
