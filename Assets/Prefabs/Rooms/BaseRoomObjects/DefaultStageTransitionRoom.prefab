@@ -75,6 +75,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3944406618557742498, guid: 43e8435a508dead4cb232448abf47e03, type: 3}
+      propertyPath: ActivationStage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944406618557742498, guid: 43e8435a508dead4cb232448abf47e03, type: 3}
       propertyPath: _infoHolderList.Array.size
       value: 5
       objectReference: {fileID: 0}

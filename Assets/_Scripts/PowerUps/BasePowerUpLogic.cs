@@ -18,6 +18,8 @@ public class BasePowerUpLogic : MonoBehaviour
    private float _startingTme;
    private BoxCollider2D _boxCollider2D;
    private UIManager _powerUpUI;
+   
+   public static event Action<BasePowerUpLogic> PowerUpActivated;
 
    private void OnEnable()
    {
@@ -72,6 +74,7 @@ public class BasePowerUpLogic : MonoBehaviour
       StartTimer();
       _powerUpUI.ShowPowerUpUI(_data);
       HidePowerUp();
+      PowerUpActivated?.Invoke(this);
    }
    
    private void HidePowerUp()
