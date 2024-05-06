@@ -16,10 +16,8 @@ public class StatisticManager : MonoBehaviour
     public static StatisticManager Instance;
     private void Awake()
     {
-        EnemyController.EnemyDeath += AddKilledEnemy;
-        CamUpTrigger.roomExited += AddRoomCleared;
-        PlayerProjectile.ProjectileShot += AddShotFired;
-        
+        _statistics = new Statistics();
+
         if (Instance == null)
         {
             Instance = this;
@@ -28,6 +26,17 @@ public class StatisticManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        EnemyController.EnemyDeath += AddKilledEnemy;
+        CamUpTrigger.roomExited += AddRoomCleared;
+        PlayerProjectile.ProjectileShot += AddShotFired;
+    }
+
+    private void OnDestroy()
+    {
+        EnemyController.EnemyDeath -= AddKilledEnemy;
+        CamUpTrigger.roomExited -= AddRoomCleared;
+        PlayerProjectile.ProjectileShot -= AddShotFired;
     }
 
     private void AddKilledEnemy()
