@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb3a6d4714f2b3449a22a5f5b758febf, type: 3}
-  m_Name: Interactable_SpeedUp
+  m_Name: PowerUp_SpeedUp
   m_EditorClassIdentifier: 
-  ObjectToSpawn: {fileID: 3370361402802511724, guid: 3e7589464adcd8041bd82be730f4776a, type: 3}
+  sprite: {fileID: 0}
+  ObjectToSpawn: {fileID: 7233719809176599951, guid: 955336ad82adf7049bae889042de393f, type: 3}
   Type: 1

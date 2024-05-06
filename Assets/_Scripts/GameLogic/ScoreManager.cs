@@ -25,8 +25,9 @@ public class ScoreManager : MonoBehaviour
     
     async void Awake()
     {
-        await UnityServices.InitializeAsync();
-        await SignInAnonymously();
+        // TODO: TEMPPPP
+        //await UnityServices.InitializeAsync();
+        //await SignInAnonymously();
     }
     
     async Task SignInAnonymously()

@@ -11,6 +11,7 @@ public class PlayerProjectile : MonoBehaviour
     [SerializeField] private float _flySpeed;
     [SerializeField] private float _returnSpeed;
     [SerializeField] private float _maxBounceAmount;
+    private float _startMaxBounceAmount;
 
     private float _startFlyRange;
 
@@ -69,6 +70,7 @@ public class PlayerProjectile : MonoBehaviour
         _state = ProjectileState.Idle;
 
         _startFlyRange = _flyRange;
+        _startMaxBounceAmount = _maxBounceAmount;
 
     }
     
@@ -315,8 +317,6 @@ public class PlayerProjectile : MonoBehaviour
     
     private void RequestEnemyHit(Transform enemyTransform)
     {
-        // TODO: handle with events
-        _mainCam.GetComponent<CameraManager>().FreezeFrames(0.05f);
         EnemyController enemyController = enemyTransform.GetComponent<EnemyController>();
         enemyController.Die();
         EnemyHitVFX(enemyTransform.transform.position);
@@ -329,6 +329,7 @@ public class PlayerProjectile : MonoBehaviour
     {
         _projectileJuice.ExplosionEffect(pos);
         _projectileJuice.CameraShake();
+        _projectileJuice.FreezeFrames();
     }
 
     public void ShieldHit(Collider2D collision)
@@ -383,5 +384,15 @@ public class PlayerProjectile : MonoBehaviour
     public void RequestRangeReset()
     {
         _flyRange = _startFlyRange;
+    }
+
+    public void RequestMaxBounceChange(float newMaxBounceAmount)
+    {
+        _maxBounceAmount = newMaxBounceAmount;
+    }
+
+    public void RequestMaxBounceReset()
+    {
+        _maxBounceAmount = _startMaxBounceAmount;
     }
 }

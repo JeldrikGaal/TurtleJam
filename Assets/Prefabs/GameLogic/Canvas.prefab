@@ -52,6 +52,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &412665624109567862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7009019773487510122}
+  m_Layer: 5
+  m_Name: Contents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7009019773487510122
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412665624109567862}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7226143703401152901}
+  - {fileID: 4681715545715312142}
+  m_Father: {fileID: 4160548769678736273}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -500, y: 0}
+  m_SizeDelta: {x: 500, y: 70}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &464959424559123120
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,8 +842,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4160548769678736273}
   - component: {fileID: 3018722411725271848}
+  - component: {fileID: 3280043441733805414}
+  - component: {fileID: 7619260575675836188}
   m_Layer: 5
-  m_Name: UpgradeLoadingBar
+  m_Name: PowerUpUIMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -824,8 +863,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 7226143703401152901}
-  - {fileID: 4681715545715312142}
+  - {fileID: 7009019773487510122}
   m_Father: {fileID: 8969845586443931522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
@@ -841,6 +879,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1601044143074329610}
   m_CullTransparentMesh: 1
+--- !u!114 &3280043441733805414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601044143074329610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 0
+--- !u!114 &7619260575675836188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601044143074329610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1799649267411186260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,7 +1559,7 @@ GameObject:
   - component: {fileID: 3087602198318678759}
   - component: {fileID: 663216055789937975}
   m_Layer: 5
-  m_Name: UpgradeName
+  m_Name: PowerUpName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1496,7 +1577,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4160548769678736273}
+  m_Father: {fileID: 7009019773487510122}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1820,7 +1901,7 @@ GameObject:
   - component: {fileID: 576964269763925931}
   - component: {fileID: 8273727335238154674}
   m_Layer: 5
-  m_Name: UpgradeHint
+  m_Name: PowerUpHint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2066,13 +2147,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8b1093ef8e74b46b632d6ec79a15e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadingBar: {fileID: 3381594049850534198}
+  _powerUpTimeIndicatorBar: {fileID: 3381594049850534198}
+  _powerUpTimeIndicatorContentHolder: {fileID: 412665624109567862}
   _scoreText: {fileID: 6055929010685453647}
   _timeText: {fileID: 5857245397131433388}
-  _upgradeHintText: {fileID: 8273727335238154674}
-  _upgradeNameText: {fileID: 663216055789937975}
-  _moveLengthUpgradHintAnim: 1000
-  _durationUpgradeHintAnim: 0.75
+  _powerUpHintText: {fileID: 8273727335238154674}
+  _powerUpNameText: {fileID: 663216055789937975}
+  _moveLengthPowerUpHintAnim: 1000
+  _durationPowerUpHintAnim: 0.75
+  _refreshTimerFlashColor: {r: 0.30847, g: 0.6698113, b: 0.23064256, a: 1}
+  _refreshTimerFlashDuration: 0.2
+  _refreshTimerScaleMultiplierDuration: 1.75
 --- !u!1 &2398633528962932572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2854,7 +2939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7458657187218072284
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3783,11 +3868,11 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7458657187218072284}
-  m_Father: {fileID: 4160548769678736273}
+  m_Father: {fileID: 7009019773487510122}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -105, y: -2}
+  m_AnchoredPosition: {x: -102, y: -5}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2217680108334560323
@@ -5171,7 +5256,7 @@ GameObject:
   - component: {fileID: 5779951652113412818}
   - component: {fileID: 5842257742544485770}
   m_Layer: 5
-  m_Name: Score/Time/Upgrade Hint
+  m_Name: Score/Time/PowerUp Hint (Mask)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7472,10 +7557,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _progressionThreshold: 05000000070000000800000009000000
   _stageTransitionRooms:
-  - {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
-  - {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
-  - {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
-  - {fileID: 446727939251616466, guid: 8ac84e86c664d80479ead1b1d7c62c17, type: 3}
+  - {fileID: 6157596190843844965, guid: fb445bfca850765499761c23ed401305, type: 3}
+  - {fileID: 6157596190843844965, guid: fb445bfca850765499761c23ed401305, type: 3}
+  - {fileID: 6157596190843844965, guid: fb445bfca850765499761c23ed401305, type: 3}
+  - {fileID: 6157596190843844965, guid: fb445bfca850765499761c23ed401305, type: 3}
   _normalRooms:
   - {fileID: 7500007090404855270, guid: e44ebdee590bfec46a3c1945edde0499, type: 3}
   - {fileID: 7500007090404855270, guid: 3fd793d10c79f5146832a1d099395c24, type: 3}
@@ -7492,7 +7577,6 @@ MonoBehaviour:
   - {fileID: 7500007090404855270, guid: 221325bc48e0f6548b1805f71f8d8d08, type: 3}
   - {fileID: 7500007090404855270, guid: 8d8d16fe3f2e7e34f8618eba385eeb19, type: 3}
   - {fileID: 7500007090404855270, guid: 5cea68101e2b3aa4fa7372a08096e68c, type: 3}
-  _currentStageIndex: 0
   _stageNumUI: {fileID: 0}
   _tutorialRoom: {fileID: 0}
   _generatedRooms: []
@@ -7503,7 +7587,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7765305605113066258}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b046ab383d21cec4b98947f659c71163, type: 3}
   m_Name: 
