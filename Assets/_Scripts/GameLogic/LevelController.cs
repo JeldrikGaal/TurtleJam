@@ -51,7 +51,7 @@ public class LevelController : MonoBehaviour
         _generatedRooms.Add(_tutorialRoom);
         
         GenerateBatch(_progressionThreshold[_currentStageIndex]);
-       
+        _gameManager.UpdateTileMapList();
     }
 
     private List<Direction> GeneratePath(int length)
@@ -168,6 +168,7 @@ public class LevelController : MonoBehaviour
 
         switch (previousRoom.GetExitDirection())
         {
+            //TODO: make this more modular and less rigid
             case Direction.Up:
                 yOffset = previousRoom.GetRoomSize().y * 0.5f - 0.5f;
                 break;
@@ -205,11 +206,13 @@ public class LevelController : MonoBehaviour
     public void ProgressToNextStage()
     {
         _currentStageIndex++;
+        
         // Loop last stage infinitely
         if (_currentStageIndex >= _progressionThreshold.Count)
         {
             _currentStageIndex = _progressionThreshold.Count - 1;
         }
+        
         GenerateBatch(_progressionThreshold[_currentStageIndex]);
         
         _gameManager.UpdateTileMapList();
@@ -221,15 +224,7 @@ public class LevelController : MonoBehaviour
     {
         _currentRoomIndex++;
         camUpTrigger.InitiateTransition(_generatedRooms[_currentRoomIndex].transform.Find("CamPosition").position);
-        _generatedRooms[_currentRoomIndex].ActivateSpawners(_currentStageIndex);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            ProgressToNextStage();
-        }
+        _generatedRooms[_currentRoomIndex].ActivateRoom(_currentStageIndex);
     }
     
 }

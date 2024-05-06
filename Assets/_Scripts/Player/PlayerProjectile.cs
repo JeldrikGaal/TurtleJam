@@ -39,7 +39,7 @@ public class PlayerProjectile : MonoBehaviour
     // Seems to work consistently but should be remade
     private const float SetbackDistanceForCollisionRayCast = 1f;
 
-
+    public static event Action ProjectileShot;
     
     public bool IsShielding()
     {
@@ -192,6 +192,8 @@ public class PlayerProjectile : MonoBehaviour
 
     private void ShootProjectile()
     {
+        ProjectileShot?.Invoke();
+        
         Vector3 shieldDirection = GetShieldDirection();
         
         SetProjectileVelocityAndDirection(shieldDirection * _flySpeed);

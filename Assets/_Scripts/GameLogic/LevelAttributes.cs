@@ -31,11 +31,20 @@ public class LevelAttributes : MonoBehaviour
     };
     
     private Vector2 _roomSize = new (32,18);
-    
+    private TransitionRoomDisplay _transitionRoomDisplay;
 
     private void Start()
     {
         _spawners = GetComponentsInChildren<SpawnerController>().ToList();
+        
+        if (TryGetComponent<TransitionRoomDisplay>(out var component))
+        {
+            _transitionRoomDisplay = component;
+        }
+        else
+        {
+            _transitionRoomDisplay = null;
+        }
     }
 
     public void InitializeRoom(LevelController.Direction entranceDirection, LevelController.Direction exitDirection, int currentDifficulty)
@@ -60,11 +69,16 @@ public class LevelAttributes : MonoBehaviour
         }
     }
 
-    public void ActivateSpawners(int currentDifficulty)
+    public void ActivateRoom(int currentDifficulty)
     {
         foreach (var spawner in _spawners)
         {
             spawner.ActivateSpawner(currentDifficulty);
+        }
+
+        if (_transitionRoomDisplay)
+        {
+            _transitionRoomDisplay.DisplayStatistics();
         }
     }
 
