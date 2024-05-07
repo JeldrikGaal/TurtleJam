@@ -2,125 +2,106 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
-using Unity.VisualScripting;
-using System.Drawing;
 using Color = UnityEngine.Color;
-using System;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public bool mainMenu = false;
 
-    public int score = 0;
-    public TextMeshProUGUI scoreTXT;
-    public TextMeshProUGUI scoreFinalTXT;
-
+    private int _score = 0;
+    private float _timeSinceGameStarted = 0;
     
-    public float time = 0;
-    public TextMeshProUGUI timeTXT;
-
-    public GameObject player;
-    public bool paused = false;
-    private List<Tilemap> tilemaps = new List<Tilemap>();
-    private bool flashing;
-    private ScoreManager scoreManager;
-    public GameObject highscoreSection;
-    public TextMeshProUGUI highscoreName;
-    public GameObject highscoreSaveBTN;
-
-    public TMP_Text nameText;
-    public TMP_Text scoreText;
-
-    // To add
-    // Sound logic
-    // Level progression
+    [SerializeField] private TMP_Text _scoreText;
+    [SerializeField] private TMP_Text _finalScoreText;
+    [SerializeField] private TMP_Text _timeText;
+    
+    private bool _paused = false;
+    private List<Tilemap> _tileMaps = new List<Tilemap>();
+    private bool _currentlyFlashingColors;
+    private ScoreManager _scoreManager;
     
     // Menus
-    [Space(20)]
-    public GameObject pauseMenu;
-    public GameObject gameOverMenu;
-    public GameObject winMenu;
+    [SerializeField] private GameObject _pauseMenu;
+    [SerializeField] private GameObject _gameOverMenu;
 
     // JUICE
-    public GameObject mainCam;
-    public GameObject epi;
-    [SerializeField] public ParticleSystem explosion;
+    [SerializeField] private GameObject _gameOverVisualEffectPrefab;
 
     // Cursor
-    [Space(20)]
-    public Texture2D cursorTexture;
-    public CursorMode cursorMode = CursorMode.Auto;
-    public Vector2 hotSpot = Vector2.zero;
+    [SerializeField] private Texture2D _cursorTexture;
+    private const CursorMode CursorMode = UnityEngine.CursorMode.Auto;
+    private Vector2 _hotSpot = Vector2.zero;
 
-    // wall color gradient
-    [SerializeField] List<Color> colors = new List<Color>();
-    [SerializeField] float gradientStepTime;
-    int currentColor;
-
-    float startTimeGradient;
-    CameraManager cM;
-
-    private bool levelComplete = false;
-    private List<SpriteRenderer> introRoomText = new List<SpriteRenderer>();
-
-    public TextMeshProUGUI finalScoreTXT;
-
-    // Start is called before the first frame update
+    // wall color shifting
+    [SerializeField] private List<Color> _colorShiftColors = new List<Color>();
+    [SerializeField] private float _colorShiftDuration;
+    private int _currentColorIndex;
+    private float _startTimeColorShift;
+    
+    private CameraManager _cameraManager;
+    private List<SpriteRenderer> _worldTextRenderers = new List<SpriteRenderer>();
+    
     void Start()
     {
-        Time.timeScale = 1;
-        score = 0;
-        time = 0;
-        player = GameObject.FindWithTag("Player");
-        mainCam = GameObject.FindWithTag("MainCamera");
-        cM = mainCam.GetComponent<CameraManager>();
-        scoreManager = gameObject.GetComponent<ScoreManager>();
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Wall"))
-        {
-            tilemaps.Add(g.GetComponent<Tilemap>());
-        }
-
-        hotSpot = new Vector2(cursorTexture.width / 2f, cursorTexture.height / 2f);
-        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
-
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag("textToShift"))
-        {
-            introRoomText.Add(g.GetComponent<SpriteRenderer>());
-        }
+        InitializeValuesAndReferences();
+        FetchObjectsToColorShift();
+        SetupCursor();
     }
 
-    // Update is called once per frame
+    private void InitializeValuesAndReferences()
+    {
+        Time.timeScale = 1;
+        _score = 0;
+        _timeSinceGameStarted = 0;
+
+        _startTimeColorShift = Time.time;
+        
+        _cameraManager = GameObject.FindWithTag("MainCamera").GetComponent<CameraManager>();
+        _scoreManager = gameObject.GetComponent<ScoreManager>();
+    }
+    
+    private void FetchObjectsToColorShift()
+    {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Wall"))
+        {
+            _tileMaps.Add(g.GetComponent<Tilemap>());
+        }
+        
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("textToShift"))
+        {
+            _worldTextRenderers.Add(g.GetComponent<SpriteRenderer>());
+        }
+    }
+    
+    private void SetupCursor()
+    {
+        _hotSpot = new Vector2(_cursorTexture.width / 2f, _cursorTexture.height / 2f);
+        Cursor.SetCursor(_cursorTexture, _hotSpot, CursorMode);
+    }
+    
     void Update()
     {
-        if (!levelComplete)
+        ColorShift();
+        
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!mainMenu)
+            if (!_pauseMenu.activeInHierarchy )
             {
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    if (!pauseMenu.activeInHierarchy )
-                    {
-                        Pause();
-                    }
-                    else
-                    {
-                        Resume();
-                    }
-                }
-                time += Time.deltaTime;
-
-                scoreTXT.text = "Score: " + score.ToString();
-                timeTXT.text = "Time: " + time.ToString("0.00");
+                Pause();
             }
-            ColorShift();
+            else
+            {
+                Resume();
+            }
         }
-        if (highscoreSection.active) {
-            if (highscoreName.text != "") highscoreSaveBTN.GetComponent<Button>().interactable = true;
-            else highscoreSaveBTN.GetComponent<Button>().interactable = false;
-        }
+        _timeSinceGameStarted += Time.deltaTime;
+
+        _scoreText.text = "Score: " + _score.ToString();
+        _timeText.text = "Time: " + _timeSinceGameStarted.ToString("0.00");
+        
     }
 
     public void UpdateTileMapList()
@@ -128,112 +109,94 @@ public class GameManager : MonoBehaviour
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Wall"))
         {
             Tilemap t = g.GetComponent<Tilemap>();
-            if (!tilemaps.Contains(t))
+            if (!_tileMaps.Contains(t))
             {
-                tilemaps.Add(t);
+                _tileMaps.Add(t);
             }
         }
     }
 
     private void ColorShift()
     {
-        if (!flashing)
+        if (_currentlyFlashingColors) return;
+        
+        float t = (Time.time - _startTimeColorShift) / _colorShiftDuration;
+        
+        int targetColorIndex = _currentColorIndex ==  _colorShiftColors.Count - 1? 0 : _currentColorIndex + 1;
+        
+        ChangeTileMapsColor( Color.Lerp(_colorShiftColors[_currentColorIndex], _colorShiftColors[targetColorIndex], t));
+        ChangeInWorldTextColor(Color.Lerp(_colorShiftColors[_currentColorIndex], _colorShiftColors[targetColorIndex], t));
+
+        if (t >= 1)
         {
-            float t = (Time.time - startTimeGradient) / gradientStepTime;
-            if (t >= 1)
+            _currentColorIndex = targetColorIndex;
+            _startTimeColorShift = Time.time;
+        }
+
+    }
+
+    private void ChangeInWorldTextColor(Color newColor)
+    {
+        if (_worldTextRenderers.Count > 0) 
+        {
+            foreach(SpriteRenderer sR in _worldTextRenderers)
             {
-                currentColor += 1;
-                startTimeGradient = Time.time;
-            }
-            if (currentColor == colors.Count - 1 )
-            {
-                foreach (Tilemap ti in tilemaps)
-                {
-                    ti.color = Color.Lerp(colors[currentColor], colors[0], t);
-                }
-                if (introRoomText.Count > 0) 
-                {
-                    foreach(SpriteRenderer sR in introRoomText)
-                    {
-                        sR.color = Color.Lerp(colors[currentColor], colors[0], t);
-                    }
-                } 
-                currentColor = 0;
-            }
-            else
-            {
-                foreach (Tilemap ti in tilemaps)
-                {
-                    ti.color = Color.Lerp(colors[currentColor], colors[currentColor + 1], t);
-                }
-                if (introRoomText.Count > 0)
-                {
-                    foreach (SpriteRenderer sR in introRoomText)
-                    {
-                        sR.color = Color.Lerp(colors[currentColor], colors[currentColor + 1], t);
-                    }
-                }
+                sR.color = newColor;
             }
         }
     }
 
-    public void Pause() 
+    private void Pause()
     {
-        StartCoroutine(cM.BattleTransition(1, true));
+        StartCoroutine(_cameraManager.BattleTransition(1, true));
         StartCoroutine(SetTimeScaleDelayed(0, 1));
         StartCoroutine(SetActiveDelayed(1, true));
-        paused = true;
-    }
-    public void Resume()
-    {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1;
-        StartCoroutine(cM.BattleTransition(1, false));
-        
-        paused = false;
+        _paused = true;
     }
 
-    public IEnumerator SetActiveDelayed(float delay, bool active)
+    private IEnumerator SetActiveDelayed(float delay, bool active)
     {
         yield return new WaitForSeconds(delay);
-        pauseMenu.SetActive(active);
-    }
-    public IEnumerator SetActiveDelayedWin(float delay, bool active)
-    {
-        yield return new WaitForSeconds(delay);
-        winMenu.SetActive(active);
+        _pauseMenu.SetActive(active);
     }
 
-
-    public IEnumerator SetTimeScaleDelayed(float timeScale, float delay)
+    private IEnumerator SetTimeScaleDelayed(float timeScale, float delay)
     {
         yield return new WaitForSeconds(delay);
         Time.timeScale = timeScale;
 
     }
-
-    public IEnumerator FlashWalls(float time, Color color)
+    
+    public void Resume()
     {
-        if (!flashing) 
-        { 
-            flashing = true;
-            Color saveColor = Color.black;
-            foreach (Tilemap ti in tilemaps)
-            {
-                saveColor = ti.color;
-                ti.color = color;
-            }
-
-            yield return new WaitForSeconds(time);
-
-            foreach (Tilemap ti in tilemaps)
-            {
-                ti.color = saveColor;
-            }
-            
-            flashing = false;
-        }
+        _pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+        StartCoroutine(_cameraManager.BattleTransition(1, false));
         
+        _paused = false;
+    }
+
+    public IEnumerator FlashWalls(float flashDuration, Color flashColor)
+    {
+        // Only allow to start flashing if currently not flashing
+        if (_currentlyFlashingColors) yield break;
+        
+        _currentlyFlashingColors = true;
+        Color saveColor = _tileMaps[0].color;
+        ChangeTileMapsColor(flashColor);
+
+        yield return new WaitForSeconds(flashDuration);
+
+        ChangeTileMapsColor(saveColor);
+        _currentlyFlashingColors = false;
+    }
+
+    private void ChangeTileMapsColor(Color newColor)
+    {
+        foreach (Tilemap ti in _tileMaps)
+        {
+            ti.color = newColor;
+        }
     }
 
     public void SaveScoreForPlayer() 
@@ -241,52 +204,23 @@ public class GameManager : MonoBehaviour
         // TODO: uncommented for testing 
         //scoreManager.UpdateScore(score); 
         
-        
         //SaveNewScore(highscoreName.text, (int)((int)(100 - time) * 10 + score));
         //highscoreSection.SetActive(false);
     }
 
-    /*public void WinCondition() 
-    {
-        levelComplete = true;
-        StartCoroutine(cM.BattleTransition(1, true));
-        StartCoroutine(SetActiveDelayedWin(1, true));
-
-        int finalScore = (int)(100 - time) * 10 + score;
-        finalScoreTXT.text = finalScore.ToString();
-        // Save highscore somewhere.
-
-        scoreTXT.enabled = false;
-        timeTXT.enabled = false;
-        paused = true;
-
-        // Toggle on highscore gameobject
-        highscoreSection.SetActive(true);
-        Debug.Log(scoreManager.GetRankedScores().Count);
-        Debug.Log(scoreManager.scores.Count);
-        if (scoreManager.GetRankedScores().Count > 0)
-        {
-            scoreText.text = scoreManager.GetRankedScores()[0].Value.ToString();
-            nameText.text = scoreManager.GetRankedScores()[0].Key.ToString();
-        }
-        
-    }*/
-
     public void GameOverCondition()
     {
-        epi.GetComponent<Animator>().SetTrigger("GameOver");
-        //mainCam.GetComponent<PixelationEffect>().AnimatePixelationOut();
-        //StartCoroutine(cM.BattleTransition(1, true));
-        gameOverMenu.SetActive(true);
-        player.GetComponent<PlayerController>();
-        scoreTXT.enabled = false;
-        timeTXT.enabled = false;
-        paused = true;
+        // TODO: rework after new leaderboard has been implemented
+        _gameOverVisualEffectPrefab.GetComponent<Animator>().SetTrigger("GameOver");
+        _gameOverMenu.SetActive(true);
+        _scoreText.enabled = false;
+        _timeText.enabled = false;
+        _paused = true;
 
-        score = ((int)time * score); // Score calculation
+        _score = ((int)_timeSinceGameStarted * _score); // Score calculation
         SaveScoreForPlayer();
-        scoreFinalTXT.text = "Score \n" + score.ToString();
-        scoreFinalTXT.enabled = true;
+        _finalScoreText.text = "Score \n" + _score.ToString();
+        _finalScoreText.enabled = true;
     }
 
     public void GoToLevel(string levelName) // For Resume, Next Level and Back to Main Menu
@@ -305,4 +239,13 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void AddScore(int scoreToAdd)
+    {
+        _score += scoreToAdd;
+    }
+
+    public bool IsPaused()
+    {
+        return _paused;
+    }
 }

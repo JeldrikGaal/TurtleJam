@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // TODO: clean up pause mechanic
-        if (_gameManager.paused)
+        if (_gameManager.IsPaused())
         {
             _rigidBody.velocity = Vector2.zero;
             return;
