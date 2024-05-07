@@ -79,7 +79,7 @@ public class EnemyController : MonoBehaviour
         if (hit.collider != null)
         {
 
-            if (hit.collider.gameObject == player.gameObject || hit.collider.name == "Shield")
+            if (hit.collider.gameObject == player.gameObject || hit.transform.CompareTag("Shield"))
             {
                 lookAtPlayer = true;
                 //Debug.Log("Player is in line of sight!");
