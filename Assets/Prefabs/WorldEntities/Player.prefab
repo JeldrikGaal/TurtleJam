@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 6530383722639208895}
   m_Layer: 2
   m_Name: ShieldCollider
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 5412118721029678747}
   - component: {fileID: 1032671378295475573}
   m_Layer: 0
-  m_Name: Bestes Idea Ever !
+  m_Name: BackgroundGradientImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
