@@ -4574,9 +4574,6 @@ PrefabInstance:
       addedObject: {fileID: 1768625488778618320}
     - targetCorrespondingSourceObject: {fileID: 5755345376368367183, guid: 472fda47f6a6cd54fb203eacef3f969f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4577806932648576542}
-    - targetCorrespondingSourceObject: {fileID: 5755345376368367183, guid: 472fda47f6a6cd54fb203eacef3f969f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6671987906814922899}
   m_SourcePrefab: {fileID: 100100000, guid: 472fda47f6a6cd54fb203eacef3f969f, type: 3}
 --- !u!114 &7193902720631138960 stripped
@@ -4728,20 +4725,6 @@ MonoBehaviour:
   _stageNumUI: {fileID: 0}
   _tutorialRoom: {fileID: 0}
   _generatedRooms: []
---- !u!114 &4577806932648576542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7765305605113066258}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b046ab383d21cec4b98947f659c71163, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rankingScreen: 0
-  playerSignedIn: 
 --- !u!114 &6671987906814922899
 MonoBehaviour:
   m_ObjectHideFlags: 0

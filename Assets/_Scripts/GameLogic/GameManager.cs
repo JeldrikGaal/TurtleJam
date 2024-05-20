@@ -11,7 +11,7 @@ using Color = UnityEngine.Color;
 public class GameManager : MonoBehaviour
 {
 
-    private int _score = 0;
+    public int _score = 0;
     private float _timeSinceGameStarted = 0;
     
     [SerializeField] private TMP_Text _scoreText;
@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     // Menus
     [SerializeField] private GameObject _pauseMenu;
     [SerializeField] private GameObject _gameOverMenu;
+    [SerializeField] private GameObject _leaderboard;
 
     // JUICE
     [SerializeField] private GameObject _gameOverVisualEffectPrefab;
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour
         _startTimeColorShift = Time.time;
         
         _cameraManager = GameObject.FindWithTag("MainCamera").GetComponent<CameraManager>();
-        _scoreManager = gameObject.GetComponent<ScoreManager>();
+        _scoreManager = GameObject.FindWithTag("UnityPlugin").GetComponent<ScoreManager>();
     }
     
     private void FetchObjectsToColorShift()
@@ -201,11 +202,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveScoreForPlayer() 
     {
-        // TODO: uncommented for testing 
-        //scoreManager.UpdateScore(score); 
-        
-        //SaveNewScore(highscoreName.text, (int)((int)(100 - time) * 10 + score));
-        //highscoreSection.SetActive(false);
+        _scoreManager.UpdateScore(_score);
     }
 
     public void GameOverCondition()
@@ -217,10 +214,23 @@ public class GameManager : MonoBehaviour
         _timeText.enabled = false;
         _paused = true;
 
+        
+        // Place the below code in a "CalculateFinalScore" function.
         _score = ((int)_timeSinceGameStarted * _score); // Score calculation
         SaveScoreForPlayer();
         _finalScoreText.text = "Score \n" + _score.ToString();
         _finalScoreText.enabled = true;
+    }
+
+    public void DisplayLeaderboard()
+    {
+        _leaderboard.SetActive(true);
+        _scoreManager.UpdateScoresOnLeaderboard();
+    }
+    
+    public void HideLeaderboard()
+    {
+        _leaderboard.SetActive(false);
     }
 
     public void GoToLevel(string levelName) // For Resume, Next Level and Back to Main Menu

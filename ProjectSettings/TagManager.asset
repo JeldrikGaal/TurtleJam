@@ -11,6 +11,7 @@ TagManager:
   - Grid
   - Bullet
   - textToShift
+  - UnityPlugin
   layers:
   - Default
   - TransparentFX

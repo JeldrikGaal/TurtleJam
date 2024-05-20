@@ -5,10 +5,12 @@ using Unity.Services.Leaderboards;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using TMPro;
 using Unity.Services.Leaderboards.Exceptions;
 using Unity.Services.Leaderboards.Models;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 
@@ -22,12 +24,25 @@ public class ScoreManager : MonoBehaviour
     
     [SerializeField] private bool rankingScreen = false; // Indication if this is ranking screen.
     [SerializeField] private string playerSignedIn; // stores username of signed in player, and serves as indication if there's a player signed in.
+    private static GameManager gameManager; 
     
     async void Awake()
     {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("UnityPlugin");
+
+        if (objs.Length > 1)
+        {
+            Destroy(this.gameObject);
+        }
+
+        DontDestroyOnLoad(this.gameObject);
+        
         // TODO: TEMPPPP
-        //await UnityServices.InitializeAsync();
-        //await SignInAnonymously();
+        if (playerSignedIn == "")
+        {
+            await UnityServices.InitializeAsync();
+            await SignInAnonymously();
+        }
     }
     
     async Task SignInAnonymously()
@@ -36,6 +51,8 @@ public class ScoreManager : MonoBehaviour
         {
             Debug.Log("Signed in as: " + AuthenticationService.Instance.PlayerName);
             playerSignedIn = AuthenticationService.Instance.PlayerName;
+            if (SceneManager.GetActiveScene().name == "MainMenu")
+                UpdateUsernameDisplayBanner();
         };
         AuthenticationService.Instance.SignInFailed += s =>
         {
@@ -57,6 +74,11 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    private void UpdateUsernameDisplayBanner()
+    {
+        this.gameObject.GetComponent<UsernameBanner>().DisplayUsernameInBanner(playerSignedIn);
+    }
+    
     private async Task<double> GetPlayerScore()
     {
         return (await LeaderboardsService.Instance.GetPlayerScoreAsync(LeaderboardId)).Score; 
@@ -93,12 +115,40 @@ public class ScoreManager : MonoBehaviour
 
         return allScores;
     }
-    
-    
+
+    public async Task UpdateScoresOnLeaderboard()
+    {
+        if (gameManager == null)
+        {
+            gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        }
+
+        List<TextMeshProUGUI> namesPlaceholders = gameManager.GetComponent<LeaderboardDisplayConnector>().names;
+        List<TextMeshProUGUI> scoresPlaceholders = gameManager.GetComponent<LeaderboardDisplayConnector>().scores;
+        TextMeshProUGUI playerNamePlaceholder = gameManager.GetComponent<LeaderboardDisplayConnector>().playerName;
+        TextMeshProUGUI playerScorePlaceholder = gameManager.GetComponent<LeaderboardDisplayConnector>().playerScore;
+        
+        Dictionary<string, double> allScores = await GetTopScores();
+        int userCounter = 0;
+
+        // Update Names and Scores
+        foreach (var result in allScores)
+        {
+            namesPlaceholders[userCounter].text = result.Key; // Player Username
+            scoresPlaceholders[userCounter].text = result.Value.ToString(); // Player Score
+            userCounter++;
+        }
+
+        // Update Current Player Name and Score
+        playerNamePlaceholder.text = playerSignedIn;
+        playerScorePlaceholder.text = gameManager._score.ToString();
+    }
+
+
 
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Return)) GetScores();
+        
     }
 
     /*private async Task<LeaderboardEntry> GetPlayerScoreAsync()
