@@ -21,6 +21,7 @@ public class SpawnerController : MonoBehaviour
     private GameObject _currentSpawnedObject;
     private Vector3 _debugLableOffset = Vector3.down;
 
+
     public void InitializeSpawner()
     {
         if (_currentSpawnedObject != null) return;
@@ -67,14 +68,16 @@ public class SpawnerController : MonoBehaviour
         }
         
     }
+    #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if(_infoHolderList.Count == 1)
+        if(_infoHolder!=null)
         {
-            Gizmos.DrawIcon(transform.position , _infoHolderList[0].sprite.name +".png", true);
-            #if UNITY_EDITOR
+            Gizmos.DrawIcon(transform.position , _infoHolder.sprite.name +".png", true);
+            
                 UnityEditor.Handles.Label(transform.position +_debugLableOffset, ActivationStage.ToString());
-            #endif
         }
     }
+    #endif
+
 }
