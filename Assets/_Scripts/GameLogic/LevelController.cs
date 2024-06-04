@@ -23,6 +23,9 @@ public class LevelController : MonoBehaviour
     private Transform _gridTransform;
     
     [SerializeField] private List<LevelAttributes> _generatedRooms = new List<LevelAttributes>();
+    private List<GameObject> _availableRooms = new List<GameObject>();
+    private List<Direction> _availableDirections = new List<Direction>();
+    private List<Direction> path = new List<Direction>();
 
     private GameManager _gameManager;
     public enum Direction
@@ -54,46 +57,48 @@ public class LevelController : MonoBehaviour
         _gameManager.UpdateTileMapList();
     }
 
-    private List<Direction> GeneratePath(int length)
+    private void GeneratePath(int length)
     {
+        path.Clear();
         // TODO: rethink if this is fine ? works flawlessly so far
         if (length == 1)
         {
-            return new List<Direction>() { Direction.Up };
+            path.Add(Direction.Up);
         }
-        List<Direction> path = new List<Direction>();
-        path.Add(GetRandomDirection(GetAvailableExitDirectionsFromEntrance(Direction.Up)));
+        GetAvailableExitDirectionsFromEntrance(Direction.Up);
+
+        path.Add(GetRandomDirection(_availableDirections));
         
         for (int i = 1; i < length-1; i++)
         {
-            path.Add(GetRandomDirection(GetAvailableExitDirectionsFromEntrance(path[i-1])));
+            GetAvailableExitDirectionsFromEntrance(path[i-1]);
+            path.Add(GetRandomDirection(_availableDirections));
         }
         
         path.Add(Direction.Up);
 
-        return path;
     }
     
-    public List<Direction> GetAvailableExitDirectionsFromEntrance(Direction entranceDirection)
+    public void GetAvailableExitDirectionsFromEntrance(Direction entranceDirection)
     {
-        List<Direction> availableDirections = new List<Direction>();
+        _availableDirections.Clear();
+        
         switch (entranceDirection)
         {
             case Direction.Up:
-                availableDirections.Add(Direction.Left);
-                availableDirections.Add(Direction.Right);
-                availableDirections.Add(Direction.Up);
+                _availableDirections.Add(Direction.Left);
+                _availableDirections.Add(Direction.Right);
+                _availableDirections.Add(Direction.Up);
                 break;
             case Direction.Left:
-                availableDirections.Add(Direction.Up);
-                availableDirections.Add(Direction.Left);
+                _availableDirections.Add(Direction.Up);
+                _availableDirections.Add(Direction.Left);
                 break;
             case Direction.Right:
-                availableDirections.Add(Direction.Up);
-                availableDirections.Add(Direction.Right);
+                _availableDirections.Add(Direction.Up);
+                _availableDirections.Add(Direction.Right);
                 break;
         }
-        return availableDirections;
     }
 
     public Direction GetEntranceDirectionFromExitDirection(Direction exitDirection)
@@ -119,7 +124,7 @@ public class LevelController : MonoBehaviour
     private void GenerateBatch(int roomAmount)
     {
         List<LevelAttributes> rooms = new List<LevelAttributes>();
-        List<Direction> path = GeneratePath(roomAmount);
+        GeneratePath(roomAmount);
         
         rooms.Add( GenerateRandomRoom(_tutorialRoom, path[0]));
         _generatedRooms.Add(rooms[0]);
@@ -145,7 +150,7 @@ public class LevelController : MonoBehaviour
     private LevelAttributes GenerateRandomRoom(LevelAttributes previousRoom, Direction exitDirection)
     {
         Direction entranceDirection = GetEntranceDirectionFromExitDirection(previousRoom.GetExitDirection());
-        return GenerateRoom(previousRoom, exitDirection, GetRandomRoomPrefab(_currentStageIndex, entranceDirection));
+        return GenerateRoom(previousRoom, exitDirection, GetRandomRoomPrefab(_currentStageIndex, entranceDirection, exitDirection));
     }
     private LevelAttributes GenerateRoom(LevelAttributes previousRoom, Direction exitDirection, GameObject roomToGenerate )
     {
@@ -183,24 +188,25 @@ public class LevelController : MonoBehaviour
         return new Vector2(previousPosition.x + xOffset, previousPosition.y + yOffset);
     }
 
-    private GameObject GetRandomRoomPrefab(int difficulty, Direction entranceDirection)
+    private GameObject GetRandomRoomPrefab(int difficulty, Direction entranceDirection, Direction exitDirection)
     {
-        List<GameObject> availableRooms = GetAvailableRoomPrefabs(difficulty, entranceDirection);
-        return availableRooms[Random.Range(0, availableRooms.Count)];
+        
+        GetAvailableRoomPrefabs(difficulty, entranceDirection, exitDirection);
+        return _availableRooms[Random.Range(0, _availableRooms.Count)];
     }
 
-    private List<GameObject> GetAvailableRoomPrefabs(int difficulty, Direction entranceDirection)
+    private void GetAvailableRoomPrefabs(int difficulty, Direction entranceDirection, Direction exitDirection)
     {
-        List<GameObject> availableRooms = new List<GameObject>();
+        _availableRooms.Clear();
+
         foreach (var room in _normalRooms)
         {
-            if (room.GetComponent<LevelAttributes>().IsRoomEligible(difficulty, entranceDirection))
+            if (room.GetComponent<LevelAttributes>().IsRoomEligible(difficulty, entranceDirection, exitDirection))
             {
-                availableRooms.Add(room);
+                _availableRooms.Add(room);
             }
         }
 
-        return availableRooms;
     }
     
     public void ProgressToNextStage()

@@ -143,9 +143,9 @@ public class LevelAttributes : MonoBehaviour
         }
     }
 
-    public bool IsRoomEligible(int currentDifficulty, LevelController.Direction entranceDirection)
+    public bool IsRoomEligible(int currentDifficulty, LevelController.Direction entranceDirection, LevelController.Direction exitDirection)
     {
-        return currentDifficulty >= _minimumDifficulty && Entrances.Directions.Contains(entranceDirection);
+        return currentDifficulty >= _minimumDifficulty && Entrances.Directions.Contains(entranceDirection) && Exits.Directions.Contains(exitDirection);
     }
 
     public LevelController.Direction GetExitDirection()
