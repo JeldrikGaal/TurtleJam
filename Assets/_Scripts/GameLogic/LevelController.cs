@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using TMPro;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LevelController : MonoBehaviour
 {
@@ -8,18 +9,15 @@ public class LevelController : MonoBehaviour
 
     [SerializeField] private List<GameObject> _stageTransitionRooms = new List<GameObject>();
     [SerializeField] private List<GameObject> _normalRooms = new List<GameObject>();
-    
-    private int _currentStageIndex = 0;
-    private int _currentRoomIndex = 0;
-    [SerializeField] private TextMeshProUGUI _stageNumUI;
-    
     [SerializeField] private LevelAttributes _tutorialRoom;
-
-    private Transform _gridTransform;
-    
     [SerializeField] private List<LevelAttributes> _generatedRooms = new List<LevelAttributes>();
 
+    private int _currentStageIndex;
+    private int _currentRoomIndex;
+
+    private Transform _gridTransform;
     private GameManager _gameManager;
+    
     public enum Direction
     {
         Up,
@@ -49,49 +47,51 @@ public class LevelController : MonoBehaviour
         _gameManager.UpdateTileMapList();
     }
 
+    private void Update()
+    {
+        // TODO: remove debugging
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ProgressToNextStage();
+        }
+    }
+
     private List<Direction> GeneratePath(int length)
     {
-        // TODO: rethink if this is fine ? works flawlessly so far
+        // TODO: rethink if this is fine ? works so far
         if (length == 1)
         {
             return new List<Direction>() { Direction.Up };
         }
-        List<Direction> path = new List<Direction>();
-        path.Add(GetRandomDirection(GetAvailableExitDirectionsFromEntrance(Direction.Up)));
+
+        List<Direction> possibleExitDirectionsForStage = GetAvailableExitDirectionsForDifficulty(_currentStageIndex);
         
+        // Path needs to start with Room with connected room having an up exit
+        var path = new List<Direction> 
+        {
+            GetRandomNextDirection(possibleExitDirectionsForStage, Direction.Up)
+        };
+
         for (int i = 1; i < length-1; i++)
         {
-            path.Add(GetRandomDirection(GetAvailableExitDirectionsFromEntrance(path[i-1])));
+            path.Add(GetRandomNextDirection(possibleExitDirectionsForStage, path[i-1]));
         }
         
+        // Path needs to end with up direction
         path.Add(Direction.Up);
 
         return path;
     }
     
-    public List<Direction> GetAvailableExitDirectionsFromEntrance(Direction entranceDirection)
+    private static Direction GetRandomNextDirection(List<Direction> availableDirectionFromRooms, Direction previousExit)
     {
-        List<Direction> availableDirections = new List<Direction>();
-        switch (entranceDirection)
-        {
-            case Direction.Up:
-                availableDirections.Add(Direction.Left);
-                availableDirections.Add(Direction.Right);
-                availableDirections.Add(Direction.Up);
-                break;
-            case Direction.Left:
-                availableDirections.Add(Direction.Up);
-                availableDirections.Add(Direction.Left);
-                break;
-            case Direction.Right:
-                availableDirections.Add(Direction.Up);
-                availableDirections.Add(Direction.Right);
-                break;
-        }
-        return availableDirections;
+        var availableDirections = availableDirectionFromRooms.ToList();
+        availableDirections.Remove(previousExit);
+        availableDirections.Remove(GetEntranceDirectionFromExitDirection(previousExit));
+        return GetRandomDirectionFromList(availableDirections);
     }
 
-    public Direction GetEntranceDirectionFromExitDirection(Direction exitDirection)
+    private static Direction GetEntranceDirectionFromExitDirection(Direction exitDirection)
     {
         switch (exitDirection)
         {
@@ -106,7 +106,7 @@ public class LevelController : MonoBehaviour
         return Direction.None;
     }
     
-    private Direction GetRandomDirection(List<Direction> directions)
+    private static Direction GetRandomDirectionFromList(IReadOnlyList<Direction> directions)
     {
         return directions[Random.Range(0, directions.Count)];
     }
@@ -140,7 +140,8 @@ public class LevelController : MonoBehaviour
     private LevelAttributes GenerateRandomFromPreviousRoom(LevelAttributes previousRoom, Direction exitDirection)
     {
         Direction entranceDirection = GetEntranceDirectionFromExitDirection(previousRoom.GetExitDirection());
-        return GenerateRoom(previousRoom, exitDirection, GetRandomRoomPrefab(_currentStageIndex, entranceDirection));
+        return GenerateRoom(previousRoom, exitDirection, 
+            GetRandomRoomPrefab(_currentStageIndex, entranceDirection, exitDirection));
     }
     private LevelAttributes GenerateRoom(LevelAttributes previousRoom, Direction exitDirection, GameObject roomToGenerate )
     {
@@ -178,18 +179,42 @@ public class LevelController : MonoBehaviour
         return new Vector2(previousPosition.x + xOffset, previousPosition.y + yOffset);
     }
 
-    private GameObject GetRandomRoomPrefab(int difficulty, Direction entranceDirection)
+    private GameObject GetRandomRoomPrefab(int difficulty, Direction entranceDirection, Direction exitDirection)
     {
-        List<GameObject> availableRooms = GetAvailableRoomPrefabs(difficulty, entranceDirection);
+        List<GameObject> availableRooms = GetAvailableRoomPrefabs(difficulty, entranceDirection, exitDirection);
         return availableRooms[Random.Range(0, availableRooms.Count)];
     }
 
-    private List<GameObject> GetAvailableRoomPrefabs(int difficulty, Direction entranceDirection)
+    private List<Direction> GetAvailableExitDirectionsForDifficulty(int difficulty)
     {
-        List<GameObject> availableRooms = new List<GameObject>();
+        var availableDirections = new List<Direction>();
         foreach (var room in _normalRooms)
         {
-            if (room.GetComponent<LevelAttributes>().IsRoomEligible(difficulty, entranceDirection))
+            var roomAttributes = room.GetComponent<LevelAttributes>();
+            if (!roomAttributes.IsRoomDifficultEnough(difficulty))
+            {
+                continue;
+            }
+            
+            List<Direction> exitDirs = roomAttributes.GetPossibleExitDirections();
+            foreach (var dir in exitDirs)
+            {
+                if (!availableDirections.Contains(dir))
+                {
+                    availableDirections.Add(dir);
+                }
+            }
+        }
+        
+        return availableDirections;
+    }
+    
+    private List<GameObject> GetAvailableRoomPrefabs(int difficulty, Direction entranceDirection, Direction exitDirection)
+    {
+        var availableRooms = new List<GameObject>();
+        foreach (var room in _normalRooms)
+        {
+            if (room.GetComponent<LevelAttributes>().IsRoomEligible(difficulty, entranceDirection, exitDirection))
             {
                 availableRooms.Add(room);
             }

@@ -140,14 +140,30 @@ public class LevelAttributes : MonoBehaviour
         }
     }
 
-    public bool IsRoomEligible(int currentDifficulty, LevelController.Direction entranceDirection)
+    public bool IsRoomDifficultEnough(int currentDifficulty)
     {
-        return currentDifficulty >= _minimumDifficulty && Entrances.Directions.Contains(entranceDirection);
+        return currentDifficulty >= _minimumDifficulty;
+    }
+    
+    public bool IsRoomEligible(int currentDifficulty, LevelController.Direction entranceDirection, LevelController.Direction exitDirection)
+    {
+        return currentDifficulty >= _minimumDifficulty && Entrances.Directions.Contains(entranceDirection) 
+                                                       && Exits.Directions.Contains(exitDirection);
     }
 
     public LevelController.Direction GetExitDirection()
     {
         return _exitDirection;
+    }
+
+    public List<LevelController.Direction> GetPossibleExitDirections()
+    {
+        List<LevelController.Direction> possibleDirections = Exits.Directions;
+        
+        // TODO: remove hacky solution to prevent remaking all prefabs using "all directions" holder for exits
+        possibleDirections.Remove(LevelController.Direction.Down);
+        
+        return possibleDirections;
     }
     
     public Vector2 GetRoomSize()
