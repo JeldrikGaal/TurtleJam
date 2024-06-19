@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]

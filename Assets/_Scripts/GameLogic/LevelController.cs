@@ -1,11 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class LevelController : MonoBehaviour
 {
@@ -121,12 +116,12 @@ public class LevelController : MonoBehaviour
         List<LevelAttributes> rooms = new List<LevelAttributes>();
         List<Direction> path = GeneratePath(roomAmount);
         
-        rooms.Add( GenerateRandomRoom(_tutorialRoom, path[0]));
+        rooms.Add( GenerateRandomFromPreviousRoom(_tutorialRoom, path[0]));
         _generatedRooms.Add(rooms[0]);
         
         for (int i = 1; i < roomAmount; i++)
         {
-            rooms.Add( GenerateRandomRoom(rooms[i - 1], path[i]));
+            rooms.Add( GenerateRandomFromPreviousRoom(rooms[i - 1], path[i]));
         }
         
         rooms.Add(GenerateTransitionRoom(rooms[^1]));
@@ -142,7 +137,7 @@ public class LevelController : MonoBehaviour
         return GenerateRoom(previousRoom, Direction.Up, _stageTransitionRooms[_currentStageIndex]);
     }
     
-    private LevelAttributes GenerateRandomRoom(LevelAttributes previousRoom, Direction exitDirection)
+    private LevelAttributes GenerateRandomFromPreviousRoom(LevelAttributes previousRoom, Direction exitDirection)
     {
         Direction entranceDirection = GetEntranceDirectionFromExitDirection(previousRoom.GetExitDirection());
         return GenerateRoom(previousRoom, exitDirection, GetRandomRoomPrefab(_currentStageIndex, entranceDirection));

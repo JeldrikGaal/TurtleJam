@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ProjectileJuice))]
@@ -46,7 +44,7 @@ public class PlayerProjectile : MonoBehaviour
         return _state is ProjectileState.Shield;
     }
     
-    public enum ProjectileState
+    private enum ProjectileState
     {
         Flying,
         Returning,
@@ -71,7 +69,6 @@ public class PlayerProjectile : MonoBehaviour
 
         _startFlyRange = _flyRange;
         _startMaxBounceAmount = _maxBounceAmount;
-
     }
     
     private void Update()
@@ -109,18 +106,19 @@ public class PlayerProjectile : MonoBehaviour
         if (!_bouncedLastFrame && !_bouncedThisFrame) return;
         if (_bouncedThisFrame)
         {
+            _bouncedThisFrame = false;
             _bouncedLastFrame = true;
             return;
         }
         _bouncedLastFrame = false;
         _bouncedThisFrame = false;
-        
-        /*if (!_bouncedLastFrame) return;
-        _bouncedLastFrame = false;*/
 
+        Debug.Log("checking for in wall");
+        
         if (IsProjectileInWall())
         {
-            SetProjectileVelocityAndDirection(_moveDirectionBeforeBounce * _flySpeed);
+            Debug.Log("is in wall");
+            //SetProjectileVelocityAndDirection(_moveDirectionBeforeBounce * (_flySpeed * -1f));
         }
     }
 
@@ -246,6 +244,7 @@ public class PlayerProjectile : MonoBehaviour
 
     private bool RequestBounce()
     {
+        Debug.Log("BOUNCE");
         BounceVFX(transform.position);
         
         if (IsBounceAllowed())

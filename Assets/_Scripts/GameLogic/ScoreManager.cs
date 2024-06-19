@@ -1,18 +1,12 @@
-using System;
-using Unity.Services.Core;
-using Unity.Services.Authentication;
-using Unity.Services.Leaderboards;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using TMPro;
-using Unity.Services.Leaderboards.Exceptions;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
+using Unity.Services.Leaderboards;
 using Unity.Services.Leaderboards.Models;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
-
 
 public class ScoreManager : MonoBehaviour
 {

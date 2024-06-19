@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class BounceAmountChangePowerUpLogic : BasePowerUpLogic
 {
    private BounceAmountChangePowerUpHolder _bounceData;

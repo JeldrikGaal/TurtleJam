@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "RangeDecreasePowerUpHolder", menuName = "Custom/PowerUps/RangeDecreasePowerUpHolder")]
