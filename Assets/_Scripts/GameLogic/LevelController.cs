@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,7 +17,8 @@ public class LevelController : MonoBehaviour
     private int _currentRoomIndex;
 
     private Transform _gridTransform;
-    private GameManager _gameManager;
+
+    public static event Action TileMapsChanged;
     
     public enum Direction
     {
@@ -39,12 +41,10 @@ public class LevelController : MonoBehaviour
 
     private void Start()
     {
-        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         _gridTransform = GameObject.FindGameObjectWithTag("Grid").transform;
         _generatedRooms.Add(_tutorialRoom);
         
         GenerateBatch(_progressionThreshold[_currentStageIndex]);
-        _gameManager.UpdateTileMapList();
     }
 
     private void Update()
@@ -130,6 +130,8 @@ public class LevelController : MonoBehaviour
         rooms.RemoveAt(0);
         
         _generatedRooms.AddRange(rooms);
+        
+        TileMapsChanged?.Invoke();
     }
 
     private LevelAttributes GenerateTransitionRoom(LevelAttributes previousRoom)
@@ -234,10 +236,6 @@ public class LevelController : MonoBehaviour
         }
         
         GenerateBatch(_progressionThreshold[_currentStageIndex]);
-        
-        _gameManager.UpdateTileMapList();
-        
-        //stageNumUI.text = (currentStageIndex + 1).ToString();
     }
 
     private void NextRoom(CamUpTrigger camUpTrigger)

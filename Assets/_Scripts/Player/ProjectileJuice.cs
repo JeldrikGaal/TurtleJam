@@ -32,7 +32,8 @@ public class ProjectileJuice : MonoBehaviour
         ParticleSystem ps = Instantiate(_explosionParticle, pos, Quaternion.identity) as ParticleSystem;
         ps.Play();
         Destroy(ps.gameObject, 0.2f);
-        StartCoroutine(_gameManager.FlashWalls(0.05f, Color.red));
+        
+        ColorsController.Instance.StartProjectileColorFlash();
         
         _playAudio.PlayOneShotSound(1);
     }
