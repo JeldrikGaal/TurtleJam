@@ -147,7 +147,7 @@ public class LevelController : MonoBehaviour
     {
         Direction entranceDirection = GetEntranceDirectionFromExitDirection(previousRoom.GetExitDirection());
         var newRoom = Instantiate(roomToGenerate, _gridTransform);
-        newRoom.transform.SetParent(_gridTransform);
+        //newRoom.transform.SetParent(_gridTransform);
         newRoom.transform.position = GetNewPositionFromPreviousRoom(previousRoom);
         LevelAttributes newRoomAttributes = newRoom.GetComponent<LevelAttributes>();
         newRoomAttributes.InitializeRoom(entranceDirection, exitDirection, _currentStageIndex);

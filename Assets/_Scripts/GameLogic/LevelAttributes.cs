@@ -83,10 +83,11 @@ public class LevelAttributes : MonoBehaviour
     {
         foreach (var direction in _availableDirections)
         {
-            GameObject spawnedWall = new GameObject();
+            GameObject spawnedWall = null;
             // Spawned Exit door
             if (direction == _exitDirection)
             {
+                Debug.Log(transform.name);
                 spawnedWall = Instantiate(GetWallObjectsFromDirection(direction)[1], transform.position, Quaternion.identity, transform);
                 spawnedWall.transform.localPosition = GetWallPosFromDirectionAndType(direction, true);
                 spawnedWall.GetComponentInChildren<CamUpTrigger>().Setup(direction);
@@ -97,9 +98,20 @@ public class LevelAttributes : MonoBehaviour
                 spawnedWall = Instantiate(GetWallObjectsFromDirection(direction)[0], transform.position, Quaternion.identity, transform);
                 spawnedWall.transform.localPosition = GetWallPosFromDirectionAndType(direction);
             }
-            
-            if(direction == LevelController.Direction.Down) { spawnedWall.transform.rotation = Quaternion.Euler(0,0,180);}
-            else if(direction == LevelController.Direction.Left) { spawnedWall.transform.rotation = Quaternion.Euler(0,180,0);}
+            else
+            {
+                continue;
+            }
+
+            if (direction == LevelController.Direction.Down)
+            {
+                spawnedWall.transform.rotation = Quaternion.Euler(0,0,180);
+            }
+            else if (direction == LevelController.Direction.Left)
+            {
+                spawnedWall.transform.rotation = Quaternion.Euler(0,180,0);
+            }
+                 
         }
     }
     
