@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.Linq;
-using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,11 +13,20 @@ public class SpawnerController : MonoBehaviour
     [Header("Use single element for determined spawn and list for random spawning")]
     [SerializeField] private SpawnerInformationHolder _infoHolder;
     [SerializeField] private List<SpawnerInformationHolder> _infoHolderList;
-
     
     private GameObject _currentSpawnedObject;
     private Vector3 _debugLableOffset = Vector3.down;
 
+    private LevelAttributes _levelAttributes;
+
+    private void Awake()
+    {
+        _levelAttributes = transform.parent.GetComponent<LevelAttributes>();
+        if (!_levelAttributes)
+        {
+            Debug.LogError("Can't have spawner outside of room");
+        }
+    }
 
     public void InitializeSpawner()
     {
@@ -33,11 +39,9 @@ public class SpawnerController : MonoBehaviour
         SpawnerInformationHolder infoHolder = GetRandomInfoHolder(); 
         
         Debug.Log(infoHolder.ObjectToSpawn);
-        _currentSpawnedObject = Instantiate(infoHolder.ObjectToSpawn, this.transform.position, Quaternion.identity);
+        _currentSpawnedObject = Instantiate(infoHolder.ObjectToSpawn, transform.position, Quaternion.identity, _levelAttributes.transform);
 
         _currentSpawnedObject.SetActive(false);
-
-       
         
     }
 
@@ -76,7 +80,7 @@ public class SpawnerController : MonoBehaviour
         {
             Gizmos.DrawIcon(transform.position , _infoHolder.sprite.name +".png", true);
             
-                UnityEditor.Handles.Label(transform.position +_debugLableOffset, ActivationStage.ToString());
+                Handles.Label(transform.position +_debugLableOffset, ActivationStage.ToString());
         }
     }
     #endif

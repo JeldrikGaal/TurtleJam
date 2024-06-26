@@ -238,6 +238,20 @@ public class LevelController : MonoBehaviour
         GenerateBatch(_progressionThreshold[_currentStageIndex]);
     }
 
+    private void DeleteStage(int stageNum)
+    {
+        
+    }
+
+    /*private (int, int) GetLastStageRoomRange()
+    {
+        int start = -1;
+        for (int i = _generatedRooms.Count; i > 0; i--)
+        {
+            
+        }
+    }*/
+
     private void NextRoom(CamUpTrigger camUpTrigger)
     {
         _currentRoomIndex++;
