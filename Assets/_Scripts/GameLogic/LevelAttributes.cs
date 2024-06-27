@@ -44,7 +44,7 @@ public class LevelAttributes : MonoBehaviour
         }
     }
 
-    public void InitializeRoom(LevelController.Direction entranceDirection, LevelController.Direction exitDirection, int currentDifficulty)
+    public void InitializeRoom(LevelController.Direction entranceDirection, LevelController.Direction exitDirection)
     {
         _entranceDirection = entranceDirection;
         _exitDirection = exitDirection;
@@ -87,7 +87,6 @@ public class LevelAttributes : MonoBehaviour
             // Spawned Exit door
             if (direction == _exitDirection)
             {
-                Debug.Log(transform.name);
                 spawnedWall = Instantiate(GetWallObjectsFromDirection(direction)[1], transform.position, Quaternion.identity, transform);
                 spawnedWall.transform.localPosition = GetWallPosFromDirectionAndType(direction, true);
                 spawnedWall.GetComponentInChildren<CamUpTrigger>().Setup(direction);

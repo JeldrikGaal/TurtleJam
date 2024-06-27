@@ -12,13 +12,14 @@ public class LevelController : MonoBehaviour
     [SerializeField] private List<GameObject> _normalRooms = new List<GameObject>();
     [SerializeField] private LevelAttributes _tutorialRoom;
     [SerializeField] private List<LevelAttributes> _generatedRooms = new List<LevelAttributes>();
+    private List<GameObject> _stageHolders = new List<GameObject>(); 
 
     private int _currentStageIndex;
     private int _currentRoomIndex;
 
     private Transform _gridTransform;
 
-    public static event Action TileMapsChanged;
+    public static event Action<List<GameObject>> TileMapsChanged;
     
     public enum Direction
     {
@@ -118,6 +119,7 @@ public class LevelController : MonoBehaviour
         
         rooms.Add( GenerateRandomFromPreviousRoom(_tutorialRoom, path[0]));
         _generatedRooms.Add(rooms[0]);
+        int firstRoomIndex = _generatedRooms.Count - 1;
         
         for (int i = 1; i < roomAmount; i++)
         {
@@ -131,7 +133,18 @@ public class LevelController : MonoBehaviour
         
         _generatedRooms.AddRange(rooms);
         
-        TileMapsChanged?.Invoke();
+        ParentBatchToStageObjects(firstRoomIndex, _generatedRooms.Count - 1);
+        
+    }
+
+    private void ParentBatchToStageObjects(int start, int end)
+    {
+        GameObject stageHolder = new GameObject { transform = {parent = _gridTransform, name = "StageHolder"}};
+        for (int i = start; i <= end; i++)
+        {
+            _generatedRooms[i].transform.SetParent(stageHolder.transform);
+        }
+        _stageHolders.Add(stageHolder);
     }
 
     private LevelAttributes GenerateTransitionRoom(LevelAttributes previousRoom)
@@ -149,10 +162,9 @@ public class LevelController : MonoBehaviour
     {
         Direction entranceDirection = GetEntranceDirectionFromExitDirection(previousRoom.GetExitDirection());
         var newRoom = Instantiate(roomToGenerate, _gridTransform);
-        //newRoom.transform.SetParent(_gridTransform);
         newRoom.transform.position = GetNewPositionFromPreviousRoom(previousRoom);
         LevelAttributes newRoomAttributes = newRoom.GetComponent<LevelAttributes>();
-        newRoomAttributes.InitializeRoom(entranceDirection, exitDirection, _currentStageIndex);
+        newRoomAttributes.InitializeRoom(entranceDirection, exitDirection);
 
         return newRoomAttributes;
     }
@@ -236,21 +248,23 @@ public class LevelController : MonoBehaviour
         }
         
         GenerateBatch(_progressionThreshold[_currentStageIndex]);
+        ClearFinishedStages();
+        TileMapsChanged?.Invoke(_stageHolders);
     }
 
-    private void DeleteStage(int stageNum)
+    
+    
+    private void ClearFinishedStages()
     {
         
-    }
-
-    /*private (int, int) GetLastStageRoomRange()
-    {
-        int start = -1;
-        for (int i = _generatedRooms.Count; i > 0; i--)
+        if (_stageHolders.Count < 3)
         {
-            
+            return;
         }
-    }*/
+        
+        Destroy(_stageHolders[0]);
+        _stageHolders.RemoveAt(0);
+    }
 
     private void NextRoom(CamUpTrigger camUpTrigger)
     {

@@ -29,6 +29,7 @@ public class CamUpTrigger : MonoBehaviour
     {
         if (Vector3.Distance(_camera.transform.position, _nextPos) <= 0.2f)
         {
+            ColorsController.Instance.InformAboutObjectDestruction(gameObject);
             Destroy(this.gameObject);
         }
     }

@@ -112,12 +112,10 @@ public class PlayerProjectile : MonoBehaviour
         }
         _bouncedLastFrame = false;
         _bouncedThisFrame = false;
-
-        Debug.Log("checking for in wall");
+        
         
         if (IsProjectileInWall())
         {
-            Debug.Log("is in wall");
             //SetProjectileVelocityAndDirection(_moveDirectionBeforeBounce * (_flySpeed * -1f));
         }
     }
@@ -243,8 +241,7 @@ public class PlayerProjectile : MonoBehaviour
     }
 
     private bool RequestBounce()
-    {
-        Debug.Log("BOUNCE");
+    { ;
         BounceVFX(transform.position);
         
         if (IsBounceAllowed())

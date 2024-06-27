@@ -34,22 +34,23 @@ public class ColorsController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        LevelController.TileMapsChanged += UpdateTileMapList;
+        LevelController.TileMapsChanged += UpdateObjectsToShift;
     }
 
     private void OnDestroy()
     {
-        LevelController.TileMapsChanged -= UpdateTileMapList;
+        LevelController.TileMapsChanged -= UpdateObjectsToShift;
     }
 
     private void Start()
     {
         _startTimeColorShift = Time.time;
-        FetchObjectsToColorShift();
+        Invoke(nameof(FetchObjectsToColorShift), 0.05f);
     }
     
     private void FetchObjectsToColorShift()
     {
+        Debug.Log("FETCHED");
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Wall"))
         {
             _tileMaps.Add(g.GetComponent<Tilemap>());
@@ -110,15 +111,15 @@ public class ColorsController : MonoBehaviour
         }
     }
     
-    private void UpdateTileMapList()
+    private void UpdateObjectsToShift(List<GameObject> stageHolders)
     {
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Wall"))
+        Debug.Log("CLEARED");
+        _tileMaps = new List<Tilemap>();
+        _worldTextRenderers = new List<SpriteRenderer>();
+        foreach (GameObject g in stageHolders)
         {
-            Tilemap t = g.GetComponent<Tilemap>();
-            if (!_tileMaps.Contains(t))
-            {
-                _tileMaps.Add(t);
-            }
+            _tileMaps.AddRange(g.GetComponentsInChildren<Tilemap>());
+            _worldTextRenderers.AddRange(g.GetComponentsInChildren<SpriteRenderer>());
         }
     }
 
@@ -140,5 +141,17 @@ public class ColorsController : MonoBehaviour
 
         ChangeTileMapsColor(saveColor);
         _currentlyFlashingColors = false;
+    }
+
+    public void InformAboutObjectDestruction(GameObject destroyedObject)
+    {
+        if (_tileMaps.Contains(destroyedObject.GetComponent<Tilemap>()))
+        {
+            _tileMaps.Remove(destroyedObject.GetComponent<Tilemap>());
+        }
+        else if (_worldTextRenderers.Contains(destroyedObject.GetComponent<SpriteRenderer>()) )
+        {
+            _worldTextRenderers.Remove(destroyedObject.GetComponent<SpriteRenderer>());
+        }
     }
 }
