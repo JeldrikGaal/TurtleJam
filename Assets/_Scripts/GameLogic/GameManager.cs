@@ -1,37 +1,34 @@
-using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
 
-    public int _score = 0;
-    private float _timeSinceGameStarted = 0;
-    
-    [SerializeField] private TMP_Text _scoreText;
-    [SerializeField] private TMP_Text _finalScoreText;
-    [SerializeField] private TMP_Text _timeText;
-    
-    private bool _paused = false;
+    public static GameManager Instance;
+
+    public int _score;
+    public float _timeSinceGameStarted;
    
-    private ScoreManager _scoreManager;
+    public ScoreManager _scoreManager;
     
-    // Menus
-    [SerializeField] private GameObject _pauseMenu;
-    [SerializeField] private GameObject _gameOverMenu;
-    [SerializeField] private GameObject _leaderboard;
-
-    // JUICE
-    [SerializeField] private GameObject _gameOverVisualEffectPrefab;
-
     // Cursor
     [SerializeField] private Texture2D _cursorTexture;
     private const CursorMode CursorMode = UnityEngine.CursorMode.Auto;
     private Vector2 _hotSpot = Vector2.zero;
     
-    private CameraManager _cameraManager;
+    [SerializeField] private GameObject _gameOverVisualEffectPrefab;
     
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         InitializeValuesAndReferences();
@@ -44,8 +41,9 @@ public class GameManager : MonoBehaviour
         _score = 0;
         _timeSinceGameStarted = 0;
         
-        _cameraManager = GameObject.FindWithTag("MainCamera").GetComponent<CameraManager>();
         _scoreManager = GameObject.FindWithTag("UnityPlugin").GetComponent<ScoreManager>();
+        
+        GameStateManager.Instance.SetGameState(GameStateManager.GameState.Running);
     }
     
     private void SetupCursor()
@@ -58,83 +56,37 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!_pauseMenu.activeInHierarchy )
+            if (GameStateManager.Instance.IsRunning())
             {
-                Pause();
+                GameStateManager.Instance.SetGameState(GameStateManager.GameState.Paused);
             }
             else
             {
-                Resume();
+                GameStateManager.Instance.SetGameState(GameStateManager.GameState.Running);
             }
         }
+
+        if (GameStateManager.Instance.IsPaused())
+        {
+            return;
+        }
+        
         _timeSinceGameStarted += Time.deltaTime;
-
-        _scoreText.text = "Score: " + _score.ToString();
-        _timeText.text = "Time: " + _timeSinceGameStarted.ToString("0.00");
-        
     }
 
-    private void Pause()
+    public void ResumeGame()
     {
-        StartCoroutine(_cameraManager.BattleTransition(1, true));
-        StartCoroutine(SetTimeScaleDelayed(0, 1));
-        StartCoroutine(SetActiveDelayed(1, true));
-        _paused = true;
+        GameStateManager.Instance.SetGameState(GameStateManager.GameState.Running);
     }
 
-    private IEnumerator SetActiveDelayed(float delay, bool active)
+    public float CalculateScore()
     {
-        yield return new WaitForSeconds(delay);
-        _pauseMenu.SetActive(active);
-    }
-
-    private IEnumerator SetTimeScaleDelayed(float timeScale, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Time.timeScale = timeScale;
-
+        return ((int)_timeSinceGameStarted * _score);
     }
     
-    public void Resume()
+    public void SaveScoreForPlayer(float score) 
     {
-        _pauseMenu.SetActive(false);
-        Time.timeScale = 1;
-        StartCoroutine(_cameraManager.BattleTransition(1, false));
-        
-        _paused = false;
-    }
-
-    public void SaveScoreForPlayer() 
-    {
-        _scoreManager.UpdateScore(_score);
-    }
-
-    public void GameOverCondition()
-    {
-        // TODO: rework after new leaderboard has been implemented
-        _gameOverVisualEffectPrefab.GetComponent<Animator>().SetTrigger("GameOver");
-        _gameOverMenu.SetActive(true);
-        _scoreText.enabled = false;
-        _timeText.enabled = false;
-        _paused = true;
-
-        
-        // Place the below code in a "CalculateFinalScore" function.
-        _score = ((int)_timeSinceGameStarted * _score); // Score calculation
-        SaveScoreForPlayer();
-        _finalScoreText.text = "Score \n" + _score.ToString();
-        _finalScoreText.enabled = true;
-    }
-
-    public void DisplayLeaderboard()
-    {
-        _leaderboard.SetActive(true);
-        _scoreManager.UpdateScoresOnLeaderboard();
-    }
-    
-    public void HideLeaderboard()
-    {
-        _leaderboard.SetActive(false);
+        _scoreManager.UpdateScore(score);
     }
 
     public void GoToLevel(string levelName) // For Resume, Next Level and Back to Main Menu
@@ -156,10 +108,5 @@ public class GameManager : MonoBehaviour
     public void AddScore(int scoreToAdd)
     {
         _score += scoreToAdd;
-    }
-
-    public bool IsPaused()
-    {
-        return _paused;
     }
 }

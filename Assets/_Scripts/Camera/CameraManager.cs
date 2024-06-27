@@ -77,6 +77,8 @@ public class CameraManager : MonoBehaviour
         {
             _battleTransitionEffect.Cutoff = Mathf.Lerp(start, end, (elapsedTime  / time));
             elapsedTime += Time.deltaTime;
+            
+            Debug.Log(Time.deltaTime);
             yield return null;
         }
     }

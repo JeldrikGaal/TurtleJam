@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,6 +64,10 @@ public class ColorsController : MonoBehaviour
 
     private void Update()
     {
+        if (GameStateManager.Instance.IsPaused())
+        {
+            return;
+        }
         ColorShift();
     }
 

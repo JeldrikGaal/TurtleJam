@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -20,7 +18,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Color _refreshTimerFlashColor;
     [SerializeField] private float _refreshTimerFlashDuration;
     [SerializeField] private float _refreshTimerScaleMultiplierDuration;
+    
+    [SerializeField] private TMP_Text _finalScoreText;
 
+    // Menus
+    [SerializeField] private GameObject _pauseMenu;
+    [SerializeField] private GameObject _gameOverMenu;
+    [SerializeField] private GameObject _leaderboard;
+    
+    [SerializeField] private GameObject _gameOverVisualEffectPrefab;
+    
+    private CameraManager _cameraManager;
+    
     private Vector3 _scoreTextStartPos;
     private Vector3 _timeTextStartPos;
     private Vector3 _upgradeHintStartPos;
@@ -32,7 +41,21 @@ public class UIManager : MonoBehaviour
     private Vector2 _powerUpTimeIndicatorHolderStartPos;
     private float _powerUpTimeIndicatorLength;
     private float _powerUpTimeIndicatorHolderLength;
+
     
+    private static readonly int GameOver = Animator.StringToHash("GameOver");
+    private void Awake()
+    {
+        GameStateManager.GameStateChanged += ReactToGameStateChange;
+        PlayerController.OnPlayerDeath += GameOverCondition;
+    }
+
+    private void OnDestroy()
+    {
+        GameStateManager.GameStateChanged -= ReactToGameStateChange;
+        PlayerController.OnPlayerDeath -= GameOverCondition;
+    }
+
     private void Start ()
     {
         _powerUpTimeIndicatorStartPos = _powerUpTimeIndicatorBar.transform.localPosition;
@@ -44,8 +67,83 @@ public class UIManager : MonoBehaviour
         _timeTextStartPos = _timeText.transform.position;
         _upgradeHintStartPos = _powerUpHintText.transform.position;
         
+        _cameraManager = GameObject.FindWithTag("MainCamera").GetComponent<CameraManager>();
     }
 
+    private void Update()
+    {
+        if (GameStateManager.Instance.IsPaused())
+        {
+            return;
+        }
+        UpdateUIText();
+    }
+
+    private void UpdateUIText()
+    {
+        _scoreText.text = "Score: " + GameManager.Instance._score.ToString();
+        _timeText.text = "Time: " + GameManager.Instance._timeSinceGameStarted.ToString("0.00");
+    }
+
+    private void ReactToGameStateChange(GameStateManager.GameState newState)
+    {
+        switch (newState)
+        {
+            case GameStateManager.GameState.Paused:
+                Pause();
+                break;
+            case GameStateManager.GameState.Running:
+                Resume();
+                break;
+        }
+    }
+
+    private void Pause()
+    {
+        StartCoroutine(_cameraManager.BattleTransition(1, true));
+        StartCoroutine(SetActiveDelayed(1, true));
+    }
+    
+    public void Resume()
+    {
+        _pauseMenu.SetActive(false);
+        StartCoroutine(_cameraManager.BattleTransition(1, false));
+    }
+    
+    public void GameOverCondition()
+    {
+        // TODO: find more fitting place !
+        // TODO: rework after new leaderboard has been implemented
+        _gameOverVisualEffectPrefab.GetComponent<Animator>().SetTrigger(GameOver);
+        _gameOverMenu.SetActive(true);
+        _scoreText.enabled = false;
+        _timeText.enabled = false;
+        
+        GameStateManager.Instance.SetGameState(GameStateManager.GameState.GameOver);
+        
+        // Place the below code in a "CalculateFinalScore" function.
+        
+        GameManager.Instance.SaveScoreForPlayer(GameManager.Instance.CalculateScore());
+        _finalScoreText.text = "Score \n" + GameManager.Instance._score.ToString();
+        _finalScoreText.enabled = true;
+    }
+
+    public void DisplayLeaderboard()
+    {
+        _leaderboard.SetActive(true);
+        GameManager.Instance._scoreManager.UpdateScoresOnLeaderboard();
+    }
+    
+    public void HideLeaderboard()
+    {
+        _leaderboard.SetActive(false);
+    }
+
+    private IEnumerator SetActiveDelayed(float delay, bool active)
+    {
+        yield return new WaitForSeconds(delay);
+        _pauseMenu.SetActive(active);
+    }
     public void ShowPowerUpUI(BasePowerUpHolder data)
     {
         _powerUpNameText.text = data.DisplayName;

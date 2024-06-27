@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -14,14 +13,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _shieldSlowPercentage;
     [SerializeField] private GameObject _shieldObject;
     
-    [SerializeField] private TMP_Text _tutorialInfoTextField;
     [SerializeField] private SpriteRenderer _bubbleShieldVisuals;
     public static event Action<int> NewBubbleShieldValueJustDropped;
     
     private ShieldScript _shieldLogic;
     private PlayerProjectile _playerProjectile;
     private Vector3 _shieldDirection;
-    private bool _shieldReady;
     private bool _shieldFlying;
     
     private int _currentBubbleShieldAmount;
@@ -29,8 +26,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidBody;
 
     private GameManager _gameManager;
-
-    private bool _blockMovement;
+    
     private bool _aiming;
     private bool _bounce;
     private bool _bouncing;
@@ -40,20 +36,14 @@ public class PlayerController : MonoBehaviour
     private float _timeModSave;
     private Vector2 _reflectNormal;
 
-    // Boomerang variables
-    [SerializeField] private float _flyingTime;
-    [SerializeField] private float _flyingTimeBack;
-    private float _flyingSpeed;
-
-    // Needed for portals ?
-    public bool teleporting = false;
-    
+    // TODO: rework / remove portals?
+    public bool teleporting;
+    public static event Action OnPlayerDeath;
 
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _playerProjectile = _shieldObject.GetComponent<PlayerProjectile>();
-        _shieldReady = true;
         _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
         _speed = _baseSpeed;
@@ -62,8 +52,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // TODO: clean up pause mechanic
-        if (_gameManager.IsPaused())
+        if (GameStateManager.Instance.IsPaused())
         {
             _rigidBody.velocity = Vector2.zero;
             return;
@@ -72,12 +61,6 @@ public class PlayerController : MonoBehaviour
         Move();
         ShootInteraction();
         ShieldInteraction();
-        
-        // TODO: better movement blocking
-        if (_blockMovement)
-        {
-            _rigidBody.velocity = Vector2.zero;
-        }
     }
     
     private void ShootInteraction()
@@ -123,7 +106,7 @@ public class PlayerController : MonoBehaviour
         if (_health <= 0)
         {
             // TODO DIE SOUND
-            _gameManager.GameOverCondition();
+            OnPlayerDeath?.Invoke();
         }
     }
 
