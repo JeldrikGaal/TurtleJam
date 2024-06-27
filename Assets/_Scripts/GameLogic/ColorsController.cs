@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -116,14 +117,24 @@ public class ColorsController : MonoBehaviour
     
     private void UpdateObjectsToShift(List<GameObject> stageHolders)
     {
-        Debug.Log("CLEARED");
         _tileMaps = new List<Tilemap>();
         _worldTextRenderers = new List<SpriteRenderer>();
-        foreach (GameObject g in stageHolders)
+
+        foreach (var g in stageHolders)
         {
-            _tileMaps.AddRange(g.GetComponentsInChildren<Tilemap>());
-            _worldTextRenderers.AddRange(g.GetComponentsInChildren<SpriteRenderer>());
+            foreach (Transform child in g.transform)
+            {
+                if (child.CompareTag("Wall"))
+                {
+                    _tileMaps.Add(child.GetComponent<Tilemap>());
+                }
+                if (child.CompareTag("textToShift"))
+                {
+                    _worldTextRenderers.AddRange(child.GetComponentsInChildren<SpriteRenderer>());
+                }
+            }
         }
+        
     }
 
     public void StartProjectileColorFlash()

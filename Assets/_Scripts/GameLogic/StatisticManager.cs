@@ -25,14 +25,14 @@ public class StatisticManager : MonoBehaviour
         }
 
         EnemyController.EnemyDeath += AddKilledEnemy;
-        CamUpTrigger.roomExited += AddRoomCleared;
+        ExitTrigger.roomExited += AddRoomCleared;
         PlayerProjectile.ProjectileShot += AddShotFired;
     }
 
     private void OnDestroy()
     {
         EnemyController.EnemyDeath -= AddKilledEnemy;
-        CamUpTrigger.roomExited -= AddRoomCleared;
+        ExitTrigger.roomExited -= AddRoomCleared;
         PlayerProjectile.ProjectileShot -= AddShotFired;
     }
 
@@ -41,7 +41,7 @@ public class StatisticManager : MonoBehaviour
         _statistics.EnemiesKilled += 1;
     }
     
-    private void AddRoomCleared(CamUpTrigger t)
+    private void AddRoomCleared(ExitTrigger t)
     {
         _statistics.RoomsCleared += 1;
     }

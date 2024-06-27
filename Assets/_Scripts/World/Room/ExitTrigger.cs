@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-public class CamUpTrigger : MonoBehaviour
+public class ExitTrigger : MonoBehaviour
 {
     
-    public static event Action<CamUpTrigger> roomExited; 
+    public static event Action<ExitTrigger> roomExited; 
     public GameObject _camera;
 
     public Vector3 _nextPos; // Camera next (room's) position.
@@ -12,7 +12,6 @@ public class CamUpTrigger : MonoBehaviour
     [SerializeField] private float duration = 1f; // Duration of camera transition (lerp)
 
     [SerializeField] private GameObject _doorGlow;
-    [SerializeField] private GameObject _doorBlock;
 
     private LevelController.Direction _direction;
     
@@ -45,7 +44,8 @@ public class CamUpTrigger : MonoBehaviour
         {
             if (!HasPlayerPassed(collision.transform.position)) return;
             roomExited?.Invoke(this);
-            BlockWall();
+            _doorGlow.GetComponent<SpriteRenderer>().enabled = false;
+            
         }
     }
 
@@ -63,14 +63,7 @@ public class CamUpTrigger : MonoBehaviour
                 return playerPos.x > transform.position.x;
             default:
                 throw new ArgumentOutOfRangeException();
-            
         }
-    }
-
-    private void BlockWall()
-    {
-        _doorBlock.SetActive(true);
-        _doorGlow.GetComponent<SpriteRenderer>().enabled = false;
     }
     
     public void InitiateTransition(Vector3 nextPos)
