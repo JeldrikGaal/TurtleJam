@@ -10,6 +10,9 @@ public class SpawnerController : MonoBehaviour
     
     //public bool testBool;
     public int ActivationStage = 1;
+
+    public int IgnoreStage = -1; 
+    
     [Header("Use single element for determined spawn and list for random spawning")]
     [SerializeField] private SpawnerInformationHolder _infoHolder;
     [SerializeField] private List<SpawnerInformationHolder> _infoHolderList;
@@ -53,7 +56,7 @@ public class SpawnerController : MonoBehaviour
     {
         if(_currentSpawnedObject != null)
         {
-            if (difficultyLevel >= ActivationStage)
+            if (difficultyLevel >= ActivationStage && difficultyLevel != IgnoreStage)
             {
                 _currentSpawnedObject.SetActive(true);
             }

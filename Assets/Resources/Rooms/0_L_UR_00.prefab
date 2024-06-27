@@ -79,6 +79,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 3917300383280529191}
     m_Modifications:
     - target: {fileID: 3944406618557742498, guid: 43e8435a508dead4cb232448abf47e03, type: 3}
+      propertyPath: IgnoreStage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944406618557742498, guid: 43e8435a508dead4cb232448abf47e03, type: 3}
       propertyPath: ActivationStage
       value: 0
       objectReference: {fileID: 0}
