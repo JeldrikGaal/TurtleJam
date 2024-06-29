@@ -154,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 29230eded291cd24184f2ec46eee6839, type: 2}
     - target: {fileID: 3944406618557742498, guid: 43e8435a508dead4cb232448abf47e03, type: 3}
       propertyPath: ActivationStage
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7883875197597601341, guid: 43e8435a508dead4cb232448abf47e03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2242,7 +2242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4410499231849803128, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
       propertyPath: m_Name
-      value: 0_L-R_Empty
+      value: Empty_L-R
       objectReference: {fileID: 0}
     - target: {fileID: 5927184916428902053, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
       propertyPath: m_Tiles.Array.size
@@ -4911,7 +4911,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 29230eded291cd24184f2ec46eee6839, type: 2}
     - target: {fileID: 3944406618557742498, guid: 43e8435a508dead4cb232448abf47e03, type: 3}
       propertyPath: ActivationStage
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7883875197597601341, guid: 43e8435a508dead4cb232448abf47e03, type: 3}
       propertyPath: m_LocalPosition.x
