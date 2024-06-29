@@ -95,7 +95,7 @@ public class LevelAttributes : MonoBehaviour
 
     public bool IsLevelEligible(LevelController.Direction neededEntrance, int neededDifficulty)
     {
-        return _entrance == neededEntrance && neededDifficulty <= _minimumDifficulty;
+        return _entrance == neededEntrance && neededDifficulty >= _minimumDifficulty;
     }
     
 }
