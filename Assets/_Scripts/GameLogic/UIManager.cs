@@ -42,6 +42,8 @@ public class UIManager : MonoBehaviour
     private float _powerUpTimeIndicatorLength;
     private float _powerUpTimeIndicatorHolderLength;
 
+    public GameManager gameManager;
+
     
     private static readonly int GameOver = Animator.StringToHash("GameOver");
     private void Awake()
@@ -81,8 +83,8 @@ public class UIManager : MonoBehaviour
 
     private void UpdateUIText()
     {
-        _scoreText.text = "Score: " + GameManager.Instance._score.ToString();
-        _timeText.text = "Time: " + GameManager.Instance._timeSinceGameStarted.ToString("0.00");
+        _scoreText.text = "Score: " + gameManager._score;
+        _timeText.text = "Time: " + gameManager._timeSinceGameStarted.ToString("0.00");
     }
 
     private void ReactToGameStateChange(GameStateManager.GameState newState)
@@ -119,19 +121,29 @@ public class UIManager : MonoBehaviour
         _scoreText.enabled = false;
         _timeText.enabled = false;
         
+        
+        gameManager.GetComponent<StatisticManager>().RegisterAnalytics();
         GameStateManager.Instance.SetGameState(GameStateManager.GameState.GameOver);
+        
+        
         
         // Place the below code in a "CalculateFinalScore" function.
         
-        GameManager.Instance.SaveScoreForPlayer(GameManager.Instance.CalculateScore());
-        _finalScoreText.text = "Score \n" + GameManager.Instance._score.ToString();
+        gameManager.SaveScoreForPlayer(gameManager.CalculateScore());
+        Debug.Log(gameManager);
+        Debug.Log(gameManager._score);
+        Debug.Log(_finalScoreText);
+        _finalScoreText.text = "Score \n" + (gameManager._score);
         _finalScoreText.enabled = true;
+
+
+
     }
 
     public void DisplayLeaderboard()
     {
         _leaderboard.SetActive(true);
-        GameManager.Instance._scoreManager.UpdateScoresOnLeaderboard();
+        gameManager._scoreManager.UpdateScoresOnLeaderboard();
     }
     
     public void HideLeaderboard()

@@ -138,6 +138,11 @@ public class ScoreManager : MonoBehaviour
         playerScorePlaceholder.text = gameManager._score.ToString();
     }
 
+    public string GetPlayerName()
+    {
+        return playerSignedIn;
+    }
+
 
 
     private void Update()
