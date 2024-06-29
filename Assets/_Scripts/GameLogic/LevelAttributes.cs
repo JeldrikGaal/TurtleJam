@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -97,5 +98,12 @@ public class LevelAttributes : MonoBehaviour
     {
         return _entrance == neededEntrance && neededDifficulty >= _minimumDifficulty;
     }
+    
+    #if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Handles.Label(transform.position, gameObject.transform.name);
+    }
+    #endif
     
 }
