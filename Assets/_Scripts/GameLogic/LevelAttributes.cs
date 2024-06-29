@@ -19,6 +19,8 @@ public class LevelAttributes : MonoBehaviour
 
     [HideInInspector] public Vector2 EntranceOffset;
 
+    private int _currentDifficulty;
+
     private void Awake()
     {
         _spawners = GetComponentsInChildren<SpawnerController>().ToList();
@@ -69,6 +71,8 @@ public class LevelAttributes : MonoBehaviour
         {
             _transitionRoom.DisplayStatistics();
         }
+
+        _currentDifficulty = currentDifficulty;
     }
 
     public void SetupEntrance(LevelController.Direction entranceDirection)
@@ -103,6 +107,7 @@ public class LevelAttributes : MonoBehaviour
     private void OnDrawGizmos()
     {
         Handles.Label(transform.position, gameObject.transform.name);
+        Handles.Label(transform.position - new Vector3(0, 0.5f, 0), "Diff:" +_currentDifficulty.ToString());
     }
     #endif
     
