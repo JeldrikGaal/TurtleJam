@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 7581280234153920070}
   - component: {fileID: 7298593410843364700}
   - component: {fileID: 6816788093842654866}
-  - component: {fileID: 7709641237740989550}
   - component: {fileID: 144706484308192489}
   - component: {fileID: 6163216095767556486}
   - component: {fileID: 6848758541167614525}
   - component: {fileID: 8761667708332518800}
   - component: {fileID: 3045202159369057967}
+  - component: {fileID: 4125440871960585385}
   m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -31,13 +31,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3936237566597857142}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7298593410843364700
 Camera:
@@ -98,18 +98,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3936237566597857142}
   m_Enabled: 1
---- !u!114 &7709641237740989550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3936237566597857142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78c2359df713d5b4d980046153bda3b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &144706484308192489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +127,7 @@ MonoBehaviour:
   _shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
   Transition: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
   Cutoff: 0
+  _material: {fileID: 0}
 --- !u!114 &6848758541167614525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,3 +220,16 @@ MonoBehaviour:
   _shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
   Transition: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
   Cutoff: 0
+  _material: {fileID: 0}
+--- !u!114 &4125440871960585385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3936237566597857142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5160abe51e7614284458a636897916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

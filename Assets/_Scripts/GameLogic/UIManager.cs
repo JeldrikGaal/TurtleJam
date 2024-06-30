@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
         _timeTextStartPos = _timeText.transform.position;
         _upgradeHintStartPos = _powerUpHintText.transform.position;
         
-        _cameraManager = GameObject.FindWithTag("MainCamera").GetComponent<CameraManager>();
+        _cameraManager = CameraManager.Instance;
     }
 
     private void Update()
@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviour
         // Place the below code in a "CalculateFinalScore" function.
         
         GameManager.Instance.SaveScoreForPlayer(GameManager.Instance.CalculateScore());
-        _finalScoreText.text = "Score \n" + GameManager.Instance._score.ToString();
+        _finalScoreText.text = "Score \n" + GameManager.Instance.CalculateScore();
         _finalScoreText.enabled = true;
     }
 

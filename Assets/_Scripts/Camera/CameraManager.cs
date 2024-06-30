@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class CameraManager : MonoBehaviour
 {
@@ -29,7 +27,6 @@ public class CameraManager : MonoBehaviour
             Destroy(this);
         }
     }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -93,6 +90,8 @@ public class CameraManager : MonoBehaviour
         {
             _battleTransitionEffect.Cutoff = Mathf.Lerp(start, end, (elapsedTime  / time));
             elapsedTime += Time.deltaTime;
+            
+            //Debug.Log(Time.deltaTime);
             yield return null;
         }
     }
