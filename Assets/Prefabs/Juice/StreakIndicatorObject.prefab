@@ -184,3 +184,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7296844ca262f4e89bb9e7eb496e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _streakThreshold: 3
+  _colorList:
+  - Color: {r: 0.89411765, g: 0.90588236, b: 0.39215687, a: 1}
+    StreakAmount: 0
+  - Color: {r: 0.90588236, g: 0.39215687, b: 0.5898139, a: 1}
+    StreakAmount: 10
+  - Color: {r: 0.5797704, g: 0.90588236, b: 0.39215687, a: 1}
+    StreakAmount: 20
+  - Color: {r: 0.39215687, g: 0.46084496, b: 0.90588236, a: 1}
+    StreakAmount: 30
