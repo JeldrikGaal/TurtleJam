@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using ByteBrewSDK;
 using UnityEngine;
 
 public class StatisticManager : MonoBehaviour
@@ -56,5 +58,31 @@ public class StatisticManager : MonoBehaviour
         return _statistics;
     }
     
+    
+    public void RegisterAnalytics()
+    {
+
+        string username = GameObject.FindWithTag("UnityPlugin").GetComponent<ScoreManager>().GetPlayerName();
+        string round_time = (GetComponent<GameManager>()._timeSinceGameStarted).ToString();
+        Statistics round_stats = GetStatistics();
+        
+        //Custom Event: ByteBrew
+        Dictionary<string, string> roundCompleteParameters = new Dictionary<string, string>()
+        {
+            { "kills", round_stats.EnemiesKilled.ToString() },
+            { "rooms_cleared", round_stats.RoomsCleared.ToString() },
+            { "shots_fired", round_stats.ShotsFired.ToString() },
+            { "time", round_time },
+            { "username", username }
+        };
+        
+        ByteBrew.NewCustomEvent("roundComplete", roundCompleteParameters);
+        
+        /*ByteBrew.NewCustomEvent("roundTime",GetComponent<GameManager>()._timeSinceGameStarted);
+        ByteBrew.NewCustomEvent("enemies_killed",round_stats.EnemiesKilled);
+        ByteBrew.NewCustomEvent("rooms_cleared",round_stats.RoomsCleared);
+        ByteBrew.NewCustomEvent("shots_fired",round_stats.ShotsFired);
+        ByteBrew.NewCustomEvent("username",username);*/
+    }
     
 }
