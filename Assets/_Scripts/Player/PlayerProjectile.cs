@@ -236,7 +236,6 @@ public class PlayerProjectile : MonoBehaviour
         {
             return hit.normal;
         }
-        Debug.Log("returned zero");
         return Vector2.zero;
     }
 

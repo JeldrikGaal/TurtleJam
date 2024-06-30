@@ -82,7 +82,8 @@ public class SpawnerController : MonoBehaviour
         {
             Gizmos.DrawIcon(transform.position , _infoHolder.sprite.name +".png", true);
             
-                Handles.Label(transform.position +_debugLableOffset, ActivationStage.ToString());
+            Handles.Label(transform.position +_debugLableOffset, "A" + ActivationStage.ToString());
+            Handles.Label(transform.position +_debugLableOffset + new Vector3(0.5f, 0, 0), "I" + IgnoreStage.ToString());
         }
     }
     #endif
