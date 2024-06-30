@@ -388,7 +388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 490695583955203534, guid: 0b63ebe6d8e050c44b1d29be60adbd02, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 490695583955203534, guid: 0b63ebe6d8e050c44b1d29be60adbd02, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -400,7 +400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 490695583955203534, guid: 0b63ebe6d8e050c44b1d29be60adbd02, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 8949183951691470347, guid: 0b63ebe6d8e050c44b1d29be60adbd02, type: 3}
       propertyPath: m_Name
@@ -2242,7 +2242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4410499231849803128, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
       propertyPath: m_Name
-      value: 0_L-R_Empty
+      value: Empty_R-L
       objectReference: {fileID: 0}
     - target: {fileID: 5927184916428902053, guid: 6e15b46323a870347aa3f1100a59d153, type: 3}
       propertyPath: m_Tiles.Array.size
