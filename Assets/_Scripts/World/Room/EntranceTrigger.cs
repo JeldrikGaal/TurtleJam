@@ -1,24 +1,32 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using UnityEditor;
 using UnityEngine;
 
 public class EntranceTrigger : MonoBehaviour
 {
-    
-    #if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        Handles.Label(transform.position, "ENTRANCE");
-    }
-    #endif
-
     [SerializeField] private GameObject _doorBlock;
-
+    [SerializeField] private List<GameObject> _doorTiles;
+    [SerializeField] private List<EntranceTrigger> _partnerDoors;
+    
     private LevelController.Direction _direction;
+    
+    List<Vector3> _doorTilePosititions = new List<Vector3>();
+
+    private bool _closed;
+    
+    
     
     public void Setup(LevelController.Direction direction)
     {
         _direction = direction;
+        
+        foreach (var tile in _doorTiles)
+        {
+            _doorTilePosititions.Add(tile.transform.localPosition);
+        }
     }
     
     private void OnTriggerExit2D(Collider2D collision)
@@ -49,6 +57,65 @@ public class EntranceTrigger : MonoBehaviour
     
     private void BlockWall()
     {
+        if (_closed)
+        {
+            return;
+        }
+
+        _closed = true;
         _doorBlock.SetActive(true);
+        DoorClosingEffect();
+        CloseAllPartnerDoors();
+
     }
+
+    private void CloseAllPartnerDoors()
+    {
+        
+        foreach (var door in _partnerDoors)
+        {
+            door.Setup(LevelController.Direction.None);
+            door.GetClosedByPartnerDoor();
+        }
+    }
+    
+    public void GetClosedByPartnerDoor()
+    {
+        BlockWall();
+    }
+    
+    private void DoorClosingEffect()
+    {
+        PositionDoorTilesToClose();
+        for (int i = 0; i < _doorTiles.Count - 1f; i++)
+        {
+            _doorTiles[i].SetActive(true);
+            _doorTiles[i].transform.DOLocalMove(_doorTilePosititions[i], 0.5f);
+        }
+
+        _doorTiles[^1].SetActive(true);
+        _doorTiles[^1].transform.DOLocalMove(_doorTilePosititions[^1], 0.5f).OnComplete(() =>
+        {
+            StartCoroutine(CameraManager.Instance.Shake(0.05f, 0.25f));
+                
+        });
+        
+        ColorsController.Instance.RegisterRangeToColorShift(transform.GetComponentsInChildren<SpriteRenderer>().ToList());
+    }
+
+    private void PositionDoorTilesToClose()
+    {
+        _doorTiles[0].transform.localPosition = new Vector3(_doorTiles[0].transform.localPosition.x - 1, _doorTiles[0].transform.localPosition.y, _doorTiles[0].transform.localPosition.z);
+        _doorTiles[1].transform.localPosition = new Vector3(_doorTiles[1].transform.localPosition.x - 1, _doorTiles[1].transform.localPosition.y, _doorTiles[1].transform.localPosition.z);
+        _doorTiles[2].transform.localPosition = new Vector3(_doorTiles[2].transform.localPosition.x + 1, _doorTiles[2].transform.localPosition.y, _doorTiles[2].transform.localPosition.z);
+        _doorTiles[3].transform.localPosition = new Vector3(_doorTiles[3].transform.localPosition.x + 1, _doorTiles[3].transform.localPosition.y, _doorTiles[3].transform.localPosition.z);
+    }
+   
+      
+    #if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Handles.Label(transform.position, "ENTRANCE");
+    }
+    #endif
 }

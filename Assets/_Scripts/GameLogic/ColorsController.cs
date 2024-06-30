@@ -141,6 +141,11 @@ public class ColorsController : MonoBehaviour
     {
         StartCoroutine(FlashWalls(_projectileFlashDuration, _projectileFlashColor));
     }
+
+    public void RegisterRangeToColorShift(List<SpriteRenderer> renderers)
+    {
+        _worldTextRenderers.AddRange(renderers);
+    }
     
     private IEnumerator FlashWalls(float flashDuration, Color flashColor)
     {
@@ -150,10 +155,12 @@ public class ColorsController : MonoBehaviour
         _currentlyFlashingColors = true;
         Color saveColor = _tileMaps[0].color;
         ChangeTileMapsColor(flashColor);
+        ChangeInWorldTextColor(flashColor);
 
         yield return new WaitForSeconds(flashDuration);
 
         ChangeTileMapsColor(saveColor);
+        ChangeInWorldTextColor(saveColor);
         _currentlyFlashingColors = false;
     }
 

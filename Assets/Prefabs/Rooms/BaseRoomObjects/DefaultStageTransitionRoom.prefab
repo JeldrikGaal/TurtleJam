@@ -595,6 +595,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+      propertyPath: _partnerDoors.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+      propertyPath: _partnerDoors.Array.data[0]
+      value: 
+      objectReference: {fileID: 750793027259644337}
+    - target: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+      propertyPath: _partnerDoors.Array.data[1]
+      value: 
+      objectReference: {fileID: 7807496976784517737}
     - target: {fileID: 8949183951691470347, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
       propertyPath: m_Name
       value: DownEntrance
@@ -614,6 +626,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8949183951691470347, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
   m_PrefabInstance: {fileID: 2619648191705541739}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8168615754034628022 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+  m_PrefabInstance: {fileID: 2619648191705541739}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6371255664389929568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5635bf34b37cb34883697759d7e4db5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4134253584924787636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -662,6 +685,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+      propertyPath: _partnerDoors.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+      propertyPath: _partnerDoors.Array.data[0]
+      value: 
+      objectReference: {fileID: 8168615754034628022}
+    - target: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+      propertyPath: _partnerDoors.Array.data[1]
+      value: 
+      objectReference: {fileID: 750793027259644337}
     - target: {fileID: 8949183951691470347, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
       propertyPath: m_Name
       value: LeftEntrance
@@ -681,6 +716,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8949183951691470347, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
   m_PrefabInstance: {fileID: 4134253584924787636}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7807496976784517737 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+  m_PrefabInstance: {fileID: 4134253584924787636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5002992141813781951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5635bf34b37cb34883697759d7e4db5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5593324512319717630
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -889,6 +935,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+      propertyPath: _partnerDoors.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+      propertyPath: _partnerDoors.Array.data[0]
+      value: 
+      objectReference: {fileID: 8168615754034628022}
+    - target: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+      propertyPath: _partnerDoors.Array.data[1]
+      value: 
+      objectReference: {fileID: 7807496976784517737}
     - target: {fileID: 8949183951691470347, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
       propertyPath: m_Name
       value: RightEntrance
@@ -898,6 +956,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+--- !u!114 &750793027259644337 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6126615788066351581, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
+  m_PrefabInstance: {fileID: 6876230127833321580}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2548093721248417383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5635bf34b37cb34883697759d7e4db5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2548093721248417383 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8949183951691470347, guid: b1b37fc1918c4c04e820b889bd2fe81d, type: 3}
