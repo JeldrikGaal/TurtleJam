@@ -122,6 +122,7 @@ public class UIManager : MonoBehaviour
         _timeText.enabled = false;
         
         
+        
         gameManager.GetComponent<StatisticManager>().RegisterAnalytics();
         GameStateManager.Instance.SetGameState(GameStateManager.GameState.GameOver);
         
@@ -130,10 +131,7 @@ public class UIManager : MonoBehaviour
         // Place the below code in a "CalculateFinalScore" function.
         
         gameManager.SaveScoreForPlayer(gameManager.CalculateScore());
-        Debug.Log(gameManager);
-        Debug.Log(gameManager._score);
-        Debug.Log(_finalScoreText);
-        _finalScoreText.text = "Score \n" + (gameManager._score);
+        _finalScoreText.text = "Score \n" + (gameManager.CalculateScore());
         _finalScoreText.enabled = true;
 
 

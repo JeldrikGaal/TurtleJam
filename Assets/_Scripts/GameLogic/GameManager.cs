@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -86,7 +87,9 @@ public class GameManager : MonoBehaviour
     
     public void SaveScoreForPlayer(float score) 
     {
-        _scoreManager.UpdateScore(score);
+        // TODO: Refactor ALL ScoreManager functions that are tied to UnityPLugin.
+        //_scoreManager.UpdateScore(score);
+        PlayFabManager.Instance.SendLeaderboard(Convert.ToInt32(score));
     }
 
     public void GoToLevel(string levelName) // For Resume, Next Level and Back to Main Menu
