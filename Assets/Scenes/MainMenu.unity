@@ -2741,7 +2741,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1863346403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78c2359df713d5b4d980046153bda3b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b5160abe51e7614284458a636897916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1934188348
@@ -3205,7 +3205,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 255
 --- !u!114 &5230342564689714484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3278,6 +3278,10 @@ PrefabInstance:
     - target: {fileID: 1694097632663871861, guid: 53b114fdbf1906f4b917214926395aee, type: 3}
       propertyPath: m_Name
       value: UnityPlugin
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694097632663871861, guid: 53b114fdbf1906f4b917214926395aee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2225435805397883095, guid: 53b114fdbf1906f4b917214926395aee, type: 3}
       propertyPath: m_Pivot.x
