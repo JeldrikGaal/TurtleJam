@@ -17,9 +17,9 @@ public class RankingTextUpdater : MonoBehaviour
 
     private async void DisplayLeaderboard()
     {
-        Dictionary<string, double> topScores = await scoreManager.GetTopScores();
-        PopulateNames(topScores);
-        PopulateScores(topScores);
+        //Dictionary<string, double> topScores = await scoreManager.GetTopScores();
+        //PopulateNames(topScores);
+        //PopulateScores(topScores);
     }
 
     private void PopulateNames(Dictionary<string, double> topScores)
@@ -52,6 +52,6 @@ public class RankingTextUpdater : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.L)) DisplayLeaderboard();
+        //if(Input.GetKeyDown(KeyCode.L)) DisplayLeaderboard();
     }
 }

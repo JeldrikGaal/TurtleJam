@@ -62,7 +62,7 @@ public class StatisticManager : MonoBehaviour
     public void RegisterAnalytics()
     {
 
-        string username = GameObject.FindWithTag("UnityPlugin").GetComponent<ScoreManager>().GetPlayerName();
+        //string username = GameObject.FindWithTag("UnityPlugin").GetComponent<ScoreManager>().GetPlayerName();
         string round_time = (GetComponent<GameManager>()._timeSinceGameStarted).ToString();
         Statistics round_stats = GetStatistics();
         
@@ -73,7 +73,7 @@ public class StatisticManager : MonoBehaviour
             { "rooms_cleared", round_stats.RoomsCleared.ToString() },
             { "shots_fired", round_stats.ShotsFired.ToString() },
             { "time", round_time },
-            { "username", username }
+            { "username", "dev  " }
         };
         
         ByteBrew.NewCustomEvent("roundComplete", roundCompleteParameters);

@@ -70,7 +70,6 @@ public class UIManager : MonoBehaviour
         _upgradeHintStartPos = _powerUpHintText.transform.position;
         
         _cameraManager = CameraManager.Instance;
-        //_cameraManager = Camer;
         
     }
 

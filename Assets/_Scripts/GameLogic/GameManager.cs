@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         _score = 0;
         _timeSinceGameStarted = 0;
         
-        _scoreManager = GameObject.FindWithTag("UnityPlugin").GetComponent<ScoreManager>();
+        //_scoreManager = GameObject.FindWithTag("UnityPlugin").GetComponent<ScoreManager>();
         
         GameStateManager.Instance.SetGameState(GameStateManager.GameState.Running);
     }
