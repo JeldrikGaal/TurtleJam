@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileJuice : MonoBehaviour
@@ -8,6 +10,7 @@ public class ProjectileJuice : MonoBehaviour
     
     [SerializeField] private ParticleSystem _explosionParticle;
     [SerializeField] private ParticleSystem _sparkParticle;
+    [SerializeField] private TrailRenderer _trailRenderer;
     
     private GameManager _gameManager;
     private PlayAudio _playAudio;
@@ -18,6 +21,25 @@ public class ProjectileJuice : MonoBehaviour
     // Rider efficiency proposals
     private static readonly int IdleAnimHash = Animator.StringToHash("Idle");
     private static readonly int ShieldAnimHash = Animator.StringToHash("Shield");
+
+    [SerializeField] private List<ColorStreakAmountPair> _colorList;
+    
+    [Serializable]
+    struct ColorStreakAmountPair
+    {
+        public Color Color;
+        public int StreakAmount;
+    }
+
+    private void Awake()
+    {
+        StreakLogic.StreakReached += UpdateTrailColorFromStreak;
+    }
+    
+    private void OnDestroy()
+    {
+        StreakLogic.StreakReached -= UpdateTrailColorFromStreak;
+    }
 
     private void Start()
     {
@@ -71,4 +93,23 @@ public class ProjectileJuice : MonoBehaviour
     {
         _cameraManager.FreezeFrames(_freezeFrameDuration);
     }
+
+    private void UpdateTrailColorFromStreak(int streakAmount)
+    {
+        _trailRenderer.startColor = GetColorFromStreak(streakAmount);
+    }
+    
+    private Color GetColorFromStreak(int streakAmount)
+    {
+        for ( int i = _colorList.Count - 1; i > 0; i--)
+        {
+            if (streakAmount >= _colorList[i].StreakAmount)
+            {
+                return _colorList[i].Color;
+            }
+        }
+
+        return _colorList[0].Color;
+    }
+
 }

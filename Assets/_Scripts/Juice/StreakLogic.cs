@@ -1,5 +1,4 @@
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class StreakLogic : MonoBehaviour
@@ -9,6 +8,8 @@ public class StreakLogic : MonoBehaviour
     private int _streakCount;
     private Action _receivedAction = Action.None;
 
+    public static event Action<int> StreakReached;
+    
     private enum Action
     {
         Shot,
@@ -54,19 +55,25 @@ public class StreakLogic : MonoBehaviour
 
     private void StartStreak(Vector3 pos)
     {
-        _streakCount = 1;
+        SetStreakCount(1);
         SpawnIndicator(pos);
     }
 
     private void ExtendStreak(Vector3 pos)
     {
-        _streakCount += 1;
+        SetStreakCount(_streakCount + 1);
         SpawnIndicator(pos);
     }
 
     private void EndStreak()
     {
-        _streakCount = 0;
+        SetStreakCount(0);
+    }
+
+    private void SetStreakCount(int newStreakCount)
+    {
+        _streakCount = newStreakCount;
+        StreakReached?.Invoke(_streakCount);
     }
 
     private void SpawnIndicator(Vector3 pos)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,23 @@ public class ColorsController : MonoBehaviour
     // Shifting
     [SerializeField] private List<Color> _colorShiftColors = new List<Color>();
     [SerializeField] private float _colorShiftDuration;
+    private float _colorShiftDurationMod = 1;
+    
     private int _currentColorIndex;
     private float _startTimeColorShift;
+    
+    // Streak speed increase
+
+    [SerializeField]
+    private List<StreakSpeedPair> _streakSettings;
+    
+    [Serializable]
+    private struct StreakSpeedPair
+    {
+        public int RequiredStreakCount;
+        [Range(0,1)]
+        public float SpeedIncrease;
+    }
     
     public static ColorsController Instance;
 
@@ -35,11 +51,13 @@ public class ColorsController : MonoBehaviour
         }
 
         LevelController.TileMapsChanged += UpdateObjectsToShift;
+        StreakLogic.StreakReached += UpdateSpeedModFromStreak;
     }
 
     private void OnDestroy()
     {
         LevelController.TileMapsChanged -= UpdateObjectsToShift;
+        StreakLogic.StreakReached -= UpdateSpeedModFromStreak;
     }
 
     private void Start()
@@ -79,7 +97,7 @@ public class ColorsController : MonoBehaviour
             return;
         }
         
-        float t = (Time.time - _startTimeColorShift) / _colorShiftDuration;
+        float t = (Time.time - _startTimeColorShift) / ( _colorShiftDuration * _colorShiftDurationMod ) ;
         
         int targetColorIndex = _currentColorIndex ==  _colorShiftColors.Count - 1? 0 : _currentColorIndex + 1;
         
@@ -174,5 +192,27 @@ public class ColorsController : MonoBehaviour
         {
             _worldTextRenderers.Remove(destroyedObject.GetComponent<SpriteRenderer>());
         }
+    }
+
+    private void UpdateSpeedModFromStreak(int streakAmount)
+    {
+        _colorShiftDurationMod = GetSpeedModFromStreak(streakAmount);
+    }
+    
+    private float GetSpeedModFromStreak(int streakAmount)
+    {
+        if (streakAmount == 0)
+        {
+            return 1;
+        }
+        for ( int i = _streakSettings.Count - 1; i > 0; i--)
+        {
+            if (streakAmount >= _streakSettings[i].RequiredStreakCount)
+            {
+                return _streakSettings[i].SpeedIncrease;
+            }
+        }
+
+        return _streakSettings[0].SpeedIncrease;
     }
 }
