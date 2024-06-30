@@ -9,6 +9,8 @@ public class PlayFabManager : MonoBehaviour
     
     private static PlayFabManager _instance;
     public static PlayFabManager Instance { get { return _instance; } }
+
+    public static event Action<string> OnHighestScoreRetrieved;
     
     private void Awake()
     {
@@ -89,13 +91,29 @@ public class PlayFabManager : MonoBehaviour
         };
         PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnLeaderboardError);
     }
-
+    
     private void OnLeaderboardGet(GetLeaderboardResult result)
     {
         foreach (var item in result.Leaderboard)
         {
             Debug.Log(item.Position + " " + item.PlayFabId + " " + item.StatValue);
         }
+    }
+    
+    public void GetHighestScore()
+    {
+        var request = new GetLeaderboardRequest
+        {
+            StatisticName = "Score",
+            StartPosition = 0,
+            MaxResultsCount = 1
+        };
+        PlayFabClientAPI.GetLeaderboard(request, OnHighScoreGet, OnLeaderboardError);
+    }
+
+    private void OnHighScoreGet(GetLeaderboardResult result)
+    {
+        OnHighestScoreRetrieved?.Invoke(result.Leaderboard[0].StatValue.ToString());
     }
 
     private void Update()
