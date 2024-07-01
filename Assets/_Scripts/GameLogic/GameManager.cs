@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private float _timePlayedScoreMod;
     [SerializeField] private int _roomsClearedMod;
+    [SerializeField] private int _scoreMod;
 
     private void Awake()
     {
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour
     {
 
         StatisticManager.Statistics stats = StatisticManager.Instance.GetStatistics();
-        return (int)( (_timeSinceGameStarted * _timePlayedScoreMod) + (_score) + (stats.RoomsCleared * _roomsClearedMod) );
+        return (int)( (_timeSinceGameStarted * _timePlayedScoreMod) + (_score * _scoreMod ) + (stats.RoomsCleared * _roomsClearedMod) );
 
     }
     
@@ -118,7 +119,7 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int scoreToAdd)
     {
-        int modifiedScore = scoreToAdd + (StreakLogic.Instance.CurrentStreak() / 5);
+        int modifiedScore = scoreToAdd + (StreakLogic.Instance.CurrentStreak());
         _score += modifiedScore;
     }
 }

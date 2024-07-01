@@ -29,6 +29,22 @@ public class EntranceTrigger : MonoBehaviour
             _doorTilePosititions.Add(tile.transform.localPosition);
         }
     }
+    
+    private Vector3 GetEntranceDoorRotationFromDirection()
+    {
+        Vector3 startingRot = transform.rotation.eulerAngles;
+        switch (_direction)
+        {
+            case LevelController.Direction.Left:
+                return new Vector3(startingRot.x, startingRot.y, -90);
+                
+            case LevelController.Direction.Right:
+                return new Vector3(startingRot.x, startingRot.y, 90);
+        }
+
+        return startingRot;
+    }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {

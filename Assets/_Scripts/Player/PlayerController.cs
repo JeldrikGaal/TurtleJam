@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         
         Move();
         ShootInteraction();
-        ShieldInteraction();
+        //ShieldInteraction();
     }
     
     private void ShootInteraction()

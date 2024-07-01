@@ -83,24 +83,7 @@ public class LevelAttributes : MonoBehaviour
         _entrance = entranceDirection;
         _entranceDoor = _transitionRoom.GetDoor(entranceDirection);
         EntranceOffset = transform.position - _entranceDoor.transform.position;
-        _entranceDoor.transform.rotation = Quaternion.Euler(GetEntranceDoorRotationFromDirection());
     }
-    
-    private Vector3 GetEntranceDoorRotationFromDirection()
-    {
-        Vector3 startingRot = _entranceDoor.transform.rotation.eulerAngles;
-        switch (_entrance)
-        {
-            case LevelController.Direction.Left:
-                return new Vector3(startingRot.x, startingRot.y, -90);
-                
-            case LevelController.Direction.Right:
-                return new Vector3(startingRot.x, startingRot.y, 90);
-        }
-
-        return startingRot;
-    }
-
      public LevelController.Direction GetEntranceDirection()
     {
         return _entrance;
