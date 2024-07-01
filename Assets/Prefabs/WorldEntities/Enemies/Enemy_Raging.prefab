@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1908320847
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9878e02995aa714419a139a7aef1e9cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -213,13 +213,12 @@ MonoBehaviour:
   enemyMode: 1
   speed: 4
   rotationSpeed: 10
-  meleeAttackSound: {fileID: 8300000, guid: 3e4aba7a9b23c364589a02d3cb7a4b87, type: 3}
   patrolPoints: []
   lookAtPlayer: 1
   bulletTimeIntervals: 1
   bulletPrefab: {fileID: 5958748632345819053, guid: f08e8cf8adf8c704f82866c8e9e5932b, type: 3}
   bulletSpawn: {fileID: 4916395630394355885}
-  scoreToAddOnDeath: 10
+  _scoreToAddOnDeath: 10
   detectionRadius: 5
   obstacleLayer:
     serializedVersion: 2

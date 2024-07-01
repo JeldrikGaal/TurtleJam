@@ -8,6 +8,7 @@ using UnityEngine;
 public class EntranceTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject _doorBlock;
+    [SerializeField] private GameObject _doorBlock2;
     [SerializeField] private List<GameObject> _doorTiles;
     [SerializeField] private List<EntranceTrigger> _partnerDoors;
     
@@ -28,7 +29,15 @@ public class EntranceTrigger : MonoBehaviour
             _doorTilePosititions.Add(tile.transform.localPosition);
         }
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Player")) 
+        {
+            _doorBlock2.SetActive(true);
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.CompareTag("Player")) 

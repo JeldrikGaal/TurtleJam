@@ -20,6 +20,9 @@ public class TransitionRoom : MonoBehaviour
         _entrances.Add(LevelController.Direction.Down, _downEntrance);
         _entrances.Add(LevelController.Direction.Left, _leftEntrance);
         _entrances.Add(LevelController.Direction.Right, _rightEntrance);
+        LevelAttributes levelAttributes = GetComponent<LevelAttributes>();
+       
+        _entrances[ levelAttributes.GetEntranceDirection()].GetComponent<EntranceTrigger>().Setup(levelAttributes.GetEntranceDirection());
     }
 
     public GameObject GetDoor(LevelController.Direction direction)

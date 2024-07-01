@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1908320847
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: dc94e1f08968e6746a57fbe38b262222, type: 3}
   m_Color: {r: 0.09611962, g: 0.31324708, b: 0.754717, a: 0.62352943}
@@ -266,8 +266,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1908320847
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0e96c1c233b726840899640d31e33635, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -547,6 +547,8 @@ MonoBehaviour:
   _freezeFrameDuration: 0.1
   _explosionParticle: {fileID: 5776239834288321624, guid: ce8bf9300d48087428ba8f04d880078f, type: 3}
   _sparkParticle: {fileID: 8457933192090926043, guid: 7960641f9aba73c42a3fe6a576089c52, type: 3}
+  _trailRenderer: {fileID: 0}
+  _colorList: []
 --- !u!1 &7185088897200903543
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,8 +619,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1908320847
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: dc94e1f08968e6746a57fbe38b262222, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.62352943}
@@ -709,8 +711,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1908320847
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0633b42e8ed41d94aba678c162c43b57, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -766,10 +768,7 @@ MonoBehaviour:
   _baseHealth: 5
   _shieldSlowPercentage: 30
   _shieldObject: {fileID: 6340098526527700323}
-  _tutorialInfoTextField: {fileID: 0}
   _bubbleShieldVisuals: {fileID: 5750887360484403315}
-  _flyingTime: 0.8
-  _flyingTimeBack: 0.4
   teleporting: 0
 --- !u!120 &775723637346249783
 LineRenderer:
