@@ -12,6 +12,7 @@ public class PlayFabManager : MonoBehaviour
     public static PlayFabManager Instance { get { return _instance; } }
 
     public static event Action<string> OnHighestScoreRetrieved;
+    public static event Action<List<PlayerLeaderboardEntry>> OnLeaderBoardRetrieved;
     
     private void Awake()
     {
@@ -119,6 +120,7 @@ public class PlayFabManager : MonoBehaviour
         {
             Debug.Log(item.Position + " " + item.PlayFabId + " " + item.StatValue);
         }
+        OnLeaderBoardRetrieved?.Invoke(result.Leaderboard);
     }
     
     public void GetHighestScore()
