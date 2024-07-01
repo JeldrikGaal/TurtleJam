@@ -11,7 +11,6 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private string playerSignedIn; // stores username of signed in player, and serves as indication if there's a player signed in.
     private static GameManager gameManager; 
     
-   
     private void UpdateUsernameDisplayBanner()
     {
         this.gameObject.GetComponent<UsernameBanner>().DisplayUsernameInBanner(playerSignedIn);
@@ -45,6 +44,13 @@ public class ScoreManager : MonoBehaviour
         playerScorePlaceholder.text = gameManager._score.ToString();*/
     }
 
+    public void SetPlayerName(string username)
+    {
+        playerSignedIn = username;
+        GetComponent<PlayFabManager>().Login(username);
+        UpdateUsernameDisplayBanner();
+    }
+    
     public string GetPlayerName()
     {
         return playerSignedIn;

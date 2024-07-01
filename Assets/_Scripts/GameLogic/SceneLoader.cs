@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     
+    [SerializeField] private GameObject mainMenuScreen;
+    [SerializeField] private GameObject loginScreen;
+    
+    [SerializeField] private ScoreManager scoreManager;
+    [SerializeField] private GameObject usernameInput;
+    
     Transform cam;
 
     [SerializeField] Vector3 posGoal;
     [SerializeField] Vector3 scaleGoal;
-    [SerializeField] string level1Name = "Jeldrik2";
+    [SerializeField] string level1Name = "Level";
     [SerializeField] float introSequenceTime;
 
 
@@ -56,6 +62,21 @@ public class SceneLoader : MonoBehaviour
         LoadScene(level1Name);
     }
 
+    
+    public void LoginSceenSwitch()
+    {
+        scoreManager.SetPlayerName(usernameInput.GetComponent<TMPro.TMP_Text>().text);
+        loginScreen.SetActive(false);
+        mainMenuScreen.SetActive(true);
+    }
+
+    public void Logout()
+    {
+        // TODO: Remove the current username. Potentially disconnect from Playfab.
+        loginScreen.SetActive(true);
+        mainMenuScreen.SetActive(false);
+    }
+    
     public void Close()
     {
         Application.Quit();

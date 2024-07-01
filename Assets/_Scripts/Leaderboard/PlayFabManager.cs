@@ -26,19 +26,25 @@ public class PlayFabManager : MonoBehaviour
         }
     }
     
-    public void Start()
-    {
-        Login();
-    }
 
-    private void Login()
+    public void Login(string username)
     {
         var request = new LoginWithCustomIDRequest
         {
-            CustomId = SystemInfo.deviceUniqueIdentifier,
+            CustomId = SystemInfo.deviceUniqueIdentifier, 
             CreateAccount = true
         };
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
+        UpdatePlayfabUsername(username);
+    }
+
+    public void UpdatePlayfabUsername(string username)
+    {
+        var request = new UpdateUserTitleDisplayNameRequest
+        {
+            DisplayName = username
+        };
+        PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnUpdateSuccess, OnUpdateFailure);
     }
     
     private void OnLoginSuccess(LoginResult result)
@@ -50,6 +56,19 @@ public class PlayFabManager : MonoBehaviour
     private void OnLoginFailure(PlayFabError error)
     {
         Debug.LogWarning("LOGIN FAILURE:");
+        Debug.LogError("Here's some debug information:");
+        Debug.LogError(error.GenerateErrorReport());
+    }
+    
+    private void OnUpdateSuccess(UpdateUserTitleDisplayNameResult result)
+    {
+        Debug.Log("Congratulations, you have updated your username!");
+        Debug.Log("Username: " + result.DisplayName);
+    }
+    
+    private void OnUpdateFailure(PlayFabError error)
+    {
+        Debug.LogWarning("UPDATE DISPLAY NAME FAILURE:");
         Debug.LogError("Here's some debug information:");
         Debug.LogError(error.GenerateErrorReport());
     }
