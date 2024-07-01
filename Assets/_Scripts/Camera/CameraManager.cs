@@ -6,7 +6,7 @@ public class CameraManager : MonoBehaviour
 {
 
     private bool _cameraShakeRunning;
-    private BattleTransitionEffect _battleTransitionEffect;
+    [SerializeField] private BattleTransitionEffect _battleTransitionEffect;
 
     private bool _transitioning = false; // for in-rooms transitions.
     private float _startingTime; // used for lerp.
@@ -28,10 +28,7 @@ public class CameraManager : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        _battleTransitionEffect = transform.GetComponent<BattleTransitionEffect>();
-    }
+  
 
     // Update is called once per frame
     void Update()

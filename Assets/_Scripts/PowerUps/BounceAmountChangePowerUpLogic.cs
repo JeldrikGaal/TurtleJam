@@ -7,6 +7,11 @@ public class BounceAmountChangePowerUpLogic : BasePowerUpLogic
       base.Start();
       _bounceData = (BounceAmountChangePowerUpHolder)_data;
    }
+   
+   protected override void OnDestroy()
+   {
+      base.OnDestroy();
+   }
 
    protected override void ActivatePowerUp()
    {

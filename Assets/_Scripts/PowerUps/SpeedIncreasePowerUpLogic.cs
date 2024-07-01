@@ -2,6 +2,11 @@ public class SpeedIncreasePowerUpLogic : BasePowerUpLogic
 {
    private SpeedIncreasePowerUpHolder _speedData;
 
+   protected override void OnDestroy()
+   {
+      base.OnDestroy();
+   }
+   
    protected override void Start()
    {
       base.Start();

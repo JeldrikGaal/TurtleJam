@@ -4,4 +4,6 @@ using UnityEngine;
 public class RangeDecreasePowerUpHolder : BasePowerUpHolder
 {
    public float RangeDecrease;
+   
+   
 }

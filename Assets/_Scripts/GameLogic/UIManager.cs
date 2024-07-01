@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour
     
     [SerializeField] private GameObject _gameOverVisualEffectPrefab;
     
-    private CameraManager _cameraManager;
+    [SerializeField] private CameraManager _cameraManager;
     
     private Vector3 _scoreTextStartPos;
     private Vector3 _timeTextStartPos;
@@ -68,8 +68,6 @@ public class UIManager : MonoBehaviour
         _scoreTextStartPos = _scoreText.transform.position;
         _timeTextStartPos = _timeText.transform.position;
         _upgradeHintStartPos = _powerUpHintText.transform.position;
-        
-        _cameraManager = CameraManager.Instance;
         
     }
 

@@ -6,6 +6,11 @@ public class BubbleShieldPowerUpLogic : BasePowerUpLogic
    {
       PlayerController.NewBubbleShieldValueJustDropped += NoWayTheyDroppedANewShieldValue;
    }
+   protected override void OnDestroy()
+   {
+      base.OnDestroy();
+      PlayerController.NewBubbleShieldValueJustDropped -= NoWayTheyDroppedANewShieldValue;
+   }
 
    protected override void Start()
    {

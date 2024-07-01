@@ -119,7 +119,6 @@ public class GameManager : MonoBehaviour
     public void AddScore(int scoreToAdd)
     {
         int modifiedScore = scoreToAdd + (StreakLogic.Instance.CurrentStreak() / 5);
-        Debug.Log(modifiedScore);
         _score += modifiedScore;
     }
 }

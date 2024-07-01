@@ -17,14 +17,25 @@ public class BasePowerUpLogic : MonoBehaviour
    
    public static event Action<BasePowerUpLogic> PowerUpActivated;
 
-   private void OnEnable()
+   protected virtual void OnEnable()
    {
       EnemyController.EnemyDeath += EnemyKill;
    }
 
-   private void OnDestroy()
+   protected virtual  void OnDestroy()
    {
+      Debug.Log("ON DESTROY CALLED");
       EnemyController.EnemyDeath -= EnemyKill;
+   }
+
+   private void Awake()
+   {
+      if (!this)
+      {
+         Debug.Log("EMPTY BASE POWER UP ");
+         Destroy(this);
+         return;
+      }
    }
 
    protected virtual void Start()
@@ -88,6 +99,12 @@ public class BasePowerUpLogic : MonoBehaviour
    
    public void EnemyKill()
    {
+      if (!this)
+      {
+         Debug.Log("SUSPICIOUSLY EMPTY BASE POWER UP");
+         return;
+      }
+      Debug.Log(this + "is calling refresh timer");
       RefreshTimer(_data.DurationAddedEnemyKill);
    }
 

@@ -7,6 +7,11 @@ public class RangeDecreasePowerUpLogic : BasePowerUpLogic
         base.Start();
         _decreaseData = (RangeDecreasePowerUpHolder)_data;
     }
+    
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+    }
 
     protected override void ActivatePowerUp()
     {
