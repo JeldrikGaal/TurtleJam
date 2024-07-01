@@ -9,6 +9,7 @@ public class StatisticManager : MonoBehaviour
         public int EnemiesKilled = 0;
         public int RoomsCleared = 0;
         public int ShotsFired = 0;
+        public int HighestStreak = 0;
     }
 
     private Statistics _statistics = new Statistics();
@@ -29,6 +30,7 @@ public class StatisticManager : MonoBehaviour
         EnemyController.EnemyDeath += AddKilledEnemy;
         ExitTrigger.roomExited += AddRoomCleared;
         PlayerProjectile.ProjectileShot += AddShotFired;
+        StreakLogic.StreakReached += UpdateHighestStreak;
     }
 
     private void OnDestroy()
@@ -36,6 +38,7 @@ public class StatisticManager : MonoBehaviour
         EnemyController.EnemyDeath -= AddKilledEnemy;
         ExitTrigger.roomExited -= AddRoomCleared;
         PlayerProjectile.ProjectileShot -= AddShotFired;
+        StreakLogic.StreakReached -= UpdateHighestStreak;
     }
 
     private void AddKilledEnemy()
@@ -57,7 +60,14 @@ public class StatisticManager : MonoBehaviour
     {
         return _statistics;
     }
-    
+
+    private void UpdateHighestStreak(int streak)
+    {
+        if (streak > _statistics.HighestStreak)
+        {
+            _statistics.HighestStreak = streak;
+        }
+    }
     
     public void RegisterAnalytics()
     {

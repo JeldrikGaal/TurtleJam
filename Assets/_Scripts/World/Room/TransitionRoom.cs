@@ -7,6 +7,7 @@ public class TransitionRoom : MonoBehaviour
     [SerializeField] private TMP_Text _roomsClearedText;
     [SerializeField] private TMP_Text _enemiesKilledText;
     [SerializeField] private TMP_Text _shotsFired;
+    [SerializeField] private TMP_Text _highestStreak;
 
     [SerializeField] private GameObject _downEntrance;
     [SerializeField] private GameObject _leftEntrance;
@@ -31,5 +32,6 @@ public class TransitionRoom : MonoBehaviour
         _roomsClearedText.text = $"Rooms Cleared: {StatisticManager.Instance.GetStatistics().RoomsCleared}";
         _enemiesKilledText.text = $"Enemies Killed: {StatisticManager.Instance.GetStatistics().EnemiesKilled}";
         _shotsFired.text = $"Shots Fired: {StatisticManager.Instance.GetStatistics().ShotsFired}";
+        _highestStreak.text = $"Highest Streak: {StatisticManager.Instance.GetStatistics().HighestStreak}";
     }
 }

@@ -9,6 +9,8 @@ public class StreakLogic : MonoBehaviour
     private Action _receivedAction = Action.None;
 
     public static event Action<int> StreakReached;
+
+    public static StreakLogic Instance;
     
     private enum Action
     {
@@ -19,6 +21,15 @@ public class StreakLogic : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+        
         EnemyController.EnemyDeathWithLocation      += ReactToEnemyDeath;
         PlayerProjectile.ProjectileShot += ReactToShot;
     }
@@ -91,5 +102,10 @@ public class StreakLogic : MonoBehaviour
         StreakIndicator indicatorScript = indicator.GetComponent<StreakIndicator>();
         indicatorScript.Activate(_streakCount);
 
+    }
+
+    public int CurrentStreak()
+    {
+        return _streakCount;
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyController : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class EnemyController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
-    public int scoreToAddOnDeath = 10;
+   public int _scoreToAddOnDeath = 10;
 
     private float time;
     private Transform player;
@@ -149,7 +150,7 @@ public class EnemyController : MonoBehaviour
     {
         EnemyDeath?.Invoke();
         EnemyDeathWithLocation?.Invoke(transform.position);
-        gm.AddScore(scoreToAddOnDeath);
+        gm.AddScore(_scoreToAddOnDeath);
         if(isSoundPlaying){
                 SoundManager.StopSound(SoundManager.Sound.EnemyMove, this.transform);
                 isSoundPlaying = false;

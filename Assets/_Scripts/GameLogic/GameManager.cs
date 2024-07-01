@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private GameObject _gameOverVisualEffectPrefab;
     
+    [SerializeField] private float _timePlayedScoreMod;
+    [SerializeField] private int _roomsClearedMod;
+
     private void Awake()
     {
         if (Instance == null)
@@ -84,7 +87,10 @@ public class GameManager : MonoBehaviour
 
     public float CalculateScore()
     {
-        return ((int)_timeSinceGameStarted * _score);
+
+        StatisticManager.Statistics stats = StatisticManager.Instance.GetStatistics();
+        return (int)( (_timeSinceGameStarted * _timePlayedScoreMod) + (_score) + (stats.RoomsCleared * _roomsClearedMod) );
+
     }
     
     public void SaveScoreForPlayer(float score) 
@@ -112,6 +118,8 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int scoreToAdd)
     {
-        _score += scoreToAdd;
+        int modifiedScore = scoreToAdd + (StreakLogic.Instance.CurrentStreak() / 5);
+        Debug.Log(modifiedScore);
+        _score += modifiedScore;
     }
 }
