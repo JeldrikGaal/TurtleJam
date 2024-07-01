@@ -9,7 +9,6 @@ public class BasePowerUpLogic : MonoBehaviour
 
    protected PlayerController _playerController;
    
-   
    private bool _activated;
    private float _startingTme;
    private BoxCollider2D _boxCollider2D;

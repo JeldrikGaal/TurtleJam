@@ -12,6 +12,7 @@ TagManager:
   - Bullet
   - textToShift
   - UnityPlugin
+  - ItemHolderObject
   layers:
   - Default
   - TransparentFX

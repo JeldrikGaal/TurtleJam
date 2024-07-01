@@ -1155,7 +1155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9003344729264184662, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1187,7 +1187,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9219854359790684179, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
   m_PrefabInstance: {fileID: 43556223}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &1555539181
+--- !u!21 &1684270687
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0

@@ -110,6 +110,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Kill()
+    {
+        _health = 0;
+        OnPlayerDeath?.Invoke();
+    }
+
     public void RequestSpeedChange(float speedDataSpeedIncrease)
     {
         _speed += speedDataSpeedIncrease;

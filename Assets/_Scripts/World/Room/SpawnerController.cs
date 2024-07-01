@@ -19,7 +19,7 @@ public class SpawnerController : MonoBehaviour
     
     private GameObject _currentSpawnedObject;
     private Vector3 _debugLableOffset = Vector3.down;
-
+    
     private LevelAttributes _levelAttributes;
 
     private void Awake()
@@ -39,10 +39,9 @@ public class SpawnerController : MonoBehaviour
         {
             _infoHolderList.Add(_infoHolder);
         }
-        SpawnerInformationHolder infoHolder = GetRandomInfoHolder(); 
+        SpawnerInformationHolder infoHolder = GetRandomInfoHolder();
         
-        _currentSpawnedObject = Instantiate(infoHolder.ObjectToSpawn, transform.position, Quaternion.identity, _levelAttributes.transform);
-
+        _currentSpawnedObject = Instantiate(infoHolder.ObjectToSpawn, transform.position, Quaternion.identity , _levelAttributes.transform);
         _currentSpawnedObject.SetActive(false);
         
     }
@@ -64,6 +63,7 @@ public class SpawnerController : MonoBehaviour
             {
                 _currentSpawnedObject.SetActive(false);
             }
+            
         }        
     }
     
