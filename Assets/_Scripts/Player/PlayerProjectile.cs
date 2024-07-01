@@ -39,6 +39,7 @@ public class PlayerProjectile : MonoBehaviour
     private const float SetbackDistanceForCollisionRayCast = 1f;
 
     public static event Action ProjectileShot;
+    public static event Action ProjectileReturning;
     
     public bool IsShielding()
     {
@@ -150,6 +151,7 @@ public class PlayerProjectile : MonoBehaviour
         _rigidBody2D.velocity = Vector2.zero;
         _state = ProjectileState.Returning;
         _currentBounceCount = 0;
+        ProjectileReturning?.Invoke();
     }
     
     private void CountDistance()

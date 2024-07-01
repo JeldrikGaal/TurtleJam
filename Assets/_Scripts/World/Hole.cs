@@ -1,4 +1,5 @@
 using DG.Tweening;
+using UnityEditor;
 using UnityEngine;
 
 public class Hole : MonoBehaviour
@@ -16,4 +17,11 @@ public class Hole : MonoBehaviour
             });           
         }
     }
+    
+    #if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawCube(transform.position, Vector3.one * transform.localScale.x); ;
+    }
+    #endif
 }

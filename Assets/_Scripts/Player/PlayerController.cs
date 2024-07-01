@@ -1,4 +1,5 @@
 using System;
+using Unity.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -39,6 +40,20 @@ public class PlayerController : MonoBehaviour
     // TODO: rework / remove portals?
     public bool teleporting;
     public static event Action OnPlayerDeath;
+
+    public static PlayerController Instance; 
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     void Start()
     {

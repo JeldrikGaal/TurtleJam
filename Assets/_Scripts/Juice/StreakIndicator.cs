@@ -39,7 +39,7 @@ public class StreakIndicator : MonoBehaviour
         return _colorList[0].Color;
     }
 
-    public void Activate(int currentStreak)
+    public void Activate(int currentStreak, bool streakBroken = false)
     {
         if (_streakThreshold > currentStreak)
         {
@@ -47,9 +47,16 @@ public class StreakIndicator : MonoBehaviour
             return;
         }
         
-        _text.text = "Streak X" + currentStreak;
-        _text.color = GetColorFromStreak(currentStreak);
-
+        if (streakBroken)
+        {
+            _text.text = "Streak X0";
+            _text.color = Color.red;
+        }
+        else
+        {
+            _text.text = "Streak X" + currentStreak;
+            _text.color = GetColorFromStreak(currentStreak);
+        }
         
         _seq.Append(transform.DOScale(Vector3.one * 1.5f, 0.25f));
         _seq.Append(transform.DOScale(Vector3.one, 0.125f));

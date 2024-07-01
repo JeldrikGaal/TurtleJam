@@ -32,12 +32,14 @@ public class StreakLogic : MonoBehaviour
         
         EnemyController.EnemyDeathWithLocation      += ReactToEnemyDeath;
         PlayerProjectile.ProjectileShot += ReactToShot;
+        PlayerProjectile.ProjectileReturning += ReactToReturn;
     }
 
     private void OnDestroy()
     {
         EnemyController.EnemyDeathWithLocation      -= ReactToEnemyDeath;
         PlayerProjectile.ProjectileShot -= ReactToShot;
+        PlayerProjectile.ProjectileReturning -= ReactToReturn;
     }
     
     private void Update()
@@ -50,12 +52,15 @@ public class StreakLogic : MonoBehaviour
 
     private void ReactToShot()
     {
+        _receivedAction = Action.Shot;
+    }
+
+    private void ReactToReturn()
+    {
         if (_receivedAction == Action.Shot)
         {
             EndStreak();
         }
-        _receivedAction = Action.Shot;
-        
     }
 
     private void ReactToEnemyDeath(Vector3 pos)
@@ -86,7 +91,12 @@ public class StreakLogic : MonoBehaviour
 
     private void EndStreak()
     {
+        if (_streakCount > 3)
+        {
+            SpawnIndicator(PlayerController.Instance.transform.position + new Vector3(0 , 0.75f, 0), true);
+        }
         SetStreakCount(0);
+        
     }
 
     private void SetStreakCount(int newStreakCount)
@@ -95,13 +105,12 @@ public class StreakLogic : MonoBehaviour
         StreakReached?.Invoke(_streakCount);
     }
 
-    private void SpawnIndicator(Vector3 pos)
+    private void SpawnIndicator(Vector3 pos, bool streakEnded = false)
     {
         GameObject indicator = Instantiate(_streakIndicator, pos, Quaternion.identity);
         indicator.transform.position = pos;
         StreakIndicator indicatorScript = indicator.GetComponent<StreakIndicator>();
-        indicatorScript.Activate(_streakCount);
-
+        indicatorScript.Activate(_streakCount, streakEnded);
     }
 
     public int CurrentStreak()
