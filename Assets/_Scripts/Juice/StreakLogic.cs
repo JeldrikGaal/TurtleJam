@@ -28,6 +28,14 @@ public class StreakLogic : MonoBehaviour
         EnemyController.EnemyDeathWithLocation      -= ReactToEnemyDeath;
         PlayerProjectile.ProjectileShot -= ReactToShot;
     }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            SetStreakCount(_streakCount + 10);
+        }
+    }
 
     private void ReactToShot()
     {

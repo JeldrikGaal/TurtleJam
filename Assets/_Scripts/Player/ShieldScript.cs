@@ -8,7 +8,7 @@ public class ShieldScript : MonoBehaviour
     CameraManager cM;
     [SerializeField] ParticleSystem pS;
     [SerializeField] ParticleSystem pS2;
-    TrailRenderer tR;
+    private TrailRenderer _tR;
     Animator anim;
     BoxCollider2D bC;
     private PlayAudio _pa;
@@ -17,7 +17,7 @@ public class ShieldScript : MonoBehaviour
     void Start()
     {
         cM = Camera.main.GetComponent<CameraManager>();
-        tR = GetComponent<TrailRenderer>();
+        _tR = GetComponent<TrailRenderer>();
         anim = GetComponent<Animator>();
         bC = GetComponent<BoxCollider2D>();
         _pa = GetComponent<PlayAudio>();
@@ -29,12 +29,12 @@ public class ShieldScript : MonoBehaviour
         if (flying)
         {
 
-            tR.enabled = true;
+            _tR.enabled = true;
         }
         else
         {
-            tR.Clear();
-            tR.enabled = false;
+            _tR.Clear();
+            _tR.enabled = false;
         }
         
     }
