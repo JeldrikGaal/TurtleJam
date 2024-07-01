@@ -75,12 +75,12 @@ public class CameraManager : MonoBehaviour
     
     public IEnumerator BattleTransition(float time, bool open)
     {
-        float start = 0.5f;
+        float start = 1f;
         float end = 0;
         if (open)
         {
             start = 0;
-            end = 0.5f;
+            end = 1f;
         }
         float elapsedTime = 0f;
         while (elapsedTime < time)
