@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class PlayFabManager : MonoBehaviour
     }
     
 
-    public void Login(string username)
+    public void Login()
     {
         var request = new LoginWithCustomIDRequest
         {
@@ -35,14 +36,14 @@ public class PlayFabManager : MonoBehaviour
             CreateAccount = true
         };
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
-        UpdatePlayfabUsername(username);
+        
     }
 
-    public void UpdatePlayfabUsername(string username)
+    public void UpdatePlayfabUsername()
     {
         var request = new UpdateUserTitleDisplayNameRequest
         {
-            DisplayName = username
+            DisplayName = GetComponent<ScoreManager>().playerSignedIn
         };
         PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnUpdateSuccess, OnUpdateFailure);
     }
@@ -51,6 +52,7 @@ public class PlayFabManager : MonoBehaviour
     {
         Debug.Log("Congratulations, you have logged in successfully!");
         Debug.Log("Your CustomID: " + SystemInfo.deviceUniqueIdentifier);
+        UpdatePlayfabUsername();
     }
 
     private void OnLoginFailure(PlayFabError error)

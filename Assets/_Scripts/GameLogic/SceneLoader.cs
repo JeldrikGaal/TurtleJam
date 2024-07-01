@@ -1,4 +1,5 @@
 using System.Collections;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,9 +26,12 @@ public class SceneLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
+        if(scoreManager.playerSignedIn.IsNullOrWhitespace())
+            ShowLoginScreen();
         cam = GameObject.Find("MainMenu").transform;  
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -70,7 +74,7 @@ public class SceneLoader : MonoBehaviour
         mainMenuScreen.SetActive(true);
     }
 
-    public void Logout()
+    public void ShowLoginScreen()
     {
         // TODO: Remove the current username. Potentially disconnect from Playfab.
         loginScreen.SetActive(true);

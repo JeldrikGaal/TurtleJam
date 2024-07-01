@@ -8,7 +8,7 @@ public class ScoreManager : MonoBehaviour
 {
    
     [SerializeField] private bool rankingScreen = false; // Indication if this is ranking screen.
-    [SerializeField] private string playerSignedIn; // stores username of signed in player, and serves as indication if there's a player signed in.
+    [SerializeField] public string playerSignedIn; // stores username of signed in player, and serves as indication if there's a player signed in.
     private static GameManager gameManager; 
     
     private void UpdateUsernameDisplayBanner()
@@ -47,7 +47,7 @@ public class ScoreManager : MonoBehaviour
     public void SetPlayerName(string username)
     {
         playerSignedIn = username;
-        GetComponent<PlayFabManager>().Login(username);
+        GetComponent<PlayFabManager>().Login();
         UpdateUsernameDisplayBanner();
     }
     
