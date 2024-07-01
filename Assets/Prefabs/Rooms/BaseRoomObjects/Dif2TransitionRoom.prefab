@@ -1275,19 +1275,19 @@ PrefabInstance:
     - target: {fileID: 3056871736279549949, guid: fb445bfca850765499761c23ed401305, type: 3}
       propertyPath: _shotsFired
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4412166537169241976}
     - target: {fileID: 3056871736279549949, guid: fb445bfca850765499761c23ed401305, type: 3}
       propertyPath: _highestStreak
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5620599503528683378}
     - target: {fileID: 3056871736279549949, guid: fb445bfca850765499761c23ed401305, type: 3}
       propertyPath: _roomsClearedText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8845117965788076846}
     - target: {fileID: 3056871736279549949, guid: fb445bfca850765499761c23ed401305, type: 3}
       propertyPath: _enemiesKilledText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 624769312659838470}
     - target: {fileID: 4179489943234386616, guid: fb445bfca850765499761c23ed401305, type: 3}
       propertyPath: m_Tiles.Array.size
       value: 110

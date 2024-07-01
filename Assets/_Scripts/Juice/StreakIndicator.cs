@@ -47,19 +47,23 @@ public class StreakIndicator : MonoBehaviour
             return;
         }
         
+        _seq.Append(transform.DOScale(Vector3.one * 1.5f, 0.25f));
+        _seq.Append(transform.DOScale(Vector3.one, 0.125f));
+        
         if (streakBroken)
         {
-            _text.text = "Streak X0";
+            gameObject.transform.SetParent(PlayerController.Instance.transform);
+            _text.text = "Streak Over";
             _text.color = Color.red;
+            //_seq.Append(transform.DOScale(Vector3.one, 0.25f));
         }
         else
         {
             _text.text = "Streak X" + currentStreak;
             _text.color = GetColorFromStreak(currentStreak);
+            
         }
         
-        _seq.Append(transform.DOScale(Vector3.one * 1.5f, 0.25f));
-        _seq.Append(transform.DOScale(Vector3.one, 0.125f));
         _seq.Append(transform.DOScale(Vector3.zero, 0.125f));
         _seq.OnComplete(() =>
         {
