@@ -13,7 +13,6 @@ public class ProjectileJuice : MonoBehaviour
     [SerializeField] private TrailRenderer _trailRenderer;
     
     private GameManager _gameManager;
-    private PlayAudio _playAudio;
     private CameraManager _cameraManager;
 
     private Animator _playerShieldAnimator;
@@ -44,7 +43,6 @@ public class ProjectileJuice : MonoBehaviour
     private void Start()
     {
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        _playAudio = GetComponent<PlayAudio>();
         _cameraManager = Camera.main.GetComponent<CameraManager>();
         _playerShieldAnimator = GetComponent<Animator>();
     }
@@ -57,7 +55,7 @@ public class ProjectileJuice : MonoBehaviour
         
         ColorsController.Instance.StartProjectileColorFlash();
         
-        _playAudio.PlayOneShotSound(1);
+        SoundManager.PlayOneShotSound(SoundManager.Sound.PlayerProjectileHit);
     }
 
     public void SparkEffect(Vector2 pos, Vector2 dir)

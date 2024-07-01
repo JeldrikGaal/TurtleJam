@@ -20,7 +20,10 @@ public static class SoundManager
         Pause,
         GameOver,
         ButtonSelect,
-        Music
+        Music,
+        LoseStreak,
+        GainStreak
+
 
     }
 
@@ -60,6 +63,7 @@ public static class SoundManager
         }
         
     }
+
     public static void PlaySound(Sound sound, Transform parent)
     {
 

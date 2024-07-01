@@ -200,7 +200,7 @@ public class PlayerProjectile : MonoBehaviour
         
         _state = ProjectileState.Flying;
         _distanceTravelled = 0;
-
+        SoundManager.PlayOneShotSound(SoundManager.Sound.PlayerProjectileFire);
         ShootVFX();
     }
 
