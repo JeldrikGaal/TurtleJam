@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public int _score;
+    private int _streakBonusScoreCount;
+    private int _enemyScore;
     public float _timeSinceGameStarted;
    
     public ScoreManager _scoreManager;
@@ -88,10 +91,21 @@ public class GameManager : MonoBehaviour
 
     public float CalculateScore()
     {
-
         StatisticManager.Statistics stats = StatisticManager.Instance.GetStatistics();
-        return (int)( (_timeSinceGameStarted * _timePlayedScoreMod) + (_score * _scoreMod ) + (stats.RoomsCleared * _roomsClearedMod) );
+        return (int)(_timeSinceGameStarted * _timePlayedScoreMod) + (_score * _scoreMod ) + (stats.RoomsCleared * _roomsClearedMod) ;
+    }
 
+    public List<int> GetEndScoreBreakdownList()
+    {
+        StatisticManager.Statistics stats = StatisticManager.Instance.GetStatistics();
+        List<int> scoreBreakdown = new List<int>();
+        scoreBreakdown.Add(_enemyScore * _scoreMod);
+        scoreBreakdown.Add(_streakBonusScoreCount * _scoreMod);
+        scoreBreakdown.Add(stats.RoomsCleared * _roomsClearedMod);
+        scoreBreakdown.Add((int)(_timeSinceGameStarted * _timePlayedScoreMod));
+        
+       
+        return scoreBreakdown;
     }
     
     public void SaveScoreForPlayer(float score) 
@@ -119,7 +133,9 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int scoreToAdd)
     {
-        int modifiedScore = scoreToAdd + (StreakLogic.Instance.CurrentStreak());
-        _score += modifiedScore;
+        int modification = (StreakLogic.Instance.CurrentStreak());
+        _streakBonusScoreCount += modification;
+        _enemyScore += scoreToAdd;
+        _score += scoreToAdd + modification;
     }
 }

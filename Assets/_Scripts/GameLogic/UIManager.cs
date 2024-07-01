@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float _refreshTimerScaleMultiplierDuration;
     
     [SerializeField] private TMP_Text _finalScoreText;
+    [SerializeField] private TMP_Text _roomsCleardText;
+    [SerializeField] private TMP_Text _streakBonusText;
+    [SerializeField] private TMP_Text _enemiesKilledText;
+    [SerializeField] private TMP_Text _timeDeductionText;
+    
 
     // Menus
     [SerializeField] private GameObject _pauseMenu;
@@ -122,20 +128,58 @@ public class UIManager : MonoBehaviour
         _scoreText.enabled = false;
         _timeText.enabled = false;
         
-        
-        
         gameManager.GetComponent<StatisticManager>().RegisterAnalytics();
         GameStateManager.Instance.SetGameState(GameStateManager.GameState.GameOver);
-        
-        
         
         // Place the below code in a "CalculateFinalScore" function.
         
         gameManager.SaveScoreForPlayer(gameManager.CalculateScore());
-        _finalScoreText.text = "Score \n" + gameManager.CalculateScore();
+        RunGameOverTextAnimation();
+        //_finalScoreText.text = "Score \n" + gameManager.CalculateScore();
+
+
+    }
+
+    private void RunGameOverTextAnimation()
+    {
+        List<int> finalScoreBreakdown = GameManager.Instance.GetEndScoreBreakdownList();
+        
         _finalScoreText.enabled = true;
 
+        float duration = 0.5f;
+        
+        StartCoroutine(CountNumberUp(_enemiesKilledText,"Enemy Score: ", duration, 0, finalScoreBreakdown[0]));
+        
+        StartCoroutine(CountNumberUp(_streakBonusText,"Streak Score: ", duration, 0, finalScoreBreakdown[1], duration));
+        
+        StartCoroutine(CountNumberUp(_roomsCleardText,"Room Score: ", duration, 0, finalScoreBreakdown[2], duration * 2f));
+        
+        StartCoroutine(CountNumberUp(_timeDeductionText,"Time Score: ", duration, 0, finalScoreBreakdown[3], duration * 3f));
+        
+        StartCoroutine(CountNumberUp(_finalScoreText,"Total Score: ", duration, 0, gameManager.CalculateScore(), duration * 4f));
+        
+    }
+    
+    private IEnumerator CountNumberUp(TMP_Text textField,  string staticText, float duration, float start, float end, float waitTime = 0)
+    {
+        yield return new WaitForSeconds(waitTime + 0.25f);
+        Vector3 saveScale = textField.transform.localScale;
+        textField.gameObject.SetActive(true);
+        textField.transform.localScale = Vector3.zero;
+        textField.transform.DOScale(saveScale, 0.25f);
+        textField.text = staticText;
+        
+        yield return new WaitForSeconds(0.25f);
+        
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            textField.text = staticText + Mathf.Lerp(start, end, (elapsedTime / duration)).ToString("0");
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
 
+        textField.text = staticText + end;
 
     }
 
