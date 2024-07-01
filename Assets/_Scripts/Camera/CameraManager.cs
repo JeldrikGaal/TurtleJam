@@ -16,6 +16,8 @@ public class CameraManager : MonoBehaviour
 
     public static CameraManager Instance;
 
+    private Vector3 _currentCamGoal;
+
     private void Awake()
     {
         if (Instance == null)
@@ -26,6 +28,8 @@ public class CameraManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        _currentCamGoal = transform.position;
     }
     // Start is called before the first frame update
   
@@ -57,7 +61,7 @@ public class CameraManager : MonoBehaviour
         }
 
         //shaking = false;
-        transform.localPosition = originalPos;
+        transform.position = _currentCamGoal;
     }
 
     public void FreezeFrames(float time)
@@ -75,12 +79,12 @@ public class CameraManager : MonoBehaviour
     
     public IEnumerator BattleTransition(float time, bool open)
     {
-        float start = 0.5f;
+        float start = 1f;
         float end = 0;
         if (open)
         {
             start = 0;
-            end = 0.5f;
+            end = 1f;
         }
         float elapsedTime = 0f;
         while (elapsedTime < time)
@@ -100,6 +104,7 @@ public class CameraManager : MonoBehaviour
         _duration = time;
         _startingTime = Time.time;
         _transitioning = true; // Triggers lerp in Update () */
+        _currentCamGoal = posB;
         transform.DOMove(posB, time);
     }
 }

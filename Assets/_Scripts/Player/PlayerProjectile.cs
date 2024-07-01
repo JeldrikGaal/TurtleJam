@@ -141,8 +141,12 @@ public class PlayerProjectile : MonoBehaviour
 
     private void PositionShieldAroundPlayer()
     {
-        transform.position = _playerController.transform.position + (GetShieldDirection() * _shieldDistanceToPlayer);
-        transform.up = GetShieldDirection();
+        if (GameStateManager.Instance.IsRunning())
+        {
+            transform.position = _playerController.transform.position + (GetShieldDirection() * _shieldDistanceToPlayer);
+            transform.up = GetShieldDirection();
+        }
+       
         
     }
 

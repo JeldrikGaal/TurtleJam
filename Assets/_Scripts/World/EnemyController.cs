@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
-   public int _scoreToAddOnDeath = 10;
+    public int _scoreToAddOnDeath = 10;
 
     private float time;
     private Transform player;
