@@ -54,6 +54,7 @@ public class SceneLoader : MonoBehaviour
         float elapsedTime = 0;
         posStart = cam.transform.localPosition;
         scaleStart = cam.transform.localScale;
+        SoundManager.PlayOneShotSound(SoundManager.Sound.PlayerShieldOpen);
 
         while (elapsedTime < introSequenceTime)
         {
@@ -79,6 +80,9 @@ public class SceneLoader : MonoBehaviour
         // TODO: Remove the current username. Potentially disconnect from Playfab.
         loginScreen.SetActive(true);
         mainMenuScreen.SetActive(false);
+    }
+    public void PlayButtonSound(){
+        SoundManager.PlayOneShotSound(SoundManager.Sound.ButtonSelect);
     }
     
     public void Close()

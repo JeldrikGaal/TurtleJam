@@ -45,8 +45,9 @@ public class GameManager : MonoBehaviour
 
     private void InitializeValuesAndReferences()
     {
-        SoundManager.PlaySound(SoundManager.Sound.Music, this.transform);
+        SoundManager.Reset();
         SoundManager.PlayOneShotSound(SoundManager.Sound.StartGame);
+        SoundManager.PlaySound(SoundManager.Sound.Music, this.transform);
         Time.timeScale = 1;
         _score = 0;
         _timeSinceGameStarted = 0;

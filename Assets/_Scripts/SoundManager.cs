@@ -163,6 +163,12 @@ public static class SoundManager
         }
 
     }
+    public static void Reset()
+    {
+        if(playingSounds!=null){
+            playingSounds.Clear();
+        }
+    }
     
 
 }

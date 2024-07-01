@@ -107,8 +107,9 @@ public class UIManager : MonoBehaviour
 
     private void Pause()
     {
-        SoundManager.PlayOneShotSound(SoundManager.Sound.StartGame);
+        
         SoundManager.PauseAllPlayingSounds();
+        SoundManager.PlayOneShotSound(SoundManager.Sound.StartGame);
         StartCoroutine(_cameraManager.BattleTransition(1, true));
         StartCoroutine(SetActiveDelayed(1, true));
     }
@@ -267,5 +268,8 @@ public class UIManager : MonoBehaviour
         {
             loadingBarImage.color = saveColor;
         });
+    }
+    public void PlayButtonSound(){
+        SoundManager.PlayOneShotSound(SoundManager.Sound.ButtonSelect);
     }
 }
