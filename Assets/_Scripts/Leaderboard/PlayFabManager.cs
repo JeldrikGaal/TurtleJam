@@ -29,11 +29,11 @@ public class PlayFabManager : MonoBehaviour
     }
     
 
-    public void Login()
+    public void Login(string username)
     {
         var request = new LoginWithCustomIDRequest
         {
-            CustomId = SystemInfo.deviceUniqueIdentifier, 
+            CustomId = username + SystemInfo.deviceUniqueIdentifier, 
             CreateAccount = true
         };
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);

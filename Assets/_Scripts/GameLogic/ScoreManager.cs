@@ -36,7 +36,7 @@ public class ScoreManager : MonoBehaviour
     public void SetPlayerName(string username)
     {
         playerSignedIn = username;
-        GetComponent<PlayFabManager>().Login();
+        GetComponent<PlayFabManager>().Login(username);
         UpdateUsernameDisplayBanner(default, LoadSceneMode.Single);
     }
     
