@@ -13,12 +13,11 @@ public class UsernameBanner : MonoBehaviour
     {
         if (usernameText == null)
             usernameText = GameObject.FindWithTag("UsernameBanner").GetComponent<TMPro.TextMeshProUGUI>();
-
+    
     }
 
     public void DisplayUsernameInBanner(string username)
     {
-
         if (usernameText == null)
             usernameText = GameObject.FindWithTag("UsernameBanner").GetComponent<TMPro.TextMeshProUGUI>();
         usernameText.text = username;

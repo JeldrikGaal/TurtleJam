@@ -14,6 +14,7 @@ TagManager:
   - UnityPlugin
   - ItemHolderObject
   - ScoreManager
+  - UsernameBanner
   layers:
   - Default
   - TransparentFX

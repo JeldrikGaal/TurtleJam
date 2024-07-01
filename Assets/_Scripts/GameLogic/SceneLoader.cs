@@ -27,8 +27,11 @@ public class SceneLoader : MonoBehaviour
     void Start()
     {
         scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
-        if(scoreManager.playerSignedIn.IsNullOrWhitespace())
+        if (scoreManager.GetPlayerName().IsNullOrWhitespace())
+        {
             ShowLoginScreen();
+        }
+           
         cam = GameObject.Find("MainMenu").transform;  
     }
     
@@ -38,10 +41,16 @@ public class SceneLoader : MonoBehaviour
         
     }
 
-    public void LoadScene(string levelName) // For Resume, Next Level and Back to Main Menu
+    private IEnumerator LoadSceneEnumerator(string levelName)
     {
+        yield return new WaitForSeconds(0.5f);
         if (levelName == "this") SceneManager.LoadScene(SceneManager.loadedSceneCount);
         SceneManager.LoadScene(levelName);
+    }
+    
+    public void LoadScene(string levelName) // For Resume, Next Level and Back to Main Menu
+    {
+        StartCoroutine(LoadSceneEnumerator(levelName));
     }
 
     public void StartIntro()

@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
     {
         if (levelName == "this")
         {
+            SoundManager.PlayOneShotSound(SoundManager.Sound.ButtonSelect);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
         }

@@ -191,7 +191,6 @@ public class UIManager : MonoBehaviour
     public void DisplayLeaderboard()
     {
         _leaderboard.SetActive(true);
-        gameManager._scoreManager.UpdateScoresOnLeaderboard();
     }
     
     public void HideLeaderboard()
