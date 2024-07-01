@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using PlayFab.ClientModels;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class DisplayLeaderBoardLogic : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
 
     [SerializeField] private TMP_Text _ownName;
     [SerializeField] private TMP_Text _ownScore;
+    [SerializeField] private TMP_Text _ownRank;
 
     private void Awake()
     {
@@ -36,6 +39,22 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
         DisplayEntries();
     }
 
+    private void GetPlayerStats()
+    {
+        string playerName = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>().GetPlayerName();
+        PlayerLeaderboardEntry entry = _leaderboardEntries.Where(x => x.DisplayName == playerName).ToList()[0];
+        if (entry == null)
+        {
+            Debug.LogError("No entry found for player: " + playerName);
+        }
+        else
+        {
+            _ownName.text = entry.DisplayName;
+            _ownScore.text = entry.StatValue.ToString();
+            _ownRank.text = (entry.Position + 1).ToString();
+        }
+    }
+
     private void DisplayEntries()
     {
         
@@ -44,14 +63,16 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
             _names[i].text = "";
             _ranking[i].text = "";
         }
-        int count = 0;
+
         foreach (var entry in _leaderboardEntries)
         {
-            //Debug.Log(entry.DisplayName + " : " + entry.Position + " : " + entry.StatValue);
-            _names[count].text = entry.DisplayName;
-            _ranking[count].text = entry.StatValue.ToString();
-            count++;
+            if (entry.Position < 10)
+            {
+                _names[entry.Position].text = entry.DisplayName;
+                _ranking[entry.Position].text = entry.StatValue.ToString();
+            }
         }
-       
+
+        GetPlayerStats();
     }
 }

@@ -651,6 +651,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8448477089688890026, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448477089688890026, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 43556228}
+    - target: {fileID: 8448477089688890026, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448477089688890026, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneLoader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448477089688890026, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Ranking
+      objectReference: {fileID: 0}
     - target: {fileID: 8737754709703591046, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       propertyPath: m_text
       value: 'TOTAL SCORE: 999999999'
@@ -715,6 +735,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7765305605113066258, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
       insertIndex: -1
       addedObject: {fileID: 802580555}
+    - targetCorrespondingSourceObject: {fileID: 6711995320004387986, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 43556228}
   m_SourcePrefab: {fileID: 100100000, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
 --- !u!4 &43556224 stripped
 Transform:
@@ -743,6 +766,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e7aec782e1d2f24abc0e4d4c2e069fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &43556227 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6711995320004387986, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
+  m_PrefabInstance: {fileID: 43556223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &43556228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43556227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053cefc110905754e993933f9af9d882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuScreen: {fileID: 0}
+  loginScreen: {fileID: 0}
+  scoreManager: {fileID: 0}
+  usernameInput: {fileID: 0}
+  posGoal: {x: 0, y: 0, z: 0}
+  scaleGoal: {x: 0, y: 0, z: 0}
+  level1Name: Level
+  introSequenceTime: 0
 --- !u!1001 &148491827
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1242,6 +1290,41 @@ GameObject:
   m_PrefabInstance: {fileID: 43556223}
   m_PrefabAsset: {fileID: 0}
 --- !u!21 &392903359
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
+--- !u!21 &582055924
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -2313,41 +2396,6 @@ TrailRenderer:
   m_CorrespondingSourceObject: {fileID: 3128197476579923505, guid: 0cd9ad1dd0cb2bb4a9fe217393be89f6, type: 3}
   m_PrefabInstance: {fileID: 148491827}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &2096980975
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1 &2119647653
 GameObject:
   m_ObjectHideFlags: 0

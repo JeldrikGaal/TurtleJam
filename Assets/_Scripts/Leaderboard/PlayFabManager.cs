@@ -118,7 +118,7 @@ public class PlayFabManager : MonoBehaviour
     {
         foreach (var item in result.Leaderboard)
         {
-            Debug.Log(item.Position + " " + item.PlayFabId + " " + item.StatValue);
+            Debug.Log(item.Position + " " + item.DisplayName + " " + item.StatValue);
         }
         OnLeaderBoardRetrieved?.Invoke(result.Leaderboard);
     }
