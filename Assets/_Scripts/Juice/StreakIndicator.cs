@@ -59,6 +59,7 @@ public class StreakIndicator : MonoBehaviour
         }
         else
         {
+             SoundManager.PlayOneShotSound(SoundManager.Sound.GainStreak);
             _text.text = "Streak X" + currentStreak;
             _text.color = GetColorFromStreak(currentStreak);
             

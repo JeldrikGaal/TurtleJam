@@ -93,6 +93,7 @@ public class StreakLogic : MonoBehaviour
     {
         if (_streakCount > 3)
         {
+            SoundManager.PlayOneShotSound(SoundManager.Sound.LoseStreak);
             SpawnIndicator(PlayerController.Instance.transform.position + new Vector3(0 , 0.75f, 0), true);
         }
         SetStreakCount(0);
