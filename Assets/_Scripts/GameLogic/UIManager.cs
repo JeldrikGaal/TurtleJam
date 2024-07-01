@@ -107,12 +107,16 @@ public class UIManager : MonoBehaviour
 
     private void Pause()
     {
+        SoundManager.PlayOneShotSound(SoundManager.Sound.StartGame);
+        SoundManager.PauseAllPlayingSounds();
         StartCoroutine(_cameraManager.BattleTransition(1, true));
         StartCoroutine(SetActiveDelayed(1, true));
     }
     
     public void Resume()
     {
+        SoundManager.PlayOneShotSound(SoundManager.Sound.StartGame);
+        SoundManager.ResumeAllPlayingSounds();
         _pauseMenu.SetActive(false);
         StartCoroutine(_cameraManager.BattleTransition(1, false));
     }
