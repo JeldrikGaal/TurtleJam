@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerShieldColliderLogic : MonoBehaviour
@@ -16,5 +17,5 @@ public class PlayerShieldColliderLogic : MonoBehaviour
             _playerProjectile.ShieldHit(other);
         }
     }
-    
+
 }

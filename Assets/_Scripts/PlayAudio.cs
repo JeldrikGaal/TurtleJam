@@ -12,8 +12,8 @@ public class PlayAudio : MonoBehaviour
 
 
     public List<List<AudioClip>> audioClipList = new List<List<AudioClip>>();
-    GameManager gM;
-   AudioClip RandomClip(int id)
+    private GameManager gM;
+   private AudioClip RandomClip(int id)
     {
         return audioClipList[id][Random.Range(0, audioClipList[id].Count)];
     }

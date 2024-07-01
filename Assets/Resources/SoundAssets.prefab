@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7290010364403873505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2489367844247956602}
+  - component: {fileID: 5239795758231559154}
+  m_Layer: 0
+  m_Name: SoundAssets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2489367844247956602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7290010364403873505}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.7239271, y: 8.878335, z: -0.103719674}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5239795758231559154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7290010364403873505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c98423736536bf4498bffdd77f03d866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundAudioClips:
+  - sound: 2
+    audioClip: {fileID: 8300000, guid: 8a39d73da9062634384b4045800bf42b, type: 3}
+  - sound: 6
+    audioClip: {fileID: 8300000, guid: 3e4aba7a9b23c364589a02d3cb7a4b87, type: 3}
+  - sound: 5
+    audioClip: {fileID: 8300000, guid: df884bee899d1694bb96f7fc5f1dcdaa, type: 3}
+  - sound: 7
+    audioClip: {fileID: 8300000, guid: ed4eb00030dc846458d70b5347697ce6, type: 3}
+  - sound: 4
+    audioClip: {fileID: 8300000, guid: 55b35fc1cb7db9244b10b26320f813c7, type: 3}
+  - sound: 13
+    audioClip: {fileID: 8300000, guid: a9dd163fcf3d51542999a2e0d2ff27da, type: 3}
+  - sound: 9
+    audioClip: {fileID: 8300000, guid: 0d187c369ca3acb43bea07714e5846e6, type: 3}

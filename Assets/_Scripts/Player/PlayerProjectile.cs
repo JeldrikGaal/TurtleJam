@@ -17,6 +17,7 @@ public class PlayerProjectile : MonoBehaviour
     [SerializeField] private float _shieldDistanceToPlayer;
 
     // Get set in start
+    private PlayAudio pa;
     private Rigidbody2D _rigidBody2D;
     private CircleCollider2D _circleCollider2D;
     private PlayerController _playerController;
@@ -54,6 +55,7 @@ public class PlayerProjectile : MonoBehaviour
     
     private void Start()
     {
+        pa = GetComponent<PlayAudio>();
         _rigidBody2D = GetComponent<Rigidbody2D>();
         _rigidBody2D.velocity = Vector2.zero;
 
@@ -353,7 +355,7 @@ public class PlayerProjectile : MonoBehaviour
         
         _state = ProjectileState.Shield;
         _shieldColliderGameObject.SetActive(true);
-        
+        SoundManager.PlaySound(SoundManager.Sound.PlayerShieldOpen,this.transform);
         _projectileJuice.ShieldOpenAnim();
         
     }
@@ -371,6 +373,7 @@ public class PlayerProjectile : MonoBehaviour
         _state = ProjectileState.Idle;
         _projectileJuice.IdleAnim();
         _shieldColliderGameObject.SetActive(false);
+        SoundManager.StopSound(SoundManager.Sound.PlayerShieldOpen, this.transform);
     }
 
     public void RequestRangeChange(float rangeChange)

@@ -117,6 +117,8 @@ public class UIManager : MonoBehaviour
     {
         // TODO: find more fitting place !
         // TODO: rework after new leaderboard has been implemented
+        SoundManager.StopAllPlayingSounds();
+        SoundManager.PlayOneShotSound(SoundManager.Sound.PlayerDeath);
         _gameOverVisualEffectPrefab.GetComponent<Animator>().SetTrigger(GameOver);
         _gameOverMenu.SetActive(true);
         _scoreText.enabled = false;

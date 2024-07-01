@@ -14,7 +14,8 @@ public class EnemyController : MonoBehaviour
     public EnemyType enemyMode;
     public float speed = 10f;
     public float rotationSpeed = 10f;
-    public AudioClip meleeAttackSound;
+    //public AudioClip meleeAttackSound;
+    private bool isSoundPlaying= false;
 
 
     [Space(20)]
@@ -90,18 +91,27 @@ public class EnemyController : MonoBehaviour
             {
                 Vector3 direction = ( player.position - transform.position).normalized;
                 rb.velocity = direction * speed;
+                if(!isSoundPlaying){
+                    SoundManager.PlaySound(SoundManager.Sound.EnemyMove, this.transform);
+                    isSoundPlaying = true;
+                }
 
-                if (!GetComponent<AudioSource>().isPlaying) 
+
+                /*if (!GetComponent<AudioSource>().isPlaying) 
                 {
                     GetComponent<AudioSource>().clip = meleeAttackSound;
                     GetComponent<AudioSource>().Play();
-                }
+                }*/
                 break;
             }
             case EnemyType.Melee:
             {
-                rb.velocity = Vector3.zero; 
-                if (GetComponent<AudioSource>().isPlaying) GetComponent<AudioSource>().Stop();
+                rb.velocity = Vector3.zero;
+                if(isSoundPlaying){
+                SoundManager.StopSound(SoundManager.Sound.EnemyMove, this.transform);
+                isSoundPlaying = false;
+                }
+
                 break;
             }
             case EnemyType.Stationary:
@@ -129,7 +139,8 @@ public class EnemyController : MonoBehaviour
 
     public void BasicShoot() 
     {       
-        pa.PlayOneShotSound(0);
+        SoundManager.PlayOneShotSound(SoundManager.Sound.EnemyShoot);
+        //pa.PlayOneShotSound(0);
         GameObject newBullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         shootTimedown = true; // Flag to indicate there should be timedown between each shot.
     }
@@ -139,7 +150,13 @@ public class EnemyController : MonoBehaviour
         EnemyDeath?.Invoke();
         EnemyDeathWithLocation?.Invoke(transform.position);
         gm.AddScore(scoreToAddOnDeath);
-        pa.PlayOneShotSound(1);
+        if(isSoundPlaying){
+                SoundManager.StopSound(SoundManager.Sound.EnemyMove, this.transform);
+                isSoundPlaying = false;
+                }
+
+        SoundManager.PlayOneShotSound(SoundManager.Sound.EnemyDeath);
+        //pa.PlayOneShotSound(1);
         Destroy(this.gameObject);
     }
 
