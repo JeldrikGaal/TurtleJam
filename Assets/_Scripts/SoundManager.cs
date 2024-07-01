@@ -144,6 +144,7 @@ public static class SoundManager
 
         foreach(GameObject soundGameObject in playingSounds)
         {
+             if(soundGameObject!=null)
             soundGameObject.GetComponent<AudioSource>().Pause(); 
         }
 
@@ -155,6 +156,7 @@ public static class SoundManager
 
         foreach(GameObject soundGameObject in playingSounds)
         {
+             if(soundGameObject!=null)
             soundGameObject.GetComponent<AudioSource>().Play(); 
         }
 
