@@ -194,3 +194,11 @@ MonoBehaviour:
     StreakAmount: 20
   - Color: {r: 0, g: 0.13740492, b: 1, a: 1}
     StreakAmount: 30
+  - Color: {r: 0.95149136, g: 0, b: 1, a: 1}
+    StreakAmount: 40
+  - Color: {r: 0, g: 0.92633533, b: 1, a: 1}
+    StreakAmount: 50
+  - Color: {r: 1, g: 0.48692903, b: 0, a: 1}
+    StreakAmount: 75
+  - Color: {r: 1, g: 0.7791245, b: 0, a: 1}
+    StreakAmount: 100

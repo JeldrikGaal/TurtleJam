@@ -55,17 +55,18 @@ public class StreakIndicator : MonoBehaviour
             gameObject.transform.SetParent(PlayerController.Instance.transform);
             _text.text = "Streak Over";
             _text.color = Color.red;
+            StartCoroutine(StreakChangeColorFlash(_text.color));
             //_seq.Append(transform.DOScale(Vector3.one, 0.25f));
         }
         else
         {
+            _text.color = GetColorFromStreak(currentStreak);
             if (currentStreak % 10 == 0)
             {
                 SoundManager.PlayOneShotSound(SoundManager.Sound.GainStreak);
+                StartCoroutine(StreakChangeColorFlash(_text.color));
             }
             _text.text = "Streak X" + currentStreak;
-            _text.color = GetColorFromStreak(currentStreak);
-            
         }
         
         _seq.Append(transform.DOScale(Vector3.zero, 0.125f));
@@ -75,4 +76,12 @@ public class StreakIndicator : MonoBehaviour
             _seq.Kill();
         });
     }
+
+    private IEnumerator StreakChangeColorFlash(Color color)
+    {
+        ColorsController.Instance.StartGenericColorFlash(0.15f, color);
+        yield return new WaitForSeconds(0.25f);
+        ColorsController.Instance.StartGenericColorFlash(0.15f, color);
+    }
 }
+

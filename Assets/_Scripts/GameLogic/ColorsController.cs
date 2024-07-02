@@ -160,6 +160,11 @@ public class ColorsController : MonoBehaviour
         StartCoroutine(FlashWalls(_projectileFlashDuration, _projectileFlashColor));
     }
 
+    public void StartGenericColorFlash(float duration, Color color)
+    {
+        StartCoroutine(FlashWalls(duration, color));
+    }
+
     public void RegisterRangeToColorShift(List<SpriteRenderer> renderers)
     {
         _worldTextRenderers.AddRange(renderers);
