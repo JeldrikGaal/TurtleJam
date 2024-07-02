@@ -42,16 +42,20 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
     private void GetPlayerStats()
     {
         string playerName = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>().GetPlayerName();
-        PlayerLeaderboardEntry entry = _leaderboardEntries.Where(x => x.DisplayName == playerName).ToList()[0];
-        if (entry == null)
+        List<PlayerLeaderboardEntry> entries = _leaderboardEntries.Where(x => x.DisplayName == playerName).ToList();
+        if (entries.Count > 0)
         {
-            Debug.LogError("No entry found for player: " + playerName);
-        }
-        else
-        {
+            PlayerLeaderboardEntry entry = entries[0];
             _ownName.text = entry.DisplayName;
             _ownScore.text = entry.StatValue.ToString();
             _ownRank.text = (entry.Position + 1).ToString();
+        }
+        else
+        {
+            _ownName.text = "";
+            _ownScore.text = "";
+            _ownRank.text = "";
+            Debug.LogError("No entry found for player: " + playerName);
         }
     }
 
