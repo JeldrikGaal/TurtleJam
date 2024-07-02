@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Sirenix.Utilities;
 using UnityEngine;
@@ -22,6 +23,18 @@ public class SceneLoader : MonoBehaviour
 
     Vector3 posStart;
     Vector3 scaleStart;
+
+    public static event Action OnLoginButton;
+
+    private void Awake()
+    {
+        LoginVisuals.LoginVisualsDone += SwitchMenus;
+    }
+
+    private void OnDestroy()
+    {
+        LoginVisuals.LoginVisualsDone -= SwitchMenus;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -77,13 +90,19 @@ public class SceneLoader : MonoBehaviour
     }
 
     
-    public void LoginSceenSwitch()
+    public void LoginScreenSwitch()
     {
         scoreManager.SetPlayerName(usernameInput.GetComponent<TMPro.TMP_Text>().text);
+        OnLoginButton?.Invoke();
+        //Invoke("SwitchMenus", 1.5f);
+    }
+
+    private void SwitchMenus()
+    {
         loginScreen.SetActive(false);
         mainMenuScreen.SetActive(true);
     }
-
+    
     public void ShowLoginScreen()
     {
         // TODO: Remove the current username. Potentially disconnect from Playfab.

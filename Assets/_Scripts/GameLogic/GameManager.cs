@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
     public float CalculateScore()
     {
         StatisticManager.Statistics stats = StatisticManager.Instance.GetStatistics();
-        return (int)(_timeSinceGameStarted * _timePlayedScoreMod) + (_score * _scoreMod ) + (stats.RoomsCleared * _roomsClearedMod) ;
+        return (int)(_timeSinceGameStarted * _timePlayedScoreMod * 0f) + (_score * _scoreMod ) + (stats.RoomsCleared * _roomsClearedMod) ;
     }
 
     public List<int> GetEndScoreBreakdownList()
