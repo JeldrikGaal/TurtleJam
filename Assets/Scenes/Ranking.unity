@@ -578,6 +578,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2480451208654503162, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2480451208654503162, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
+      propertyPath: m_fontSize
+      value: 11.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 2480451208654503162, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2480451208654503162, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494120664612063425, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2656188519024935681, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1033,6 +1053,18 @@ PrefabInstance:
     - target: {fileID: 7758505028368253298, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7788973893370056967, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7788973893370056967, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
+      propertyPath: m_fontSize
+      value: 11.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7788973893370056967, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7799798348259416545, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
       propertyPath: scoreManager

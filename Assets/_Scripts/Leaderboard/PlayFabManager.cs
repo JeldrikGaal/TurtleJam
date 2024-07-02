@@ -13,6 +13,7 @@ public class PlayFabManager : MonoBehaviour
 
     public static event Action<string> OnHighestScoreRetrieved;
     public static event Action<List<PlayerLeaderboardEntry>> OnLeaderBoardRetrieved;
+    public static event Action<GetLeaderboardAroundPlayerResult> OnLeaderBoardAroundPlayerRetrieved;
     
     private void Awake()
     {
@@ -27,7 +28,6 @@ public class PlayFabManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
     }
-    
 
     public void Login(string username)
     {
@@ -103,6 +103,27 @@ public class PlayFabManager : MonoBehaviour
         Debug.LogError(error.GenerateErrorReport());
     }
 
+    public void GetPlayerInfo()
+    {
+        var request2 = new GetLeaderboardAroundPlayerRequest
+        {
+            StatisticName = "Score",
+            MaxResultsCount = 1
+        };
+        PlayFabClientAPI.GetLeaderboardAroundPlayer(request2, OnLeaderboardAroundPlayerGet, OnLeaderboardError);
+    }
+
+    private void OnLeaderboardAroundPlayerGet(GetLeaderboardAroundPlayerResult getLeaderboardAroundPlayerResult)
+    {
+        foreach (var entry in getLeaderboardAroundPlayerResult.Leaderboard)
+        {
+            Debug.Log(entry.DisplayName);
+            Debug.Log(entry.Position);
+        }
+        OnLeaderBoardAroundPlayerRetrieved?.Invoke(getLeaderboardAroundPlayerResult);
+    }
+    
+    
     public void GetLeaderboard()
     {
         var request = new GetLeaderboardRequest
@@ -118,7 +139,7 @@ public class PlayFabManager : MonoBehaviour
     {
         foreach (var item in result.Leaderboard)
         {
-            Debug.Log(item.Position + " " + item.DisplayName + " " + item.StatValue);
+            //Debug.Log(item.Position + " " + item.DisplayName + " " + item.StatValue);
         }
         OnLeaderBoardRetrieved?.Invoke(result.Leaderboard);
     }

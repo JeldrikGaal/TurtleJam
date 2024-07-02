@@ -21,11 +21,13 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
     private void Awake()
     {
         PlayFabManager.OnLeaderBoardRetrieved += SaveLeaderBoardEntries;
+        PlayFabManager.OnLeaderBoardAroundPlayerRetrieved += ReactToPlayerDataRetrieved;
     }
 
     private void OnDestroy()
     {
         PlayFabManager.OnLeaderBoardRetrieved -= SaveLeaderBoardEntries;
+        PlayFabManager.OnLeaderBoardAroundPlayerRetrieved -= ReactToPlayerDataRetrieved;
     }
 
     void Start()
@@ -37,26 +39,21 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
     {
         _leaderboardEntries = entries;
         DisplayEntries();
+        PlayFabManager.Instance.GetPlayerInfo();
     }
 
-    private void GetPlayerStats()
+    private void ReactToPlayerDataRetrieved(GetLeaderboardAroundPlayerResult results)
     {
-        string playerName = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>().GetPlayerName();
-        List<PlayerLeaderboardEntry> entries = _leaderboardEntries.Where(x => x.DisplayName == playerName).ToList();
-        if (entries.Count > 0)
-        {
-            PlayerLeaderboardEntry entry = entries[0];
-            _ownName.text = entry.DisplayName;
-            _ownScore.text = entry.StatValue.ToString();
-            _ownRank.text = (entry.Position + 1).ToString();
-        }
-        else
-        {
-            _ownName.text = "";
-            _ownScore.text = "";
-            _ownRank.text = "";
-            Debug.LogError("No entry found for player: " + playerName);
-        }
+        _ownName.text = results.Leaderboard[0].DisplayName;
+        _ownScore.text = results.Leaderboard[0].StatValue.ToString();
+        _ownRank.text = (results.Leaderboard[0].Position + 1).ToString();
+    }
+    
+    private void GetPlayerStats(GetPlayerStatisticsResult result)
+    {
+        /*result.Statistics[0].
+        */
+
     }
 
     private void DisplayEntries()
@@ -76,7 +73,5 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
                 _ranking[entry.Position].text = entry.StatValue.ToString();
             }
         }
-
-        GetPlayerStats();
     }
 }
