@@ -26,25 +26,9 @@ public class SceneLoader : MonoBehaviour
 
     public static event Action OnLoginButton;
 
-    private void Awake()
-    {
-        LoginVisuals.LoginVisualsDone += SwitchMenus;
-    }
-
-    private void OnDestroy()
-    {
-        LoginVisuals.LoginVisualsDone -= SwitchMenus;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
-        if (scoreManager.GetPlayerName().IsNullOrWhitespace())
-        {
-            ShowLoginScreen();
-        }
-           
         cam = GameObject.Find("MainMenu").transform;  
     }
     
@@ -96,19 +80,7 @@ public class SceneLoader : MonoBehaviour
         OnLoginButton?.Invoke();
         //Invoke("SwitchMenus", 1.5f);
     }
-
-    private void SwitchMenus()
-    {
-        loginScreen.SetActive(false);
-        mainMenuScreen.SetActive(true);
-    }
     
-    public void ShowLoginScreen()
-    {
-        // TODO: Remove the current username. Potentially disconnect from Playfab.
-        loginScreen.SetActive(true);
-        mainMenuScreen.SetActive(false);
-    }
     public void PlayButtonSound(){
         SoundManager.PlayOneShotSound(SoundManager.Sound.ButtonSelect);
     }

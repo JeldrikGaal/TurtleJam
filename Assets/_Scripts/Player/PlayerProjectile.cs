@@ -40,6 +40,7 @@ public class PlayerProjectile : MonoBehaviour
 
     public static event Action ProjectileShot;
     public static event Action ProjectileReturning;
+    public static event Action ProjectileBounce;
     
     public bool IsShielding()
     {
@@ -265,6 +266,7 @@ public class PlayerProjectile : MonoBehaviour
     {
         _moveDirectionBeforeBounce = _rigidBody2D.velocity.normalized;
         _bouncedThisFrame = true;
+        ProjectileBounce?.Invoke();
         
         Vector2 newDirection = Vector2.Reflect(_rigidBody2D.velocity.normalized, normal).normalized;
         SetProjectileVelocityAndDirection( newDirection * _flySpeed);

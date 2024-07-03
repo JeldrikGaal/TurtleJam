@@ -2,20 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Sirenix.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class LoginVisuals : MonoBehaviour
+public class LoginLogic : MonoBehaviour
 {
     [SerializeField] private TMP_InputField _userNameTextField;
+    [SerializeField] private TMP_Text _inputHelp;
     [SerializeField] private GameObject _inputFieldObject;
     [SerializeField] private GameObject _loginButtonObject;
+    [SerializeField] private GameObject _loginScreenObject;
+    [SerializeField] private GameObject _mainMenunObject;
     [SerializeField] private Image _inputFieldImage;
     [SerializeField] private Color _correctBlinkColor;
-
-    public static event Action LoginVisualsDone;
     
     private List<string> _characters = new List<string>() 
     { 
@@ -35,14 +37,67 @@ public class LoginVisuals : MonoBehaviour
         SceneLoader.OnLoginButton -= LoginAnim;
     }
 
+    private void Start()
+    {
+        ScoreManager scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
+        if (scoreManager.GetPlayerName().IsNullOrWhitespace())
+        {
+            ShowLogin();
+        }
+    }
+
+    private void ShowLogin()
+    {
+        _loginScreenObject.SetActive(true);
+        _mainMenunObject.SetActive(false);
+    }
+
+    private void ShowMainMenu()
+    {
+        _loginScreenObject.SetActive(false);
+        _mainMenunObject.SetActive(true);
+    }
+
+    private void AnimateLoginToMainMenu()
+    {
+        //ShowMainMenu();
+        _mainMenunObject.SetActive(true);
+        _mainMenunObject.transform.position += Vector3.right * -1000;
+        _mainMenunObject.transform.DOMoveX(_mainMenunObject.transform.position.x + 1000, 0.5f);
+        _loginScreenObject.transform.DOMoveX(_loginScreenObject.transform.position.x + 1000, 0.5f).OnComplete(() =>
+        {
+            _loginScreenObject.SetActive(false);
+        });
+    }
+
     private void LoginAnim()
     {
+        if (_userNameTextField.text.Length < 3)
+        {
+            StartCoroutine(WrongInput());
+            return;
+        }
         _loginButtonObject.transform.DOScale(Vector3.zero, 0.5f);
         StartCoroutine(ScrambleLetters(1f, 0.1f));
     }
 
+    private IEnumerator WrongInput()
+    {
+        _inputHelp.text = "Name needs to be at least 3 letters";
+        float blinkWaitTime = 0.3f;
+        yield return new WaitForSeconds(blinkWaitTime);
+        _inputFieldImage.color = Color.red;
+        yield return new WaitForSeconds(blinkWaitTime);
+        _inputFieldImage.color = Color.white;
+        yield return new WaitForSeconds(blinkWaitTime);
+        _inputFieldImage.color = Color.red;
+        yield return new WaitForSeconds(blinkWaitTime);
+        _inputFieldImage.color = Color.white;
+    }
+
     private IEnumerator ScrambleLetters(float duration, float timePerSwitch)
     {
+        _inputHelp.text = "Success";
         float timeElapsed = 0;
         int nameLength = _userNameTextField.text.Length;
         string originalName = _userNameTextField.text;
@@ -73,10 +128,6 @@ public class LoginVisuals : MonoBehaviour
         _inputFieldImage.color = Color.white;
         yield return new WaitForSeconds(blinkWaitTime);
         
-        LoginVisualsDone?.Invoke();
-        
-        
-
-        //_inputFieldObject.transform.DOScale(Vector3.zero, 0.5f);
+        AnimateLoginToMainMenu();
     }
 }

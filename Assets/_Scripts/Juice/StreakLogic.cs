@@ -7,6 +7,7 @@ public class StreakLogic : MonoBehaviour
     
     private int _streakCount;
     private Action _receivedAction = Action.None;
+    private bool _receivedBounce;
 
     public static event Action<int> StreakReached;
 
@@ -31,15 +32,17 @@ public class StreakLogic : MonoBehaviour
         }
         
         EnemyController.EnemyDeathWithLocation      += ReactToEnemyDeath;
-        PlayerProjectile.ProjectileShot += ReactToShot;
-        PlayerProjectile.ProjectileReturning += ReactToReturn;
+        PlayerProjectile.ProjectileShot             += ReactToShot;
+        PlayerProjectile.ProjectileReturning        += ReactToReturn;
+        PlayerProjectile.ProjectileBounce           += ReactToBounce;
     }
 
     private void OnDestroy()
     {
         EnemyController.EnemyDeathWithLocation      -= ReactToEnemyDeath;
-        PlayerProjectile.ProjectileShot -= ReactToShot;
-        PlayerProjectile.ProjectileReturning -= ReactToReturn;
+        PlayerProjectile.ProjectileShot             -= ReactToShot;
+        PlayerProjectile.ProjectileReturning        -= ReactToReturn;
+        PlayerProjectile.ProjectileBounce           -= ReactToBounce;
     }
     
     private void Update()
@@ -53,6 +56,12 @@ public class StreakLogic : MonoBehaviour
     private void ReactToShot()
     {
         _receivedAction = Action.Shot;
+        _receivedBounce = false;
+    }
+    
+    private void ReactToBounce()
+    {
+        _receivedBounce = true;
     }
 
     private void ReactToReturn()
@@ -85,8 +94,22 @@ public class StreakLogic : MonoBehaviour
 
     private void ExtendStreak(Vector3 pos)
     {
-        SetStreakCount(_streakCount + 1);
-        SpawnIndicator(pos);
+        int extensionCount = _streakCount + 1;
+        if (_receivedBounce)
+        {
+            extensionCount++;
+        }
+        SetStreakCount(extensionCount);
+       
+        if (_receivedBounce)
+        {
+            SpawnBounceIndicator(PlayerController.Instance.transform.position + new Vector3(0 , 0.75f, 0));
+        }
+        else
+        {
+            SpawnIndicator(pos);
+        }
+        
     }
 
     private void EndStreak()
@@ -112,6 +135,16 @@ public class StreakLogic : MonoBehaviour
         indicator.transform.position = pos;
         StreakIndicator indicatorScript = indicator.GetComponent<StreakIndicator>();
         indicatorScript.Activate(_streakCount, streakEnded);
+    }
+
+    private void SpawnBounceIndicator(Vector3 pos)
+    {
+        
+        GameObject indicator = Instantiate(_streakIndicator, pos, Quaternion.identity);
+        indicator.transform.position = pos;
+        StreakIndicator indicatorScript = indicator.GetComponent<StreakIndicator>();
+        indicatorScript.Activate(_streakCount);
+        indicatorScript.SetText("Bounce Kill");
     }
 
     public int CurrentStreak()

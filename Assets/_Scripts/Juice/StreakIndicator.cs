@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -37,6 +38,11 @@ public class StreakIndicator : MonoBehaviour
         }
 
         return _colorList[0].Color;
+    }
+
+    public void SetText(string text)
+    {
+        _text.text = text;
     }
 
     public void Activate(int currentStreak, bool streakBroken = false)
