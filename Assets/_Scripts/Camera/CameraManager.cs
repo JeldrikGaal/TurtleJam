@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CameraManager : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class CameraManager : MonoBehaviour
 
     public static CameraManager Instance;
 
+    [SerializeField] private Transform _spawnRoomCamPos;
     private Vector3 _currentCamGoal;
 
     private void Awake()
@@ -28,21 +31,13 @@ public class CameraManager : MonoBehaviour
         {
             Destroy(this);
         }
-
-        _currentCamGoal = transform.position;
     }
-    // Start is called before the first frame update
-  
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        /*if (_transitioning && Vector3.Distance(_posA,_posB) >= 0.1f)
-        {
-            gameObject.transform.position = Vector3.Lerp(_posA, _posB, Time.time - _startingTime / _duration);       
-        }
-        else { _transitioning = false; }*/
-    } 
+        Debug.Log("start cam");
+        _currentCamGoal = _spawnRoomCamPos.position;
+    }
     
     public IEnumerator Shake(float duration, float magnitude)
     {
@@ -106,5 +101,16 @@ public class CameraManager : MonoBehaviour
         _transitioning = true; // Triggers lerp in Update () */
         _currentCamGoal = posB;
         transform.DOMove(posB, time);
+    }
+
+    
+    public void ResetCamPos()
+    {
+        Debug.Log("Reset to" + _currentCamGoal);
+        if (_currentCamGoal != Vector3.zero)
+        {
+            transform.position = _currentCamGoal;
+        }
+       
     }
 }

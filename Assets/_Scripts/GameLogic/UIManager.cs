@@ -104,6 +104,12 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
+    
+    private void OnRectTransformDimensionsChange()
+    {
+        Debug.Log(GetComponent<RectTransform>().rect); 
+        _cameraManager.ResetCamPos();
+    }
 
     private void Pause()
     {
