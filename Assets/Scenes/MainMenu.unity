@@ -4487,7 +4487,7 @@ MonoBehaviour:
   _inputHelp: {fileID: 274791231}
   _inputFieldObject: {fileID: 472320741}
   _loginButtonObject: {fileID: 1010981116}
-  _loginScreenObject: {fileID: 1010981116}
+  _loginScreenObject: {fileID: 1904933394}
   _mainMenunObject: {fileID: 1611507050}
   _inputFieldImage: {fileID: 472320744}
   _correctBlinkColor: {r: 0.1911776, g: 1, b: 0, a: 1}
