@@ -35,6 +35,14 @@ public class LoginLogic : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) && ! _mainMenunObject.activeInHierarchy)
+        {
+            LoginButton();
+        }
+    }
+
     private string GetInputFromUsernameField()
     {
         return _userNameTextField.text;
@@ -101,7 +109,7 @@ public class LoginLogic : MonoBehaviour
 
     private IEnumerator ScrambleLetters(float duration, float timePerSwitch)
     {
-        _inputHelp.text = "Success";
+        //_inputHelp.text = "Success";
         float timeElapsed = 0;
         int nameLength = _userNameTextField.text.Length;
         string originalName = _userNameTextField.text;
