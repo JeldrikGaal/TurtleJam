@@ -10,7 +10,6 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private GameObject mainMenuScreen;
     [SerializeField] private GameObject loginScreen;
     
-    [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private GameObject usernameInput;
     
     Transform cam;
@@ -20,23 +19,14 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] string level1Name = "Level";
     [SerializeField] float introSequenceTime;
 
-
     Vector3 posStart;
     Vector3 scaleStart;
-
-    public static event Action OnLoginButton;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         cam = GameObject.Find("MainMenu").transform;  
     }
     
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private IEnumerator LoadSceneEnumerator(string levelName)
     {
@@ -71,14 +61,6 @@ public class SceneLoader : MonoBehaviour
         }
 
         LoadScene(level1Name);
-    }
-
-    
-    public void LoginScreenSwitch()
-    {
-        scoreManager.SetPlayerName(usernameInput.GetComponent<TMPro.TMP_Text>().text);
-        OnLoginButton?.Invoke();
-        //Invoke("SwitchMenus", 1.5f);
     }
     
     public void PlayButtonSound(){

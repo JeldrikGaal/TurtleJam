@@ -1414,6 +1414,17 @@ MonoBehaviour:
   _refreshTimerFlashColor: {r: 0.30847, g: 0.6698113, b: 0.23064256, a: 1}
   _refreshTimerFlashDuration: 0.2
   _refreshTimerScaleMultiplierDuration: 1.75
+  _finalScoreText: {fileID: 0}
+  _roomsCleardText: {fileID: 0}
+  _streakBonusText: {fileID: 0}
+  _enemiesKilledText: {fileID: 0}
+  _timeDeductionText: {fileID: 0}
+  _pauseMenu: {fileID: 0}
+  _gameOverMenu: {fileID: 0}
+  _leaderboard: {fileID: 0}
+  _gameOverVisualEffectPrefab: {fileID: 0}
+  _cameraManager: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &2398633528962932572
 GameObject:
   m_ObjectHideFlags: 0
@@ -5148,6 +5159,7 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0.4003868, a: 1}
   - {r: 1, g: 0.85806453, b: 0, a: 1}
   _colorShiftDuration: 10
+  _streakSettings: []
 --- !u!4 &8767178077547976069 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6753066743550472408, guid: 472fda47f6a6cd54fb203eacef3f969f, type: 3}
@@ -5237,7 +5249,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7709641237740989550, guid: 893e9bac813b0044db8c2fe8253f61ae, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

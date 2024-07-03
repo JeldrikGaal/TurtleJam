@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
     private int _streakBonusScoreCount;
     private int _enemyScore;
     public float _timeSinceGameStarted;
-   
-    public ScoreManager _scoreManager;
     
     // Cursor
     [SerializeField] private Texture2D _cursorTexture;

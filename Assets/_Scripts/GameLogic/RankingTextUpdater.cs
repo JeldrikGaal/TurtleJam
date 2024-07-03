@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RankingTextUpdater : MonoBehaviour
 {
-    [SerializeField] private ScoreManager scoreManager;
     private TextMeshProUGUI _leaderboardTMP;
 
     [SerializeField] private Transform namesList;

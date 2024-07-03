@@ -1,25 +1,46 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UsernameBanner : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI usernameText;
+    [SerializeField] private TextMeshProUGUI _usernameText;
 
+    private void Awake()
+    {
+        PlayFabManager.PlayerLoggedIn += UpdateUsernameBanner;
+    }
+    private void OnDestroy()
+    {
+        PlayFabManager.PlayerLoggedIn += UpdateUsernameBanner;
+    }
 
     private void Start()
     {
-        if (usernameText == null)
-            usernameText = GameObject.FindWithTag("UsernameBanner").GetComponent<TMPro.TextMeshProUGUI>();
-    
+        Invoke(nameof(UpdateUsernameBanner), 0.1f);
     }
 
-    public void DisplayUsernameInBanner(string username)
+    private void UpdateUsernameBanner(string userName)
     {
-        if (usernameText == null)
-            usernameText = GameObject.FindWithTag("UsernameBanner").GetComponent<TMPro.TextMeshProUGUI>();
-        usernameText.text = username;
+        _usernameText.text = userName;
     }
+
+    private void UpdateUsernameBanner(Scene arg0, LoadSceneMode arg1)
+    {
+        UpdateUsernameBanner();
+    }
+    
+    private void UpdateUsernameBanner()
+    {
+        _usernameText.text = PlayFabManager.Instance.GetUserName();
+    }
+
+   
+
+   
+
+    
+    
+    
 }

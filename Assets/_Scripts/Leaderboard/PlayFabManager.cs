@@ -11,9 +11,12 @@ public class PlayFabManager : MonoBehaviour
     private static PlayFabManager _instance;
     public static PlayFabManager Instance { get { return _instance; } }
 
+    public static event Action<string> PlayerLoggedIn;
     public static event Action<string> OnHighestScoreRetrieved;
     public static event Action<List<PlayerLeaderboardEntry>> OnLeaderBoardRetrieved;
     public static event Action<GetLeaderboardAroundPlayerResult> OnLeaderBoardAroundPlayerRetrieved;
+
+    private string _loggedInUserName = "";
     
     private void Awake()
     {
@@ -36,15 +39,22 @@ public class PlayFabManager : MonoBehaviour
             CustomId = username + SystemInfo.deviceUniqueIdentifier, 
             CreateAccount = true
         };
+        _loggedInUserName = username;
+        PlayerLoggedIn?.Invoke(username);
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
         
     }
 
-    public void UpdatePlayfabUsername()
+    public string GetUserName()
+    {
+        return _loggedInUserName;
+    }
+
+    private void UpdatePlayFabUsername()
     {
         var request = new UpdateUserTitleDisplayNameRequest
         {
-            DisplayName = GetComponent<ScoreManager>().playerSignedIn
+            DisplayName = GetUserName()
         };
         PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnUpdateSuccess, OnUpdateFailure);
     }
@@ -53,7 +63,8 @@ public class PlayFabManager : MonoBehaviour
     {
         Debug.Log("Congratulations, you have logged in successfully!");
         Debug.Log("Your CustomID: " + SystemInfo.deviceUniqueIdentifier);
-        UpdatePlayfabUsername();
+        UpdatePlayFabUsername();
+        PlayerLoggedIn?.Invoke(GetUserName());
     }
 
     private void OnLoginFailure(PlayFabError error)

@@ -27,23 +27,27 @@ public class LoginLogic : MonoBehaviour
         "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
     };
 
-    private void Awake()
-    {
-        SceneLoader.OnLoginButton += LoginAnim;
-    }
-
-    private void OnDestroy()
-    {
-        SceneLoader.OnLoginButton -= LoginAnim;
-    }
-
     private void Start()
     {
-        ScoreManager scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
-        if (scoreManager.GetPlayerName().IsNullOrWhitespace())
+        if (PlayFabManager.Instance.GetUserName().IsNullOrWhitespace())
         {
             ShowLogin();
         }
+    }
+
+    private string GetInputFromUsernameField()
+    {
+        return _userNameTextField.text;
+    }
+    
+    public void LoginButton()
+    {
+        PlayFabManager.Instance.Login(GetInputFromUsernameField());
+        LoginAnim();
+    }
+    
+    public void PlayButtonSound(){
+        SoundManager.PlayOneShotSound(SoundManager.Sound.ButtonSelect);
     }
 
     private void ShowLogin()
