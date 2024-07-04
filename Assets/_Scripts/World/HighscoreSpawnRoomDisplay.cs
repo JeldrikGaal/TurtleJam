@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PlayFab.ClientModels;
 using TMPro;
 using UnityEngine;
 
@@ -20,9 +21,9 @@ public class HighscoreSpawnRoomDisplay : MonoBehaviour
         PlayFabManager.OnHighestScoreRetrieved -= SetHighScoreDisplay;
     }
 
-    private void SetHighScoreDisplay(string highestScore)
+    private void SetHighScoreDisplay(GetLeaderboardResult result)
     {
-        _highscoreTextDisplay.text = _defaultText + highestScore;
+        _highscoreTextDisplay.text = _defaultText + result.Leaderboard[0].StatValue + "\n by: " + result.Leaderboard[0].DisplayName;
     }
     
     void Start()

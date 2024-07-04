@@ -16,7 +16,7 @@ public class PlayFabManager : MonoBehaviour
     }
 
     public static event Action<string> PlayerLoggedIn;
-    public static event Action<string> OnHighestScoreRetrieved;
+    public static event Action<GetLeaderboardResult> OnHighestScoreRetrieved;
     public static event Action<List<PlayerLeaderboardEntry>> OnLeaderBoardRetrieved;
     public static event Action<GetLeaderboardAroundPlayerResult> OnLeaderBoardAroundPlayerRetrieved;
 
@@ -184,7 +184,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnHighScoreGet(GetLeaderboardResult result)
     {
-        OnHighestScoreRetrieved?.Invoke(result.Leaderboard[0].StatValue.ToString());
+        OnHighestScoreRetrieved?.Invoke(result);
     }
 }
     
