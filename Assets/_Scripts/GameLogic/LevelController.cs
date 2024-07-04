@@ -12,6 +12,7 @@ public class LevelController : MonoBehaviour
     
     [SerializeField] private LevelAttributes _tutorialRoom;
     [SerializeField] private List<LevelAttributes> _generatedRooms = new List<LevelAttributes>();
+    private GameObject _lastGeneratedRoomPrefab;
 
     private int _currentStageIndex;
     private int _currentLevelIndex;
@@ -63,6 +64,7 @@ public class LevelController : MonoBehaviour
         else
         {
             GameObject roomToGenerate = GetRandomPossibleRoom(neededEntranceDirection, _currentStageIndex);
+            _lastGeneratedRoomPrefab = roomToGenerate;
             newRoom = GenerateRoom(roomToGenerate);
         }
         
@@ -98,6 +100,7 @@ public class LevelController : MonoBehaviour
     private GameObject GetRandomPossibleRoom(Direction entranceDirection, int currentDifficulty)
     {
         List<GameObject> roomOptions = GetPossibleRooms(entranceDirection, currentDifficulty);
+        
         if (roomOptions.Count == 0)
         {
             Debug.LogError("No suitable rooms found ! ");
@@ -115,6 +118,12 @@ public class LevelController : MonoBehaviour
             {
                 possibleRooms.Add(room);
             }
+        }
+
+        // If there is more than one option available remove all occurrences of the last used room
+        if (possibleRooms.Where(x => _lastGeneratedRoomPrefab).ToList().Count > 0)
+        {
+            possibleRooms.RemoveAll(o => o == _lastGeneratedRoomPrefab);
         }
 
         return possibleRooms;
