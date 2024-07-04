@@ -111,6 +111,10 @@ public class CameraManager : MonoBehaviour
         {
             transform.position = _currentCamGoal;
         }
-       
+    }
+
+    public Vector3 GetCurrentCamGoal()
+    {
+        return _currentCamGoal;
     }
 }

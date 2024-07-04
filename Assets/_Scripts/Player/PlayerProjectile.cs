@@ -126,7 +126,15 @@ public class PlayerProjectile : MonoBehaviour
 
     private void CheckFlyingProgress()
     {
-        if (_state == ProjectileState.Flying && _distanceTravelled > _flyRange)
+        if (_state != ProjectileState.Flying) return;
+        
+        if (IsBulletOutsideRoom())
+        {
+            EndFlight();
+            return;
+        }
+
+        if (_distanceTravelled > _flyRange)
         {
             EndFlight();
         }
@@ -147,8 +155,6 @@ public class PlayerProjectile : MonoBehaviour
             transform.position = _playerController.transform.position + (GetShieldDirection() * _shieldDistanceToPlayer);
             transform.up = GetShieldDirection();
         }
-       
-        
     }
 
     private void EndFlight()
@@ -292,7 +298,13 @@ public class PlayerProjectile : MonoBehaviour
 
     private void ReturnProjectile()
     {
+        // Code to teleport bullet back instead of flying
+        /*PositionShieldAroundPlayer();   
+        EndReturn();*/
+        
         SetProjectileVelocityAndDirection(GetReturnDirection() * _returnSpeed);
+        
+        _projectileJuice.ReturnVFX();
         if (HasProjectileReachedPlayer())
         {
             EndReturn();
@@ -314,14 +326,8 @@ public class PlayerProjectile : MonoBehaviour
         _state = ProjectileState.Idle;
         SetProjectileVelocityAndDirection(Vector2.zero);
 
-        ArrivalVFX();
+        _projectileJuice.ArrivalVFX();
     }
-
-    private void ArrivalVFX()
-    {
-        // TODO: fill something in
-    }
-    
     private void RequestEnemyHit(Transform enemyTransform)
     {
         EnemyController enemyController = enemyTransform.GetComponent<EnemyController>();
@@ -348,6 +354,19 @@ public class PlayerProjectile : MonoBehaviour
     private void ShieldHitVFX(Collider2D collision)
     {
         _projectileJuice.SparkEffect(collision.transform.position,  -1 * collision.transform.right);
+    }
+
+    private bool IsBulletOutsideRoom()
+    {
+        Vector2 bounds = GameManager.Instance.GetRoomBounds();
+        Vector3 _roomPoint = CameraManager.Instance.GetCurrentCamGoal();
+        Vector3 dist = _roomPoint - transform.position;
+        float xDistance = Mathf.Abs(dist.x);
+        float yDistance = Mathf.Abs(dist.y);
+        
+        Debug.Log(((xDistance, bounds.x), (yDistance, bounds.y)));
+        
+        return xDistance > bounds.x || yDistance > bounds.y;
     }
 
     public void RequestOpenShield()
@@ -383,6 +402,7 @@ public class PlayerProjectile : MonoBehaviour
         _shieldColliderGameObject.SetActive(false);
         SoundManager.StopSound(SoundManager.Sound.PlayerShieldOpen, this.transform);
     }
+    
 
     public void RequestRangeChange(float rangeChange)
     {

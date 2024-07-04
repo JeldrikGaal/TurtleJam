@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _timePlayedScoreMod;
     [SerializeField] private int _roomsClearedMod;
     [SerializeField] private int _scoreMod;
+    [SerializeField] private Vector2 _roomBounds;
 
     private void Awake()
     {
@@ -137,5 +138,10 @@ public class GameManager : MonoBehaviour
         _streakBonusScoreCount += modification;
         _enemyScore += scoreToAdd;
         _score += scoreToAdd + modification;
+    }
+
+    public Vector2 GetRoomBounds()
+    {
+        return _roomBounds;
     }
 }

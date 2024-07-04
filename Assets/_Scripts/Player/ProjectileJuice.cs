@@ -11,6 +11,9 @@ public class ProjectileJuice : MonoBehaviour
     [SerializeField] private ParticleSystem _explosionParticle;
     [SerializeField] private ParticleSystem _sparkParticle;
     [SerializeField] private TrailRenderer _trailRenderer;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+
+    private Color _startingColor;
     
     private GameManager _gameManager;
     private CameraManager _cameraManager;
@@ -21,7 +24,11 @@ public class ProjectileJuice : MonoBehaviour
     private static readonly int IdleAnimHash = Animator.StringToHash("Idle");
     private static readonly int ShieldAnimHash = Animator.StringToHash("Shield");
 
+    [SerializeField] private Color _inactiveColor;
+    
     [SerializeField] private List<ColorStreakAmountPair> _colorList;
+    
+    
     
     [Serializable]
     struct ColorStreakAmountPair
@@ -45,6 +52,7 @@ public class ProjectileJuice : MonoBehaviour
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _cameraManager = Camera.main.GetComponent<CameraManager>();
         _playerShieldAnimator = GetComponent<Animator>();
+        _startingColor = _spriteRenderer.color;
     }
 
     public void ExplosionEffect(Vector2 pos)
@@ -108,6 +116,34 @@ public class ProjectileJuice : MonoBehaviour
         }
 
         return _colorList[0].Color;
+    }
+
+    public void ReturnVFX()
+    {
+        SetSpriteAlpha(0.2f);
+        _trailRenderer.startColor = _inactiveColor;
+    }
+
+    public void ArrivalVFX()
+    {
+        ResetColor();
+        UpdateTrailColorFromStreak(StreakLogic.Instance.CurrentStreak());
+    }
+    
+    private void SetSpriteAlpha(float alpha)
+    {
+        Color currentColor = _spriteRenderer.color;
+        _spriteRenderer.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
+    }
+
+    private void ResetColor()
+    {
+        _spriteRenderer.color = _startingColor;
+    }
+    
+    private void ChangeBulletColor(Color color)
+    {
+        _spriteRenderer.color = color;
     }
 
 }
