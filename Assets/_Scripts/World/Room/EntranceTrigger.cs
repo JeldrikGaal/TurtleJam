@@ -17,9 +17,19 @@ public class EntranceTrigger : MonoBehaviour
     List<Vector3> _doorTilePosititions = new List<Vector3>();
 
     private bool _closed;
-    
-    
-    
+
+    private bool _playerInEntrance;
+
+    private void Awake()
+    {
+        ExitTrigger.roomExited += BlockGoingBack;
+    }
+
+    private void OnDestroy()
+    {
+        ExitTrigger.roomExited -= BlockGoingBack;
+    }
+
     public void Setup(LevelController.Direction direction)
     {
         _direction = direction;
@@ -46,20 +56,31 @@ public class EntranceTrigger : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void BlockGoingBack(ExitTrigger exitTrigger)
     {
-        if(other.CompareTag("Player")) 
+        if (_playerInEntrance)
         {
             _doorBlock2.SetActive(true);
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            _playerInEntrance = true;
+            //_doorBlock2.SetActive(true);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player")) 
+        if(collision.CompareTag("Player"))
         {
+            _playerInEntrance = false;
             if (!HasPlayerPassed(collision.transform.position)) return;
             BlockWall();
+            _doorBlock2.SetActive(true);
         }
     }
 

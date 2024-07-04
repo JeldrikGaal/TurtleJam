@@ -14,6 +14,8 @@ public class ExitTrigger : MonoBehaviour
     [SerializeField] private GameObject _doorGlow;
 
     private LevelController.Direction _direction;
+
+    private bool _exitedOnce;
     
     void Start()
     {
@@ -42,8 +44,9 @@ public class ExitTrigger : MonoBehaviour
     {
         if(collision.CompareTag("Player")) 
         {
-            if (!HasPlayerPassed(collision.transform.position)) return;
+            if (!HasPlayerPassed(collision.transform.position) || _exitedOnce) return;
             roomExited?.Invoke(this);
+            _exitedOnce = true;
             _doorGlow.GetComponent<SpriteRenderer>().enabled = false;
             
         }

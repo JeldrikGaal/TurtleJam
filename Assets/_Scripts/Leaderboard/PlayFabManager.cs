@@ -7,17 +7,22 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayFabManager : MonoBehaviour
 {
-    
+
     private static PlayFabManager _instance;
-    public static PlayFabManager Instance { get { return _instance; } }
+
+    public static PlayFabManager Instance
+    {
+        get { return _instance; }
+    }
 
     public static event Action<string> PlayerLoggedIn;
     public static event Action<string> OnHighestScoreRetrieved;
     public static event Action<List<PlayerLeaderboardEntry>> OnLeaderBoardRetrieved;
     public static event Action<GetLeaderboardAroundPlayerResult> OnLeaderBoardAroundPlayerRetrieved;
 
-    private string _loggedInUserName = "";
-    
+    private string _loggedInDisplayName = "";
+    private string _loggedInUserID = "";
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -34,20 +39,27 @@ public class PlayFabManager : MonoBehaviour
 
     public void Login(string username)
     {
+        _loggedInUserID = username + SystemInfo.deviceUniqueIdentifier;
+        _loggedInDisplayName = username;
+        Debug.Log("Logging in with CustomID: " + _loggedInUserID);
+        Debug.Log("Logging in with Username: " + _loggedInDisplayName);
         var request = new LoginWithCustomIDRequest
         {
-            CustomId = username + SystemInfo.deviceUniqueIdentifier, 
+            CustomId = username + SystemInfo.deviceUniqueIdentifier,
             CreateAccount = true
         };
-        _loggedInUserName = username;
-        PlayerLoggedIn?.Invoke(username);
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
-        
+
     }
 
     public string GetUserName()
     {
-        return _loggedInUserName;
+        return _loggedInDisplayName;
+    }
+    
+    public string GetUserID()
+    {
+        return _loggedInUserID;
     }
 
     private void UpdatePlayFabUsername()
@@ -58,7 +70,7 @@ public class PlayFabManager : MonoBehaviour
         };
         PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnUpdateSuccess, OnUpdateFailure);
     }
-    
+
     private void OnLoginSuccess(LoginResult result)
     {
         Debug.Log("Congratulations, you have logged in successfully!");
@@ -73,13 +85,13 @@ public class PlayFabManager : MonoBehaviour
         Debug.LogError("Here's some debug information:");
         Debug.LogError(error.GenerateErrorReport());
     }
-    
+
     private void OnUpdateSuccess(UpdateUserTitleDisplayNameResult result)
     {
         Debug.Log("Congratulations, you have updated your username!");
         Debug.Log("Username: " + result.DisplayName);
     }
-    
+
     private void OnUpdateFailure(PlayFabError error)
     {
         Debug.LogWarning("UPDATE DISPLAY NAME FAILURE:");
@@ -87,13 +99,15 @@ public class PlayFabManager : MonoBehaviour
         Debug.LogError(error.GenerateErrorReport());
     }
 
-    
+
     public void SendLeaderboard(int score)
     {
         var request = new UpdatePlayerStatisticsRequest
         {
-            Statistics = new List<StatisticUpdate> {
-                new StatisticUpdate {
+            Statistics = new List<StatisticUpdate>
+            {
+                new StatisticUpdate
+                {
                     StatisticName = "Score",
                     Value = score
                 }
@@ -131,10 +145,11 @@ public class PlayFabManager : MonoBehaviour
             Debug.Log(entry.DisplayName);
             Debug.Log(entry.Position);
         }
+
         OnLeaderBoardAroundPlayerRetrieved?.Invoke(getLeaderboardAroundPlayerResult);
     }
-    
-    
+
+
     public void GetLeaderboard()
     {
         var request = new GetLeaderboardRequest
@@ -145,16 +160,17 @@ public class PlayFabManager : MonoBehaviour
         };
         PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnLeaderboardError);
     }
-    
+
     private void OnLeaderboardGet(GetLeaderboardResult result)
     {
         foreach (var item in result.Leaderboard)
         {
             //Debug.Log(item.Position + " " + item.DisplayName + " " + item.StatValue);
         }
+
         OnLeaderBoardRetrieved?.Invoke(result.Leaderboard);
     }
-    
+
     public void GetHighestScore()
     {
         var request = new GetLeaderboardRequest
@@ -170,17 +186,5 @@ public class PlayFabManager : MonoBehaviour
     {
         OnHighestScoreRetrieved?.Invoke(result.Leaderboard[0].StatValue.ToString());
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GetLeaderboard();
-        }
-    }
-
-    /*public void UpdateUsername(string name)
-    {
-
-    }*/
 }
+    
