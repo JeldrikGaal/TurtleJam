@@ -13,10 +13,13 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
     
     [SerializeField] private List<TMP_Text> _names;
     [SerializeField] private List<TMP_Text> _ranking;
+    [SerializeField] private List<TMP_Text> _positions;
 
     [SerializeField] private TMP_Text _ownName;
     [SerializeField] private TMP_Text _ownScore;
     [SerializeField] private TMP_Text _ownRank;
+
+    [SerializeField] private Color _ownColor;
 
     private void Awake()
     {
@@ -44,9 +47,25 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
 
     private void ReactToPlayerDataRetrieved(GetLeaderboardAroundPlayerResult results)
     {
-        _ownName.text = results.Leaderboard[0].DisplayName;
-        _ownScore.text = results.Leaderboard[0].StatValue.ToString();
-        _ownRank.text = (results.Leaderboard[0].Position + 1).ToString();
+        int pos = results.Leaderboard[0].Position;
+        var entry = results.Leaderboard[0];
+        if ( pos < 10)
+        {
+            _names[pos].text = entry.DisplayName;
+            _ranking[pos].text = entry.StatValue.ToString();
+            
+            _names[pos].color = _ownColor;
+            _ranking[pos].color = _ownColor;
+            _positions[pos].color = _ownColor;
+            
+        }
+        else
+        {
+            _ownName.text = entry.DisplayName;
+            _ownScore.text = entry.StatValue.ToString();
+            _ownRank.text = (entry.Position + 1).ToString();
+        }
+        
     }
     
     private void GetPlayerStats(GetPlayerStatisticsResult result)
