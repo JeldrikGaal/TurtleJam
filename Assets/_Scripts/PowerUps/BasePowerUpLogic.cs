@@ -23,7 +23,6 @@ public class BasePowerUpLogic : MonoBehaviour
 
    protected virtual  void OnDestroy()
    {
-      Debug.Log("ON DESTROY CALLED");
       EnemyController.EnemyDeath -= EnemyKill;
    }
 
@@ -31,7 +30,6 @@ public class BasePowerUpLogic : MonoBehaviour
    {
       if (!this)
       {
-         Debug.Log("EMPTY BASE POWER UP ");
          Destroy(this);
          return;
       }
@@ -100,7 +98,6 @@ public class BasePowerUpLogic : MonoBehaviour
    {
       if (!this)
       {
-         Debug.Log("SUSPICIOUSLY EMPTY BASE POWER UP");
          return;
       }
       Debug.Log(this + "is calling refresh timer");

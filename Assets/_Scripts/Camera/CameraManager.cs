@@ -35,7 +35,6 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("start cam");
         _currentCamGoal = _spawnRoomCamPos.position;
     }
     
@@ -87,7 +86,6 @@ public class CameraManager : MonoBehaviour
             _battleTransitionEffect.Cutoff = Mathf.Lerp(start, end, (elapsedTime  / time));
             elapsedTime += Time.deltaTime;
             
-            //Debug.Log(Time.deltaTime);
             yield return null;
         }
     }
@@ -106,7 +104,6 @@ public class CameraManager : MonoBehaviour
     
     public void ResetCamPos()
     {
-        Debug.Log("Reset to" + _currentCamGoal);
         if (_currentCamGoal != Vector3.zero)
         {
             transform.position = _currentCamGoal;

@@ -107,7 +107,6 @@ public class UIManager : MonoBehaviour
     
     private void OnRectTransformDimensionsChange()
     {
-        Debug.Log(GetComponent<RectTransform>().rect); 
         _cameraManager.ResetCamPos();
     }
 

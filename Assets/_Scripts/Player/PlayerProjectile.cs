@@ -359,12 +359,10 @@ public class PlayerProjectile : MonoBehaviour
     private bool IsBulletOutsideRoom()
     {
         Vector2 bounds = GameManager.Instance.GetRoomBounds();
-        Vector3 _roomPoint = CameraManager.Instance.GetCurrentCamGoal();
-        Vector3 dist = _roomPoint - transform.position;
+        Vector3 roomPoint = CameraManager.Instance.GetCurrentCamGoal();
+        Vector3 dist = roomPoint - transform.position;
         float xDistance = Mathf.Abs(dist.x);
         float yDistance = Mathf.Abs(dist.y);
-        
-        Debug.Log(((xDistance, bounds.x), (yDistance, bounds.y)));
         
         return xDistance > bounds.x || yDistance > bounds.y;
     }

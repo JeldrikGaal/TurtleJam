@@ -50,7 +50,6 @@ public class LoginLogic : MonoBehaviour
     
     public void LoginButton()
     {
-        Debug.Log("TRYING TO LOG IN WITH NAME" + GetInputFromUsernameField());
         PlayFabManager.Instance.Login(GetInputFromUsernameField());
         LoginAnim();
     }

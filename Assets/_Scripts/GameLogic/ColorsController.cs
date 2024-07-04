@@ -68,7 +68,6 @@ public class ColorsController : MonoBehaviour
     
     private void FetchObjectsToColorShift()
     {
-        Debug.Log("FETCHED");
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Wall"))
         {
             _tileMaps.Add(g.GetComponent<Tilemap>());

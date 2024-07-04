@@ -23,7 +23,6 @@ public class BubbleShieldVisuals : MonoBehaviour
 
     private void ShieldEndedVisuals(int newLevel)
     {
-        Debug.Log("tt");
         if (newLevel == 0)
         {
             StartCoroutine(_cameraManager.Shake(0.2f, 0.5f));

@@ -45,7 +45,6 @@ public class BulletController : MonoBehaviour
                 Destroy(gameObject);     
             }
             // Destroy the bullet upon collision with any object
-            //Debug.Log(collision.transform.name);
 
 
         }
