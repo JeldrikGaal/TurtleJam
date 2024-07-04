@@ -50,6 +50,7 @@ public class UIManager : MonoBehaviour
 
     public GameManager gameManager;
 
+    private bool _scoreBreakdownRunning;
     
     private static readonly int GameOver = Animator.StringToHash("GameOver");
     private void Awake()
@@ -152,6 +153,12 @@ public class UIManager : MonoBehaviour
 
     private void RunGameOverTextAnimation()
     {
+        if (_scoreBreakdownRunning)
+        {
+            return;
+        }
+        _scoreBreakdownRunning = true;
+        
         List<int> finalScoreBreakdown = GameManager.Instance.GetEndScoreBreakdownList();
         
         _finalScoreText.enabled = true;
