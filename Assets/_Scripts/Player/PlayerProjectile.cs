@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(ProjectileJuice))]
@@ -204,6 +205,8 @@ public class PlayerProjectile : MonoBehaviour
     private void ShootProjectile()
     {
         ProjectileShot?.Invoke();
+
+        KillCurrentIntersectingEnemies();
         
         Vector3 shieldDirection = GetShieldDirection();
         
@@ -215,6 +218,20 @@ public class PlayerProjectile : MonoBehaviour
         ShootVFX();
     }
 
+
+    private void KillCurrentIntersectingEnemies()
+    {
+        var overlaps = Physics2D.OverlapCircleAll(transform.position, _circleCollider2D.radius).ToList();
+        foreach (var collision in overlaps)
+        {
+            if (collision.CompareTag("Enemy"))
+            {
+                Debug.Log("INTERSECTING ENEMY KILLED");
+                RequestEnemyHit(collision.transform);
+            }
+        }
+    }
+    
     private void ShootVFX()
     {
         _projectileJuice.ShieldCloseAnim();
@@ -335,8 +352,6 @@ public class PlayerProjectile : MonoBehaviour
         EnemyHitVFX(enemyTransform.transform.position);
         EndFlight();
     }
-
-    
     
     private void EnemyHitVFX(Vector2 pos)
     {
