@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -89,7 +90,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateUIText()
     {
-        _scoreText.text = "Score: " + gameManager._score;
+        _scoreText.text = "Score: " + ScoreManager.Instance.GetCurrentDisplayScore();
         _timeText.text = "Time: " + gameManager._timeSinceGameStarted.ToString("0.00");
     }
 
@@ -130,8 +131,6 @@ public class UIManager : MonoBehaviour
     
     public void GameOverCondition()
     {
-        // TODO: find more fitting place !
-        // TODO: rework after new leaderboard has been implemented
         SoundManager.StopAllPlayingSounds();
         SoundManager.PlayOneShotSound(SoundManager.Sound.PlayerDeath);
         _gameOverVisualEffectPrefab.GetComponent<Animator>().SetTrigger(GameOver);
@@ -141,14 +140,9 @@ public class UIManager : MonoBehaviour
         
         gameManager.GetComponent<StatisticManager>().RegisterAnalytics();
         GameStateManager.Instance.SetGameState(GameStateManager.GameState.GameOver);
+        ScoreManager.Instance.SaveScoreForPlayer();
         
-        // Place the below code in a "CalculateFinalScore" function.
-        
-        gameManager.SaveScoreForPlayer(gameManager.CalculateScore());
         RunGameOverTextAnimation();
-        //_finalScoreText.text = "Score \n" + gameManager.CalculateScore();
-
-
     }
 
     private void RunGameOverTextAnimation()
@@ -159,7 +153,7 @@ public class UIManager : MonoBehaviour
         }
         _scoreBreakdownRunning = true;
         
-        List<int> finalScoreBreakdown = GameManager.Instance.GetEndScoreBreakdownList();
+        List<int> finalScoreBreakdown = ScoreManager.Instance.GetEndScoreBreakdownList();
         
         _finalScoreText.enabled = true;
 
@@ -173,11 +167,11 @@ public class UIManager : MonoBehaviour
         
         StartCoroutine(CountNumberUp(_timeDeductionText,"Bounce Score: ", duration, 0, finalScoreBreakdown[3], duration * 3f));
         
-        StartCoroutine(CountNumberUp(_finalScoreText,"Total Score: ", duration, 0, gameManager.CalculateScore(), duration * 4f));
+        StartCoroutine(CountNumberUp(_finalScoreText,"Total Score: ", duration, 0, ScoreManager.Instance.GetCurrentDisplayScore(), duration * 4f));
         
     }
     
-    private IEnumerator CountNumberUp(TMP_Text textField,  string staticText, float duration, float start, float end, float waitTime = 0)
+    private IEnumerator CountNumberUp(TMP_Text textField,  string staticText, float duration, int start, int end, float waitTime = 0)
     {
         yield return new WaitForSeconds(waitTime + 0.25f);
         Vector3 saveScale = textField.transform.localScale;

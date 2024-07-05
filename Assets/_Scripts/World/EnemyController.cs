@@ -150,11 +150,11 @@ public class EnemyController : MonoBehaviour
     {
         EnemyDeath?.Invoke();
         EnemyDeathWithLocation?.Invoke(transform.position);
-        gm.AddScore(_scoreToAddOnDeath);
-        if(isSoundPlaying){
+        if(isSoundPlaying)
+        {
                 SoundManager.StopSound(SoundManager.Sound.EnemyMove, this.transform);
                 isSoundPlaying = false;
-                }
+        }
 
         SoundManager.PlayOneShotSound(SoundManager.Sound.EnemyDeath);
         //pa.PlayOneShotSound(1);

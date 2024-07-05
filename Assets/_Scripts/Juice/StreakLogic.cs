@@ -10,7 +10,6 @@ public class StreakLogic : MonoBehaviour
     private bool _receivedBounce;
 
     public static event Action<int> StreakReached;
-
     public static event Action BounceKillDetected;
 
     public static StreakLogic Instance;
