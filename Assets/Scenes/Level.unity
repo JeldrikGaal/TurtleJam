@@ -1513,6 +1513,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48076102}
   m_CullTransparentMesh: 1
+--- !u!21 &67191682
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1001 &148491827
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2195,7 +2230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Streak x999
+  m_text: Streak x0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0137a2cc1c8c215448f8ca97ff5737a3, type: 2}
   m_sharedMaterial: {fileID: -1574647483245012435, guid: 0137a2cc1c8c215448f8ca97ff5737a3, type: 2}
@@ -2293,30 +2328,24 @@ MonoBehaviour:
   _colorList:
   - Color: {r: 0.9764706, g: 1, b: 0, a: 1}
     StreakAmount: 0
-  - Color: {r: 0.732353, g: 0.75, b: 0, a: 1}
+  - Color: {r: 0, g: 0.13740492, b: 1, a: 1}
     StreakAmount: 5
   - Color: {r: 1, g: 0, b: 0.38167953, a: 1}
     StreakAmount: 10
-  - Color: {r: 0.75, g: 0, b: 0.28529406, a: 1}
-    StreakAmount: 15
   - Color: {r: 0.36641216, g: 1, b: 0, a: 1}
+    StreakAmount: 15
+  - Color: {r: 0.95149136, g: 0, b: 1, a: 1}
     StreakAmount: 20
-  - Color: {r: 0.27352953, g: 0.75, b: 0, a: 1}
+  - Color: {r: 1, g: 0.48692903, b: 0, a: 1}
     StreakAmount: 25
-  - Color: {r: 0, g: 0.13740492, b: 1, a: 1}
-    StreakAmount: 30
   - Color: {r: 0, g: 0.102941215, b: 0.75, a: 1}
     StreakAmount: 35
-  - Color: {r: 0.95149136, g: 0, b: 1, a: 1}
-    StreakAmount: 40
   - Color: {r: 0.7147057, g: 0, b: 0.75, a: 1}
     StreakAmount: 45
   - Color: {r: 0, g: 0.92633533, b: 1, a: 1}
     StreakAmount: 50
   - Color: {r: 0, g: 0.6941174, b: 0.75, a: 1}
     StreakAmount: 55
-  - Color: {r: 1, g: 0.48692903, b: 0, a: 1}
-    StreakAmount: 60
   - Color: {r: 0.75, g: 0.36470592, b: 0, a: 1}
     StreakAmount: 65
   - Color: {r: 1, g: 0.7791245, b: 0, a: 1}
@@ -3242,41 +3271,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2395409672104448925, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
   m_PrefabInstance: {fileID: 43556223}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &1538109243
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1 &1549309663 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9219854359790684179, guid: 0663035f8351c4148b139f4842f0d179, type: 3}

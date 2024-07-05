@@ -63,6 +63,7 @@ public class UIManager : MonoBehaviour
     private bool _currentlyShowingAddScore;
 
     private Color _squareStartingColor;
+    private Color _squareLastColor;
     private Vector3 _startingSquareScale;
     private bool _newStreakStageAnimRunning;
     
@@ -95,6 +96,7 @@ public class UIManager : MonoBehaviour
         _upgradeHintStartPos = _powerUpHintText.transform.position;
         _squareStartingColor = _streakSquares[0].color;
         _startingSquareScale = _streakSquares[0].transform.localScale;
+        _squareLastColor = StreakLogic.Instance.GetCurrentStreakColor();
 
     }
 
@@ -353,7 +355,8 @@ public class UIManager : MonoBehaviour
             {
                 if (_streakSquares.IndexOf(squareRenderer) == _streakSquares.Count - 1)
                 {
-                    StartCoroutine(StreakNextStepReached());
+                    //StartCoroutine(StreakNextStepReached());
+                    SquareDespawnAnim(true);
                 }
             });
         });
@@ -370,7 +373,7 @@ public class UIManager : MonoBehaviour
             }
             else
             {
-                _streakSquares[i].color = _squareStartingColor;
+                //_streakSquares[i].color = _squareStartingColor;
                 _streakSquares[i].transform.localScale = _startingSquareScale;
             }
         }
@@ -387,7 +390,7 @@ public class UIManager : MonoBehaviour
     private IEnumerator StreakNextStepReached()
     {
         _newStreakStageAnimRunning = true;
-        Color newColor = _streakSquares[0].color;
+        Color newColor = _squareLastColor;
         yield return new WaitForSeconds(0.1f);
         ChangeAllSquaresColor(_squareStartingColor);
         yield return new WaitForSeconds(0.1f);
@@ -409,13 +412,17 @@ public class UIManager : MonoBehaviour
             Transform t = square.transform;
             t.DOScale(Vector3.zero, 0.125f).OnComplete(() =>
             {
-                square.color = _squareStartingColor;
+                if (!nextStep)
+                {
+                    square.color = _squareStartingColor;
+                }
                 t.DOScale(_startingSquareScale, 0.125f).OnComplete(() =>
                 {
                     if (nextStep)
                     {
+                        square.color = StreakLogic.Instance.GetPreviousStreakColor();
                         _newStreakStageAnimRunning = false;
-                        CleanUpSquaresFromIndex((StreakLogic.Instance.CurrentStreak()%5) - 1);
+                        //CleanUpSquaresFromIndex((StreakLogic.Instance.CurrentStreak()%5) - 1);
                     }
                 });
                
