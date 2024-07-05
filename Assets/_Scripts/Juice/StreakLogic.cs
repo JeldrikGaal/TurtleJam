@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StreakLogic : MonoBehaviour
@@ -13,6 +15,14 @@ public class StreakLogic : MonoBehaviour
     public static event Action BounceKillDetected;
 
     public static StreakLogic Instance;
+    
+    [SerializeField] private List<ColorStreakAmountPair> _colorList;
+    [Serializable]
+    public struct ColorStreakAmountPair
+    {
+        public Color Color;
+        public int StreakAmount;
+    }
     
     private enum ActionType
     {
@@ -75,43 +85,36 @@ public class StreakLogic : MonoBehaviour
 
     private void ReactToEnemyDeath(Vector3 pos)
     {
-        if (_streakCount == 0)
-        {
-            StartStreak(pos);
-        }
-        else
-        {
-            ExtendStreak(pos);
-        }
-        
+        ExtendStreak(pos);
         _receivedActionType = ActionType.Kill;
     }
 
-    private void StartStreak(Vector3 pos)
+    /*private void StartStreak(Vector3 pos)
     {
         SetStreakCount(1);
-        SpawnIndicator(pos);
-    }
+    }*/
 
     private void ExtendStreak(Vector3 pos)
     {
         int extensionCount = _streakCount + 1;
         if (_receivedBounce)
         {
-            extensionCount++;
-            BounceKillDetected.Invoke();
-        }
-        SetStreakCount(extensionCount);
-       
-        if (_receivedBounce)
-        {
+            Debug.Log("Bounce kill");
+            BounceKillDetected?.Invoke();
             SpawnBounceIndicator(PlayerController.Instance.transform.position + new Vector3(0 , 0.75f, 0));
         }
-        else
-        {
-            SpawnIndicator(pos);
-        }
         
+        SetStreakCount(extensionCount);
+        
+    }
+
+    private void NextStreakStageReached()
+    {
+        if (_streakCount % 5 == 0)
+        {
+            SoundManager.PlayOneShotSound(SoundManager.Sound.GainStreak);
+            StartCoroutine(StreakChangeColorFlash(GetCurrentStreakColor()));
+        }
     }
 
     private void EndStreak()
@@ -119,8 +122,10 @@ public class StreakLogic : MonoBehaviour
         if (_streakCount > 3)
         {
             SoundManager.PlayOneShotSound(SoundManager.Sound.LoseStreak);
-            SpawnIndicator(PlayerController.Instance.transform.position + new Vector3(0 , 0.75f, 0), true);
+            SpawnStreakEndedIndicator(PlayerController.Instance.transform.position + new Vector3(0 , 0.75f, 0));
         }
+        
+        StartCoroutine(StreakChangeColorFlash(Color.red));
         SetStreakCount(0);
         
     }
@@ -128,29 +133,60 @@ public class StreakLogic : MonoBehaviour
     private void SetStreakCount(int newStreakCount)
     {
         _streakCount = newStreakCount;
+        NextStreakStageReached();
         StreakReached?.Invoke(_streakCount);
     }
 
-    private void SpawnIndicator(Vector3 pos, bool streakEnded = false)
+    private void SpawnStreakEndedIndicator(Vector3 pos)
     {
         GameObject indicator = Instantiate(_streakIndicator, pos, Quaternion.identity);
+        indicator.transform.SetParent(GameManager.Instance.transform);
         indicator.transform.position = pos;
         StreakIndicator indicatorScript = indicator.GetComponent<StreakIndicator>();
-        indicatorScript.Activate(_streakCount, streakEnded);
+        indicatorScript.Activate("Streak Over", GetCurrentStreakColor());
     }
-
+    
     private void SpawnBounceIndicator(Vector3 pos)
     {
-        
         GameObject indicator = Instantiate(_streakIndicator, pos, Quaternion.identity);
+        indicator.transform.SetParent(GameManager.Instance.transform);
         indicator.transform.position = pos;
         StreakIndicator indicatorScript = indicator.GetComponent<StreakIndicator>();
-        indicatorScript.Activate(_streakCount);
-        indicatorScript.SetText("Bounce Kill");
+        indicatorScript.Activate("Bounce Kill", GetCurrentStreakColor());
     }
 
     public int CurrentStreak()
     {
         return _streakCount;
+    }
+
+    public List<ColorStreakAmountPair> GetColorList()
+    {
+        return _colorList;
+    }
+    
+    private IEnumerator StreakChangeColorFlash(Color color)
+    {
+        ColorsController.Instance.StartGenericColorFlash(0.15f, color);
+        yield return new WaitForSeconds(0.25f);
+        ColorsController.Instance.StartGenericColorFlash(0.15f, color);
+    }
+    
+    private Color GetColorFromStreak(int streakAmount)
+    {
+        for ( int i = _colorList.Count - 1; i > 0; i--)
+        {
+            if (streakAmount >= _colorList[i].StreakAmount)
+            {
+                return _colorList[i].Color;
+            }
+        }
+
+        return _colorList[0].Color;
+    }
+
+    public Color GetCurrentStreakColor()
+    {
+        return GetColorFromStreak(_streakCount);
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _powerUpTimeIndicatorBar;
     [SerializeField] private GameObject _powerUpTimeIndicatorContentHolder;
     [SerializeField] private TMP_Text _scoreText;
+    [SerializeField] private TMP_Text _addScoreText;
     [SerializeField] private TMP_Text _timeText;
     [SerializeField] private TMP_Text _powerUpHintText;
     [SerializeField] private TMP_Text _powerUpNameText;
@@ -36,6 +36,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _gameOverVisualEffectPrefab;
     
     [SerializeField] private CameraManager _cameraManager;
+
+    [SerializeField] private TMP_Text _streakTextUI;
+    [SerializeField] private List<Image> _streakSquares;
     
     private Vector3 _scoreTextStartPos;
     private Vector3 _timeTextStartPos;
@@ -54,16 +57,30 @@ public class UIManager : MonoBehaviour
     private bool _scoreBreakdownRunning;
     
     private static readonly int GameOver = Animator.StringToHash("GameOver");
+
+    private List<TMP_Text> _currentlyCountingNumbersInField = new List<TMP_Text>();
+    private int _currentlyShownScore;
+    private bool _currentlyShowingAddScore;
+
+    private Color _squareStartingColor;
+    private Vector3 _startingSquareScale;
+    private bool _newStreakStageAnimRunning;
+    
     private void Awake()
     {
         GameStateManager.GameStateChanged += ReactToGameStateChange;
         PlayerController.OnPlayerDeath += GameOverCondition;
+        ScoreManager.ScoreAdded += ShowScoreAdded;
+        StreakLogic.StreakReached += DisplayStreakUI;
+        
     }
 
     private void OnDestroy()
     {
         GameStateManager.GameStateChanged -= ReactToGameStateChange;
         PlayerController.OnPlayerDeath -= GameOverCondition;
+        ScoreManager.ScoreAdded -= ShowScoreAdded;
+        StreakLogic.StreakReached -= DisplayStreakUI;
     }
 
     private void Start ()
@@ -76,7 +93,9 @@ public class UIManager : MonoBehaviour
         _scoreTextStartPos = _scoreText.transform.position;
         _timeTextStartPos = _timeText.transform.position;
         _upgradeHintStartPos = _powerUpHintText.transform.position;
-        
+        _squareStartingColor = _streakSquares[0].color;
+        _startingSquareScale = _streakSquares[0].transform.localScale;
+
     }
 
     private void Update()
@@ -90,8 +109,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateUIText()
     {
-        _scoreText.text = "Score: " + ScoreManager.Instance.GetCurrentDisplayScore();
-        _timeText.text = "Time: " + gameManager._timeSinceGameStarted.ToString("0.00");
+        _timeText.text = "Time: " + gameManager._timeSinceGameStarted.ToString("N1");
     }
 
     private void ReactToGameStateChange(GameStateManager.GameState newState)
@@ -153,45 +171,50 @@ public class UIManager : MonoBehaviour
         }
         _scoreBreakdownRunning = true;
         
-        List<int> finalScoreBreakdown = ScoreManager.Instance.GetEndScoreBreakdownList();
+        var finalScoreBreakdown = ScoreManager.Instance.GetEndScoreBreakdownList();
         
         _finalScoreText.enabled = true;
 
-        float duration = 0.5f;
+        const float duration = 0.5f;
         
-        StartCoroutine(CountNumberUp(_enemiesKilledText,"Enemy Score: ", duration, 0, finalScoreBreakdown[0]));
+        StartCoroutine(CountNumberToEnd(_enemiesKilledText,"Enemy Score: ", duration, 0, finalScoreBreakdown[0]));
         
-        StartCoroutine(CountNumberUp(_streakBonusText,"Streak Score: ", duration, 0, finalScoreBreakdown[1], duration));
+        StartCoroutine(CountNumberToEnd(_streakBonusText,"Streak Score: ", duration, 0, finalScoreBreakdown[1], duration));
         
-        StartCoroutine(CountNumberUp(_roomsCleardText,"Room Score: ", duration, 0, finalScoreBreakdown[2], duration * 2f));
+        StartCoroutine(CountNumberToEnd(_roomsCleardText,"Room Score: ", duration, 0, finalScoreBreakdown[2], duration * 2f));
         
-        StartCoroutine(CountNumberUp(_timeDeductionText,"Bounce Score: ", duration, 0, finalScoreBreakdown[3], duration * 3f));
+        StartCoroutine(CountNumberToEnd(_timeDeductionText,"Bounce Score: ", duration, 0, finalScoreBreakdown[3], duration * 3f));
         
-        StartCoroutine(CountNumberUp(_finalScoreText,"Total Score: ", duration, 0, ScoreManager.Instance.GetCurrentDisplayScore(), duration * 4f));
+        StartCoroutine(CountNumberToEnd(_finalScoreText,"Total Score: ", duration, 0, ScoreManager.Instance.GetCurrentDisplayScore(), duration * 4f));
         
     }
     
-    private IEnumerator CountNumberUp(TMP_Text textField,  string staticText, float duration, int start, int end, float waitTime = 0)
+    private IEnumerator CountNumberToEnd(TMP_Text textField,  string staticText, float duration, int start, int end, float waitTime = 0, bool scaleUp = true)
     {
-        yield return new WaitForSeconds(waitTime + 0.25f);
-        Vector3 saveScale = textField.transform.localScale;
-        textField.gameObject.SetActive(true);
-        textField.transform.localScale = Vector3.zero;
-        textField.transform.DOScale(saveScale, 0.25f);
-        textField.text = staticText;
+        _currentlyCountingNumbersInField.Add(textField);
         
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(waitTime);
+
+        if (scaleUp)
+        {
+            Vector3 saveScale = textField.transform.localScale;
+            textField.transform.localScale = Vector3.zero;
+            textField.transform.DOScale(saveScale, 0.25f);
+        }
+        
+        textField.gameObject.SetActive(true);
+        textField.text = staticText;
         
         float elapsedTime = 0;
         while (elapsedTime < duration)
         {
-            textField.text = staticText + Mathf.Lerp(start, end, (elapsedTime / duration)).ToString("0");
+            textField.text = staticText + Mathf.Lerp(start, end, (elapsedTime / duration)).ToString("N0");
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        textField.text = staticText + end;
-
+        textField.text = staticText + end.ToString("N0");
+        _currentlyCountingNumbersInField.Remove(textField);
     }
 
     public void DisplayLeaderboard()
@@ -276,5 +299,145 @@ public class UIManager : MonoBehaviour
     }
     public void PlayButtonSound(){
         SoundManager.PlayOneShotSound(SoundManager.Sound.ButtonSelect);
+    }
+
+    private void ShowScoreAdded(int scoreAdded)
+    {
+        UpdateScoreDisplay();
+        
+        // Commented since it was too much happening 
+        /*if (_currentlyShowingAddScore)
+        {
+            int currentlyShownInt = int.Parse(_addScoreText.text.Substring(1,_addScoreText.text.Length - 2));
+            _addScoreText.text = "+" + (currentlyShownInt + scoreAdded).ToString();
+            return;
+        }
+        
+        _addScoreText.text = "+" + scoreAdded;
+        _addScoreText.gameObject.SetActive(true);
+        Vector3 saveScale = _addScoreText.transform.localScale;
+        _addScoreText.transform.localScale = Vector3.zero;
+        _currentlyShowingAddScore = true;
+        _addScoreText.transform.DOScale(saveScale, 0.5f).OnComplete(() =>
+        {
+            _currentlyShowingAddScore = false;
+            _addScoreText.gameObject.SetActive(false);
+            UpdateScoreDisplay();
+        });*/
+    }
+
+    private void UpdateScoreDisplay()
+    {
+        if (_currentlyCountingNumbersInField.Contains(_scoreText))
+        {
+            return;
+        }
+        StartCoroutine(CountNumberToEnd(_scoreText, "Score: ", 0.5f, _currentlyShownScore,
+            ScoreManager.Instance.GetCurrentDisplayScore(), 0, false));
+        _currentlyShownScore = ScoreManager.Instance.GetCurrentDisplayScore();
+    }
+
+    private void SquareSpawnAnim(Image squareRenderer)
+    {
+        if (_newStreakStageAnimRunning)
+        {
+            return;
+        }
+        
+        Transform t = squareRenderer.transform;
+        squareRenderer.color = StreakLogic.Instance.GetCurrentStreakColor();
+        t.localScale = Vector3.zero;
+        t.DOScale(_startingSquareScale * 1.25f, 0.25f).OnComplete(() =>
+        {
+            t.DOScale(_startingSquareScale, 0.125f).OnComplete(() => 
+            {
+                if (_streakSquares.IndexOf(squareRenderer) == _streakSquares.Count - 1)
+                {
+                    StartCoroutine(StreakNextStepReached());
+                }
+            });
+        });
+    }
+
+    private void CleanUpSquaresFromIndex(int index)
+    {
+        for(int i = 0; i < _streakSquares.Count; i++)
+        {
+            if (i < index + 1)
+            {
+                _streakSquares[i].color = StreakLogic.Instance.GetCurrentStreakColor();
+                _streakSquares[i].transform.localScale = _startingSquareScale;
+            }
+            else
+            {
+                _streakSquares[i].color = _squareStartingColor;
+                _streakSquares[i].transform.localScale = _startingSquareScale;
+            }
+        }
+    }
+
+    private void ChangeAllSquaresColor(Color color)
+    {
+        foreach (var square in _streakSquares)
+        {
+            square.color = color;
+        }
+    }
+    
+    private IEnumerator StreakNextStepReached()
+    {
+        _newStreakStageAnimRunning = true;
+        Color newColor = _streakSquares[0].color;
+        yield return new WaitForSeconds(0.1f);
+        ChangeAllSquaresColor(_squareStartingColor);
+        yield return new WaitForSeconds(0.1f);
+        ChangeAllSquaresColor(newColor);
+        yield return new WaitForSeconds(0.1f);
+        ChangeAllSquaresColor(_squareStartingColor);
+        yield return new WaitForSeconds(0.1f);
+        ChangeAllSquaresColor(newColor);
+        yield return new WaitForSeconds(0.1f);
+        SquareDespawnAnim(true);
+       
+    }
+    
+
+    private void SquareDespawnAnim(bool nextStep = false)
+    {
+        foreach (var square in _streakSquares)
+        {
+            Transform t = square.transform;
+            t.DOScale(Vector3.zero, 0.125f).OnComplete(() =>
+            {
+                square.color = _squareStartingColor;
+                t.DOScale(_startingSquareScale, 0.125f).OnComplete(() =>
+                {
+                    if (nextStep)
+                    {
+                        _newStreakStageAnimRunning = false;
+                        CleanUpSquaresFromIndex((StreakLogic.Instance.CurrentStreak()%5) - 1);
+                    }
+                });
+               
+            });
+            
+        }
+    }
+    
+    private void DisplayStreakUI(int newStreak)
+    {
+        _streakTextUI.text = "Streak X" + newStreak;
+        _streakTextUI.color = StreakLogic.Instance.GetCurrentStreakColor();
+
+        if (newStreak == 0)
+        {
+            SquareDespawnAnim();
+            return;
+        }
+
+        int index = (newStreak-1)%5;
+        SquareSpawnAnim(_streakSquares[index]);
+        CleanUpSquaresFromIndex(index);
+
     }
 }

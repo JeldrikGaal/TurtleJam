@@ -26,16 +26,7 @@ public class ProjectileJuice : MonoBehaviour
 
     [SerializeField] private Color _inactiveColor;
     
-    [SerializeField] private List<ColorStreakAmountPair> _colorList;
-    
-    
-    
-    [Serializable]
-    struct ColorStreakAmountPair
-    {
-        public Color Color;
-        public int StreakAmount;
-    }
+    [SerializeField] private List<StreakLogic.ColorStreakAmountPair> _colorList;
 
     private void Awake()
     {
@@ -53,6 +44,7 @@ public class ProjectileJuice : MonoBehaviour
         _cameraManager = Camera.main.GetComponent<CameraManager>();
         _playerShieldAnimator = GetComponent<Animator>();
         _startingColor = _spriteRenderer.color;
+        _colorList = StreakLogic.Instance.GetColorList();
     }
 
     public void ExplosionEffect(Vector2 pos)

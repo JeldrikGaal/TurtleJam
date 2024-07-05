@@ -12,14 +12,16 @@ public class ScoreManager : MonoBehaviour
     private int _roomClearedScore;
     private int _streakScore;
     
-    
     [SerializeField] private int _enemyBasePoints;
     [SerializeField] private int _enemyScoreMod;
     [SerializeField] private int _streakScoreMod;
     [SerializeField] private int _bounceKillMod;
     [SerializeField] private int _roomsClearedMod;
+
+    [SerializeField] private GameObject _indicatorObject;
     
     public static ScoreManager Instance;
+    public static event Action<int> ScoreAdded;
     
     private void Awake()
     {
@@ -32,35 +34,48 @@ public class ScoreManager : MonoBehaviour
             Destroy(gameObject);
         }
         
-        StreakLogic.BounceKillDetected += ReactToBounceKill;
-        EnemyController.EnemyDeath     += ReactToEnemyKill;
-        StreakLogic.StreakReached      += ReactToStreakExtended;
-        ExitTrigger.roomExited         += ReactToRoomCleared;
+        StreakLogic.BounceKillDetected           += ReactToBounceKill;
+        EnemyController.EnemyDeathWithLocation   += ReactToEnemyKill;
+        StreakLogic.StreakReached                += ReactToStreakExtended;
+        ExitTrigger.roomExited                   += ReactToRoomCleared;
         
     }
     
     private void OnDestroy()
     {
-        StreakLogic.BounceKillDetected -= ReactToBounceKill;
-        EnemyController.EnemyDeath     -= ReactToEnemyKill;
-        StreakLogic.StreakReached      -= ReactToStreakExtended;
-        ExitTrigger.roomExited         -= ReactToRoomCleared;
+        StreakLogic.BounceKillDetected          -= ReactToBounceKill;
+        EnemyController.EnemyDeathWithLocation  -= ReactToEnemyKill;
+        StreakLogic.StreakReached               -= ReactToStreakExtended;
+        ExitTrigger.roomExited                  -= ReactToRoomCleared;
         
     }
 
     private void ReactToBounceKill()
     {
+        
         int scoreToAdd = _bounceKillMod;
         _bounceKillScore += scoreToAdd;
+        Debug.Log(scoreToAdd);
         AddScore(scoreToAdd);   
     }
 
-    private void ReactToEnemyKill()
+    private void ReactToEnemyKill(Vector3 position)
     {
         int scoreToAdd = _enemyBasePoints * _enemyScoreMod;
         _enemyKillScore += scoreToAdd;
-        AddScore(scoreToAdd);   
+        AddScore(scoreToAdd);
+
+        scoreToAdd += StreakLogic.Instance.CurrentStreak() * _streakScoreMod;
+        SpawnScorePopup(position, scoreToAdd);
     }
+
+    private void SpawnScorePopup(Vector3 position, int score)
+    {
+        GameObject indicator = Instantiate(_indicatorObject, position, Quaternion.identity);
+        StreakIndicator indicatorScript = indicator.GetComponent<StreakIndicator>();
+        indicatorScript.Activate("+" + score, StreakLogic.Instance.GetCurrentStreakColor());
+    }
+    
 
     private void ReactToRoomCleared(ExitTrigger exitTrigger)
     {
@@ -100,8 +115,9 @@ public class ScoreManager : MonoBehaviour
     private void AddScore(int scoreToAdd)
     {
         _currentTotalScore += scoreToAdd;
+        ScoreAdded?.Invoke(scoreToAdd);
+        
     }
-
 
     public int GetCurrentDisplayScore()
     {
