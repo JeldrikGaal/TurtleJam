@@ -143,7 +143,7 @@ public class StreakLogic : MonoBehaviour
         indicator.transform.SetParent(GameManager.Instance.transform);
         indicator.transform.position = pos;
         StreakIndicator indicatorScript = indicator.GetComponent<StreakIndicator>();
-        indicatorScript.Activate("Streak Over", GetCurrentStreakColor());
+        indicatorScript.Activate("Streak Over", Color.red);
     }
     
     private void SpawnBounceIndicator(Vector3 pos)
@@ -171,13 +171,17 @@ public class StreakLogic : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         ColorsController.Instance.StartGenericColorFlash(0.15f, color);
     }
+
+   
     
     private Color GetColorFromStreak(int streakAmount)
     {
+        Debug.Log(streakAmount);
         for ( int i = _colorList.Count - 1; i > 0; i--)
         {
             if (streakAmount >= _colorList[i].StreakAmount)
             {
+                Debug.Log("I:" + i);
                 return _colorList[i].Color;
             }
         }
@@ -185,6 +189,11 @@ public class StreakLogic : MonoBehaviour
         return _colorList[0].Color;
     }
 
+    public Color GetPreviousStreakColor()
+    {
+        return GetColorFromStreak(_streakCount - 4);
+    }
+    
     public Color GetCurrentStreakColor()
     {
         return GetColorFromStreak(_streakCount);
