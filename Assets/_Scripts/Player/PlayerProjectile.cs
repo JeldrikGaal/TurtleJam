@@ -205,8 +205,6 @@ public class PlayerProjectile : MonoBehaviour
     private void ShootProjectile()
     {
         ProjectileShot?.Invoke();
-
-        KillCurrentIntersectingEnemies();
         
         Vector3 shieldDirection = GetShieldDirection();
         
@@ -216,12 +214,14 @@ public class PlayerProjectile : MonoBehaviour
         _distanceTravelled = 0;
         SoundManager.PlayOneShotSound(SoundManager.Sound.PlayerProjectileFire);
         ShootVFX();
+        
+        KillCurrentIntersectingEnemies();
     }
 
 
     private void KillCurrentIntersectingEnemies()
     {
-        var overlaps = Physics2D.OverlapCircleAll(transform.position, _circleCollider2D.radius).ToList();
+        var overlaps = Physics2D.OverlapCircleAll(transform.position, _circleCollider2D.radius * 1.5f).ToList();
         foreach (var collision in overlaps)
         {
             if (collision.CompareTag("Enemy"))
