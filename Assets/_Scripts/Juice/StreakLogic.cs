@@ -6,14 +6,16 @@ public class StreakLogic : MonoBehaviour
     [SerializeField] private GameObject _streakIndicator;
     
     private int _streakCount;
-    private Action _receivedAction = Action.None;
+    private ActionType _receivedActionType = ActionType.None;
     private bool _receivedBounce;
 
     public static event Action<int> StreakReached;
 
+    public static event Action BounceKillDetected;
+
     public static StreakLogic Instance;
     
-    private enum Action
+    private enum ActionType
     {
         Shot,
         Kill,
@@ -55,7 +57,7 @@ public class StreakLogic : MonoBehaviour
 
     private void ReactToShot()
     {
-        _receivedAction = Action.Shot;
+        _receivedActionType = ActionType.Shot;
         _receivedBounce = false;
     }
     
@@ -66,7 +68,7 @@ public class StreakLogic : MonoBehaviour
 
     private void ReactToReturn()
     {
-        if (_receivedAction == Action.Shot)
+        if (_receivedActionType == ActionType.Shot)
         {
             EndStreak();
         }
@@ -83,7 +85,7 @@ public class StreakLogic : MonoBehaviour
             ExtendStreak(pos);
         }
         
-        _receivedAction = Action.Kill;
+        _receivedActionType = ActionType.Kill;
     }
 
     private void StartStreak(Vector3 pos)
@@ -98,6 +100,7 @@ public class StreakLogic : MonoBehaviour
         if (_receivedBounce)
         {
             extensionCount++;
+            BounceKillDetected.Invoke();
         }
         SetStreakCount(extensionCount);
        

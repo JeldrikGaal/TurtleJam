@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int _score;
     private int _streakBonusScoreCount;
     private int _enemyScore;
+    private int _bounceKillAmount;
     public float _timeSinceGameStarted;
     
     // Cursor
@@ -20,9 +21,10 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private GameObject _gameOverVisualEffectPrefab;
     
-    [SerializeField] private float _timePlayedScoreMod;
+    [SerializeField] private int _timePlayedScoreMod;
     [SerializeField] private int _roomsClearedMod;
     [SerializeField] private int _scoreMod;
+    [SerializeField] private int _bounceKillMod;
     [SerializeField] private Vector2 _roomBounds;
 
     private void Awake()
@@ -35,7 +37,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        StreakLogic.BounceKillDetected += CountBounceKill;
     }
+
+    private void OnDestroy()
+    {
+        StreakLogic.BounceKillDetected -= CountBounceKill;
+    }
+
     private void Start()
     {
         InitializeValuesAndReferences();
@@ -61,6 +71,12 @@ public class GameManager : MonoBehaviour
         _hotSpot = new Vector2(_cursorTexture.width / 2f, _cursorTexture.height / 2f);
         Cursor.SetCursor(_cursorTexture, _hotSpot, CursorMode);
     }
+    
+    private void CountBounceKill()
+    {
+        _bounceKillAmount++;
+    }
+
     
     void Update()
     {
@@ -92,20 +108,39 @@ public class GameManager : MonoBehaviour
     public float CalculateScore()
     {
         StatisticManager.Statistics stats = StatisticManager.Instance.GetStatistics();
-        return (int)(_timeSinceGameStarted * _timePlayedScoreMod * 0f) + (_score * _scoreMod ) + (stats.RoomsCleared * _roomsClearedMod) ;
+        return CalcEnemyScore() + CalcStreakScore() + CalcRoomScore() +  CalcBounceScore();
     }
 
-    public List<int> GetEndScoreBreakdownList()
+    private int CalcEnemyScore()
+    {
+        return _enemyScore * _scoreMod;
+    }
+
+    private int CalcStreakScore()
+    {
+        return _streakBonusScoreCount * _scoreMod;
+    }
+    
+    private int CalcRoomScore()
     {
         StatisticManager.Statistics stats = StatisticManager.Instance.GetStatistics();
-        List<int> scoreBreakdown = new List<int>();
-        scoreBreakdown.Add(_enemyScore * _scoreMod);
-        scoreBreakdown.Add(_streakBonusScoreCount * _scoreMod);
-        scoreBreakdown.Add(stats.RoomsCleared * _roomsClearedMod);
-        scoreBreakdown.Add((int)(_timeSinceGameStarted * _timePlayedScoreMod));
-        
-       
-        return scoreBreakdown;
+        return stats.RoomsCleared* _roomsClearedMod;
+    }
+    
+    private int CalcBounceScore()
+    {
+        return _bounceKillAmount  * _bounceKillMod;
+    }
+    
+    public List<int> GetEndScoreBreakdownList()
+    {
+        return new List<int>
+        {
+            CalcEnemyScore(),
+            CalcStreakScore(),
+            CalcRoomScore(),
+            CalcBounceScore()
+        };
     }
     
     public void SaveScoreForPlayer(float score) 

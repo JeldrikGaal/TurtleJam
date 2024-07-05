@@ -171,9 +171,9 @@ public class UIManager : MonoBehaviour
         
         StartCoroutine(CountNumberUp(_roomsCleardText,"Room Score: ", duration, 0, finalScoreBreakdown[2], duration * 2f));
         
-        //StartCoroutine(CountNumberUp(_timeDeductionText,"Time Score: ", duration, 0, finalScoreBreakdown[3], duration * 3f));
+        StartCoroutine(CountNumberUp(_timeDeductionText,"Bounce Score: ", duration, 0, finalScoreBreakdown[3], duration * 3f));
         
-        StartCoroutine(CountNumberUp(_finalScoreText,"Total Score: ", duration, 0, gameManager.CalculateScore(), duration * 3f));
+        StartCoroutine(CountNumberUp(_finalScoreText,"Total Score: ", duration, 0, gameManager.CalculateScore(), duration * 4f));
         
     }
     

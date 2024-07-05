@@ -272,7 +272,7 @@ public class PlayerProjectile : MonoBehaviour
     }
 
     private bool RequestBounce()
-    { ;
+    { 
         BounceVFX(transform.position);
         
         if (IsBounceAllowed())
@@ -289,6 +289,7 @@ public class PlayerProjectile : MonoBehaviour
     {
         _moveDirectionBeforeBounce = _rigidBody2D.velocity.normalized;
         _bouncedThisFrame = true;
+        
         ProjectileBounce?.Invoke();
         
         Vector2 newDirection = Vector2.Reflect(_rigidBody2D.velocity.normalized, normal).normalized;
