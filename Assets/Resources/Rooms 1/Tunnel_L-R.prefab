@@ -228,7 +228,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3944406618557742498, guid: 43e8435a508dead4cb232448abf47e03, type: 3}
       propertyPath: IgnoreStage
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3944406618557742498, guid: 43e8435a508dead4cb232448abf47e03, type: 3}
       propertyPath: _infoHolder
