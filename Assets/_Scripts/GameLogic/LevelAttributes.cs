@@ -13,14 +13,16 @@ public class LevelAttributes : MonoBehaviour
     [SerializeField, EnumToggleButtons] private LevelController.Direction _exit;
     private GameObject _entranceDoor;
     private GameObject _exitDoor;
+    private ExitTrigger _exitTrigger; 
     
     private List<SpawnerController> _spawners;
     private TransitionRoom _transitionRoom;
-    
 
     [HideInInspector] public Vector2 EntranceOffset;
 
     private int _currentDifficulty;
+    private int _initialEnemyCount;
+    private bool _roomActive;
 
     private void Awake()
     {
@@ -36,9 +38,20 @@ public class LevelAttributes : MonoBehaviour
         }
 
         _entranceDoor = GetComponentInChildren<EntranceTrigger>().gameObject;
-        _exitDoor = GetComponentInChildren<ExitTrigger>().gameObject;
+        
+        _exitTrigger = GetComponentInChildren<ExitTrigger>();
+        _exitDoor = _exitTrigger.gameObject;
 
         EntranceOffset = transform.position - _entranceDoor.transform.position;
+
+        ExitTrigger.roomExited += ReactToRoomExited;
+        EnemyController.EnemyDeath += ReactToEnemyDeathWithDelay;
+    }
+
+    private void OnDestroy()
+    {
+        ExitTrigger.roomExited -= ReactToRoomExited;
+        EnemyController.EnemyDeath -= ReactToEnemyDeathWithDelay;
     }
 
     public void InitializeRoom()
@@ -63,6 +76,41 @@ public class LevelAttributes : MonoBehaviour
         }
     }
 
+    private int CountActiveEnemies()
+    {
+        int count = 0;
+        foreach (var controller in transform.GetComponentsInChildren<EnemyController>())
+        {
+            if (controller.gameObject.activeInHierarchy)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    private void ReactToRoomExited(ExitTrigger exitTrigger)
+    {
+        if (_exitTrigger == exitTrigger)
+        {
+            _roomActive = false;
+        }
+    }
+
+    private void ReactToEnemyDeathWithDelay()
+    {
+       Invoke(nameof(ReactToEnemyDeath), 0.05f);
+    }
+
+    private void ReactToEnemyDeath()
+    {
+        if (CountActiveEnemies() == 0 && _initialEnemyCount > 2 && _roomActive)
+        {
+            PopupProvider.Instance.ShowPopup("RoomClear");
+        }
+    }
+    
     public void ActivateRoom(int currentDifficulty)
     {
         foreach (var spawner in _spawners)
@@ -76,6 +124,9 @@ public class LevelAttributes : MonoBehaviour
         }
 
         _currentDifficulty = currentDifficulty;
+        
+        _initialEnemyCount = CountActiveEnemies();
+        _roomActive = true;
     }
 
     public void SetupEntrance(LevelController.Direction entranceDirection)

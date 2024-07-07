@@ -55,14 +55,6 @@ public class StreakLogic : MonoBehaviour
         PlayerProjectile.ProjectileReturning        -= ReactToReturn;
         PlayerProjectile.ProjectileBounce           -= ReactToBounce;
     }
-    
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            SetStreakCount(_streakCount + 10);
-        }
-    }
 
     private void ReactToShot()
     {
