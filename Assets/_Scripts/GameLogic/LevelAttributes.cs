@@ -105,9 +105,17 @@ public class LevelAttributes : MonoBehaviour
 
     private void ReactToEnemyDeath()
     {
-        if (CountActiveEnemies() == 0 && _initialEnemyCount > 2 && _roomActive)
+        if (CountActiveEnemies() == 0 && _roomActive)
         {
-            PopupProvider.Instance.ShowPopup("RoomClear");
+            if (LevelController.Instance.IsNextRoomTransition())
+            {
+                PopupProvider.Instance.ShowPopup("StageClear");
+            }
+            else
+            {
+                PopupProvider.Instance.ShowPopup("RoomClear");
+            }
+            
         }
     }
     
@@ -154,6 +162,11 @@ public class LevelAttributes : MonoBehaviour
     public bool IsLevelEligible(LevelController.Direction neededEntrance, int neededDifficulty)
     {
         return _entrance == neededEntrance && neededDifficulty >= _minimumDifficulty;
+    }
+
+    public bool IsTransitionRoom()
+    {
+        return _transitionRoom;
     }
     
     #if UNITY_EDITOR

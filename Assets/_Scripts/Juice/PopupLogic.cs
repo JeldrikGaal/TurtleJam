@@ -74,7 +74,7 @@ public class PopupLogic : MonoBehaviour
         transform.localPosition -= Vector3.right * Width;
         _animSequence = DOTween.Sequence();
         _animSequence.Append(transform.DOLocalMoveX(GetStartPos().x, _data.AnimInSpeed)).SetEase(Ease.InOutSine);
-        _animSequence.Insert(_data.AnimInSpeed, _textField.transform.DOPunchScale(_textField.transform.localScale * 1.001f, 0.25f));
+        //_animSequence.Insert(_data.AnimInSpeed, _textField.transform.DOPunchScale(_textField.transform.localScale * 1.001f, 0.25f));
         _animSequence.AppendInterval(_data.StayDuration);
         _animSequence.Append(transform.DOLocalMoveX(GetStartPos().x + Width, _data.AnimOutSpeed)).SetEase(Ease.InOutSine);
         _animSequence.OnComplete(() =>

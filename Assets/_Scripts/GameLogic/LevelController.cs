@@ -19,9 +19,12 @@ public class LevelController : MonoBehaviour
 
     private Transform _gridTransform;
     public static event Action<List<GameObject>> TileMapsChanged;
-
+    public static LevelController Instance;
+    
     private LevelAttributes _currentLevel;
     private LevelAttributes _nextLevel;
+
+    private bool _stageCleared;
     
     public enum Direction
     {
@@ -30,6 +33,18 @@ public class LevelController : MonoBehaviour
         Right,
         Down,
         None
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     private void OnEnable()
@@ -129,15 +144,6 @@ public class LevelController : MonoBehaviour
         return possibleRooms;
     }
     
-    private void Update()
-    {
-        // TODO: remove debugging
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            ProgressToNextStage();
-        }
-    }
-    
     public static Direction GetEntranceDirectionFromExitDirection(Direction exitDirection)
     {
         switch (exitDirection)
@@ -164,6 +170,12 @@ public class LevelController : MonoBehaviour
     
     public void ProgressToNextStage()
     {
+        if (_stageCleared)
+        {
+            PopupProvider.Instance.ShowPopup("StageClear");
+            _stageCleared = false;
+        }
+        
         _currentStageIndex++;
         
         // Loop last stage infinitely
@@ -183,13 +195,21 @@ public class LevelController : MonoBehaviour
         exitTrigger.InitiateTransition(_currentLevel.transform.Find("CamPosition").position);
         _nextLevel = CreateNextRoom();
         _currentLevel.ActivateRoom(_currentStageIndex);
-
-        
         
         Destroy(oldRoom.gameObject, 0.1f);
         
         var rooms = new List<GameObject>{ _currentLevel.gameObject, _nextLevel.gameObject};
         TileMapsChanged?.Invoke(rooms);
+    }
+
+    public bool IsNextRoomTransition()
+    {
+        return _nextLevel.IsTransitionRoom();
+    }
+
+    public void SetStageCleared()
+    {
+        _stageCleared = true;
     }
     
 }
