@@ -34,14 +34,6 @@ public class PopupProvider : MonoBehaviour
       PopupLogic.PopupEnded -= ReactToPopupAnimEnd;
    }
 
-   private void Update()
-   {
-      if (Input.GetKeyDown(KeyCode.Keypad2))
-      {
-         ShowPopup("RoomClear");
-      }
-   }
-
    private void SetupDict()
    {
       foreach (var entry in _dataList)
