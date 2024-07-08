@@ -4,12 +4,12 @@ public class BubbleShieldPowerUpLogic : BasePowerUpLogic
 
    private void Awake()
    {
-      PlayerController.NewBubbleShieldValueJustDropped += NoWayTheyDroppedANewShieldValue;
+      PlayerController.BubbleShieldChange += NoWayTheyDroppedAShieldValue;
    }
    protected override void OnDestroy()
    {
       base.OnDestroy();
-      PlayerController.NewBubbleShieldValueJustDropped -= NoWayTheyDroppedANewShieldValue;
+      PlayerController.BubbleShieldChange -= NoWayTheyDroppedAShieldValue;
    }
 
    protected override void Start()
@@ -18,7 +18,7 @@ public class BubbleShieldPowerUpLogic : BasePowerUpLogic
       _shieldData = (BubbleShieldPowerUpHolder)_data;
    }
 
-   private void NoWayTheyDroppedANewShieldValue(int newShieldValue)
+   private void NoWayTheyDroppedAShieldValue(int newShieldValue)
    {
       if (newShieldValue <= 0 )
       {
@@ -37,6 +37,5 @@ public class BubbleShieldPowerUpLogic : BasePowerUpLogic
    {
       base.DeactivatePowerUp();
       _playerController.RequestShieldReset();
-     
    }
 }

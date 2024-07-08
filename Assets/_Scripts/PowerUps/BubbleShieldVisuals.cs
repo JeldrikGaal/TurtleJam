@@ -7,12 +7,12 @@ public class BubbleShieldVisuals : MonoBehaviour
 
     private void Awake()
     {
-        PlayerController.NewBubbleShieldValueJustDropped += ShieldEndedVisuals;
+        PlayerController.BubbleShieldChange += ShieldEndedVisuals;
     }
 
     private void OnDisable()
     {
-        PlayerController.NewBubbleShieldValueJustDropped -= ShieldEndedVisuals;
+        PlayerController.BubbleShieldChange -= ShieldEndedVisuals;
     }
 
     private void Start()

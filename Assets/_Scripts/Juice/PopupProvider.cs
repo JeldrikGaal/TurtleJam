@@ -54,7 +54,7 @@ public class PopupProvider : MonoBehaviour
       }
    }
 
-   public void ShowPopup(string id)
+   public void ShowPopup(string id, string bonusText = "")
    {
       if (_runningPopupAlready)
       {
@@ -63,7 +63,7 @@ public class PopupProvider : MonoBehaviour
       
       _popupLogic.gameObject.SetActive(true);
       _popupLogic.SetUp(_popupDataDict[id]);
-      _popupLogic.Activate();
+      _popupLogic.Activate(bonusText);
       _runningPopupAlready = true;
    }
 

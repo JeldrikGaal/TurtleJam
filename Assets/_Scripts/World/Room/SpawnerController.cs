@@ -42,6 +42,7 @@ public class SpawnerController : MonoBehaviour
         SpawnerInformationHolder infoHolder = GetRandomInfoHolder();
         
         _currentSpawnedObject = Instantiate(infoHolder.ObjectToSpawn, transform.position, Quaternion.identity , _levelAttributes.transform);
+        
         _currentSpawnedObject.SetActive(false);
         
     }

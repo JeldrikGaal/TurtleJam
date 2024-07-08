@@ -26,8 +26,9 @@ public class PopupLogic : MonoBehaviour
         public float StayDuration;
         public float AnimInSpeed;
         public float AnimOutSpeed;
+        public BonusTextPos BonusTextPos;
         
-        public PopupData(string text,string id, PopupPosition position, float stayDuration, float animInSpeed, float animOutSpeed)
+        public PopupData(string text,string id, PopupPosition position, float stayDuration, float animInSpeed, float animOutSpeed, BonusTextPos bonusTextPos)
         {
             Text = text;
             ID = id;
@@ -35,6 +36,7 @@ public class PopupLogic : MonoBehaviour
             StayDuration = stayDuration;
             AnimInSpeed = animInSpeed;
             AnimOutSpeed = animOutSpeed;
+            BonusTextPos = bonusTextPos;
         }
     }
     
@@ -44,15 +46,40 @@ public class PopupLogic : MonoBehaviour
         MiddleScreen
     }
     
+    public enum BonusTextPos
+    {
+        Start,
+        End,
+        None
+    }
+    
     public void SetUp(PopupData data)
     {
         _data = data;
     }
 
-    public void Activate()
+    public void Activate(string bonusText)
     {
-        _textField.text = _data.Text;
+        SetText(bonusText);
         PlayAnim();
+    }
+
+    private void SetText(string bonusText)
+    {
+        switch (_data.BonusTextPos)
+        {
+            case BonusTextPos.Start:
+                _textField.text = _data.Text + " " + bonusText;
+                break;
+            case BonusTextPos.End:
+                _textField.text = bonusText + " " + _data.Text;
+                break;
+            case BonusTextPos.None:
+                _textField.text = _data.Text;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private Vector3 GetStartPos()

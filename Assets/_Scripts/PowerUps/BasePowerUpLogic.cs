@@ -47,14 +47,14 @@ public class BasePowerUpLogic : MonoBehaviour
    {
       if (_activated)
       {
-         if (IsDurationOver())
+         /*if (IsDurationOver())
          {
             DeactivatePowerUp();
          }
          else
          {
-            _powerUpUI.PositionBarToPercent(GetCurrentProgressPercentage());
-         }
+            //_powerUpUI.PositionBarToPercent(GetCurrentProgressPercentage());
+         }*/
       }
    }
 
@@ -75,10 +75,12 @@ public class BasePowerUpLogic : MonoBehaviour
    protected virtual void ActivatePowerUp()
    {
       _activated = true;
-      StartTimer();
-      _powerUpUI.ShowPowerUpUI(_data);
+      //StartTimer();
+      //_powerUpUI.ShowPowerUpUI(_data);
       HidePowerUp();
       PowerUpActivated?.Invoke(this);
+      transform.SetParent(PlayerController.Instance.transform);
+      PopupProvider.Instance.ShowPopup("Collect", _data.DisplayName);
    }
    
    private void HidePowerUp()
@@ -91,7 +93,7 @@ public class BasePowerUpLogic : MonoBehaviour
    protected virtual void DeactivatePowerUp()
    {
       _activated = false;
-      _powerUpUI.HidePowerUpUI();
+      //_powerUpUI.HidePowerUpUI();
    }
    
    public void EnemyKill()
@@ -111,9 +113,10 @@ public class BasePowerUpLogic : MonoBehaviour
    
    private void RefreshTimer(float time)
    {
+      return;
       if (!_activated) return;
       _startingTme += time;
-      _powerUpUI.RefreshTimerEffect();
+      //_powerUpUI.RefreshTimerEffect();
    }
 
    private void StartTimer()

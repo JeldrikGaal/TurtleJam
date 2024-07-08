@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _shieldObject;
     
     [SerializeField] private SpriteRenderer _bubbleShieldVisuals;
-    public static event Action<int> NewBubbleShieldValueJustDropped;
+    public static event Action<int> BubbleShieldChange;
     
     private ShieldScript _shieldLogic;
     private PlayerProjectile _playerProjectile;
@@ -114,10 +114,10 @@ public class PlayerController : MonoBehaviour
         return _playerProjectile.IsShielding();
     }
 
-    public void Damage(float dmg)
+    public void Damage(float dmg, GameObject damageSource)
     {
         // TODO: Decide if we will need float dmg or int dmg
-        _health -= FilterDamageThroughBubbleShield((int)dmg);
+        _health -= FilterDamageThroughBubbleShield((int)dmg, damageSource);
         if (_health <= 0)
         {
             // TODO DIE SOUND
@@ -174,10 +174,15 @@ public class PlayerController : MonoBehaviour
     }
     
 
-    private int FilterDamageThroughBubbleShield(int dmg)
+    private int FilterDamageThroughBubbleShield(int dmg, GameObject dmgSource)
     {
         if (_currentBubbleShieldAmount > 0)
         {
+            var enemyController = dmgSource.GetComponent<EnemyController>();
+            if (enemyController)
+            {
+                enemyController.Die();
+            }
             _currentBubbleShieldAmount--;
             RefreshBubbleVisuals();
             SendBubbleChangedEvent(_currentBubbleShieldAmount);
@@ -189,7 +194,7 @@ public class PlayerController : MonoBehaviour
 
     private void SendBubbleChangedEvent(int bubbleAmount)
     {
-        NewBubbleShieldValueJustDropped?.Invoke(bubbleAmount);
+        BubbleShieldChange?.Invoke(bubbleAmount);
     }
 
     private void RefreshBubbleVisuals()

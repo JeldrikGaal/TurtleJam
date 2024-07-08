@@ -37,7 +37,7 @@ public class BulletController : MonoBehaviour
 
             if (collision.transform.CompareTag("Player"))
             {
-                collision.transform.GetComponent<PlayerController>().Damage(dmg);
+                collision.transform.GetComponent<PlayerController>().Damage(dmg, gameObject);
             }
             if (!collision.transform.CompareTag("Bullet"))
             {

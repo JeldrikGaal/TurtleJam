@@ -165,7 +165,7 @@ public class EnemyController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player")) 
         {
-            collision.gameObject.GetComponent<PlayerController>().Damage(5);
+            collision.gameObject.GetComponent<PlayerController>().Damage(5, gameObject);
         }
     }
 

@@ -2179,6 +2179,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _battleTransitionEffect: {fileID: 43556226}
   _spawnRoomCamPos: {fileID: 1391350610}
+--- !u!21 &755348691
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1 &797209589
 GameObject:
   m_ObjectHideFlags: 0
@@ -2406,47 +2441,21 @@ MonoBehaviour:
     StayDuration: 0.7
     AnimInSpeed: 0.15
     AnimOutSpeed: 0.15
+    BonusTextPos: 2
   - Text: Stage Cleared
     ID: StageClear
     Position: 1
     StayDuration: 1
     AnimInSpeed: 0.25
     AnimOutSpeed: 0.25
---- !u!21 &880137069
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
+    BonusTextPos: 2
+  - Text: Collected
+    ID: Collect
+    Position: 0
+    StayDuration: 0.75
+    AnimInSpeed: 0.2
+    AnimOutSpeed: 0.2
+    BonusTextPos: 0
 --- !u!1 &884288247
 GameObject:
   m_ObjectHideFlags: 0
@@ -3242,6 +3251,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1976114485}
     m_Modifications:
+    - target: {fileID: 461171068422572551, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176633250095422415, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1249439819393314871, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[6].m_Data
       value: 
@@ -3402,6 +3419,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -8.49
       objectReference: {fileID: 0}
+    - target: {fileID: 2777445659935632281, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2998170113342358965, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: _camera
       value: 
@@ -3412,7 +3433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3044280514086538903, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4594223961222755545, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3454,6 +3475,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5223710474343581174, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5731055221945471792, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6916584313222015735, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: m_Name
       value: SpawnRoom1
@@ -3478,9 +3507,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 9003344729264184662, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+    - target: {fileID: 7972497229240631604, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8445371195339505955, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8507599367806989981, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9003344729264184662, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -3493,7 +3534,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4594223961222755545, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1962044015}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3986734061358954698, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 922cff2799b32c24cafdef8628bee540, type: 3}
 --- !u!4 &1370842886 stripped
 Transform:
