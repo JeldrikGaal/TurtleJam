@@ -22,7 +22,9 @@ public static class SoundManager
         ButtonSelect,
         Music,
         LoseStreak,
-        GainStreak
+        GainStreak,
+        LoginPass,
+        LoginFail
 
 
     }

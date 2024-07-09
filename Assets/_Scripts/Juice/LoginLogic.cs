@@ -86,9 +86,11 @@ public class LoginLogic : MonoBehaviour
     {
         if (_userNameTextField.text.Length < 3)
         {
+            SoundManager.PlayOneShotSound(SoundManager.Sound.LoginFail);
             StartCoroutine(WrongInput());
             return;
         }
+        SoundManager.PlayOneShotSound(SoundManager.Sound.LoginPass);
         _loginButtonObject.transform.DOScale(Vector3.zero, 0.5f);
         StartCoroutine(ScrambleLetters(1f, 0.1f));
     }
