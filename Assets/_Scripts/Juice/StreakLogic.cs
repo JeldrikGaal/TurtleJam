@@ -168,12 +168,10 @@ public class StreakLogic : MonoBehaviour
     
     private Color GetColorFromStreak(int streakAmount)
     {
-        Debug.Log(streakAmount);
         for ( int i = _colorList.Count - 1; i > 0; i--)
         {
             if (streakAmount >= _colorList[i].StreakAmount)
             {
-                Debug.Log("I:" + i);
                 return _colorList[i].Color;
             }
         }

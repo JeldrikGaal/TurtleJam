@@ -20,6 +20,8 @@ public class EntranceTrigger : MonoBehaviour
 
     private bool _playerInEntrance;
 
+    public static event Action<EntranceTrigger> RoomEntranced; 
+
     private void Awake()
     {
         ExitTrigger.roomExited += BlockGoingBack;
@@ -75,10 +77,12 @@ public class EntranceTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        Debug.Log((collision.transform.name, transform.name));
+        if(collision.CompareTag("Player") && _playerInEntrance)
         {
             _playerInEntrance = false;
             if (!HasPlayerPassed(collision.transform.position)) return;
+            RoomEntranced?.Invoke(this);
             BlockWall();
             _doorBlock2.SetActive(true);
         }

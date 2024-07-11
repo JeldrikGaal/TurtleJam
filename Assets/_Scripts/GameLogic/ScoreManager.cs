@@ -52,10 +52,8 @@ public class ScoreManager : MonoBehaviour
 
     private void ReactToBounceKill()
     {
-        
         int scoreToAdd = _bounceKillMod;
         _bounceKillScore += scoreToAdd;
-        Debug.Log(scoreToAdd);
         AddScore(scoreToAdd);   
     }
 

@@ -12,6 +12,7 @@ public class LevelAttributes : MonoBehaviour
     [FormerlySerializedAs("_entrace")] [SerializeField, EnumToggleButtons] private LevelController.Direction _entrance;
     [SerializeField, EnumToggleButtons] private LevelController.Direction _exit;
     private GameObject _entranceDoor;
+    private EntranceTrigger _entranceTrigger;
     private GameObject _exitDoor;
     private ExitTrigger _exitTrigger; 
     
@@ -37,7 +38,8 @@ public class LevelAttributes : MonoBehaviour
             _transitionRoom = null;
         }
 
-        _entranceDoor = GetComponentInChildren<EntranceTrigger>().gameObject;
+        _entranceTrigger = GetComponentInChildren<EntranceTrigger>();
+        _entranceDoor = _entranceTrigger.gameObject;
         
         _exitTrigger = GetComponentInChildren<ExitTrigger>();
         _exitDoor = _exitTrigger.gameObject;
@@ -45,13 +47,16 @@ public class LevelAttributes : MonoBehaviour
         EntranceOffset = transform.position - _entranceDoor.transform.position;
 
         ExitTrigger.roomExited += ReactToRoomExited;
+        EntranceTrigger.RoomEntranced += ReactToRoomEntered;
         EnemyController.EnemyDeath += ReactToEnemyDeathWithDelay;
     }
 
     private void OnDestroy()
     {
         ExitTrigger.roomExited -= ReactToRoomExited;
+        EntranceTrigger.RoomEntranced -= ReactToRoomEntered;
         EnemyController.EnemyDeath -= ReactToEnemyDeathWithDelay;
+        
     }
 
     public void InitializeRoom()
@@ -60,8 +65,7 @@ public class LevelAttributes : MonoBehaviour
         _exitDoor.GetComponent<ExitTrigger>().Setup(_exit);
         _entranceDoor.GetComponent<EntranceTrigger>().Setup( LevelController.GetEntranceDirectionFromExitDirection(_entrance));
     }
-
-  
+    
 
     private void InitializeSpawners() // Check later
     {
@@ -97,6 +101,20 @@ public class LevelAttributes : MonoBehaviour
             _roomActive = false;
         }
     }
+    
+    private void ReactToRoomEntered(EntranceTrigger entranceTrigger)
+    {
+        if (!IsTransitionRoom())
+        {
+            return;
+        }
+        Debug.Log(_entranceTrigger.transform.GetInstanceID() + " " + entranceTrigger.transform.GetInstanceID() + " " + IsTransitionRoom());
+        if (_entranceTrigger == entranceTrigger && IsTransitionRoom())
+        {
+            Debug.Log("REQUESTED");
+            LevelController.Instance.RequestShowStageCleared();
+        }
+    }
 
     private void ReactToEnemyDeathWithDelay()
     {
@@ -109,11 +127,12 @@ public class LevelAttributes : MonoBehaviour
         {
             if (LevelController.Instance.IsNextRoomTransition())
             {
-                PopupProvider.Instance.ShowPopup("StageClear");
+                //PopupProvider.Instance.ShowPopup("StageClear");
+                LevelController.Instance.SetStageCleared(true);
             }
             else
             {
-                PopupProvider.Instance.ShowPopup("RoomClear");
+                //PopupProvider.Instance.ShowPopup("RoomClear");
             }
             
         }
@@ -134,6 +153,7 @@ public class LevelAttributes : MonoBehaviour
         _currentDifficulty = currentDifficulty;
         
         _initialEnemyCount = CountActiveEnemies();
+        LevelController.Instance.RegisterEnemyCount(_initialEnemyCount);
         _roomActive = true;
     }
 
@@ -141,6 +161,7 @@ public class LevelAttributes : MonoBehaviour
     {
         _entrance = entranceDirection;
         _entranceDoor = _transitionRoom.GetDoor(entranceDirection);
+        _entranceTrigger = _entranceDoor.GetComponent<EntranceTrigger>();
         EntranceOffset = transform.position - _entranceDoor.transform.position;
     }
      public LevelController.Direction GetEntranceDirection()

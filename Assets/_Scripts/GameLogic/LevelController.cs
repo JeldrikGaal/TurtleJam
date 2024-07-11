@@ -24,6 +24,9 @@ public class LevelController : MonoBehaviour
     private LevelAttributes _currentLevel;
     private LevelAttributes _nextLevel;
 
+    private int _enemiesFoundInStage;
+    private int _enemiesKilledAtBeginningOfStage;
+
     private bool _stageCleared;
     
     public enum Direction
@@ -170,13 +173,10 @@ public class LevelController : MonoBehaviour
     
     public void ProgressToNextStage()
     {
-        if (_stageCleared)
-        {
-            PopupProvider.Instance.ShowPopup("StageClear");
-            _stageCleared = false;
-        }
-        
         _currentStageIndex++;
+
+        _enemiesKilledAtBeginningOfStage = StatisticManager.Instance.GetStatistics().EnemiesKilled;
+        _enemiesFoundInStage = 0;
         
         // Loop last stage infinitely
         if (_currentStageIndex >= _progressionThreshold.Count)
@@ -207,9 +207,33 @@ public class LevelController : MonoBehaviour
         return _nextLevel.IsTransitionRoom();
     }
 
-    public void SetStageCleared()
+    public void SetStageCleared(bool newValue)
     {
-        _stageCleared = true;
+        _stageCleared = newValue;
+    }
+
+    public void RegisterEnemyCount(int enemyAmountToRegister)
+    {
+        _enemiesFoundInStage += enemyAmountToRegister;
+    }
+
+    private string GetStageClearedText()
+    {
+        int totalEnemyKills = StatisticManager.Instance.GetStatistics().EnemiesKilled;
+        int totalStageEnemyKills = totalEnemyKills - _enemiesKilledAtBeginningOfStage;
+        if (totalStageEnemyKills >= _enemiesFoundInStage)
+        {
+            return totalStageEnemyKills + "/" + _enemiesFoundInStage + " Enemies Killed";
+        }
+        else
+        {
+            return totalStageEnemyKills + "/" + _enemiesFoundInStage + " Enemies Killed";
+        }
+    }
+    
+    public void RequestShowStageCleared()
+    {
+        PopupProvider.Instance.ShowPopupFromText(GetStageClearedText());
     }
     
 }

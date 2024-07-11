@@ -58,9 +58,13 @@ public class PopupLogic : MonoBehaviour
         _data = data;
     }
 
-    public void Activate(string bonusText)
+    public void Activate(string bonusText, string overrideText = "")
     {
         SetText(bonusText);
+        if (overrideText != "")
+        {
+            OverrideText(overrideText);
+        }
         PlayAnim();
     }
 
@@ -82,6 +86,11 @@ public class PopupLogic : MonoBehaviour
         }
     }
 
+    private void OverrideText(string text)
+    {
+        _textField.text = text;
+    }
+    
     private Vector3 GetStartPos()
     {
         switch (_data.Position)

@@ -5,9 +5,9 @@ public class PopupProvider : MonoBehaviour
 {
    [SerializeField] private PopupLogic _popupLogic;
 
+   [SerializeField] private PopupLogic.PopupData _defaultData;
    [SerializeField] private List<PopupLogic.PopupData> _dataList;
    
-
    private Dictionary<string, PopupLogic.PopupData> _popupDataDict = new Dictionary<string, PopupLogic.PopupData>();
    
    private bool _runningPopupAlready;
@@ -36,6 +36,7 @@ public class PopupProvider : MonoBehaviour
 
    private void SetupDict()
    {
+      _dataList.Add(_defaultData);
       foreach (var entry in _dataList)
       {
          _popupDataDict.Add(entry.ID, entry);
@@ -52,6 +53,14 @@ public class PopupProvider : MonoBehaviour
       {
          Debug.LogError("Ending popup while none is registered as running shouldn't happen! ");
       }
+   }
+
+   public void ShowPopupFromText(string text)
+   {
+      _popupLogic.gameObject.SetActive(true);
+      _popupLogic.SetUp(_popupDataDict["Default"]);
+      _popupLogic.Activate("", text);
+      _runningPopupAlready = true;
    }
 
    public void ShowPopup(string id, string bonusText = "")
