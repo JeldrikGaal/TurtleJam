@@ -223,11 +223,11 @@ public class LevelController : MonoBehaviour
         int totalStageEnemyKills = totalEnemyKills - _enemiesKilledAtBeginningOfStage;
         if (totalStageEnemyKills >= _enemiesFoundInStage)
         {
-            return totalStageEnemyKills + "/" + _enemiesFoundInStage + " Enemies Killed";
+            return "Enemies Killed: " + totalStageEnemyKills + "/" + _enemiesFoundInStage;
         }
         else
         {
-            return totalStageEnemyKills + "/" + _enemiesFoundInStage + " Enemies Killed";
+            return "Enemies Killed: " + totalStageEnemyKills + "/" + _enemiesFoundInStage;
         }
     }
     
