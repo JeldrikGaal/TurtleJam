@@ -102,7 +102,7 @@ public class StreakLogic : MonoBehaviour
 
     private void NextStreakStageReached()
     {
-        if (_streakCount % 5 == 0)
+        if (_streakCount % 5 == 0 && _streakCount > 0)
         {
             SoundManager.PlayOneShotSound(SoundManager.Sound.GainStreak);
             StartCoroutine(StreakChangeColorFlash(GetCurrentStreakColor()));
