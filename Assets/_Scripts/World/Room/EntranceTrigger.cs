@@ -77,7 +77,6 @@ public class EntranceTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log((collision.transform.name, transform.name));
         if(collision.CompareTag("Player") && _playerInEntrance)
         {
             _playerInEntrance = false;

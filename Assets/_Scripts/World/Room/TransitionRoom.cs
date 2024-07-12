@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class TransitionRoom : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _roomsClearedText;
-    [SerializeField] private TMP_Text _enemiesKilledText;
-    [SerializeField] private TMP_Text _shotsFired;
+    [SerializeField] private TMP_Text _shotAccuracy;
     [SerializeField] private TMP_Text _highestStreak;
+    [SerializeField] private TMP_Text _bounceKillAmount;
 
     [SerializeField] private GameObject _downEntrance;
     [SerializeField] private GameObject _leftEntrance;
@@ -32,9 +31,17 @@ public class TransitionRoom : MonoBehaviour
 
     public void DisplayStatistics()
     {
-        _roomsClearedText.text = $"Rooms Cleared: {StatisticManager.Instance.GetStatistics().RoomsCleared}";
-        _enemiesKilledText.text = $"Enemies Killed: {StatisticManager.Instance.GetStatistics().EnemiesKilled}";
-        _shotsFired.text = $"Shots Fired: {StatisticManager.Instance.GetStatistics().ShotsFired}";
+        _shotAccuracy.text = "Shot Accuracy: " + (StatisticManager.Instance.GetShotAccuracy() * 100).ToString("0.00") + " %";
         _highestStreak.text = $"Highest Streak: {StatisticManager.Instance.GetStatistics().HighestStreak}";
+        _bounceKillAmount.text = $"Highest Streak: {StatisticManager.Instance.GetStatistics().BounceKills}";
+
+        Invoke(nameof(SpawnMedals), 2f);
+    }
+    
+    private void SpawnMedals()
+    {
+        var position = _shotAccuracy.transform.position + ( Vector3.right * 1f);
+        float distance = position.y - _highestStreak.transform.position.y;   
+        StartCoroutine(MedalProvider.Instance.SpawnMedalList(position, 0.35f, distance));
     }
 }

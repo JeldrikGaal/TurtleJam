@@ -10,6 +10,7 @@ public class StatisticManager : MonoBehaviour
         public int RoomsCleared = 0;
         public int ShotsFired = 0;
         public int HighestStreak = 0;
+        public int BounceKills = 0;
     }
 
     private Statistics _statistics = new Statistics();
@@ -55,10 +56,20 @@ public class StatisticManager : MonoBehaviour
     {
         _statistics.ShotsFired += 1;
     }
+    
+    private void AddBounceKill()
+    {
+        _statistics.BounceKills += 1;
+    }
 
     public Statistics GetStatistics()
     {
         return _statistics;
+    }
+
+    public float GetShotAccuracy()
+    {
+        return  _statistics.EnemiesKilled / (float)_statistics.ShotsFired;
     }
 
     private void UpdateHighestStreak(int streak)
