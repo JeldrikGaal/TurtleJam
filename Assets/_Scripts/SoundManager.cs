@@ -25,97 +25,114 @@ public static class SoundManager
         GainStreak,
         LoginPass,
         LoginFail
-
-
     }
 
-    private static Dictionary<Sound, float> soundTimer;
-    private static GameObject oneShotSoundGameObject;
-    private static AudioSource oneShotAudioSource;
-    private static List<GameObject> playingSounds;
+    private static Dictionary<Sound, float> _soundTimer;
+    private static GameObject _oneShotSoundGameObject;
+    private static AudioSource _oneShotAudioSource;
+    private static List<GameObject> _playingSounds;
 
     public static void Initialize(){
-        soundTimer = new Dictionary<Sound, float>();
-        soundTimer[Sound.EnemyMove] = 0f;
+        _soundTimer = new Dictionary<Sound, float>();
+        _soundTimer[Sound.EnemyMove] = 0f;
     }
 
-    public static void PlayOneShotSound(Sound sound, Vector3 position){
-        if(CanPlaySound(sound)){
-            GameObject soundGameObject = new GameObject("3DSound");
-            soundGameObject.transform.position = position;
-            AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
-            audioSource.clip = GetAudioClip(sound);
-            audioSource.maxDistance = 100f;
-            audioSource.spatialBlend = 1f;
-            audioSource.rolloffMode = AudioRolloffMode.Linear;
-            audioSource.dopplerLevel = 0;
-            audioSource.Play();
-            Object.Destroy(soundGameObject, audioSource.clip.length);
-
+    public static void PlayOneShotSound(Sound sound, Vector3 position)
+    {
+        if (!CanPlaySound(sound))
+        {
+            return;
         }
+        
+        GameObject soundGameObject = new GameObject("3DSound")
+        {
+            transform =
+            {
+                position = position
+            }
+        };
+        AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+        audioSource.clip = GetAudioClip(sound);
+        audioSource.maxDistance = 100f;
+        audioSource.spatialBlend = 1f;
+        audioSource.rolloffMode = AudioRolloffMode.Linear;
+        audioSource.dopplerLevel = 0;
+        audioSource.Play();
+        Object.Destroy(soundGameObject, audioSource.clip.length);
     }
 
     public static void PlayOneShotSound(Sound sound){
-        if(oneShotSoundGameObject == null){
-         oneShotSoundGameObject = new GameObject("OneShotSound");
-         oneShotAudioSource = oneShotSoundGameObject.AddComponent<AudioSource>();
+        if (_oneShotSoundGameObject == null)
+        {
+             _oneShotSoundGameObject = new GameObject("OneShotSound");
+             _oneShotAudioSource = _oneShotSoundGameObject.AddComponent<AudioSource>();
         }
-        if(CanPlaySound(sound)){
-            oneShotAudioSource.PlayOneShot(GetAudioClip(sound));
+        if (CanPlaySound(sound))
+        {
+            _oneShotAudioSource.PlayOneShot(GetAudioClip(sound));
         }
-        
     }
 
     public static void PlaySound(Sound sound, Transform parent)
     {
-
-            GameObject soundGameObject = new GameObject(sound.ToString());
-            soundGameObject.transform.parent = parent;
-            AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
-            audioSource.clip = GetAudioClip(sound);
-            audioSource.loop = true;
-            audioSource.Play();
-            if(playingSounds==null)
-            playingSounds = new List<GameObject>();
-            playingSounds.Add(soundGameObject);
-            //Object.Destroy(soundGameObject, audioSource.clip.length);
+        GameObject soundGameObject = new GameObject(sound.ToString())
+        {
+            transform = { parent = parent }
+        };
+        AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+        audioSource.clip = GetAudioClip(sound);
+        audioSource.loop = true;
+        audioSource.Play();
+        if (_playingSounds == null)
+        {
+            _playingSounds = new List<GameObject>();
+        }
+        _playingSounds.Add(soundGameObject);
 
     }
     public static void StopSound(Sound sound, Transform parent)
     {
-        if(playingSounds!=null && playingSounds.Count>0){
-            foreach(GameObject soundGameObject in playingSounds){
+        if (_playingSounds is not { Count: > 0 })
+        {
+            return;
+        }
+        foreach(GameObject soundGameObject in _playingSounds)
+        {
             if(soundGameObject.name == sound.ToString() && soundGameObject.transform.parent == parent)
             {
                 soundGameObject.GetComponent<AudioSource>().Stop(); 
                 Object.Destroy(soundGameObject);
-                playingSounds.Remove(soundGameObject);
+                _playingSounds.Remove(soundGameObject);
                 return;
             }    
         }
-
-        }
     }
-    private static bool CanPlaySound(Sound sound){
+    private static bool CanPlaySound(Sound sound)
+    {
         switch(sound){
             default:
-            return true;
+                return true;
             case Sound.EnemyMove:
-            if(soundTimer.ContainsKey(sound)){
-                float lastTimePlayed = soundTimer[sound];
-                float enemyMoveTimerMax = 0.5f;
-                if(lastTimePlayed + enemyMoveTimerMax < Time.time){
-                    soundTimer[sound] = Time.time;
-                    return true;
+                if(_soundTimer.ContainsKey(sound))
+                {
+                    float lastTimePlayed = _soundTimer[sound];
+                    float enemyMoveTimerMax = 0.5f;
+                    if( lastTimePlayed + enemyMoveTimerMax < Time.time)
+                    {
+                        _soundTimer[sound] = Time.time;
+                        return true;
+                    }
+                    return false;
                 }
-                else return false;
-            }
-            else return true;
+                return true;
         }
     }
-    private static AudioClip GetAudioClip(Sound sound){
-        foreach(SoundAssets.SoundAudioClip soundAudioClip in SoundAssets.i.soundAudioClips){
-            if(soundAudioClip.sound == sound){
+    private static AudioClip GetAudioClip(Sound sound)
+    {
+        foreach(SoundAssets.SoundAudioClip soundAudioClip in SoundAssets.i.soundAudioClips)
+        {
+            if(soundAudioClip.sound == sound)
+            {
                 return soundAudioClip.audioClip;
             } 
         }
@@ -123,53 +140,53 @@ public static class SoundManager
         return null;
 
     }
-    public static void StopAllPlayingSounds(){
-        if(playingSounds!=null && playingSounds.Count > 0){
-
-        foreach(GameObject soundGameObject in playingSounds)
+    public static void StopAllPlayingSounds()
+    {
+        if (_playingSounds is not { Count: > 0 })
         {
-            if(soundGameObject!=null){
-            
-            soundGameObject.GetComponent<AudioSource>().Stop(); 
-            Object.Destroy(soundGameObject);
-
+            return;
+        }
+        foreach(GameObject soundGameObject in _playingSounds)
+        {
+            if(soundGameObject!=null) 
+            {
+                soundGameObject.GetComponent<AudioSource>().Stop(); 
+                Object.Destroy(soundGameObject);
             }
-            
         }
-        playingSounds.Clear();
-
-        }
-
+        _playingSounds.Clear();
     }
-    public static void PauseAllPlayingSounds(){
-        if(playingSounds!=null && playingSounds.Count > 0){
-
-        foreach(GameObject soundGameObject in playingSounds)
+    public static void PauseAllPlayingSounds()
+    {
+        if(_playingSounds is { Count: > 0 })
         {
-             if(soundGameObject!=null)
-            soundGameObject.GetComponent<AudioSource>().Pause(); 
+            foreach(GameObject soundGameObject in _playingSounds)
+            {
+                if (soundGameObject != null)
+                {
+                    soundGameObject.GetComponent<AudioSource>().Pause(); 
+                }
+            }
         }
-
-        }
-
     }
-    public static void ResumeAllPlayingSounds(){
-        if(playingSounds!=null && playingSounds.Count > 0){
-
-        foreach(GameObject soundGameObject in playingSounds)
+    public static void ResumeAllPlayingSounds()
+    {
+        if(_playingSounds is { Count: > 0 })
         {
-             if(soundGameObject!=null)
-            soundGameObject.GetComponent<AudioSource>().Play(); 
-        }
-
+            foreach(GameObject soundGameObject in _playingSounds)
+            {
+                if (soundGameObject != null)
+                {
+                    soundGameObject.GetComponent<AudioSource>().Play(); 
+                }
+            }
         }
 
     }
+    
     public static void Reset()
     {
-        if(playingSounds!=null){
-            playingSounds.Clear();
-        }
+        _playingSounds?.Clear();
     }
     
 

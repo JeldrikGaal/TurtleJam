@@ -33,7 +33,7 @@ public class TransitionRoom : MonoBehaviour
     {
         _shotAccuracy.text = "Shot Accuracy: " + (StatisticManager.Instance.GetShotAccuracy() * 100).ToString("0.00") + " %";
         _highestStreak.text = $"Highest Streak: {StatisticManager.Instance.GetStatistics().HighestStreak}";
-        _bounceKillAmount.text = $"Highest Streak: {StatisticManager.Instance.GetStatistics().BounceKills}";
+        _bounceKillAmount.text = $"Bounce Kills: {StatisticManager.Instance.GetStatistics().BounceKills}";
 
         Invoke(nameof(SpawnMedals), 2f);
     }

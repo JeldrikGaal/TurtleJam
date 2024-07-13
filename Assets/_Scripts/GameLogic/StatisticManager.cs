@@ -32,6 +32,7 @@ public class StatisticManager : MonoBehaviour
         ExitTrigger.roomExited += AddRoomCleared;
         PlayerProjectile.ProjectileShot += AddShotFired;
         StreakLogic.StreakReached += UpdateHighestStreak;
+        StreakLogic.BounceKillDetected += AddBounceKill;
     }
 
     private void OnDestroy()
@@ -40,6 +41,7 @@ public class StatisticManager : MonoBehaviour
         ExitTrigger.roomExited -= AddRoomCleared;
         PlayerProjectile.ProjectileShot -= AddShotFired;
         StreakLogic.StreakReached -= UpdateHighestStreak;
+        StreakLogic.BounceKillDetected -= AddBounceKill;
     }
 
     private void AddKilledEnemy()
