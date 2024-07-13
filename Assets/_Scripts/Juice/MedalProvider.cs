@@ -24,12 +24,12 @@ public class MedalProvider : MonoBehaviour
         None
     }
 
-    public IEnumerator SpawnMedalList(Vector3 position, float delay, float yDistance)
+    public IEnumerator SpawnMedalList(Vector3 position, float delay, float yDistance, List<GameObject> textObjects)
     {
         int count = 0;
         foreach (var medalType in CalculateMedalTypes())
         {
-            SpawnMedal(medalType, position + Vector3.down * (yDistance * count));
+            SpawnMedal(medalType, position + Vector3.down * (yDistance * count), textObjects[count]);
             yield return new WaitForSeconds(delay);
             count++;
         }
@@ -83,10 +83,10 @@ public class MedalProvider : MonoBehaviour
         }
     }
     
-    private void SpawnMedal(MedalType medalType, Vector3 position)
+    private void SpawnMedal(MedalType medalType, Vector3 position, GameObject textObject)
     {
         GameObject medal = Instantiate(_medalPrefab, position, Quaternion.identity);
-        medal.GetComponent<MedalLogic>().SetupMedal(_medalInfosDict[medalType]);
+        medal.GetComponent<MedalLogic>().SetupMedal(_medalInfosDict[medalType], textObject);
         medal.GetComponent<MedalLogic>().ActivateMedal(position);
     }
 

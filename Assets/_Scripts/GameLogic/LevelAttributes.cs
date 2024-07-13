@@ -111,8 +111,8 @@ public class LevelAttributes : MonoBehaviour
         Debug.Log(_entranceTrigger.transform.GetInstanceID() + " " + entranceTrigger.transform.GetInstanceID() + " " + IsTransitionRoom());
         if (_entranceTrigger == entranceTrigger && IsTransitionRoom())
         {
-            Debug.Log("REQUESTED");
-            LevelController.Instance.RequestShowStageCleared();
+            // TODO: commented out clear stage
+            //LevelController.Instance.RequestShowStageCleared();
         }
     }
 

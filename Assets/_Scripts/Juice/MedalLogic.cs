@@ -15,14 +15,20 @@ public class MedalLogic : MonoBehaviour
     [SerializeField] private float _shakeImpactDuration;
     [SerializeField] private float _shakeImpactMagnitude;
 
-    public void SetupMedal(MedalProvider.MedalInfo medalInfo)
+    private GameObject _correspondingTextObject;
+
+    public void SetupMedal(MedalProvider.MedalInfo medalInfo, GameObject textObject)
     {
         _letterText.text = medalInfo.Letter;
         _medalRenderer.color = medalInfo.Color;
+        _correspondingTextObject = textObject;
     }
 
     public void ActivateMedal(Vector3 endPosition)
     {
+
+       _correspondingTextObject.SetActive(true);
+        
         Sequence seq = DOTween.Sequence();
         transform.position = endPosition + ( Vector3.up *_flyInDistance) ;
         seq.Append(transform.DOMoveY(endPosition.y - _overshootDistance, _flyInAnimationTime));
@@ -32,6 +38,13 @@ public class MedalLogic : MonoBehaviour
             StartCoroutine(CameraManager.Instance.Shake(_shakeImpactDuration, _shakeImpactMagnitude));
             ColorsController.Instance.StartGenericColorFlash(0.05f, _medalRenderer.color);
         });
+        
+        Sequence seq2 = DOTween.Sequence();
+
+        Vector3 textStartPos = _correspondingTextObject.transform.position;
+        _correspondingTextObject.transform.position = textStartPos + ( Vector3.up *_flyInDistance) ;
+        seq2.Append(_correspondingTextObject.transform.DOMoveY(textStartPos.y - _overshootDistance, _flyInAnimationTime));
+        seq2.Append(_correspondingTextObject.transform.DOMoveY(textStartPos.y, _overshootAnimationTime));
     }
 
 }
