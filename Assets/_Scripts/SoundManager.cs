@@ -32,13 +32,24 @@ public static class SoundManager
     private static AudioSource _oneShotAudioSource;
     private static List<GameObject> _playingSounds;
 
+    private static GameObject _musicGameObject;
+    
+    private static bool _sfxAllowed = true;
+
     public static void Initialize(){
-        _soundTimer = new Dictionary<Sound, float>();
-        _soundTimer[Sound.EnemyMove] = 0f;
+        _soundTimer = new Dictionary<Sound, float>
+        {
+            [Sound.EnemyMove] = 0f
+        };
     }
 
     public static void PlayOneShotSound(Sound sound, Vector3 position)
     {
+        if (!_sfxAllowed)
+        {
+            return;   
+        }
+        
         if (!CanPlaySound(sound))
         {
             return;
@@ -62,6 +73,12 @@ public static class SoundManager
     }
 
     public static void PlayOneShotSound(Sound sound){
+
+        if (!_sfxAllowed)
+        {
+            return;   
+        }
+        
         if (_oneShotSoundGameObject == null)
         {
              _oneShotSoundGameObject = new GameObject("OneShotSound");
@@ -73,23 +90,30 @@ public static class SoundManager
         }
     }
 
-    public static void PlaySound(Sound sound, Transform parent)
+    private static GameObject CreateAndActivateSoundGameObject(Sound sound, Transform parent)
     {
         GameObject soundGameObject = new GameObject(sound.ToString())
         {
             transform = { parent = parent }
         };
+        
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
         audioSource.clip = GetAudioClip(sound);
         audioSource.loop = true;
         audioSource.Play();
+        
+        return soundGameObject;
+    }
+    
+    public static void PlaySound(Sound sound, Transform parent)
+    {
         if (_playingSounds == null)
         {
             _playingSounds = new List<GameObject>();
         }
-        _playingSounds.Add(soundGameObject);
-
+        _playingSounds.Add(CreateAndActivateSoundGameObject(sound, parent));
     }
+    
     public static void StopSound(Sound sound, Transform parent)
     {
         if (_playingSounds is not { Count: > 0 })
@@ -107,6 +131,29 @@ public static class SoundManager
             }    
         }
     }
+
+    public static void PlayMusic()
+    {
+        if (! _musicGameObject)
+        {
+            _musicGameObject = CreateAndActivateSoundGameObject(Sound.Music, GameManager.Instance.transform);
+        }
+        else
+        {
+            _musicGameObject.GetComponent<AudioSource>().Play();
+        }
+    }
+
+    private static void PauseMusic()
+    {
+        _musicGameObject.GetComponent<AudioSource>().Pause();
+    }
+    
+    private static void StopMusic()
+    {
+        _musicGameObject.GetComponent<AudioSource>().Stop();
+    }
+    
     private static bool CanPlaySound(Sound sound)
     {
         switch(sound){
@@ -127,6 +174,7 @@ public static class SoundManager
                 return true;
         }
     }
+    
     private static AudioClip GetAudioClip(Sound sound)
     {
         foreach(SoundAssets.SoundAudioClip soundAudioClip in SoundAssets.i.soundAudioClips)
@@ -140,6 +188,7 @@ public static class SoundManager
         return null;
 
     }
+    
     public static void StopAllPlayingSounds()
     {
         if (_playingSounds is not { Count: > 0 })
@@ -154,8 +203,11 @@ public static class SoundManager
                 Object.Destroy(soundGameObject);
             }
         }
-        _playingSounds.Clear();
+        
+        StopMusic();
+        Reset();
     }
+    
     public static void PauseAllPlayingSounds()
     {
         if(_playingSounds is { Count: > 0 })
@@ -169,6 +221,7 @@ public static class SoundManager
             }
         }
     }
+    
     public static void ResumeAllPlayingSounds()
     {
         if(_playingSounds is { Count: > 0 })
@@ -181,13 +234,69 @@ public static class SoundManager
                 }
             }
         }
-
     }
     
     public static void Reset()
     {
         _playingSounds?.Clear();
+        _musicGameObject = null;
     }
+
+    public static bool IsMusicPlaying()
+    {
+        if (!_musicGameObject)
+        {
+            return false;
+        }
+        else
+        {
+            return _musicGameObject.GetComponent<AudioSource>().isPlaying;
+        }
+    }
+    
+    public static bool GetSfxAllowed()
+    {
+        return _sfxAllowed;
+    }
+
+    public static void SetSfxAllowed(bool allowed)
+    {
+        _sfxAllowed = allowed;
+        if (allowed)
+        {
+            ResumeAllPlayingSounds();
+        }
+    }
+
+    public static bool ToggleSfx()
+    {
+        SetSfxAllowed(!_sfxAllowed);
+        return _sfxAllowed;
+    }
+
+    public static bool ToggleMusic()
+    {
+        if (GameManager.Instance == null)
+        {
+            return false;
+        }
+        
+        if (_musicGameObject == null)
+        {
+            PlayMusic();
+            return true;
+        }
+
+        if (_musicGameObject.GetComponent<AudioSource>().isPlaying)
+        {
+            PauseMusic();
+            return false;
+        }
+
+        PlayMusic();
+        return true;
+    }
+
     
 
 }
