@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ByteBrewSDK;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class StatisticManager : MonoBehaviour
@@ -11,9 +12,15 @@ public class StatisticManager : MonoBehaviour
         public int ShotsFired = 0;
         public int HighestStreak = 0;
         public int BounceKills = 0;
+        
+        public float GetShotAccuracy()
+        {
+            return  EnemiesKilled / (float)ShotsFired;
+        }
     }
 
     private Statistics _statistics = new Statistics();
+    private Statistics _currentStageStartStatistics;
     public static StatisticManager Instance;
     private void Awake()
     {
@@ -33,6 +40,8 @@ public class StatisticManager : MonoBehaviour
         PlayerProjectile.ProjectileShot += AddShotFired;
         StreakLogic.StreakReached += UpdateHighestStreak;
         StreakLogic.BounceKillDetected += AddBounceKill;
+        LevelController.ProgressedToNextStage += RegisterStageStatistics;
+
     }
 
     private void OnDestroy()
@@ -42,6 +51,7 @@ public class StatisticManager : MonoBehaviour
         PlayerProjectile.ProjectileShot -= AddShotFired;
         StreakLogic.StreakReached -= UpdateHighestStreak;
         StreakLogic.BounceKillDetected -= AddBounceKill;
+        LevelController.ProgressedToNextStage -= RegisterStageStatistics;
     }
 
     private void AddKilledEnemy()
@@ -69,11 +79,16 @@ public class StatisticManager : MonoBehaviour
         return _statistics;
     }
 
-    public float GetShotAccuracy()
+    private void RegisterStageStatistics(int stageReached)
     {
-        return  _statistics.EnemiesKilled / (float)_statistics.ShotsFired;
+        _currentStageStartStatistics = _statistics;
     }
-
+    
+    public Statistics GetCurrentStageStatistics()
+    {
+        return _currentStageStartStatistics;
+    }
+    
     private void UpdateHighestStreak(int streak)
     {
         if (streak > _statistics.HighestStreak)

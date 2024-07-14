@@ -105,9 +105,10 @@ public class MedalProvider : MonoBehaviour
     
     private List<MedalType> CalculateMedalTypes()
     {
-        float shotAccuracy  = StatisticManager.Instance.GetShotAccuracy();
-        float highestStreak = StatisticManager.Instance.GetStatistics().HighestStreak;
-        float bounceKills   = StatisticManager.Instance.GetStatistics().BounceKills;
+        StatisticManager.Statistics totalStats = StatisticManager.Instance.GetStatistics();
+        float shotAccuracy  = totalStats.GetShotAccuracy();
+        float highestStreak = totalStats.HighestStreak;
+        float bounceKills   = totalStats.BounceKills;
         
         var medalTypes = new List<MedalType>
         {

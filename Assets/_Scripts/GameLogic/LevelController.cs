@@ -19,6 +19,7 @@ public class LevelController : MonoBehaviour
 
     private Transform _gridTransform;
     public static event Action<List<GameObject>> TileMapsChanged;
+    public static event Action<int> ProgressedToNextStage;
     public static LevelController Instance;
     
     private LevelAttributes _currentLevel;
@@ -183,6 +184,8 @@ public class LevelController : MonoBehaviour
         {
             _currentStageIndex = _progressionThreshold.Count - 1;
         }
+
+        ProgressedToNextStage?.Invoke(_currentStageIndex);
     }
     
     private void NextRoom(ExitTrigger exitTrigger)

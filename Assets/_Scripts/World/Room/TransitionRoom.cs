@@ -32,12 +32,24 @@ public class TransitionRoom : MonoBehaviour
     {
         return _entrances[direction];
     }
+    
+    /*public List<float> GetTransitionRoomStatistics()
+    {
+        StatisticManager.Statistics totalStats = StatisticManager.Instance.GetStatistics();
+        StatisticManager.Statistics stageStartStats = StatisticManager.Instance.GetCurrentStageStatistics();
+
+        statistics.Add((totalStats.GetShotAccuracy() * 100));
+        statistics.Add(totalStats.HighestStreak);
+        statistics.Add(totalStats.BounceKills);
+        return statistics;
+    }*/
 
     public void DisplayStatistics()
     {
-        _shotAccuracy.text = "Shot Accuracy: " + (StatisticManager.Instance.GetShotAccuracy() * 100).ToString("0.00") + " %";
-        _highestStreak.text = $"Highest Streak: {StatisticManager.Instance.GetStatistics().HighestStreak}";
-        _bounceKillAmount.text = $"Bounce Kills: {StatisticManager.Instance.GetStatistics().BounceKills}";
+        StatisticManager.Statistics totalStats = StatisticManager.Instance.GetStatistics();
+        _shotAccuracy.text = "Shot Accuracy: " + (totalStats.GetShotAccuracy() * 100).ToString("0.00") + " %";
+        _highestStreak.text = $"Highest Streak: {totalStats.HighestStreak}";
+        _bounceKillAmount.text = $"Bounce Kills: {totalStats.BounceKills}";
 
         Invoke(nameof(SpawnMedals), 0.5f);
     }

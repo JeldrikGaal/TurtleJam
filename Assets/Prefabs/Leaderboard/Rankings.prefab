@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &186764418214611347
@@ -297,7 +296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &284524527538090641
@@ -447,7 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &601120205590288827
@@ -597,7 +594,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &684331182754199891
@@ -747,7 +743,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &1629653347840367815
@@ -1105,7 +1100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &1820840384223767287
@@ -1255,7 +1249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &2302817795555625667
@@ -1405,7 +1398,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &2383615598149721428
@@ -1555,7 +1547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &2728760087735111656
@@ -1705,7 +1696,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &2736829115055955627
@@ -1855,7 +1845,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &2796588703191021242
@@ -2005,7 +1994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &3470231947779259239
@@ -2044,6 +2032,8 @@ Transform:
   - {fileID: 1555458428672584609}
   - {fileID: 3013218549566790747}
   - {fileID: 5427163655378664210}
+  - {fileID: 3081451005884778323}
+  - {fileID: 893693515305770778}
   - {fileID: 6473235855671101928}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2194,7 +2184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &3729532087688418459
@@ -2416,7 +2405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &4437393932039178151
@@ -2638,7 +2626,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &4616322161902506902
@@ -2788,7 +2775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &4708959286811851151
@@ -2938,7 +2924,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &4829035971612080236
@@ -2971,9 +2956,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.8850405, y: 2.8850405, z: 2.8850405}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3081451005884778323}
-  - {fileID: 893693515305770778}
+  m_Children: []
   m_Father: {fileID: 6042258754906738333}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -3090,7 +3073,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &5291513152184527506
@@ -3240,7 +3222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &5420346043690523437
@@ -3390,7 +3371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &5897435519885506694
@@ -3674,7 +3654,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &6493180689821181357
@@ -3958,7 +3937,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &6887983368692199175
@@ -4108,7 +4086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &7669474047260164624
@@ -4258,7 +4235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &7671683754598202074
@@ -4289,14 +4265,14 @@ RectTransform:
   m_GameObject: {fileID: 7671683754598202074}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.8850405, y: 2.8850405, z: 2.8850405}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5427163655378664210}
+  m_Father: {fileID: 6042258754906738333}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 159.1279, y: -4.8466187}
+  m_AnchoredPosition: {x: 637.00037, y: -309.6349}
   m_SizeDelta: {x: 200.4063, y: 9.69326}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5076388711261005213
@@ -4408,7 +4384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &7750909418532063115
@@ -4558,7 +4533,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &7795135252869377701
@@ -4589,14 +4563,14 @@ RectTransform:
   m_GameObject: {fileID: 7795135252869377701}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.8850405, y: 2.8850405, z: 2.8850405}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5427163655378664210}
+  m_Father: {fileID: 6042258754906738333}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 273.51105, y: -4.8466187}
+  m_AnchoredPosition: {x: 967.0003, y: -309.6349}
   m_SizeDelta: {x: 200.4063, y: 9.69326}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7413415115812496890
@@ -4708,7 +4682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &7861887953179960213
@@ -4858,7 +4831,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &8215735343878601184
@@ -5083,7 +5055,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &8361434980364149627
@@ -5233,7 +5204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &8692968878762597148
@@ -5385,7 +5355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &8725160983588397659
@@ -5607,7 +5576,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
 --- !u!1 &9126095787201796099
@@ -5757,6 +5725,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53e3d4e50aab3140a62a81b339d6319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreManager: {fileID: 0}
   namesList: {fileID: 0}
   scoresList: {fileID: 0}
