@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/RaucherPauseGamesIntro.unity
+    guid: 4d11630d1866c5848b9b0bf44ba37198
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 5f08680b0c205e94b83f0580c8944d0e
   - enabled: 1
@@ -17,9 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ranking.unity
     guid: 50f638c1903171d4aafe606ad7028e61
-  - enabled: 0
-    path: Assets/Scenes/Jeldrik/Jeldrik2.unity
-    guid: 199686f12a0fdfa41b14ee5685c61b8e
   - enabled: 0
     path: Assets/Scenes/Level.unity
     guid: 64093372609c9b344aa3f45971193468
