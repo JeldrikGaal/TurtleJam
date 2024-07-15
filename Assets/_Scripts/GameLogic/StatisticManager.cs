@@ -99,28 +99,35 @@ public class StatisticManager : MonoBehaviour
     
     public void RegisterAnalytics()
     {
-
-        //string username = GameObject.FindWithTag("UnityPlugin").GetComponent<ScoreManager>().GetPlayerName();
         string round_time = (GetComponent<GameManager>()._timeSinceGameStarted).ToString();
         Statistics round_stats = GetStatistics();
+
+        string username = GameObject.FindWithTag("ScoreManager").GetComponent<PlayFabManager>().GetUserName();
+        
+        string score = "TBU"; // TODO: TO BE UPDATED
+        string tries = "TBU"; // TODO: TO BE UPDATED
+        string lastRoom = "TBU"; // TODO: TO BE UPDATED
+        string causeOfDeath = "TBU"; // TODO: TO BE UPDATED
         
         //Custom Event: ByteBrew
         Dictionary<string, string> roundCompleteParameters = new Dictionary<string, string>()
         {
-            { "kills", round_stats.EnemiesKilled.ToString() },
-            { "rooms_cleared", round_stats.RoomsCleared.ToString() },
-            { "shots_fired", round_stats.ShotsFired.ToString() },
+            { "username", username },
+            { "score", score},
             { "time", round_time },
-            { "username", "dev  " }
+            { "kills", round_stats.EnemiesKilled.ToString() },
+            { "shots_fired", round_stats.ShotsFired.ToString() },
+            { "bounce_kills", round_stats.BounceKills.ToString() },
+            { "highest_streak", round_stats.HighestStreak.ToString() },
+            { "rooms_cleared", round_stats.RoomsCleared.ToString() },
+            { "number of tries", tries },
+            { "last room", lastRoom },
+            { "cause of death", causeOfDeath }
+            
         };
         
-        ByteBrew.NewCustomEvent("roundComplete", roundCompleteParameters);
+        ByteBrew.NewCustomEvent("roundCompleteV2", roundCompleteParameters);
         
-        /*ByteBrew.NewCustomEvent("roundTime",GetComponent<GameManager>()._timeSinceGameStarted);
-        ByteBrew.NewCustomEvent("enemies_killed",round_stats.EnemiesKilled);
-        ByteBrew.NewCustomEvent("rooms_cleared",round_stats.RoomsCleared);
-        ByteBrew.NewCustomEvent("shots_fired",round_stats.ShotsFired);
-        ByteBrew.NewCustomEvent("username",username);*/
     }
     
 }
