@@ -3,12 +3,7 @@ using UnityEngine;
 public class Portal : MonoBehaviour
 {
     public Portal destinationPortal;
-    private PlayAudio pA;
 
-    private void Start()
-    {
-        pA = GetComponent<PlayAudio>(); 
-    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the colliding object is the player
@@ -17,7 +12,7 @@ public class Portal : MonoBehaviour
             if (!other.gameObject.GetComponent<PlayerController>().teleporting)
             {
                 other.gameObject.GetComponent<PlayerController>().teleporting = true;
-                pA.PlayOneShotSound(0);
+                SoundManager.PlayOneShotSound(SoundManager.Sound.Portal);
                 // Teleport the player to the destination portal
                 TeleportPlayer(other.gameObject);
             }

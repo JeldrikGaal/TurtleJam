@@ -1390,7 +1390,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 255
 --- !u!114 &3531803681865960344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1406,6 +1406,7 @@ MonoBehaviour:
   _powerUpTimeIndicatorBar: {fileID: 3381594049850534198}
   _powerUpTimeIndicatorContentHolder: {fileID: 412665624109567862}
   _scoreText: {fileID: 6055929010685453647}
+  _addScoreText: {fileID: 0}
   _timeText: {fileID: 5857245397131433388}
   _powerUpHintText: {fileID: 8273727335238154674}
   _powerUpNameText: {fileID: 663216055789937975}
@@ -1424,6 +1425,8 @@ MonoBehaviour:
   _leaderboard: {fileID: 0}
   _gameOverVisualEffectPrefab: {fileID: 0}
   _cameraManager: {fileID: 0}
+  _streakTextUI: {fileID: 0}
+  _streakSquares: []
   gameManager: {fileID: 0}
 --- !u!1 &2398633528962932572
 GameObject:

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2538090438994610361}
   - component: {fileID: 7826892968820168220}
   - component: {fileID: 7009130254102448525}
-  - component: {fileID: 7613150666538393376}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -28,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7519326220182684085}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.5362133, y: -3.33, z: 0.22398658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4856605652244869540
 SpriteRenderer:
@@ -167,21 +166,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &7613150666538393376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7519326220182684085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11fff971501314f488d86aff6eae72fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClip1:
-  - {fileID: 8300000, guid: 169eb83c6b63e2841831417f147d6ecc, type: 3}
-  audioClip2: []
-  audioClip3: []
-  audioClip4: []
-  audioClip5: []

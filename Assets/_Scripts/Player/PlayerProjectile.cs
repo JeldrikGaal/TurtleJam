@@ -396,7 +396,7 @@ public class PlayerProjectile : MonoBehaviour
         
         _state = ProjectileState.Shield;
         _shieldColliderGameObject.SetActive(true);
-        SoundManager.PlaySound(SoundManager.Sound.PlayerShieldOpen,this.transform);
+        SoundManager.PlaySound(SoundManager.Sound.PlayerShieldOpen,this.transform, true, SoundManager.SoundType.SFX);
         _projectileJuice.ShieldOpenAnim();
         
     }

@@ -93,7 +93,7 @@ public class EnemyController : MonoBehaviour
                 Vector3 direction = ( player.position - transform.position).normalized;
                 rb.velocity = direction * speed;
                 if(!isSoundPlaying){
-                    SoundManager.PlaySound(SoundManager.Sound.EnemyMove, this.transform);
+                    SoundManager.PlaySound(SoundManager.Sound.EnemyMove, this.transform, true, SoundManager.SoundType.SFX);
                     isSoundPlaying = true;
                 }
 

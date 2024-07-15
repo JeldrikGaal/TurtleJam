@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public static class SoundManager 
 {
@@ -24,7 +25,13 @@ public static class SoundManager
         LoseStreak,
         GainStreak,
         LoginPass,
-        LoginFail
+        LoginFail,
+        Portal
+    }
+
+    public enum SoundType {
+        Music,
+        SFX
     }
 
     private static Dictionary<Sound, float> _soundTimer;
@@ -41,14 +48,11 @@ public static class SoundManager
         {
             [Sound.EnemyMove] = 0f
         };
+
     }
 
     public static void PlayOneShotSound(Sound sound, Vector3 position)
     {
-        if (!_sfxAllowed)
-        {
-            return;   
-        }
         
         if (!CanPlaySound(sound))
         {
@@ -74,15 +78,12 @@ public static class SoundManager
 
     public static void PlayOneShotSound(Sound sound){
 
-        if (!_sfxAllowed)
-        {
-            return;   
-        }
         
         if (_oneShotSoundGameObject == null)
         {
              _oneShotSoundGameObject = new GameObject("OneShotSound");
              _oneShotAudioSource = _oneShotSoundGameObject.AddComponent<AudioSource>();
+             _oneShotAudioSource.outputAudioMixerGroup = SoundAssets.i.Mixer_SFX;
         }
         if (CanPlaySound(sound))
         {
@@ -90,7 +91,7 @@ public static class SoundManager
         }
     }
 
-    private static GameObject CreateAndActivateSoundGameObject(Sound sound, Transform parent)
+    private static GameObject CreateAndActivateSoundGameObject(Sound sound, Transform parent, bool isLooping, SoundType type)
     {
         GameObject soundGameObject = new GameObject(sound.ToString())
         {
@@ -98,20 +99,31 @@ public static class SoundManager
         };
         
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = GetAudioMixerGroup(type);
         audioSource.clip = GetAudioClip(sound);
-        audioSource.loop = true;
+        audioSource.loop = isLooping;
         audioSource.Play();
         
         return soundGameObject;
     }
-    
-    public static void PlaySound(Sound sound, Transform parent)
+    private static AudioMixerGroup GetAudioMixerGroup (SoundType type)
+    {
+        switch(type){
+            default:
+                return SoundAssets.i.Mixer_Master;
+            case SoundType.Music:
+                return SoundAssets.i.Mixer_Music;
+            case SoundType.SFX:
+                return SoundAssets.i.Mixer_SFX;
+    }
+    }
+    public static void PlaySound(Sound sound, Transform parent, bool isLooping, SoundType type)
     {
         if (_playingSounds == null)
         {
             _playingSounds = new List<GameObject>();
         }
-        _playingSounds.Add(CreateAndActivateSoundGameObject(sound, parent));
+        _playingSounds.Add(CreateAndActivateSoundGameObject(sound, parent, isLooping, type));
     }
     
     public static void StopSound(Sound sound, Transform parent)
@@ -130,28 +142,6 @@ public static class SoundManager
                 return;
             }    
         }
-    }
-
-    public static void PlayMusic()
-    {
-        if (! _musicGameObject)
-        {
-            _musicGameObject = CreateAndActivateSoundGameObject(Sound.Music, GameManager.Instance.transform);
-        }
-        else
-        {
-            _musicGameObject.GetComponent<AudioSource>().Play();
-        }
-    }
-
-    private static void PauseMusic()
-    {
-        _musicGameObject.GetComponent<AudioSource>().Pause();
-    }
-    
-    private static void StopMusic()
-    {
-        _musicGameObject.GetComponent<AudioSource>().Stop();
     }
     
     private static bool CanPlaySound(Sound sound)
@@ -204,7 +194,6 @@ public static class SoundManager
             }
         }
         
-        StopMusic();
         Reset();
     }
     
@@ -239,63 +228,9 @@ public static class SoundManager
     public static void Reset()
     {
         _playingSounds?.Clear();
-        _musicGameObject = null;
     }
 
-    public static bool IsMusicPlaying()
-    {
-        if (!_musicGameObject)
-        {
-            return false;
-        }
-        else
-        {
-            return _musicGameObject.GetComponent<AudioSource>().isPlaying;
-        }
-    }
-    
-    public static bool GetSfxAllowed()
-    {
-        return _sfxAllowed;
-    }
 
-    public static void SetSfxAllowed(bool allowed)
-    {
-        _sfxAllowed = allowed;
-        if (allowed)
-        {
-            ResumeAllPlayingSounds();
-        }
-    }
-
-    public static bool ToggleSfx()
-    {
-        SetSfxAllowed(!_sfxAllowed);
-        return _sfxAllowed;
-    }
-
-    public static bool ToggleMusic()
-    {
-        if (GameManager.Instance == null)
-        {
-            return false;
-        }
-        
-        if (_musicGameObject == null)
-        {
-            PlayMusic();
-            return true;
-        }
-
-        if (_musicGameObject.GetComponent<AudioSource>().isPlaying)
-        {
-            PauseMusic();
-            return false;
-        }
-
-        PlayMusic();
-        return true;
-    }
 
     
 

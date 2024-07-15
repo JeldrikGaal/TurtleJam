@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: -5170249747838378639}
   - component: {fileID: 3896957204916109121}
   - component: {fileID: 2739161755990618734}
-  - component: {fileID: 6754881388716898418}
   m_Layer: 2
   m_Name: Bullet
   m_TagString: Bullet
@@ -188,23 +187,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6754881388716898418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5958748632345819053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11fff971501314f488d86aff6eae72fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClip1:
-  - {fileID: 8300000, guid: b7071e219d214b74684e46637bed7533, type: 3}
-  - {fileID: 8300000, guid: 316b8beb05388a54891b3358c33d2bbb, type: 3}
-  - {fileID: 8300000, guid: 905da9ad74b29c849a3396937a5676a0, type: 3}
-  audioClip2: []
-  audioClip3: []
-  audioClip4: []
-  audioClip5: []

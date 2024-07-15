@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class SoundSettingLogic : MonoBehaviour
 { 
@@ -13,6 +14,9 @@ public class SoundSettingLogic : MonoBehaviour
 
     [SerializeField] private Button _musicButton;
     [SerializeField] private Button _sfxButton;
+    private AudioMixer mixer;
+    const string Mixer_Music = "MusicVolume";
+    const string Mixer_SFX = "SFXVolume";
 
     private Image _musicButtonRenderer;
     private Image _sfxButtonRenderer;
@@ -27,13 +31,14 @@ public class SoundSettingLogic : MonoBehaviour
 
     private void Initialize()
     {
-        _sfxEnabled = SoundManager.GetSfxAllowed();
-        _musicEnabled = SoundManager.IsMusicPlaying();
-        
+        mixer = SoundAssets.i.Mixer;
+      
         _musicButtonRenderer = _musicButton.transform.GetComponent<Image>();
         _sfxButtonRenderer = _sfxButton.transform.GetComponent<Image>();
+        ToggleVfx();
+        ToggleMusic();
 
-        SetSprites();
+        //SetSprites();
     }
 
     private void SetSprites()
@@ -45,14 +50,30 @@ public class SoundSettingLogic : MonoBehaviour
     public void ToggleVfx()
     {
         _sfxEnabled = !_sfxEnabled;
-        SoundManager.SetSfxAllowed(_sfxEnabled);
+        if(_sfxEnabled)
+        SetSFXVolume(0f);
+        else
+        SetSFXVolume(-80f);
         SetSprites();
     }
 
     public void ToggleMusic()
     {
-         _musicEnabled = SoundManager.ToggleMusic();
+         _musicEnabled = !_musicEnabled;
+        if(_musicEnabled)
+        SetMusicVolume(0f);
+        else
+        SetMusicVolume(-80f);
         SetSprites();
+    }
+    private void SetMusicVolume(float volume){
+        mixer.SetFloat(Mixer_Music, Mathf.Log10(volume)*20f);
+
+    }
+    private void SetSFXVolume(float volume)
+    {
+        mixer.SetFloat(Mixer_SFX, Mathf.Log10(volume)*20f);
+
     }
     
     

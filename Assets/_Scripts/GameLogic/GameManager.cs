@@ -41,9 +41,7 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.Reset();
         SoundManager.PlayOneShotSound(SoundManager.Sound.StartGame);
-        //SoundManager.PlaySound(SoundManager.Sound.Music, this.transform);
-        SoundManager.PlayMusic();
-        
+        SoundManager.PlaySound(SoundManager.Sound.Music, this.transform, true, SoundManager.SoundType.Music);     
         Time.timeScale = 1;
         _timeSinceGameStarted = 0;
         
@@ -61,14 +59,6 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad7))
-        {
-            SoundManager.ToggleSfx();
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad8))
-        {
-            SoundManager.ToggleMusic();
-        }
         
         if (Input.GetKeyDown(KeyCode.P))
         {
