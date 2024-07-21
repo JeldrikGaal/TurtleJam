@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mixer: {fileID: 24100000, guid: 0c5f97f6d226b1549bbb4687dd9eb806, type: 2}
-  Mixer_Master: {fileID: 0}
+  Mixer_Master: {fileID: 24300002, guid: 0c5f97f6d226b1549bbb4687dd9eb806, type: 2}
   Mixer_Music: {fileID: -6787989812803694217, guid: 0c5f97f6d226b1549bbb4687dd9eb806, type: 2}
   Mixer_SFX: {fileID: -685356079535717691, guid: 0c5f97f6d226b1549bbb4687dd9eb806, type: 2}
   soundAudioClips:
@@ -79,3 +79,7 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: d53cb180a0717df4b8924f7cf477b352, type: 3}
   - sound: 18
     audioClip: {fileID: 8300000, guid: 169eb83c6b63e2841831417f147d6ecc, type: 3}
+  - sound: 19
+    audioClip: {fileID: 8300000, guid: 1a89db9de2411ee45b0da66633bd95b1, type: 3}
+  - sound: 20
+    audioClip: {fileID: 8300000, guid: 70984ba82192f064e929e9b4f4552bc2, type: 3}

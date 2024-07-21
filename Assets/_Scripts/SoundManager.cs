@@ -26,7 +26,9 @@ public static class SoundManager
         GainStreak,
         LoginPass,
         LoginFail,
-        Portal
+        Portal,
+        Ranking,
+        Shuffle
     }
 
     public enum SoundType {

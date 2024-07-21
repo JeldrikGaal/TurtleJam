@@ -173,6 +173,7 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
     
     private void PlayScrambleAnimation()
     {
+        SoundManager.PlayOneShotSound(SoundManager.Sound.Shuffle);
         const float duration = 1.5f;
         const float timePerSwitch = 0.05f;
         
