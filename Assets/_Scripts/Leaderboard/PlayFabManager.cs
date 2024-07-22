@@ -128,11 +128,11 @@ public class PlayFabManager : MonoBehaviour
         Debug.LogError(error.GenerateErrorReport());
     }
 
-    public void GetPlayerInfo()
+    public void GetPlayerInfo(string leaderBoardName)
     {
         var request2 = new GetLeaderboardAroundPlayerRequest
         {
-            StatisticName = "Score",
+            StatisticName = leaderBoardName,
             MaxResultsCount = 1
         };
         PlayFabClientAPI.GetLeaderboardAroundPlayer(request2, OnLeaderboardAroundPlayerGet, OnLeaderboardError);
@@ -150,11 +150,11 @@ public class PlayFabManager : MonoBehaviour
     }
 
 
-    public void GetLeaderboard()
+    public void GetLeaderboard(string leaderBoardName)
     {
         var request = new GetLeaderboardRequest
         {
-            StatisticName = "Score",
+            StatisticName = leaderBoardName,
             StartPosition = 0,
             MaxResultsCount = 10
         };

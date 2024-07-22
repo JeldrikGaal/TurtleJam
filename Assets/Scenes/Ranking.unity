@@ -1060,6 +1060,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rankings
       objectReference: {fileID: 0}
+    - target: {fileID: 3470231947779259239, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3473561429824358954, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
       propertyPath: m_text
       value: 
@@ -1572,6 +1576,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 201
       objectReference: {fileID: 0}
+    - target: {fileID: 6493180689821181357, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6506932580060284466, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
       propertyPath: scoreManager
       value: 
@@ -1883,6 +1891,10 @@ PrefabInstance:
     - target: {fileID: 7977553029942098281, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215735343878601184, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8276647676087301411, guid: dfee944d5878c024fb4a2e942bee33f5, type: 3}
       propertyPath: m_AnchorMax.y

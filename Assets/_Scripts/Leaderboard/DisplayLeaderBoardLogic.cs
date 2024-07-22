@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -19,6 +20,12 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
     [SerializeField] private TMP_Text _ownRank;
 
     private List<TMP_Text> _allText = new List<TMP_Text>();
+
+    private string _currentLeaderBoardName;
+
+    private const string _defaultLeaderBoardName = "Score";
+    private const string _testLeaderBoardName = "Score";
+    
     
     [SerializeField] private Color _ownColor;
 
@@ -35,7 +42,6 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
     };
     
-    
     private void Awake()
     {
         PlayFabManager.OnLeaderBoardRetrieved += SaveLeaderBoardEntries;
@@ -50,7 +56,7 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
 
     void Start()
     {
-        PlayFabManager.Instance.GetLeaderboard();
+        InitLeaderBoardLogic("Score");
         
         _allText.AddRange(_names);
         _allText.AddRange(_ranking);
@@ -60,11 +66,16 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
         _allText.Add(_ownRank);
     }
 
+    private void InitLeaderBoardLogic(string leaderBoardName)
+    {
+        PlayFabManager.Instance.GetLeaderboard(leaderBoardName);
+    }
+    
     private void SaveLeaderBoardEntries( List<PlayerLeaderboardEntry> entries)
     {
         _leaderboardEntries = entries;
         DisplayEntries();
-        PlayFabManager.Instance.GetPlayerInfo();
+        PlayFabManager.Instance.GetPlayerInfo("Score");
     }
 
     private void ReactToPlayerDataRetrieved(GetLeaderboardAroundPlayerResult results)
