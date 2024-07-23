@@ -32,6 +32,12 @@ public class SoundSettings : MonoBehaviour
     private void Awake()
     {
         _audioMixer = SoundAssets.i.Mixer;
+
+        _currentMusicAmount = GetAmountFromVolume(_musicDict, GetMusicVolume());
+        _currentVfxAmount = GetAmountFromVolume(_vfXDict, GetVfxVolume());
+        
+        _musicDisplay.Initialize(_currentMusicAmount);
+        _vfxDisplay.Initialize(_currentVfxAmount);
     }
 
     public void IncreaseMusicVolume()

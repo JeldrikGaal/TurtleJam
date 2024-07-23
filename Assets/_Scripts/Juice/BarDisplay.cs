@@ -27,14 +27,9 @@ public class BarDisplay : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void Initialize(int amount)
     {
-        Initialize(0);
-    }
-
-    public void Initialize(float percentage)
-    {
-        SetListFromAmount(GetAmountFromPercentage(percentage));
+        SetListFromAmount(amount);
     }
 
     private int GetAmountFromPercentage(float percentage)
@@ -42,7 +37,7 @@ public class BarDisplay : MonoBehaviour
         return Mathf.RoundToInt(_images.Count * percentage);
     }
     
-    private void SetListFromAmount(int amount)
+    public void SetListFromAmount(int amount)
     {
         _currentBarAmount = amount;
         for (int i = 0; i < _images.Count; i++)
@@ -53,16 +48,17 @@ public class BarDisplay : MonoBehaviour
 
     public void SetListFromAmountWithAnim(int amount)
     {
-        if (amount > _currentBarAmount && amount < _images.Count)
+        if (amount > _currentBarAmount && amount <= _images.Count)
         {
-            EnableBar(_images[amount]);
+            EnableBar(_images[amount-1]);
         }
-        else if (amount < _currentBarAmount && amount > 0)
+        else if (amount < _currentBarAmount && amount >= 0)
         {
             DisableBar(_images[amount]);
         }
-
-        StartCoroutine(SetListFromAmountWithDelay(amount));
+        
+        _currentBarAmount = amount;
+        //StartCoroutine(SetListFromAmountWithDelay(amount));
     }
 
     private IEnumerator SetListFromAmountWithDelay(int amount)

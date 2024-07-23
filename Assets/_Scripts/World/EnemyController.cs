@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameStateManager.Instance.IsPaused())
+        if (! GameStateManager.Instance.IsRunning())
         {
             rb.velocity = Vector2.zero;
             return;

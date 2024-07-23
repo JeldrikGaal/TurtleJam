@@ -39,6 +39,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TMP_Text _streakTextUI;
     [SerializeField] private List<Image> _streakSquares;
+
+    [SerializeField] private GameObject _pauseMenuMainSection;
+    [SerializeField] private GameObject _pauseMenuOptionsSection;
     
     private Vector3 _scoreTextStartPos;
     private Vector3 _timeTextStartPos;
@@ -446,5 +449,39 @@ public class UIManager : MonoBehaviour
         SquareSpawnAnim(_streakSquares[index]);
         CleanUpSquaresFromIndex(index);
 
+    }
+
+    public void ShowMainPauseMenu()
+    {
+        /*_pauseMenuMainSection.SetActive(true);
+        _pauseMenuOptionsSection.SetActive(false);*/
+        
+        SwapByMove(_pauseMenuMainSection, _pauseMenuOptionsSection, 1000f, 0.35f);
+        
+    }
+    
+    public void ShowOptionsPauseMenu()
+    {
+        /*_pauseMenuMainSection.SetActive(false);
+        _pauseMenuOptionsSection.SetActive(true);*/
+        
+        SwapByMove(_pauseMenuOptionsSection, _pauseMenuMainSection, -1000f, 0.35f);
+    }
+
+    private void SwapByMove(GameObject moveIn, GameObject moveOut, float distance, float time)
+    {
+        Vector3 moveOutOrgPos = moveOut.transform.position;
+        moveOut.transform.DOMoveX(moveOutOrgPos.x + distance, time).OnComplete(() =>
+        {
+            moveOut.SetActive(false);
+            moveOut.transform.position = moveOutOrgPos;
+            
+            Vector3 moveInOrgPos = moveIn.transform.position;
+            moveIn.SetActive(true);
+            moveIn.transform.position -= Vector3.right * -distance;
+            moveIn.transform.DOMoveX(moveInOrgPos.x, time);
+        });
+        
+       
     }
 }
