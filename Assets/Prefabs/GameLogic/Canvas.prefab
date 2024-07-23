@@ -7121,6 +7121,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VFXDisplay
       objectReference: {fileID: 0}
+    - target: {fileID: 4720145569333132312, guid: 4c585e9e565406340af7bda8f51a34bf, type: 3}
+      propertyPath: m_text
+      value: Effects
+      objectReference: {fileID: 0}
     - target: {fileID: 5095395820909032379, guid: 4c585e9e565406340af7bda8f51a34bf, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

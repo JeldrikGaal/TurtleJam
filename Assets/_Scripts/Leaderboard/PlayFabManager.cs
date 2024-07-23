@@ -23,7 +23,7 @@ public class PlayFabManager : MonoBehaviour
     private string _loggedInDisplayName = "";
     private string _loggedInUserID = "";
 
-    private string _selectedLeaderBoard = "Score";
+    private string _selectedLeaderBoard = "Showcase";
 
     private void Awake()
     {
