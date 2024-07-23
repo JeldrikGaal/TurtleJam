@@ -56,7 +56,7 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
 
     void Start()
     {
-        InitLeaderBoardLogic("Score");
+        InitLeaderBoardLogic();
         
         _allText.AddRange(_names);
         _allText.AddRange(_ranking);
@@ -66,16 +66,16 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
         _allText.Add(_ownRank);
     }
 
-    private void InitLeaderBoardLogic(string leaderBoardName)
+    private void InitLeaderBoardLogic()
     {
-        PlayFabManager.Instance.GetLeaderboard(leaderBoardName);
+        PlayFabManager.Instance.GetLeaderboard();
     }
     
     private void SaveLeaderBoardEntries( List<PlayerLeaderboardEntry> entries)
     {
         _leaderboardEntries = entries;
         DisplayEntries();
-        PlayFabManager.Instance.GetPlayerInfo("Score");
+        PlayFabManager.Instance.GetPlayerInfo();
     }
 
     private void ReactToPlayerDataRetrieved(GetLeaderboardAroundPlayerResult results)
@@ -212,6 +212,38 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
             text.DOFade(0, 0);
             text.DOFade(1, duration).SetEase(Ease.InOutSine);
         }
+    }
+
+    public void SwitchLeaderboard(string newLeaderBoard)
+    {
+        PlayFabManager.Instance.SwitchLeaderBoard(newLeaderBoard);
+        InitLeaderBoardLogic();
+        SwitchAnim();
+        ResetUI();
+    }
+
+    private void ResetUI()
+    {
+        for (int i = 0; i < _names.Count; i++)
+        {
+            _names[i].text = "";
+            _ranking[i].text = "";
+            _names[i].color = Color.white;
+            _positions[i].color = Color.white;
+            
+            _ownRank.text = "";
+            _ownName.text = "";
+            _ownScore.text = "";
+            
+            _ownRank.color = Color.white;
+            _ownName.color = Color.white;
+            _ownScore.color = Color.white;
+        }
+    }
+
+    private void SwitchAnim()
+    {
+       Debug.Log("Switched");
     }
 
     private void PlayPositionFlyInAnimation()

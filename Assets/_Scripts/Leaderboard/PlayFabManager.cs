@@ -23,6 +23,8 @@ public class PlayFabManager : MonoBehaviour
     private string _loggedInDisplayName = "";
     private string _loggedInUserID = "";
 
+    private string _selectedLeaderBoard = "Score";
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -108,7 +110,7 @@ public class PlayFabManager : MonoBehaviour
             {
                 new StatisticUpdate
                 {
-                    StatisticName = "Score",
+                    StatisticName = _selectedLeaderBoard,
                     Value = score
                 }
             }
@@ -128,11 +130,11 @@ public class PlayFabManager : MonoBehaviour
         Debug.LogError(error.GenerateErrorReport());
     }
 
-    public void GetPlayerInfo(string leaderBoardName)
+    public void GetPlayerInfo()
     {
         var request2 = new GetLeaderboardAroundPlayerRequest
         {
-            StatisticName = leaderBoardName,
+            StatisticName = _selectedLeaderBoard,
             MaxResultsCount = 1
         };
         PlayFabClientAPI.GetLeaderboardAroundPlayer(request2, OnLeaderboardAroundPlayerGet, OnLeaderboardError);
@@ -150,11 +152,11 @@ public class PlayFabManager : MonoBehaviour
     }
 
 
-    public void GetLeaderboard(string leaderBoardName)
+    public void GetLeaderboard()
     {
         var request = new GetLeaderboardRequest
         {
-            StatisticName = leaderBoardName,
+            StatisticName = _selectedLeaderBoard,
             StartPosition = 0,
             MaxResultsCount = 10
         };
@@ -175,7 +177,7 @@ public class PlayFabManager : MonoBehaviour
     {
         var request = new GetLeaderboardRequest
         {
-            StatisticName = "Score",
+            StatisticName = _selectedLeaderBoard,
             StartPosition = 0,
             MaxResultsCount = 1
         };
@@ -185,6 +187,11 @@ public class PlayFabManager : MonoBehaviour
     private void OnHighScoreGet(GetLeaderboardResult result)
     {
         OnHighestScoreRetrieved?.Invoke(result);
+    }
+
+    public void SwitchLeaderBoard(string newLeaderBoard)
+    {
+        _selectedLeaderBoard = newLeaderBoard;
     }
 }
     
