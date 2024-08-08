@@ -199,7 +199,6 @@ GameObject:
   - component: {fileID: 7137631917041814862}
   - component: {fileID: 7663180413635354599}
   - component: {fileID: 3128197476579923505}
-  - component: {fileID: 8427425359096602974}
   - component: {fileID: 4668151947806853309}
   - component: {fileID: 2109913522526734292}
   - component: {fileID: 6312191821812662628}
@@ -408,28 +407,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &8427425359096602974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6340098526527700323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11fff971501314f488d86aff6eae72fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClip1:
-  - {fileID: 8300000, guid: 8a39d73da9062634384b4045800bf42b, type: 3}
-  audioClip2:
-  - {fileID: 8300000, guid: b7071e219d214b74684e46637bed7533, type: 3}
-  - {fileID: 8300000, guid: 316b8beb05388a54891b3358c33d2bbb, type: 3}
-  - {fileID: 8300000, guid: 905da9ad74b29c849a3396937a5676a0, type: 3}
-  audioClip3:
-  - {fileID: 8300000, guid: 770f4ac6ed18ab64ca607a3b5ed4d9ed, type: 3}
-  audioClip4: []
-  audioClip5: []
 --- !u!95 &4668151947806853309
 Animator:
   serializedVersion: 5
@@ -548,6 +525,8 @@ MonoBehaviour:
   _explosionParticle: {fileID: 5776239834288321624, guid: ce8bf9300d48087428ba8f04d880078f, type: 3}
   _sparkParticle: {fileID: 8457933192090926043, guid: 7960641f9aba73c42a3fe6a576089c52, type: 3}
   _trailRenderer: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
+  _inactiveColor: {r: 0, g: 0, b: 0, a: 0}
   _colorList: []
 --- !u!1 &7185088897200903543
 GameObject:

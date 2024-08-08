@@ -6,7 +6,6 @@ public class BulletController : MonoBehaviour
     public float destroyAfterSeconds = 2f;
     public float dmg = 5;
 
-    private PlayAudio pa;
 
     [SerializeField] ParticleSystem muzzleFlash;
 
@@ -14,7 +13,6 @@ public class BulletController : MonoBehaviour
     {
         // Apply force to the bullet in the forward direction
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        pa = GetComponent<PlayAudio>();
         rb.AddForce(transform.right * bulletForce, ForceMode2D.Impulse);
         ParticleSystem ps = Instantiate(muzzleFlash, transform.position, Quaternion.identity) as ParticleSystem;
         ps.transform.up = transform.right;
@@ -41,7 +39,6 @@ public class BulletController : MonoBehaviour
             }
             if (!collision.transform.CompareTag("Bullet"))
             {
-                //pa.PlayOneShotSound(0);
                 Destroy(gameObject);     
             }
             // Destroy the bullet upon collision with any object
