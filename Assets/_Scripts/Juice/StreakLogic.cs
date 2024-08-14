@@ -117,7 +117,7 @@ public class StreakLogic : MonoBehaviour
             SpawnStreakEndedIndicator(PlayerController.Instance.transform.position + new Vector3(0 , 0.75f, 0));
         }
         
-        StartCoroutine(StreakChangeColorFlash(Color.red));
+        //StartCoroutine(StreakChangeColorFlash(Color.grey));
         SetStreakCount(0);
         
     }

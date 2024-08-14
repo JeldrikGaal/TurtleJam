@@ -180,6 +180,39 @@ public static class SoundManager
         return null;
 
     }
+    private static AudioClip[] GetAudioClips(Sound sound)
+    {
+        foreach(SoundAssets.SoundAudioClips soundAudioClipList in SoundAssets.i.soundAudioClipsList)
+        {
+            if(soundAudioClipList.sound == sound)
+            {
+                return soundAudioClipList.audioClips;
+            } 
+        }
+        Debug.LogError("Sound" + sound + " not found");
+        return null;
+
+    }
+    public static void PlayRandomOneShot(Sound sound)
+    {
+
+        if (_oneShotSoundGameObject == null)
+        {
+             _oneShotSoundGameObject = new GameObject("OneShotSound");
+             _oneShotAudioSource = _oneShotSoundGameObject.AddComponent<AudioSource>();
+             _oneShotAudioSource.outputAudioMixerGroup = SoundAssets.i.Mixer_SFX;
+        }
+        if (GetAudioClips(sound).Length == 0) return;
+
+        // Choose a random index in the audioClips array
+        int randomIndex = Random.Range(0, GetAudioClips(sound).Length );
+
+        // Assign the random clip to the audioSource
+        _oneShotAudioSource.clip = GetAudioClips(sound)[randomIndex];
+
+        // Play the audio clip
+        _oneShotAudioSource.Play();
+    }
     
     public static void StopAllPlayingSounds()
     {

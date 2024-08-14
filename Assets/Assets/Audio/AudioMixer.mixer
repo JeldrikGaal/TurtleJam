@@ -1,5 +1,27 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!244 &-8599751739312657931
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: e4d0a70743fbe3344bbea2a3d34d0d41
+  m_EffectName: Compressor
+  m_MixLevel: 6476945ea33d23d459908d169be7debd
+  m_Parameters:
+  - m_ParameterName: Threshold
+    m_GUID: 3b3848f50f8379d49b17ed84a1a8a421
+  - m_ParameterName: Attack
+    m_GUID: b8527c3f67c3f40498820c1b4693bd5d
+  - m_ParameterName: Release
+    m_GUID: b2803c7013748ef46b29a2cd48a74833
+  - m_ParameterName: Make up gain
+    m_GUID: 31aafd767edc32b41b485040fe6461b8
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &-6787989812803694217
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -48,6 +70,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: -2057216548767114475}
+  - {fileID: -8599751739312657931}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0

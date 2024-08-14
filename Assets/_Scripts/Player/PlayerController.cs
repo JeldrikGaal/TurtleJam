@@ -1,12 +1,15 @@
 using System;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
    
     [SerializeField] private float _baseSpeed;
+    [SerializeField] private float _smoothAmount;
     [SerializeField] private float _baseHealth;
+
     private float _speed;
     private float _health;
     
@@ -36,6 +39,10 @@ public class PlayerController : MonoBehaviour
     private float _timeMod;
     private float _timeModSave;
     private Vector2 _reflectNormal;
+    private Vector2 _moveInput;
+    private Vector2 _smoothMoveInput;
+    private Vector2 _smoothMoveVelocity;
+    
 
     // TODO: rework / remove portals?
     public bool teleporting;
@@ -73,27 +80,38 @@ public class PlayerController : MonoBehaviour
             return;
         }
         
-        Move();
+        GetInput();
         ShootInteraction();
         //ShieldInteraction();
     }
     
     private void ShootInteraction()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonDown(0))
         {
             _playerProjectile.RequestShootProjectile();
         }
     }
+    private void FixedUpdate()
+    {
+        Move();
+    }
 
     private void Move()
     {
-        _rigidBody.velocity = new Vector2(_speed * Input.GetAxisRaw("Horizontal"), _speed * Input.GetAxisRaw("Vertical"));
+       _smoothMoveInput = Vector2.SmoothDamp(_moveInput, _smoothMoveInput, ref _smoothMoveVelocity, _smoothAmount);
+       _rigidBody.velocity = _baseSpeed * _smoothMoveInput;
         if (IsPlayerShielding())
         {
             _rigidBody.velocity *= 1 - ( _shieldSlowPercentage / 100);
         }
         
+    }
+    private void GetInput()
+    {
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+        _moveInput = new Vector2(moveX, moveY).normalized;
     }
     
     private void ShieldInteraction()
