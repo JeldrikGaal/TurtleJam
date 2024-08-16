@@ -162,6 +162,11 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
         float timePerLetter = duration / textLength;
         string originalText = textField.text;
 
+        if (originalText.Length == 0)
+        {
+            yield break;
+        }
+
         textField.text = "";
         textField.enabled = true;
         

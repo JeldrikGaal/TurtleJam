@@ -4,13 +4,12 @@ using System.IO;
 using Newtonsoft.Json;
 using PlayFab.ClientModels;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OfflineLeaderBoard : MonoBehaviour
 {
     public static OfflineLeaderBoard Instance;
-
     private List<PlayerLeaderboardEntry> _leaderBoardSave = new List<PlayerLeaderboardEntry>();
-    
     private string _loggedInUsername;
     
     private void Awake()
@@ -24,18 +23,18 @@ public class OfflineLeaderBoard : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
-        _leaderBoardSave = LoadLeaderboardFromFile();
     }
 
     private void OnEnable()
     {
         DEVHACKS.OnForceRestart += Reset;
+        SceneManager.sceneLoaded += LoadLeaderboardFromFile;
     }
-
+    
     private void OnDestroy()
     {
         DEVHACKS.OnForceRestart -= Reset;
+        SceneManager.sceneLoaded -= LoadLeaderboardFromFile;
     }
 
     private void Reset()
@@ -47,6 +46,7 @@ public class OfflineLeaderBoard : MonoBehaviour
     public void Login(string username)
     {
         _loggedInUsername = username;
+        AddPlayerToLeaderboard(username, 0);
         LeaderBoardManager.Instance.InvokePlayerLoggedIn(username);
     }
 
@@ -117,6 +117,15 @@ public class OfflineLeaderBoard : MonoBehaviour
             File.Create(filePath);
             return new List<PlayerLeaderboardEntry>();
         }
+    }
+    
+    private void LoadLeaderboardFromFile(Scene arg0, LoadSceneMode arg1)
+    {
+        if (arg0.name != "MainMenu")
+        {
+            return;
+        }
+        _leaderBoardSave = LoadLeaderboardFromFile();
     }
     
     private void AddPlayerToLeaderboard(string playerName, int score)
