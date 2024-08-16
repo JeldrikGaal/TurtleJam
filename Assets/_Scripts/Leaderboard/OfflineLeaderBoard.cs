@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
@@ -25,6 +26,22 @@ public class OfflineLeaderBoard : MonoBehaviour
         }
 
         _leaderBoardSave = LoadLeaderboardFromFile();
+    }
+
+    private void OnEnable()
+    {
+        DEVHACKS.OnForceRestart += Reset;
+    }
+
+    private void OnDestroy()
+    {
+        DEVHACKS.OnForceRestart -= Reset;
+    }
+
+    private void Reset()
+    {
+        _leaderBoardSave = new List<PlayerLeaderboardEntry>();
+        _loggedInUsername = "";
     }
     
     public void Login(string username)

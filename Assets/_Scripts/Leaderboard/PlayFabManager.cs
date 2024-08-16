@@ -29,6 +29,23 @@ public class PlayFabManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
     }
+    
+    private void OnEnable()
+    {
+        DEVHACKS.OnForceRestart += Reset;
+    }
+
+    private void OnDestroy()
+    {
+        DEVHACKS.OnForceRestart -= Reset;
+    }
+
+    private void Reset()
+    {
+        _loggedInDisplayName = "";
+        _loggedInUserID = "";
+        _selectedLeaderBoard = "Showcase";
+    }
 
     public void Login(string username)
     {
