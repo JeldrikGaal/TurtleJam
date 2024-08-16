@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.Reset();
         SoundManager.PlayOneShotSound(SoundManager.Sound.StartGame);
-        SoundManager.PlaySound(SoundManager.Sound.Music, this.transform, true, SoundManager.SoundType.Music);     
+        SoundManager.PlayRandomSound(SoundManager.Sound.Music, this.transform, true, SoundManager.SoundType.Music);     
         Time.timeScale = 1;
         _timeSinceGameStarted = 0;
         

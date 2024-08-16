@@ -93,7 +93,7 @@ public static class SoundManager
         }
     }
 
-    private static GameObject CreateAndActivateSoundGameObject(Sound sound, Transform parent, bool isLooping, SoundType type)
+    private static GameObject CreateAndActivateSoundGameObject(Sound sound, Transform parent, bool isLooping, SoundType type, bool isRandom)
     {
         GameObject soundGameObject = new GameObject(sound.ToString())
         {
@@ -102,10 +102,13 @@ public static class SoundManager
         
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
         audioSource.outputAudioMixerGroup = GetAudioMixerGroup(type);
-        audioSource.clip = GetAudioClip(sound);
         audioSource.loop = isLooping;
+        if(isRandom)
+        audioSource.clip = GetRandomAudioClip(sound);
+        else
+        audioSource.clip = GetAudioClip(sound);
         audioSource.Play();
-        
+
         return soundGameObject;
     }
     private static AudioMixerGroup GetAudioMixerGroup (SoundType type)
@@ -125,7 +128,17 @@ public static class SoundManager
         {
             _playingSounds = new List<GameObject>();
         }
-        _playingSounds.Add(CreateAndActivateSoundGameObject(sound, parent, isLooping, type));
+        
+        _playingSounds.Add(CreateAndActivateSoundGameObject(sound, parent, isLooping, type,false));
+    }
+    public static void PlayRandomSound(Sound sound, Transform parent, bool isLooping, SoundType type)
+    {
+        if (_playingSounds == null)
+        {
+            _playingSounds = new List<GameObject>();
+        }
+        AudioClip clip = GetRandomAudioClip(sound); 
+        _playingSounds.Add(CreateAndActivateSoundGameObject(sound, parent, isLooping, type,true));
     }
     
     public static void StopSound(Sound sound, Transform parent)
@@ -180,13 +193,15 @@ public static class SoundManager
         return null;
 
     }
-    private static AudioClip[] GetAudioClips(Sound sound)
+    private static AudioClip GetRandomAudioClip(Sound sound)
     {
         foreach(SoundAssets.SoundAudioClips soundAudioClipList in SoundAssets.i.soundAudioClipsList)
         {
-            if(soundAudioClipList.sound == sound)
+            if(soundAudioClipList.sound == sound && soundAudioClipList.audioClips.Length>0)
             {
-                return soundAudioClipList.audioClips;
+                int randomIndex = Random.Range( 0, soundAudioClipList.audioClips.Length );
+
+                return soundAudioClipList.audioClips[randomIndex];
             } 
         }
         Debug.LogError("Sound" + sound + " not found");
@@ -202,16 +217,8 @@ public static class SoundManager
              _oneShotAudioSource = _oneShotSoundGameObject.AddComponent<AudioSource>();
              _oneShotAudioSource.outputAudioMixerGroup = SoundAssets.i.Mixer_SFX;
         }
-        if (GetAudioClips(sound).Length == 0) return;
+        _oneShotAudioSource.PlayOneShot(GetRandomAudioClip(sound));
 
-        // Choose a random index in the audioClips array
-        int randomIndex = Random.Range(0, GetAudioClips(sound).Length );
-
-        // Assign the random clip to the audioSource
-        _oneShotAudioSource.clip = GetAudioClips(sound)[randomIndex];
-
-        // Play the audio clip
-        _oneShotAudioSource.Play();
     }
     
     public static void StopAllPlayingSounds()
