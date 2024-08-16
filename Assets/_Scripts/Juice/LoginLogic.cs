@@ -29,7 +29,7 @@ public class LoginLogic : MonoBehaviour
 
     private void Start()
     {
-        if (PlayFabManager.Instance.GetUserName().IsNullOrWhitespace())
+        if (LeaderBoardManager.Instance.GetUserName().IsNullOrWhitespace())
         {
             ShowLogin();
         }
@@ -50,7 +50,7 @@ public class LoginLogic : MonoBehaviour
     
     public void LoginButton()
     {
-        PlayFabManager.Instance.Login(GetInputFromUsernameField());
+        LeaderBoardManager.Instance.Login(GetInputFromUsernameField());
         LoginAnim();
     }
     

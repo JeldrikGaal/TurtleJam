@@ -105,7 +105,7 @@ public class ScoreManager : MonoBehaviour
     
     public void SaveScoreForPlayer() 
     {
-        PlayFabManager.Instance.SendLeaderboard(GetCurrentScore());
+        LeaderBoardManager.Instance.SendLeaderboard(GetCurrentScore());
     }
     
     private void AddScore(int scoreToAdd)

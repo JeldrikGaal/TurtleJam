@@ -9,11 +9,11 @@ public class UsernameBanner : MonoBehaviour
 
     private void Awake()
     {
-        PlayFabManager.PlayerLoggedIn += UpdateUsernameBanner;
+        LeaderBoardManager.PlayerLoggedIn += UpdateUsernameBanner;
     }
     private void OnDestroy()
     {
-        PlayFabManager.PlayerLoggedIn += UpdateUsernameBanner;
+        LeaderBoardManager.PlayerLoggedIn -= UpdateUsernameBanner;
     }
 
     private void Start()
@@ -33,7 +33,7 @@ public class UsernameBanner : MonoBehaviour
     
     private void UpdateUsernameBanner()
     {
-        _usernameText.text = PlayFabManager.Instance.GetUserName();
+        _usernameText.text = LeaderBoardManager.Instance.GetUserName();
     }
 
    

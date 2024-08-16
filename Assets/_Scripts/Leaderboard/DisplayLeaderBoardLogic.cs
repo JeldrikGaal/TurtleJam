@@ -44,14 +44,14 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
     
     private void Awake()
     {
-        PlayFabManager.OnLeaderBoardRetrieved += SaveLeaderBoardEntries;
-        PlayFabManager.OnLeaderBoardAroundPlayerRetrieved += ReactToPlayerDataRetrieved;
+        LeaderBoardManager.OnLeaderBoardRetrieved += SaveLeaderBoardEntries;
+        LeaderBoardManager.OnLeaderBoardAroundPlayerRetrieved += ReactToPlayerDataRetrieved;
     }
 
     private void OnDestroy()
     {
-        PlayFabManager.OnLeaderBoardRetrieved -= SaveLeaderBoardEntries;
-        PlayFabManager.OnLeaderBoardAroundPlayerRetrieved -= ReactToPlayerDataRetrieved;
+        LeaderBoardManager.OnLeaderBoardRetrieved -= SaveLeaderBoardEntries;
+        LeaderBoardManager.OnLeaderBoardAroundPlayerRetrieved -= ReactToPlayerDataRetrieved;
     }
 
     void Start()
@@ -68,20 +68,21 @@ public class DisplayLeaderBoardLogic : MonoBehaviour
 
     private void InitLeaderBoardLogic()
     {
-        PlayFabManager.Instance.GetLeaderboard();
+        LeaderBoardManager.Instance.GetLeaderboard();
     }
     
     private void SaveLeaderBoardEntries( List<PlayerLeaderboardEntry> entries)
     {
         _leaderboardEntries = entries;
         DisplayEntries();
-        PlayFabManager.Instance.GetPlayerInfo();
+        LeaderBoardManager.Instance.GetPlayerInfo();
     }
 
     private void ReactToPlayerDataRetrieved(GetLeaderboardAroundPlayerResult results)
     {
         int pos = results.Leaderboard[0].Position;
-        var entry = results.Leaderboard[0];
+        PlayerLeaderboardEntry entry = results.Leaderboard[0];
+        
         if ( pos < 10)
         {
             _names[pos].text = entry.DisplayName;

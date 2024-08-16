@@ -3,22 +3,13 @@ using System.Collections.Generic;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayFabManager : MonoBehaviour
 {
 
     private static PlayFabManager _instance;
 
-    public static PlayFabManager Instance
-    {
-        get { return _instance; }
-    }
-
-    public static event Action<string> PlayerLoggedIn;
-    public static event Action<GetLeaderboardResult> OnHighestScoreRetrieved;
-    public static event Action<List<PlayerLeaderboardEntry>> OnLeaderBoardRetrieved;
-    public static event Action<GetLeaderboardAroundPlayerResult> OnLeaderBoardAroundPlayerRetrieved;
+    public static PlayFabManager Instance => _instance;
 
     private string _loggedInDisplayName = "";
     private string _loggedInUserID = "";
@@ -78,7 +69,7 @@ public class PlayFabManager : MonoBehaviour
         Debug.Log("Congratulations, you have logged in successfully!");
         Debug.Log("Your CustomID: " + SystemInfo.deviceUniqueIdentifier);
         UpdatePlayFabUsername();
-        PlayerLoggedIn?.Invoke(GetUserName());
+        LeaderBoardManager.Instance.InvokePlayerLoggedIn(GetUserName());
     }
 
     private void OnLoginFailure(PlayFabError error)
@@ -142,13 +133,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnLeaderboardAroundPlayerGet(GetLeaderboardAroundPlayerResult getLeaderboardAroundPlayerResult)
     {
-        foreach (var entry in getLeaderboardAroundPlayerResult.Leaderboard)
-        {
-            Debug.Log(entry.DisplayName);
-            Debug.Log(entry.Position);
-        }
-
-        OnLeaderBoardAroundPlayerRetrieved?.Invoke(getLeaderboardAroundPlayerResult);
+        LeaderBoardManager.Instance.InvokeLeaderBoardAroundPlayGot(getLeaderboardAroundPlayerResult);
     }
 
 
@@ -170,7 +155,7 @@ public class PlayFabManager : MonoBehaviour
             //Debug.Log(item.Position + " " + item.DisplayName + " " + item.StatValue);
         }
 
-        OnLeaderBoardRetrieved?.Invoke(result.Leaderboard);
+        LeaderBoardManager.Instance.InvokeLeaderBoardGot(result.Leaderboard);
     }
 
     public void GetHighestScore()
@@ -186,7 +171,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnHighScoreGet(GetLeaderboardResult result)
     {
-        OnHighestScoreRetrieved?.Invoke(result);
+        LeaderBoardManager.Instance.InvokeHighestScoreGot(result);
     }
 
     public void SwitchLeaderBoard(string newLeaderBoard)

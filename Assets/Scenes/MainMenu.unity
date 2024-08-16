@@ -2103,6 +2103,8 @@ GameObject:
   m_Component:
   - component: {fileID: 798298029}
   - component: {fileID: 798298028}
+  - component: {fileID: 798298030}
+  - component: {fileID: 798298031}
   m_Layer: 0
   m_Name: LeaderboardLogic
   m_TagString: ScoreManager
@@ -2137,6 +2139,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &798298030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798298027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f3d16590a5b9bc47865570bbf5345ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnlineEnabled: 1
+--- !u!114 &798298031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798298027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00733742b5b5e544b8bdaf95dd779f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &811830456
 GameObject:
   m_ObjectHideFlags: 0

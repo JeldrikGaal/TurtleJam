@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using PlayFab.ClientModels;
 using TMPro;
 using UnityEngine;
@@ -13,12 +10,12 @@ public class HighscoreSpawnRoomDisplay : MonoBehaviour
 
     private void Awake()
     {
-        PlayFabManager.OnHighestScoreRetrieved += SetHighScoreDisplay;
+        LeaderBoardManager.OnHighestScoreRetrieved += SetHighScoreDisplay;
     }
 
     private void OnDestroy()
     {
-        PlayFabManager.OnHighestScoreRetrieved -= SetHighScoreDisplay;
+        LeaderBoardManager.OnHighestScoreRetrieved -= SetHighScoreDisplay;
     }
 
     private void SetHighScoreDisplay(GetLeaderboardResult result)
@@ -28,7 +25,7 @@ public class HighscoreSpawnRoomDisplay : MonoBehaviour
     
     void Start()
     {
-        PlayFabManager.Instance.GetHighestScore();
+        LeaderBoardManager.Instance.GetHighestScore();
     }
 
   

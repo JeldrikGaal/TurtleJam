@@ -102,7 +102,7 @@ public class StatisticManager : MonoBehaviour
         string round_time = (GetComponent<GameManager>()._timeSinceGameStarted).ToString();
         Statistics round_stats = GetStatistics();
 
-        string username = GameObject.FindWithTag("ScoreManager").GetComponent<PlayFabManager>().GetUserName();
+        string username = LeaderBoardManager.Instance.GetUserName();
         
         string score = "TBU"; // TODO: TO BE UPDATED
         string tries = "TBU"; // TODO: TO BE UPDATED
