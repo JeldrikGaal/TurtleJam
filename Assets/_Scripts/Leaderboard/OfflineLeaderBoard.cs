@@ -131,7 +131,11 @@ public class OfflineLeaderBoard : MonoBehaviour
         PlayerLeaderboardEntry playerEntry = _leaderBoardSave.Find(entry => entry.DisplayName == playerName);
         if (playerEntry != null)
         {
-            playerEntry.StatValue = newScore;
+            if (newScore > playerEntry.StatValue)
+            {
+                playerEntry.StatValue = newScore;
+            }
+            
         }
     }
     
@@ -140,7 +144,7 @@ public class OfflineLeaderBoard : MonoBehaviour
         _leaderBoardSave.Sort((entry1, entry2) => entry2.StatValue.CompareTo(entry1.StatValue));
         for (int i = 0; i < _leaderBoardSave.Count; i++)
         {
-            _leaderBoardSave[i].Position = i + 1;
+            _leaderBoardSave[i].Position = i;
         }
         SaveLeaderboardToFile(_leaderBoardSave);
     }
