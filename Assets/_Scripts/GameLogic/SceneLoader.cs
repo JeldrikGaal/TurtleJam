@@ -1,33 +1,20 @@
-using System;
 using System.Collections;
-using Sirenix.Utilities;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class SceneLoader : MonoBehaviour
 {
+    [SerializeField] private Vector3 _posGoal;
+    [SerializeField] private Vector3 _scaleGoal;
+    [SerializeField] private string _gameSceneName = "Level";
+    [SerializeField] private float _introSequenceDuration;
+    [SerializeField] private Transform _menuTransform;
+   
+    private Vector3 _startPos;
+    private Vector3 _startScale;
     
-    [SerializeField] private GameObject mainMenuScreen;
-    [SerializeField] private GameObject loginScreen;
-    
-    [SerializeField] private GameObject usernameInput;
-    
-    Transform cam;
-
-    [SerializeField] Vector3 posGoal;
-    [SerializeField] Vector3 scaleGoal;
-    [SerializeField] string level1Name = "Level";
-    [SerializeField] float introSequenceTime;
-
-    Vector3 posStart;
-    Vector3 scaleStart;
-    
-    void Start()
-    {
-        cam = GameObject.Find("MainMenu").transform;  
-    }
-    
-
     private IEnumerator LoadSceneEnumerator(string levelName)
     {
         yield return new WaitForSeconds(0.5f);
@@ -45,22 +32,19 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(Intro());
     }
 
-    public IEnumerator Intro ()
+    private IEnumerator Intro()
     {
-        float elapsedTime = 0;
-        posStart = cam.transform.localPosition;
-        scaleStart = cam.transform.localScale;
+        _startPos = _menuTransform.transform.localPosition;
+        _startScale = _menuTransform.transform.localScale;
         SoundManager.PlayOneShotSound(SoundManager.Sound.PlayerShieldOpen);
 
-        while (elapsedTime < introSequenceTime)
-        {
-            cam.transform.localPosition = Vector3.Lerp(posStart, posGoal, (elapsedTime / introSequenceTime));
-            cam.localScale = Vector3.Lerp(scaleStart, scaleGoal, (elapsedTime / introSequenceTime));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+        _menuTransform.DOLocalMove(_posGoal, _introSequenceDuration).SetEase(Ease.InOutSine);
+        _menuTransform.DOScale(_scaleGoal, _introSequenceDuration).SetEase(Ease.InOutSine);
 
-        LoadScene(level1Name);
+        yield return new WaitForSeconds(_introSequenceDuration);
+        
+        LoadScene(_gameSceneName);
+
     }
     
     public void PlayButtonSound(){

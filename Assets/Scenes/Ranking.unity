@@ -2359,13 +2359,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053cefc110905754e993933f9af9d882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuScreen: {fileID: 0}
-  loginScreen: {fileID: 0}
-  usernameInput: {fileID: 0}
-  posGoal: {x: 0, y: 0, z: 0}
-  scaleGoal: {x: 0, y: 0, z: 0}
-  level1Name: Jeldrik2
-  introSequenceTime: 0
+  _posGoal: {x: 0, y: 0, z: 0}
+  _scaleGoal: {x: 0, y: 0, z: 0}
+  _gameSceneName: Level
+  _introSequenceDuration: 0
+  _menuTransform: {fileID: 0}
 --- !u!114 &7170793475956271040
 MonoBehaviour:
   m_ObjectHideFlags: 0

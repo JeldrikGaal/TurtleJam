@@ -31,7 +31,7 @@ public class DEVHACKS : MonoBehaviour
         }
     }
     
-    private void RestartScene()
+    public void RestartScene()
     { 
         OnForceRestart?.Invoke();
         UnityEngine.SceneManagement.SceneManager.LoadScene(SceneToRestartFrom);
