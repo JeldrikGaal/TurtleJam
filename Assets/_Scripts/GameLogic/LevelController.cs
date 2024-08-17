@@ -16,6 +16,7 @@ public class LevelController : MonoBehaviour
 
     private int _currentStageIndex;
     private int _currentLevelIndex;
+    public int _totalLevelIndex = 1;
 
     private Transform _gridTransform;
     public static event Action<List<GameObject>> TileMapsChanged;
@@ -190,6 +191,7 @@ public class LevelController : MonoBehaviour
     
     private void NextRoom(ExitTrigger exitTrigger)
     {
+        _totalLevelIndex++;
         _currentLevelIndex++;
         LevelAttributes oldRoom = _currentLevel;
         

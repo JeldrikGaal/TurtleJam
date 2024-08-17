@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject _pauseMenuMainSection;
     [SerializeField] private GameObject _pauseMenuOptionsSection;
+    [SerializeField] private LevelController levelController;
     
     private Vector3 _scoreTextStartPos;
     private Vector3 _timeTextStartPos;
@@ -56,6 +57,7 @@ public class UIManager : MonoBehaviour
     private float _powerUpTimeIndicatorHolderLength;
 
     public GameManager gameManager;
+    
 
     private bool _scoreBreakdownRunning;
     
@@ -114,7 +116,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateUIText()
     {
-        _timeText.text = "Time: " + gameManager._timeSinceGameStarted.ToString("N1");
+        _timeText.text = "Room: " + levelController._totalLevelIndex.ToString();
     }
 
     private void ReactToGameStateChange(GameStateManager.GameState newState)

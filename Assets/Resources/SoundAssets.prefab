@@ -89,7 +89,5 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 240578d7b34eeec4f9d588ba2c0d5ddb, type: 3}
   - sound: 13
     audioClips:
-    - {fileID: 8300000, guid: 36b63deeba205624f9db0b53a0915e82, type: 3}
-    - {fileID: 8300000, guid: 808da2432ee602e45b79c1296a5b6a19, type: 3}
-    - {fileID: 8300000, guid: d5dcffad81379314fa533b8fbc0b132d, type: 3}
-    - {fileID: 8300000, guid: 8398f58a3390f4c47bb07bef3111108a, type: 3}
+    - {fileID: 8300000, guid: 6e4b65f69768e53439891cec39868b12, type: 3}
+    - {fileID: 8300000, guid: ba4a8c32d2769634898a526959fa6397, type: 3}

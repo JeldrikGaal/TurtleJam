@@ -29,7 +29,7 @@ public class SoundSettings : MonoBehaviour
 
     [SerializeField] private int _maxAmount;
     
-    private void Awake()
+    private void Start()
     {
         _audioMixer = SoundAssets.i.Mixer;
 
