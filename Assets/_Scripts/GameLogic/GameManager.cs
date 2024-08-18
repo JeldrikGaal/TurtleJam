@@ -60,9 +60,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
-        if (  ( Input.GetKeyDown(KeyCode.P) ||  Input.GetKeyDown(KeyCode.Escape) )  && !UIManager.Instance._currentlyAnimatingPauseMenu)
+        if (  ( Input.GetKeyDown(KeyCode.P) ||  Input.GetKeyDown(KeyCode.Escape) )  && !UIManager.Instance._currentlyAnimatingPauseMenu && !GameStateManager.Instance.IsGameOver())
         {
-            if (GameStateManager.Instance.IsRunning())
+            if (GameStateManager.Instance.IsRunning() )
             {
                 GameStateManager.Instance.SetGameState(GameStateManager.GameState.Paused);
             }

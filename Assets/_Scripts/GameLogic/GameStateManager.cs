@@ -48,4 +48,9 @@ public class GameStateManager
         return CurrentGameState == GameState.Running;
     }
 
+    public bool IsGameOver()
+    {
+        return CurrentGameState == GameState.GameOver;
+    }
+
 }
