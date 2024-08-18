@@ -10,6 +10,7 @@ public class MainMenuLogic : MonoBehaviour
     [SerializeField] private GameObject _menuHolder;
     [SerializeField] private GameObject _titleHolder;
     [SerializeField] private GameObject _creditsHolder;
+    [SerializeField] private CanvasGroup _canvasGroup;
     
     
     [SerializeField]  private float _settingsAnimXOffset;
@@ -40,6 +41,8 @@ public class MainMenuLogic : MonoBehaviour
             return;
         }
 
+        _canvasGroup.interactable = false;
+        
         _settingsOpen = true;
         
         _menuHolder.transform.DOLocalMoveX(_menuStartPos.x - _settingsAnimXOffset, _settingsAnimDuration);
@@ -47,7 +50,10 @@ public class MainMenuLogic : MonoBehaviour
         
         _settingsHolder.transform.localPosition += Vector3.right * _settingsAnimXOffset;
         _settingsHolder.SetActive(true);
-        _settingsHolder.transform.DOLocalMoveX(_settingsStartPos.x, _settingsAnimDuration);
+        _settingsHolder.transform.DOLocalMoveX(_settingsStartPos.x, _settingsAnimDuration).OnComplete(() =>
+        {
+            _canvasGroup.interactable = true;
+        });
     }
 
     public void CloseSettings()
@@ -57,6 +63,8 @@ public class MainMenuLogic : MonoBehaviour
             return;
         }
 
+        _canvasGroup.interactable = false;
+        
         _settingsOpen = false;
         
         _menuHolder.transform.DOLocalMoveX(_menuStartPos.x, _settingsAnimDuration);
@@ -65,6 +73,7 @@ public class MainMenuLogic : MonoBehaviour
         _settingsHolder.transform.DOLocalMoveX(_settingsStartPos.x + _settingsAnimXOffset, _settingsAnimDuration).OnComplete(() =>
         {
             _settingsHolder.SetActive(false);
+            _canvasGroup.interactable = true;
         });
     }
 
@@ -75,13 +84,18 @@ public class MainMenuLogic : MonoBehaviour
             return;
         }
 
+        _canvasGroup.interactable = false;
+        
         _creditsOpen = true;
         
         _settingsHolder.transform.DOLocalMoveY(_settingsStartPos.y + _creditsAnimYOffset, _creditssAnimDuration);
         
         _creditsHolder.transform.localPosition -= Vector3.up * _settingsAnimXOffset;
         _creditsHolder.SetActive(true);
-        _creditsHolder.transform.DOLocalMoveY(_creditsStartPos.y, _creditssAnimDuration);
+        _creditsHolder.transform.DOLocalMoveY(_creditsStartPos.y, _creditssAnimDuration).OnComplete(() =>
+        {
+            _canvasGroup.interactable = true;
+        });;
     }
     
     public void HideCredits()
@@ -91,6 +105,8 @@ public class MainMenuLogic : MonoBehaviour
             return;
         }
 
+        _canvasGroup.interactable = false;
+        
         _creditsOpen = false;
         
         _settingsHolder.transform.DOLocalMoveY(_settingsStartPos.y, _creditssAnimDuration);
@@ -99,6 +115,7 @@ public class MainMenuLogic : MonoBehaviour
             () =>
             {
                 _creditsHolder.SetActive(false);
+                _canvasGroup.interactable = true;
             });
     }
 }

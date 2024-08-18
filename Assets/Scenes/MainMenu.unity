@@ -5960,6 +5960,7 @@ GameObject:
   - component: {fileID: 7170793475956271038}
   - component: {fileID: 7170793475956271039}
   - component: {fileID: 7170793475956271040}
+  - component: {fileID: 7170793475956271041}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6081,10 +6082,23 @@ MonoBehaviour:
   _menuHolder: {fileID: 1611507050}
   _titleHolder: {fileID: 581013108}
   _creditsHolder: {fileID: 841333767}
+  _canvasGroup: {fileID: 7170793475956271041}
   _settingsAnimXOffset: 1000
   _settingsAnimDuration: 0.5
   _creditsAnimYOffset: 600
   _creditssAnimDuration: 0.5
+--- !u!225 &7170793475956271041
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887052647365147972}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

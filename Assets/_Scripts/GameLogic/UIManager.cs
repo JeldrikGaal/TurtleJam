@@ -71,9 +71,23 @@ public class UIManager : MonoBehaviour
     private Color _squareLastColor;
     private Vector3 _startingSquareScale;
     private bool _newStreakStageAnimRunning;
+
+    public static UIManager Instance;
+    public bool _currentlyAnimatingPauseMenu;
+
+    private bool _currentlySwappingBetweenMenus;
     
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
         GameStateManager.GameStateChanged += ReactToGameStateChange;
         PlayerController.OnPlayerDeath += GameOverCondition;
         ScoreManager.ScoreAdded += ShowScoreAdded;
@@ -139,11 +153,12 @@ public class UIManager : MonoBehaviour
 
     private void Pause()
     {
-        
         SoundManager.PauseAllPlayingSounds();
         SoundManager.PlayOneShotSound(SoundManager.Sound.StartGame);
         StartCoroutine(_cameraManager.BattleTransition(1, true));
         StartCoroutine(SetActiveDelayed(1, true));
+        StartCoroutine(SetAnimatingBoolForTime(1));
+        
     }
     
     public void Resume()
@@ -152,6 +167,7 @@ public class UIManager : MonoBehaviour
         SoundManager.ResumeAllPlayingSounds();
         _pauseMenu.SetActive(false);
         StartCoroutine(_cameraManager.BattleTransition(1, false));
+        StartCoroutine(SetAnimatingBoolForTime(1));
     }
     
     public void GameOverCondition()
@@ -239,6 +255,14 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         _pauseMenu.SetActive(active);
     }
+
+    private IEnumerator SetAnimatingBoolForTime(float time)
+    {
+        _currentlyAnimatingPauseMenu = true;
+        yield return new WaitForSeconds(time);
+        _currentlyAnimatingPauseMenu = false;
+    }
+    
     public void ShowPowerUpUI(BasePowerUpHolder data)
     {
         _powerUpNameText.text = data.DisplayName;
@@ -455,23 +479,26 @@ public class UIManager : MonoBehaviour
 
     public void ShowMainPauseMenu()
     {
-        /*_pauseMenuMainSection.SetActive(true);
-        _pauseMenuOptionsSection.SetActive(false);*/
-        
+        if (_currentlySwappingBetweenMenus)
+        {
+            return;
+        }
         SwapByMove(_pauseMenuMainSection, _pauseMenuOptionsSection, 1000f, 0.35f);
         
     }
     
     public void ShowOptionsPauseMenu()
     {
-        /*_pauseMenuMainSection.SetActive(false);
-        _pauseMenuOptionsSection.SetActive(true);*/
-        
+        if (_currentlySwappingBetweenMenus)
+        {
+            return;
+        }
         SwapByMove(_pauseMenuOptionsSection, _pauseMenuMainSection, -1000f, 0.35f);
     }
 
     private void SwapByMove(GameObject moveIn, GameObject moveOut, float distance, float time)
     {
+        _currentlySwappingBetweenMenus = true;
         Vector3 moveOutOrgPos = moveOut.transform.position;
         moveOut.transform.DOMoveX(moveOutOrgPos.x + distance, time).OnComplete(() =>
         {
@@ -482,6 +509,7 @@ public class UIManager : MonoBehaviour
             moveIn.SetActive(true);
             moveIn.transform.position -= Vector3.right * -distance;
             moveIn.transform.DOMoveX(moveInOrgPos.x, time);
+            _currentlySwappingBetweenMenus = false;
         });
         
        

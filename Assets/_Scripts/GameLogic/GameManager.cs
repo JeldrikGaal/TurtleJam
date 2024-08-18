@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _gameOverVisualEffectPrefab;
     [SerializeField] private Vector2 _roomBounds;
 
+    private bool _currentlyAnimatingPauseMenu;
+    
     private void Awake()
     {
         if (Instance == null)
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.P))
+        if (  ( Input.GetKeyDown(KeyCode.P) ||  Input.GetKeyDown(KeyCode.Escape) )  && !UIManager.Instance._currentlyAnimatingPauseMenu)
         {
             if (GameStateManager.Instance.IsRunning())
             {
