@@ -224,6 +224,7 @@ MonoBehaviour:
   _overshootDistance: 0.5
   _shakeImpactDuration: 0.1
   _shakeImpactMagnitude: 0.2
+  _medalFlashColor: {r: 0.5882353, g: 1, b: 0.5803922, a: 1}
 --- !u!1 &8689683399048197795
 GameObject:
   m_ObjectHideFlags: 0

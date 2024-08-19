@@ -105,4 +105,9 @@ public class GameManager : MonoBehaviour
     {
         return _roomBounds;
     }
+
+    public void SwitchUser()
+    {
+        DEVHACKS.Instance.RestartScene();
+    }
 }

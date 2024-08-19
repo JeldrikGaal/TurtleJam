@@ -14,6 +14,7 @@ public class MedalLogic : MonoBehaviour
 
     [SerializeField] private float _shakeImpactDuration;
     [SerializeField] private float _shakeImpactMagnitude;
+    [SerializeField] private Color _medalFlashColor;
 
     private GameObject _correspondingTextObject;
 
@@ -36,7 +37,7 @@ public class MedalLogic : MonoBehaviour
         seq.OnComplete(() =>
         {
             StartCoroutine(CameraManager.Instance.Shake(_shakeImpactDuration, _shakeImpactMagnitude));
-            ColorsController.Instance.StartGenericColorFlash(0.05f, _medalRenderer.color);
+            ColorsController.Instance.StartGenericColorFlash(0.05f, _medalFlashColor);
         });
         
         Sequence seq2 = DOTween.Sequence();

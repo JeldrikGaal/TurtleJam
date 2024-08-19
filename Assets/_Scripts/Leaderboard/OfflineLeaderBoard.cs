@@ -77,11 +77,19 @@ public class OfflineLeaderBoard : MonoBehaviour
 
     private int GetPositionForPlayer(string getUserName)
     {
+        if (GetPlayer(getUserName) == null)
+        {
+            return 99;
+        }
         return GetPlayer(getUserName).Position;
     }
 
     private int GetHighScoreForPlayer(string getUserName)
     {
+        if (GetPlayer(getUserName) == null)
+        {
+            return 0;
+        }
         return GetPlayer(getUserName).StatValue;
     }
 

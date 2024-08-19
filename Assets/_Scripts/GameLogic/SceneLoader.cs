@@ -14,6 +14,7 @@ public class SceneLoader : MonoBehaviour
    
     private Vector3 _startPos;
     private Vector3 _startScale;
+    private bool _introStarted;
     
     private IEnumerator LoadSceneEnumerator(string levelName)
     {
@@ -29,7 +30,12 @@ public class SceneLoader : MonoBehaviour
 
     public void StartIntro()
     {
-        StartCoroutine(Intro());
+        if (!_introStarted)
+        {
+            StartCoroutine(Intro());
+            _introStarted = true;
+        }
+        
     }
 
     private IEnumerator Intro()

@@ -50,6 +50,11 @@ public class LoginLogic : MonoBehaviour
     
     public void LoginButton()
     {
+        if (GetInputFromUsernameField().Length < 3)
+        {
+            WrongLoginAnim();
+            return;
+        }
         LeaderBoardManager.Instance.Login(GetInputFromUsernameField());
         LoginAnim();
     }
@@ -84,15 +89,15 @@ public class LoginLogic : MonoBehaviour
 
     private void LoginAnim()
     {
-        if (_userNameTextField.text.Length < 3)
-        {
-            SoundManager.PlayOneShotSound(SoundManager.Sound.LoginFail);
-            StartCoroutine(WrongInput());
-            return;
-        }
         SoundManager.PlayOneShotSound(SoundManager.Sound.LoginPass);
         _loginButtonObject.transform.DOScale(Vector3.zero, 0.5f);
         StartCoroutine(ScrambleLetters(1f, 0.1f));
+    }
+
+    private void WrongLoginAnim()
+    {
+        SoundManager.PlayOneShotSound(SoundManager.Sound.LoginFail);
+        StartCoroutine(WrongInput());
     }
 
     private IEnumerator WrongInput()

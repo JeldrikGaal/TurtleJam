@@ -3536,7 +3536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ddc2e7428c7b0458aac4374a0c5c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioMixer: {fileID: 0}
+  _audioMixer: {fileID: 24100000, guid: 0c5f97f6d226b1549bbb4687dd9eb806, type: 2}
   _musicDict:
   - VolumeAmount: 0
     MixerAmount: -80
@@ -3558,11 +3558,11 @@ MonoBehaviour:
   - VolumeAmount: 2
     MixerAmount: -30
   - VolumeAmount: 3
-    MixerAmount: -20
-  - VolumeAmount: 4
     MixerAmount: -10
-  - VolumeAmount: 5
+  - VolumeAmount: 4
     MixerAmount: 0
+  - VolumeAmount: 5
+    MixerAmount: 7
   _vfxDisplay: {fileID: 1818553080}
   _musicDisplay: {fileID: 1769135900}
   _maxAmount: 5
@@ -4898,7 +4898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4720145569333132312, guid: 4c585e9e565406340af7bda8f51a34bf, type: 3}
       propertyPath: m_text
-      value: VFX
+      value: SFX
       objectReference: {fileID: 0}
     - target: {fileID: 5095395820909032379, guid: 4c585e9e565406340af7bda8f51a34bf, type: 3}
       propertyPath: m_Pivot.x

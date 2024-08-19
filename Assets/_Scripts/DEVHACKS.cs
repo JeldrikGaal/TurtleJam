@@ -7,7 +7,7 @@ public class DEVHACKS : MonoBehaviour
 
     public static event Action OnForceRestart;
     
-    public DEVHACKS Instance { get; set; }
+    public static DEVHACKS Instance { get; set; }
     
     private void Awake()
     {
