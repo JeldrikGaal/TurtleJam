@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using Unity.Collections;
 using Unity.VisualScripting;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private float _speed;
     private float _health;
+    private bool _isStuck;
     
     [Range(0,100)]
     [SerializeField] private float _shieldSlowPercentage;
@@ -70,6 +73,7 @@ public class PlayerController : MonoBehaviour
 
         _speed = _baseSpeed;
         _health = _baseHealth;
+        _isStuck = false;
     }
 
     void Update()
@@ -94,11 +98,17 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+
         Move();
     }
 
     private void Move()
     {
+        if(_isStuck){
+            _rigidBody.velocity = Vector2.zero;
+            return;
+        }
+
        _smoothMoveInput = Vector2.SmoothDamp(_moveInput, _smoothMoveInput, ref _smoothMoveVelocity, _smoothAmount);
        _rigidBody.velocity = _baseSpeed * _moveInput;
         if (IsPlayerShielding())
@@ -141,6 +151,16 @@ public class PlayerController : MonoBehaviour
             // TODO DIE SOUND
             OnPlayerDeath?.Invoke();
         }
+    }
+    public void Stuck(float stuckTime, GameObject damageSource)
+    {
+        StartCoroutine(GetStuck(stuckTime));
+    }
+    IEnumerator GetStuck(float stuckTime){
+        _isStuck = true;
+
+        yield return new WaitForSeconds(stuckTime);
+        _isStuck = false;
     }
 
     public void Kill()

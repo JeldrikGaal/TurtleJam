@@ -5,6 +5,9 @@ public class BulletController : MonoBehaviour
     public float bulletForce;
     public float destroyAfterSeconds = 2f;
     public float dmg = 5;
+    public bool isSticky;
+    public bool StickHit;
+    
 
 
     [SerializeField] ParticleSystem muzzleFlash;
@@ -30,7 +33,18 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform != transform && !collision.gameObject.CompareTag("Enemy") && !collision.gameObject.CompareTag("Bullet"))
+        if(isSticky)
+        {
+            if (collision.transform.CompareTag("Player"))
+            {
+                collision.transform.GetComponent<PlayerController>().Stuck(3f, gameObject);
+                StickHit = true;
+            }
+
+        }
+        else
+        {
+            if (collision.transform != transform && !collision.gameObject.CompareTag("Enemy") && !collision.gameObject.CompareTag("Bullet"))
         {
 
             if (collision.transform.CompareTag("Player"))
@@ -45,6 +59,9 @@ public class BulletController : MonoBehaviour
 
 
         }
+
+        }
+        
         
     }
 }
