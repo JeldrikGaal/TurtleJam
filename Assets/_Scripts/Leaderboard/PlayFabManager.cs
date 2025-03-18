@@ -14,7 +14,7 @@ public class PlayFabManager : MonoBehaviour
     private string _loggedInDisplayName = "";
     private string _loggedInUserID = "";
 
-    private string _selectedLeaderBoard = "Showcase";
+    private string _selectedLeaderBoard = "SteamBuild";
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class PlayFabManager : MonoBehaviour
     {
         _loggedInDisplayName = "";
         _loggedInUserID = "";
-        _selectedLeaderBoard = "Showcase";
+        _selectedLeaderBoard = "SteamBuild";
     }
 
     public void Login(string username)

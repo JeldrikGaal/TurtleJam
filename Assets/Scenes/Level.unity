@@ -123,41 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!21 &42892155
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/BattleTransistion
-  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Transition:
-        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1001 &43556223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -631,7 +596,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " WASD-MOVE\n LMB-SHOOT\nP-PAUSE"
+  m_text: " WASD - MOVE\n CLICK - SHOOT"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0137a2cc1c8c215448f8ca97ff5737a3, type: 2}
   m_sharedMaterial: {fileID: -1574647483245012435, guid: 0137a2cc1c8c215448f8ca97ff5737a3, type: 2}
@@ -769,6 +734,41 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 813965481796459723, guid: 0663035f8351c4148b139f4842f0d179, type: 3}
   m_PrefabInstance: {fileID: 43556223}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1182423060
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/BattleTransistion
+  m_Shader: {fileID: 4800000, guid: f5a048fb6ec05244498040b7444c1078, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Transition:
+        m_Texture: {fileID: 2800000, guid: 5c2bbd4abc2b4a04b9079a419d1c40b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1001 &1247947688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1245,7 +1245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _highscoreTextDisplay: {fileID: 1962044017}
-  _defaultText: 'Gamescom Record:'
+  _defaultText: 'World Record: '
 --- !u!114 &1962044017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1266,7 +1266,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gamescom Record: \n'
+  m_text: 'World Record: \n'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0137a2cc1c8c215448f8ca97ff5737a3, type: 2}
   m_sharedMaterial: {fileID: -1574647483245012435, guid: 0137a2cc1c8c215448f8ca97ff5737a3, type: 2}
